@@ -6,6 +6,7 @@ import { RdsChartDoughnutModule } from "@libs/rds-chart-doughnut";
 import { RdsChartLineModule } from "@libs/rds-chart-line";
 import { RdsWidgetModule } from "@libs/rds-elements";
 import { NgxTranslateModule } from "@libs/shared";
+import { DataTableModule } from "../rds-comp-data-table/data-table.module";
 import { RdsAdminDashboardComponent } from "./rds-comp-admin-dashboard.component";
 
 @NgModule({
@@ -17,6 +18,7 @@ import { RdsAdminDashboardComponent } from "./rds-comp-admin-dashboard.component
         RdsChartDoughnutModule,
         RdsChartBoolModule,
         RdsChartBarHorizontalModule, NgxTranslateModule.forRoot(),
+        DataTableModule
     ], exports: [RdsAdminDashboardComponent]
 })
 
