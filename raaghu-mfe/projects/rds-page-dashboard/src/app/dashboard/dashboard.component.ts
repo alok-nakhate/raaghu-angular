@@ -14,7 +14,7 @@ export class DashboardComponent implements OnInit {
     name: 'RdsAdminDashboard',
   };
   rdsTenantDashboardMfeConfig: ComponentLoaderOptions = {
-    name: 'RdsCompTenantDashboard',
+    name: 'RdsAdminDashboard',
   };
 
   constructor() { }

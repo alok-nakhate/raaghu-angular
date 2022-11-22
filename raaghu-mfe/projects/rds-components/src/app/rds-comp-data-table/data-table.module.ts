@@ -37,4 +37,4 @@ import { RdsCompTableShimmerComponent } from "./rds-comp-table-shimmer/rds-comp-
     ]
 })
 
-export class DataTableModule { }
+export class RdsDataTableModule { }

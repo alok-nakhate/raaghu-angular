@@ -1,4 +1,19 @@
-<div [@fadeAnimation]="isAnimation ? 'fadeAnimation' : ''">
-  <mfe-loader [config]="rdsTenantMfeConfig"></mfe-loader>
-</div>
+<rds-comp-tenant-list
+[tenantHeaders]="tenantTableHeader"
+[tenantList]="tenantTableData"
+[editionList]="editionList"
+noDataTitle="Currently you do not have tenant"
+[isShimmer]="rdsTenantMfeConfig.input.isShimmer"
+[editShimmer]="rdsTenantMfeConfig.input.editShimmer"
+(onSaveTenant)="onSaveTenant($event)"
+(onEditTenant)="onEditTenant($event)"
+(onReset)="onReset($event)"
+(deleteEvent)="deleteEvent($event)"
+(onSaveFeatures)="onSaveFeatures($event)"
+></rds-comp-tenant-list>
 
+
+<!-- <mfe-loader [config]="rdsTenantMfeConfig"></mfe-loader> -->
+
+  
+  

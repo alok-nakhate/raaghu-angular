@@ -64,4 +64,7 @@
         </div>
     </rds-nav-tab>
 </rds-offcanvas>
-<mfe-loader [config]="rdsAlertMfeConfig"></mfe-loader>
+<rds-comp-alert
+  [currentAlerts]="currentAlerts"
+  (onAlertHide)="onAlertHide($event)"
+></rds-comp-alert>

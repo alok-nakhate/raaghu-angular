@@ -190,6 +190,10 @@ export class RdsCompTenantListComponent implements OnInit, DoCheck {
     return featureList;
   }
 
+  onAlertHide(event: any) {
+    this.currentAlerts = event;
+  }
+
   getTenantData(event: any): void {
     if (event.next) {
       this.activePage = 1;
