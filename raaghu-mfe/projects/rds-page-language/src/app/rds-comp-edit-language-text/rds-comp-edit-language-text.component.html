@@ -1,0 +1,40 @@
+<form #LanguagetextForm="ngForm">
+  <div class="row">
+    <div class="col-md-12 mt-3">
+      <div class="form-group">
+        <rds-label [label]="translate.instant('Key')"></rds-label><br>
+       <label>{{Languagetext.key}}</label>
+      </div>
+    </div>
+    <div class="col-md-12 mt-3">
+        <div class="form-group">
+          <rds-textarea #BaseValue="ngModel" [label]="translate.instant('Base Language')" [placeholderText]="translate.instant('Enter Base Value')"
+            [(ngModel)]="Languagetext.baseValue" name="basevalue" [disabled]="true">
+          </rds-textarea>
+        </div>
+      </div>
+      <div class="col-md-12 mt-3">
+        <div class="form-group">
+          <rds-textarea #TargetValue="ngModel" [label]="translate.instant('Target Language')" [placeholderText]="translate.instant('Enter Target Value')"
+            [(ngModel)]="Languagetext.value" name="targetvalue" required>
+          </rds-textarea>
+          <div class="form-control-feedback" *ngIf="TargetValue.errors && (TargetValue.dirty || TargetValue.touched)">
+            <span class="text-danger" *ngIf="TargetValue.errors.required">{{"Description is required"|translate}}</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="row position-absolute bottom-0 w-100 start-0 py-2 px-0 m-0 bg-light">
+      <div class="col-md-12 ">
+          <rds-button [label]="translate.instant('Close')" type="button" [colorVariant]="'primary'" data-bs-dismiss="offcanvas" [isOutline]="true"
+          [size]="'small'" (click)="back()">
+        </rds-button>
+        <rds-button [label]="translate.instant('Save')" type="button" [size]="'small'" class="px-2" [colorVariant]="'primary'"
+        (click)="updateLanguageText(LanguagetextForm)" data-bs-dismiss="offcanvas"[isDisabled]="!LanguagetextForm.valid"   [showLoadingSpinner]="buttonSpinner">
+        </rds-button>
+      </div>
+  </div>
+ 
+
+</form>

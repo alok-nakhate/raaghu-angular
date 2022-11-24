@@ -6,7 +6,17 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
 import { TranslateService, TranslateStore } from '@ngx-translate/core';
-import { RdsButtonModule } from '@libs/rds-elements';
+import { RdsButtonModule, RdsCheckboxModule, RdsDatepickerModule, RdsDropdownlistModule, RdsFabMenuModule, RdsInputModule, RdsNavTabModule, RdsOffcanvasModule } from '@libs/rds-elements';
+import { RdsCompTenantListComponent } from './rds-comp-tenant-list/rds-comp-tenant-list.component';
+import { RdsCompTenantInformationComponent } from './rds-comp-tenant-information/rds-comp-tenant-information.component';
+import { RdsCompTenantSettingsComponent } from './rds-comp-tenant-settings/rds-comp-tenant-settings.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { RdsDataTableModule } from 'projects/rds-components/src/app/rds-comp-data-table/data-table.module';
+import { RdsCompTenantInformationShimmerComponent } from './rds-comp-tenant-information/rds-comp-tenant-information-shimmer/rds-comp-tenant-information-shimmer.component';
+import { NgxShimmerLoadingModule } from 'ngx-shimmer-loading';
+import { NgxShimmerLoadingComponent } from 'ngx-shimmer-loading/lib/ngx-shimmer-loading.component';
+import { RdsPermissionTreeModule } from 'projects/rds-components/src/app/rds-comp-permission-tree/permission-tree.module';
 export const featureReducersMap = {
   tenants: TenantReducer,
   tenantInfo: TenantInfoReducer,
@@ -17,7 +27,12 @@ export const featureReducersMap = {
 };
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    RdsCompTenantListComponent,
+    RdsCompTenantInformationComponent,
+    RdsCompTenantSettingsComponent,
+    RdsCompTenantInformationShimmerComponent,
+
   ],
   imports: [
     AppRoutingModule,
@@ -26,6 +41,20 @@ export const featureReducersMap = {
     NgxTranslateModule.forRoot(),
     StoreModule.forFeature('tenants', featureReducersMap),
     EffectsModule.forRoot([TenantEffects]),
+    RdsDatepickerModule,
+    RdsCheckboxModule,
+    RdsDropdownlistModule,
+    RdsInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RdsNavTabModule,
+    RdsFabMenuModule,
+    RdsOffcanvasModule,
+    CommonModule,
+    RdsDataTableModule,
+    NgxShimmerLoadingModule,
+    RdsInputModule,
+    RdsPermissionTreeModule
   ],
   providers: [
     TranslateService,

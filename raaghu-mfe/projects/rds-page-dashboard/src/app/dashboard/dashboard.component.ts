@@ -10,12 +10,12 @@ export class DashboardComponent implements OnInit {
 
   @Input() istenant:boolean=false;
 
-  rdsAdminDashboardMfeConfig: ComponentLoaderOptions = {
-    name: 'RdsAdminDashboard',
-  };
-  rdsTenantDashboardMfeConfig: ComponentLoaderOptions = {
-    name: 'RdsCompTenantDashboard',
-  };
+  // rdsAdminDashboardMfeConfig: ComponentLoaderOptions = {
+  //   name: 'RdsAdminDashboard',
+  // };
+  // rdsTenantDashboardMfeConfig: ComponentLoaderOptions = {
+  //   name: 'RdsCompTenantDashboard',
+  // };
 
   constructor() { }
 

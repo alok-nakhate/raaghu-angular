@@ -1,0 +1,61 @@
+<div class="col-sm-12 me-4 mt-4">
+    <!-- <div style="display: flex;"> -->
+    <div class="row">
+      <div class="col-sm-3 ">
+       <div class="form-group mb-3">
+        <rds-select-list [(ngModel)]="baselanguage" [value]="baselanguage" ngDefaultControl name="baselanguage">
+          <option [value]="''" selected>Base Culture Name</option>
+          <ng-container *ngFor="let item of listbaseLanguage">
+            <option [value]="item.value">{{item.displayText}}</option>
+          </ng-container>
+        </rds-select-list>
+       </div>
+      </div>
+      <div class="col-sm-3 ">
+        <div class="form-group mb-3">
+          <rds-select-list [(ngModel)]="TargetCulturename" [value]="TargetCulturename" ngDefaultControl
+          name="TargetCulturename">
+          <option [value]="''" selected>Target Language</option>
+          <ng-container *ngFor="let item of listTargetCulturename">
+            <option [value]="item.value">{{item.displayText}}</option>
+          </ng-container>
+        </rds-select-list>
+        </div>
+      </div>
+      <div class="col-sm-3 ">
+        <div class="form-group mb-3">
+          <rds-select-list [(ngModel)]="source" [value]="source" ngDefaultControl name="source">
+            <option [value]="''" selected>Source</option>
+            <ng-container *ngFor="let item of listsource">
+              <option [value]="item.value">{{item.displayText}}</option>
+            </ng-container>
+          </rds-select-list>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group mb-3">
+          <rds-select-list [(ngModel)]="targetValue" [value]="targetValue" ngDefaultControl name="targetValue">
+            <option [value]="''" selected>Target Value</option>
+            <ng-container *ngFor="let item of listTargetValue">
+              <option [value]="item.value">{{item.displayText}}</option>
+            </ng-container>
+          </rds-select-list>
+        </div>
+      </div>
+    </div>
+    <!-- </div> -->
+    <div>
+  
+      <!-- <mfe-loader [config]="rdsLanguagetextTableMfeConfig"></mfe-loader> -->
+      <rds-data-table [tableData]="languagetextTableData" [inlineEdit]="false" [pagination]="true" [recordsPerPage]="10"
+
+            [tableHeaders]="languagetextTableHeader" ></rds-data-table>
+    </div>
+  </div>
+  <rds-offcanvas [canvasTitle]="'EDIT LANGUAGE'" [offId]="'EditlanguageText'" [offcanvaswidth]="550" [placement]="'end'"
+  *ngIf="viewCanvas">
+    <rds-comp-edit-language-text [Languagetext]="LanguageText"></rds-comp-edit-language-text>
+
+  </rds-offcanvas>
+  
+  

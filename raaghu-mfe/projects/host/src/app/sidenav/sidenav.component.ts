@@ -89,17 +89,12 @@ export class SidenavComponent extends MfeBaseComponent {
         dataLength: 30,
         required: true,
       },
-      {
-        displayName: 'Client',
-        key: 'clientName',
-        dataType: 'text',
-        dataLength: 30,
-        required: true,
-      },
+     
       {
         displayName: 'Browser',
         key: 'browserInfo',
         dataType: 'text',
+        
         dataLength: 30,
         required: true,
       },
@@ -504,7 +499,7 @@ export class SidenavComponent extends MfeBaseComponent {
                 const item: any = {
                   browserInfo: element.browserInfo,
                   clientIpAddress: element.clientIpAddress,
-                  clientName: element.clientName,
+                  // clientName: element.clientName,
                   creationTime: element.creationTime,
                   result: element.result,
                   tenancyName: element.tenancyName,

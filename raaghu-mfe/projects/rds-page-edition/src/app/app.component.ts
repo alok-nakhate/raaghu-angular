@@ -110,38 +110,7 @@ export class AppComponent implements OnInit {
         isShimmer: true,
         editShimmer: true
       },
-      output: {
-        onEditionSave: (data) => {
-          if (data) {
-            if (data.edition.id !== undefined) {
-              this.store.dispatch(updateEdition(data))
-            } else {
-              this.store.dispatch(saveEdition(data))
-            }
-          }
-
-        },
-        updateEdition: (id) => {
-          if (id == 0) {
-            const rdsEditionMfeConfig = this.rdsEditionMfeConfig;
-            rdsEditionMfeConfig.input.editShimmer = false;
-            this.rdsEditionMfeConfig = { ...rdsEditionMfeConfig }
-          } else {
-            const rdsEditionMfeConfig = this.rdsEditionMfeConfig;
-            rdsEditionMfeConfig.input.editShimmer = true;
-            this.rdsEditionMfeConfig = { ...rdsEditionMfeConfig }
-          }
-          this.store.dispatch(getEditionInfo(id))
-        },
-        deleteEdition: (data) => {
-          this.store.dispatch(deleteEdition(data.id));
-        },
-        onMoveTenantAction: (editionId) => {
-          this.store.dispatch(getTenantCount(editionId));
-        },
-        onMoveTenant: (data) => {
-          this.store.dispatch(moveTenant(data));
-        }
+      output: {                    
       }
     }
     const mfeConfig = this.rdsEditionMfeConfig
@@ -294,6 +263,42 @@ export class AppComponent implements OnInit {
       this.rdsEditionMfeConfig = rdsEditionMfeConfig;
     });
 
+  }
+
+  onEditionSave (data){
+    if (data) {
+      if (data.edition.id !== undefined) {
+        this.store.dispatch(updateEdition(data))
+      } else {
+        this.store.dispatch(saveEdition(data))
+      }
+    }
+
+  }
+
+  updateEdition (id)  {
+    if (id == 0) {
+      const rdsEditionMfeConfig = this.rdsEditionMfeConfig;
+      rdsEditionMfeConfig.input.editShimmer = false;
+      this.rdsEditionMfeConfig = { ...rdsEditionMfeConfig }
+    } else {
+      const rdsEditionMfeConfig = this.rdsEditionMfeConfig;
+      rdsEditionMfeConfig.input.editShimmer = true;
+      this.rdsEditionMfeConfig = { ...rdsEditionMfeConfig }
+    }
+    this.store.dispatch(getEditionInfo(id))
+  }
+
+  deleteEdition(data){
+    this.store.dispatch(deleteEdition(data.id));
+  }
+
+  onMoveTenantAction(editionId){
+    this.store.dispatch(getTenantCount(editionId));
+  }
+
+  onMoveTenant(data)  {
+    this.store.dispatch(moveTenant(data));
   }
 
 }

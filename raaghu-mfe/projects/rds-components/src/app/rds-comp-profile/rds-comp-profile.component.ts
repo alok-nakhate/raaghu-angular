@@ -101,7 +101,8 @@ export class RdsCompProfileComponent extends MfeBaseComponent implements OnInit 
   @Output() onProfileSave = new EventEmitter<any>();
   @Output() onProfilePicUpdate = new EventEmitter<any>();
 
-
+  @Input() tenancy: string = 'Host Admin';
+  
   @Input() viewCanvas: boolean = false;
 
   DefaulttabFlag: boolean = false;

@@ -9,7 +9,16 @@
               <h5 class="card-title">{{'Organization Tree'| translate}}</h5>
             </div>
             <div class="card-body overflow-auto vh-75">
-              <mfe-loader [config]="rdsOrganizationTreeConfig"></mfe-loader>
+              <!-- <mfe-loader [config]="rdsOrganizationTreeConfig"></mfe-loader> -->
+              <rds-organization-tree 
+              [organizationTreeData]="organizationTreeData"              
+              [nodeColor]="nodeColor" 
+              [mutable]="rdsOrganizationTreeConfig?.input?.mutable"
+              [OrganizationTreeType]="TreeType"
+              (onDeleteNode)="onDeleteNode($event)"
+              (getSelectedParent)="getSelectedParent($event)"
+              (onNodeEdit)="onNodeEdit($event)"
+              (onSelectnode)="onSelectnode($event)"></rds-organization-tree>
             </div>
           </div>
         </div>

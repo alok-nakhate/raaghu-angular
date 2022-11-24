@@ -268,37 +268,7 @@ export class AppComponent implements OnInit {
         OrganizationTreeLabeles: this.TreeNodeLabeles,
         ButtonLabel: "",
       },
-      output: {
-         onDeleteNode: (data: any) => {
-          this.store.dispatch(deleteUnitTree(data));
-          this.updateOrganizationTree();
-        },
-        getSelectedParent: (parent) => {
-          this.selectedParent = parent;
-          this.canvasTitle = 'New Organization Unit';
-          this.viewCreateOrganisationCanvas = true;
-          setTimeout(() => {
-            this.openCanvas();
-          }, 100);
-        },
-        onNodeEdit: (node: any) => {
-          this.canvasTitle = 'Edit Organization Unit';
-          this.viewCreateOrganisationCanvas = true;
-          this.selectedNodeInfo = node;
-          this.node = node.data.displayName;
-          setTimeout(() => {
-            this.openCanvas();
-          }, 100);
-        },
-        onSelectnode: (onSelectnodeevent) => {
-          this.selectedTreeNode = onSelectnodeevent.item.data.id;
-          this.organizationName = onSelectnodeevent.item.data.displayName;
-          this.store.dispatch(getOrganizationUnitRoles(this.selectedTreeNode));
-          this.store.dispatch(getOrganizationUnitMembers(this.selectedTreeNode))
-          this.updateMembersTable();
-          this.updateRolesTable();
-        },
-
+      output: {        
       }
     };
 
@@ -566,5 +536,39 @@ export class AppComponent implements OnInit {
         this.node = '';
       })
     }
+  }
+
+  onDeleteNode (data: any)  {
+    this.store.dispatch(deleteUnitTree(data));
+    this.updateOrganizationTree();
+  }
+
+  getSelectedParent (parent)  {
+    this.selectedParent = parent;
+    this.canvasTitle = 'New Organization Unit';
+    this.viewCreateOrganisationCanvas = true;
+    setTimeout(() => {
+      this.openCanvas();
+    }, 100);
+  }
+
+  
+  onNodeEdit(node: any)  {
+    this.canvasTitle = 'Edit Organization Unit';
+    this.viewCreateOrganisationCanvas = true;
+    this.selectedNodeInfo = node;
+    this.node = node.data.displayName;
+    setTimeout(() => {
+      this.openCanvas();
+    }, 100);
+  }
+
+  onSelectnode(onSelectnodeevent)  {
+    this.selectedTreeNode = onSelectnodeevent.item.data.id;
+    this.organizationName = onSelectnodeevent.item.data.displayName;
+    this.store.dispatch(getOrganizationUnitRoles(this.selectedTreeNode));
+    this.store.dispatch(getOrganizationUnitMembers(this.selectedTreeNode))
+    this.updateMembersTable();
+    this.updateRolesTable();
   }
 }
