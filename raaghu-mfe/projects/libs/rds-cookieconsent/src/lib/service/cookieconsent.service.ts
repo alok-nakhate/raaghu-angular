@@ -8,7 +8,6 @@ import { RdsInitializingEvent } from '../event/initializing.event';
 import { RdsInitializationErrorEvent } from '../event/public-api';
 import { RdsCookieConsentConfig } from './cookieconsent-config';
 import { WindowService } from './window.service';
-import { Content } from '@angular/compiler/src/render3/r3_ast';
 
 /**
  * Basic interface to represent `cookieconsent` object.

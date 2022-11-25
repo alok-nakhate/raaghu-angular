@@ -59,9 +59,9 @@ export class RdsCompHierarchyComponent implements OnInit, OnChanges {
   }
 
 
-  public nodeForm = new FormGroup({})
-  public nodeEditForm = new FormGroup({})
-  public NetednodeForm = new FormGroup({})
+  public nodeForm = new FormGroup({} as any)
+  public nodeEditForm = new FormGroup({} as any)
+  public NetednodeForm = new FormGroup({} as any)
   disableSaveButton: boolean;
   disableSaveButtonfromDes: boolean
   disableSaveButtonfromCode: boolean

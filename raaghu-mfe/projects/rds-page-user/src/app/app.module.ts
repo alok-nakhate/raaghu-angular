@@ -31,7 +31,7 @@ export const UsersReducersMap = {
     ReactiveFormsModule,
     FormsModule,
     StoreModule.forFeature('users', UsersReducersMap),
-    EffectsModule.forRoot([UserEffects]),
+    EffectsModule.forFeature([UserEffects]),
     NgxTranslateModule.forRoot()
   ],
   providers: [ArrayToTreeConverterService],
