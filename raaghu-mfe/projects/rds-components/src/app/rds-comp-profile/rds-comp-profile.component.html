@@ -27,7 +27,7 @@
       <div class="tab-pane fade h-100" [ngClass]="{'show active': activePage === 2 }" id="nav-Attempts" role="tabpanel"
         aria-labelledby="nav-Attempts">
         <app-rds-comp-login-attempts [LoginAttempts]="LoginAttempts"
-          (RefreshLoginAttemts)="onLoginAttempts.emit($event)">
+          (RefreshLoginAttemts)="onLoginAttempts.emit($event)" >
         </app-rds-comp-login-attempts>
       </div>
       <div class="tab-pane fade h-100" [ngClass]="{ 'show active': activePage === 3 }" id="nav-Settings" role="tabpanel"
@@ -60,8 +60,8 @@
         <div class="card bg-transparent border-0 h-100 w-100">
           <div class="card-body h-100 p-0 d-grid">
             <div class="justify-content-center d-flex align-items-center">
-              <div class="d-inline-block position-relative">
-                <rds-avatar [withProfilePic]="true" [firstName]="'Host Admin'" [subTitle]="ProfileData.userName"  [profilePic]="Profileurl" [roundedPills]="true"
+              <div class="d-inline-block position-relative">{{tenancy}}
+                <rds-avatar [withProfilePic]="true" [firstName]="tenancy" [subTitle]="ProfileData.userName"  [profilePic]="Profileurl" [roundedPills]="true"
                   [verticallyAlligned]="true" [roundedAvatar]="true"  [profileContentAlign]="false" [width] ="'130'" [height]="'120'"></rds-avatar>
                 <div class="text-center" *ngIf="ProfileData">
                   <!-- {{ ProfileData.userName }} -->

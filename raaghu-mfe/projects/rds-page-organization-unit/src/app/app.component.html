@@ -9,7 +9,15 @@
               <h5 class="card-title">{{'Organization Tree'| translate}}</h5>
             </div>
             <div class="card-body overflow-auto vh-75">
-              <mfe-loader [config]="rdsOrganizationTreeConfig"></mfe-loader>
+              <!-- <mfe-loader [config]="rdsOrganizationTreeConfig"></mfe-loader> -->
+              <rds-organization-tree 
+              [organizationTreeData]="treeData1"              
+              [nodeColor]="nodeColors" 
+              [mutable]="true"                       
+              (onDeleteNode)="onDeleteNode($event)"
+              (getSelectedParent)="getSelectedParent($event)"
+              (onNodeEdit)="onNodeEdit($event)"
+              (onSelectnode)="onSelectnode($event)"></rds-organization-tree>
             </div>
           </div>
         </div>
@@ -51,12 +59,22 @@
                     <div class="tab-pane fade show active" id="Members" role="tabpanel" aria-labelledby="nav-home-tab">
                       <div [@fadeAnimation]="isAnimation ? 'fadeAnimation' : ''"></div>
                       <div class="row">
-                        <mfe-loader [config]="rdsDataTableForMemberMfeConfig"></mfe-loader>
+                        <!-- <mfe-loader [config]="rdsDataTableForMemberMfeConfig"></mfe-loader> -->
+                        <rds-data-table 
+                        [tableData]="tableDataForMember" 
+                        [tableHeaders]="tableHeadersForMember"
+                        [recordsPerPage]="10" 
+                        [pagination]="true" [actions]="actions" noDataTitle='Currently you do not have member' (onActionSelection)="onActionSelection($event)"></rds-data-table>
                       </div>
                     </div>
                     <div class="tab-pane fade" id="Roles" role="tabpanel" aria-labelledby="nav-home-tab">
                       <div class="row">
-                        <mfe-loader [config]="rdsDataTableForRoleMfeConfig"></mfe-loader>
+                        <!-- <mfe-loader [config]="rdsDataTableForRoleMfeConfig"></mfe-loader> -->
+                        <rds-data-table 
+                        [tableData]="tableDataForRoles" 
+                        [tableHeaders]="tableHeadersForRoles"
+                        [recordsPerPage]="10" 
+                        [pagination]="true" [actions]="actions" noDataTitle='Currently you do not have role' (onActionSelection)="onActionSelection($event)"></rds-data-table>
                       </div>
                     </div>
                   </div>
@@ -80,7 +98,15 @@
         <div class="form-group mb-3">
           <div class="col-md-12  mt-2">
             <!-- (deleteEvent)="deleteUsers.emit($event)" -->
-            <mfe-loader [config]="rdsDataTableForUserListMfeConfig"></mfe-loader>
+            <!-- <mfe-loader [config]="rdsDataTableForUserListMfeConfig"></mfe-loader> -->
+            <rds-data-table 
+            [tableData]="tableDataForUserAdd" 
+            [tableHeaders]="tableHeadersForUserAdd"
+            [recordsPerPage]="10" 
+            [pagination]="true"           
+            noDataSubTitle="'Click on the button above to add'" 
+            noDataTitle="'Currently you do not have role' "
+            (getAllCheckedItems)="getAllCheckedItems($event)"></rds-data-table>
           </div>
         </div>
       </div>
@@ -112,7 +138,14 @@
         <div class="form-group mb-3">
           <div class="col-md-12 mt-3">
             <!-- (deleteEvent)="deleteRoles.emit($event)" -->
-            <mfe-loader [config]="rdsDataTableForRoleListMfeConfig"></mfe-loader>
+            <!-- <mfe-loader [config]="rdsDataTableForRoleListMfeConfig"></mfe-loader> -->
+            <rds-data-table 
+            [tableData]="tableDataForUserAdd" 
+            [tableHeaders]="tableHeadersForUserAdd"
+            [recordsPerPage]="10" 
+            [pagination]="true"           
+            noDataSubTitle="'Click on the button above to add'"            
+            (getAllCheckedItems)="getAllCheckedItems($event)"></rds-data-table>
           </div>
         </div>
       </div>

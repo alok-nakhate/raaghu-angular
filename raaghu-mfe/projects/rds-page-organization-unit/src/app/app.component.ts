@@ -93,6 +93,9 @@ export class AppComponent implements OnInit {
   tableHeadersForUserAdd = [{ displayName: 'Users', key: 'name', dataType: 'text', dataLength: 5, required: false, filterable: true, sortable: true, checkbox: true },];
   tableDataForUserAdd = [];
 
+  actions: [{ id: 'delete', displayName: 'Delete' }];
+
+
   rdsDataTableForMemberMfeConfig: ComponentLoaderOptions = {
     name: 'RdsDataTable',
     input: {
@@ -105,13 +108,7 @@ export class AppComponent implements OnInit {
       noDataTitle: 'Currently you do not have member'
     },
     output: {
-      onActionSelection: (event: any) => {
-        if (event.actionId === 'delete') {
-          this.store.dispatch(deleteMemberFromOrgUnit({ userId: event.selectedData.id, organizationUnitId: this.selectedTreeNode }))
-          this.updateOrganizationTree();
-          this.updateMembersTable();
-        }
-      }
+     
     }
   };
 
@@ -127,13 +124,13 @@ export class AppComponent implements OnInit {
       noDataTitle: 'Currently you do not have role'
     },
     output: {
-      onActionSelection: (event: any) => {
-        if (event.actionId === 'delete') {
-          this.store.dispatch(deleteRoleFromOrgUnit({ roleId: event.selectedData.id, organizationUnitId: this.selectedTreeNode }))
-          this.updateOrganizationTree();
-          this.updateRolesTable();
-        }
-      }
+      // onActionSelection: (event: any) => {
+      //   if (event.actionId === 'delete') {
+      //     this.store.dispatch(deleteRoleFromOrgUnit({ roleId: event.selectedData.id, organizationUnitId: this.selectedTreeNode }))
+      //     this.updateOrganizationTree();
+      //     this.updateRolesTable();
+      //   }
+      // }
     }
   };
 
@@ -153,14 +150,7 @@ export class AppComponent implements OnInit {
       // onSelectedData: (data) => {
       //   this.pushUserData = data;
       // },
-      getAllCheckedItems: (checkedItems: any) => {
-        this.selectedUsers = [];
-        checkedItems.forEach((item: any) => {
-          if (item) {
-            this.selectedUsers.push(+item.id)
-          }
-        });
-      }
+      
     }
   };
 
@@ -176,16 +166,7 @@ export class AppComponent implements OnInit {
       noDataTitle: 'Currently you do not have role',
       noDataSubTitle: ''
     },
-    output: {
-
-      getAllCheckedItems: (checkedItems: any) => {
-        this.selectedRoles = [];
-        checkedItems.forEach((item: any) => {
-          if (item) {
-            this.selectedRoles.push(+item.id)
-          }
-        });
-      }
+    output: {     
     }
   };
 
@@ -268,37 +249,7 @@ export class AppComponent implements OnInit {
         OrganizationTreeLabeles: this.TreeNodeLabeles,
         ButtonLabel: "",
       },
-      output: {
-         onDeleteNode: (data: any) => {
-          this.store.dispatch(deleteUnitTree(data));
-          this.updateOrganizationTree();
-        },
-        getSelectedParent: (parent) => {
-          this.selectedParent = parent;
-          this.canvasTitle = 'New Organization Unit';
-          this.viewCreateOrganisationCanvas = true;
-          setTimeout(() => {
-            this.openCanvas();
-          }, 100);
-        },
-        onNodeEdit: (node: any) => {
-          this.canvasTitle = 'Edit Organization Unit';
-          this.viewCreateOrganisationCanvas = true;
-          this.selectedNodeInfo = node;
-          this.node = node.data.displayName;
-          setTimeout(() => {
-            this.openCanvas();
-          }, 100);
-        },
-        onSelectnode: (onSelectnodeevent) => {
-          this.selectedTreeNode = onSelectnodeevent.item.data.id;
-          this.organizationName = onSelectnodeevent.item.data.displayName;
-          this.store.dispatch(getOrganizationUnitRoles(this.selectedTreeNode));
-          this.store.dispatch(getOrganizationUnitMembers(this.selectedTreeNode))
-          this.updateMembersTable();
-          this.updateRolesTable();
-        },
-
+      output: {        
       }
     };
 
@@ -567,4 +518,55 @@ export class AppComponent implements OnInit {
       })
     }
   }
+
+  onDeleteNode (data: any)  {
+    this.store.dispatch(deleteUnitTree(data));
+    this.updateOrganizationTree();
+  }
+
+  getSelectedParent (parent)  {
+    this.selectedParent = parent;
+    this.canvasTitle = 'New Organization Unit';
+    this.viewCreateOrganisationCanvas = true;
+    setTimeout(() => {
+      this.openCanvas();
+    }, 100);
+  }
+
+  
+  onNodeEdit(node: any)  {
+    this.canvasTitle = 'Edit Organization Unit';
+    this.viewCreateOrganisationCanvas = true;
+    this.selectedNodeInfo = node;
+    this.node = node.data.displayName;
+    setTimeout(() => {
+      this.openCanvas();
+    }, 100);
+  }
+
+  onSelectnode(onSelectnodeevent)  {
+    this.selectedTreeNode = onSelectnodeevent.item.data.id;
+    this.organizationName = onSelectnodeevent.item.data.displayName;
+    this.store.dispatch(getOrganizationUnitRoles(this.selectedTreeNode));
+    this.store.dispatch(getOrganizationUnitMembers(this.selectedTreeNode))
+    this.updateMembersTable();
+    this.updateRolesTable();
+  }
+
+  onActionSelection (event: any) {
+    if (event.actionId === 'delete') {
+      this.store.dispatch(deleteMemberFromOrgUnit({ userId: event.selectedData.id, organizationUnitId: this.selectedTreeNode }))
+      this.updateOrganizationTree();
+      this.updateMembersTable();
+    }
+  }
+
+  getAllCheckedItems (checkedItems: any){
+    this.selectedUsers = [];
+    checkedItems.forEach((item: any) => {
+      if (item) {
+        this.selectedUsers.push(+item.id)
+      }
+    });
+  } 
 }

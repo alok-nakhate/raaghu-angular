@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RdsButtonModule, RdsCheckboxModule, RdsInputModule, RdsNavTabModule, RdsOffcanvasModule, RdsSearchInputModule } from '@libs/rds-elements';
+import { RdsBannerModule, RdsButtonModule, RdsCheckboxModule, RdsFabMenuModule, RdsInputModule, RdsLabelModule, RdsNavTabModule, RdsOffcanvasModule, RdsSearchInputModule } from '@libs/rds-elements';
 import { NgxTranslateModule, SharedModule } from '@libs/shared';
 import { GetRoleforEdit, PermissionReducer, RoleEffects, RoleReducer } from '@libs/state-management';
 import { EffectsModule } from '@ngrx/effects';
@@ -9,6 +9,11 @@ import { ArrayToTreeConverterService } from 'projects/libs/shared/src/lib/array-
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { RdsCompRoleListComponent } from './rds-comp-role-list/rds-comp-role-list.component';
+import { RdsCompNewRoleComponent } from './rds-comp-new-role/rds-comp-new-role.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RdsDataTableModule } from 'projects/rds-components/src/app/rds-comp-data-table/data-table.module';
+import { CommonModule } from '@angular/common';
 export const RolsReducersMap = {
   PermissionI: PermissionReducer,
   EditRoleSateI: GetRoleforEdit,
@@ -17,6 +22,8 @@ export const RolsReducersMap = {
 @NgModule({
   declarations: [
     AppComponent,
+    RdsCompRoleListComponent,
+    RdsCompNewRoleComponent,
   ],
   imports: [
     //BrowserModule,
@@ -24,7 +31,6 @@ export const RolsReducersMap = {
     SharedModule,
     RdsButtonModule,
     RdsOffcanvasModule,
-    RdsNavTabModule,
     RdsInputModule,
     RdsCheckboxModule,
     RdsSearchInputModule,
@@ -32,6 +38,14 @@ export const RolsReducersMap = {
     StoreModule.forFeature('roles', RolsReducersMap
     ),
     EffectsModule.forRoot([RoleEffects]),
+    RdsBannerModule,
+    ReactiveFormsModule,
+    FormsModule,
+    RdsLabelModule,
+    RdsFabMenuModule,
+    RdsDataTableModule,
+    RdsNavTabModule,
+    CommonModule
   ],
 
   providers: [ArrayToTreeConverterService],

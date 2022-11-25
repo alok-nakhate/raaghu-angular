@@ -1,0 +1,80 @@
+/*.user-btn {
+  text-align: right;
+}
+
+.tab-content {
+  min-height: 74vh;
+}
+
+.save-btn {
+  margin-left: 2px;
+}
+
+.user-info {
+  display: grid;
+  grid-template-columns: 65px auto;
+
+
+}
+
+.edition-grid {
+  display: grid;
+  grid-template-columns: 15px auto;
+
+  .edition {
+    margin-top: 5px;
+    height: 10px;
+    width: 10px;
+    border: 1px;
+    border-radius: 5px;
+    background-color: gray;
+
+    &.Standard {
+      background-color: blue;
+    }
+
+    &.Professional {
+      background-color: orange;
+    }
+
+    &.Premium {
+      background-color: red;
+    }
+
+    &.Basic {
+      background-color: green;
+    }
+  }
+}
+
+.status {
+  width: 65px;
+  border-radius: 2px;
+  text-align: center;
+  background-color: rgba(230, 228, 228, 0.925);
+
+  &.Active {
+    background-color: rgb(198, 240, 198);
+  }
+}
+
+
+*/
+.mobile-btn{
+  display: none;
+}
+.desktop-btn{
+  display: block;
+}
+
+@media (max-width: 767px){
+  .mobile-btn{
+      display: block;
+  }
+  .desktop-btn{
+      display: none;
+  }
+  .card.h-100 {
+    height: calc(100vh - 90px) !important;
+}
+}

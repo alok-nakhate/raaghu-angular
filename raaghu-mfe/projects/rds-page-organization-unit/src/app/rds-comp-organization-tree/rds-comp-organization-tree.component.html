@@ -1,0 +1,44 @@
+<ng-container *ngTemplateOutlet="recursiveNodeTemplate; context: { list: organizationTreeData }"></ng-container>
+<ng-template #recursiveNodeTemplate let-list="list">
+  <div *ngFor="let node of list; let i = index" class="position-relative node dottedstyle"
+    [ngStyle]="{'margin-left': list[0].level === 1 ? '6px' : '35px'}">
+    <div class="vertical-dotted-line" *ngIf="setStateBasedOnMutable(i === list.length - 1, node)"></div>
+    <div class="d-flex align-items-center" *ngIf="node.data?.displayName">
+      <div class="node-dot" [style.backgroundColor]="getNodeColor(node.level)">
+        <div *ngIf="node.level !== 1" class="horizontal-dotted-line dottedstyle"></div>
+      </div>
+      <span #nodeLabel class="mt-1 node-label d-flex ">
+        <span class="mr-5" (click)="onClicknode(node)" [class.text-primary]="node.selected">{{ node.data?.displayName
+          }}</span>
+        <rds-icon height="15px" [nestGroup]="nodeLabel"  [fill]="false" [stroke]="true" width="15px"
+          name="plus" (click)="addNestedNode(node)" class="pl-3 mx-2"></rds-icon>
+        <rds-icon height="15px" [nestGroup]="nodeLabel"  [fill]="false" [stroke]="true" width="15px"
+          name="pencil" (click)="onEdit(node)" class="mx-2 pointer"></rds-icon>
+        <rds-icon height="15px" [nestGroup]="nodeLabel"  [fill]="false" [stroke]="true" width="15px"
+          name="delete" (click)="deleteConfirmation(node)" class="mx-2"> </rds-icon>
+      </span>
+    </div>
+    <span *ngIf="node.data.displayName" class="node-count text-muted">({{node.data.memberCount}}
+      Member{{node.data.memberCount>1?'s':''}})</span>
+    <div *ngIf="node.children?.length > 0">
+      <ng-container *ngTemplateOutlet="recursiveNodeTemplate; context: { list: node.children }">
+      </ng-container>
+    </div>
+  </div>
+  <div class="position-relative btn p-0 mt-3" *ngIf="mutable === true &&  list[0].data.parentId"
+    [ngStyle]="{'margin-left': list[0].level === 1 ? '0px' : '30px'}">
+    <rds-button [colorVariant]="'primary'" type="button" class="" [label]="translate.instant('Sub-Unit')" [isFabIcon]="false"
+      [size]="'small'" (click)="addNode(list)"  [icon]="'plus'" iconHeight="12px" iconWidth="12px">
+    </rds-button>
+
+ 
+  </div>
+  <div class="position-relative btn p-0 mt-3" *ngIf="mutable === true &&  !list[0].data.parentId"
+    [ngStyle]="{'margin-left': list[0].level === 1 ? '0px' : '30px'}">
+    <rds-button [colorVariant]="'primary'" type="button" class="" [label]="translate.instant('New-Root-Unit')" [isFabIcon]="false"
+      [size]="'small'" (click)="addNode(list)" [icon]="'plus'" iconHeight="12px" iconWidth="12px">
+     </rds-button>
+  </div>
+</ng-template>
+<!-- <rds-comp-alert-popup *ngIf="showDeleteModal" alertID="deleteTreeNode" (onDelete)="deleteNode()"
+  (onCancel)="cancelDelete()" [alertData]="alertData"></rds-comp-alert-popup> -->
