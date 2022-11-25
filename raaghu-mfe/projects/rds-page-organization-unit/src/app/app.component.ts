@@ -93,6 +93,9 @@ export class AppComponent implements OnInit {
   tableHeadersForUserAdd = [{ displayName: 'Users', key: 'name', dataType: 'text', dataLength: 5, required: false, filterable: true, sortable: true, checkbox: true },];
   tableDataForUserAdd = [];
 
+  actions: [{ id: 'delete', displayName: 'Delete' }];
+
+
   rdsDataTableForMemberMfeConfig: ComponentLoaderOptions = {
     name: 'RdsDataTable',
     input: {
@@ -105,13 +108,7 @@ export class AppComponent implements OnInit {
       noDataTitle: 'Currently you do not have member'
     },
     output: {
-      onActionSelection: (event: any) => {
-        if (event.actionId === 'delete') {
-          this.store.dispatch(deleteMemberFromOrgUnit({ userId: event.selectedData.id, organizationUnitId: this.selectedTreeNode }))
-          this.updateOrganizationTree();
-          this.updateMembersTable();
-        }
-      }
+     
     }
   };
 
@@ -127,13 +124,13 @@ export class AppComponent implements OnInit {
       noDataTitle: 'Currently you do not have role'
     },
     output: {
-      onActionSelection: (event: any) => {
-        if (event.actionId === 'delete') {
-          this.store.dispatch(deleteRoleFromOrgUnit({ roleId: event.selectedData.id, organizationUnitId: this.selectedTreeNode }))
-          this.updateOrganizationTree();
-          this.updateRolesTable();
-        }
-      }
+      // onActionSelection: (event: any) => {
+      //   if (event.actionId === 'delete') {
+      //     this.store.dispatch(deleteRoleFromOrgUnit({ roleId: event.selectedData.id, organizationUnitId: this.selectedTreeNode }))
+      //     this.updateOrganizationTree();
+      //     this.updateRolesTable();
+      //   }
+      // }
     }
   };
 
@@ -153,14 +150,7 @@ export class AppComponent implements OnInit {
       // onSelectedData: (data) => {
       //   this.pushUserData = data;
       // },
-      getAllCheckedItems: (checkedItems: any) => {
-        this.selectedUsers = [];
-        checkedItems.forEach((item: any) => {
-          if (item) {
-            this.selectedUsers.push(+item.id)
-          }
-        });
-      }
+      
     }
   };
 
@@ -176,16 +166,7 @@ export class AppComponent implements OnInit {
       noDataTitle: 'Currently you do not have role',
       noDataSubTitle: ''
     },
-    output: {
-
-      getAllCheckedItems: (checkedItems: any) => {
-        this.selectedRoles = [];
-        checkedItems.forEach((item: any) => {
-          if (item) {
-            this.selectedRoles.push(+item.id)
-          }
-        });
-      }
+    output: {     
     }
   };
 
@@ -571,4 +552,21 @@ export class AppComponent implements OnInit {
     this.updateMembersTable();
     this.updateRolesTable();
   }
+
+  onActionSelection (event: any) {
+    if (event.actionId === 'delete') {
+      this.store.dispatch(deleteMemberFromOrgUnit({ userId: event.selectedData.id, organizationUnitId: this.selectedTreeNode }))
+      this.updateOrganizationTree();
+      this.updateMembersTable();
+    }
+  }
+
+  getAllCheckedItems (checkedItems: any){
+    this.selectedUsers = [];
+    checkedItems.forEach((item: any) => {
+      if (item) {
+        this.selectedUsers.push(+item.id)
+      }
+    });
+  } 
 }

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { NgxTranslateModule, SharedModule } from '@libs/shared';
-import { RdsButtonModule, RdsIconModule, RdsInputModule, RdsModalModule, RdsNavTabModule, RdsOffcanvasModule } from '@libs/rds-elements';
+import { RdsButtonModule, RdsCheckboxModule, RdsIconModule, RdsInputModule, RdsModalModule, RdsNavTabModule, RdsOffcanvasModule } from '@libs/rds-elements';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,13 +11,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RdsOrganizationTreeComponent } from './rds-comp-organization-tree/rds-comp-organization-tree.component';
 import { NgxShimmerLoadingModule } from 'ngx-shimmer-loading';
 import { NestGroupDirective } from 'projects/rds-components/src/app/rds-comp-hierarchy/node-label.directive';
+import { RdsDataTableModule } from 'projects/rds-components/src/app/rds-comp-data-table/data-table.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     RdsOrganizationTreeComponent,
     NestGroupDirective,
-
   ],
   imports: [
     //BrowserModule,
@@ -36,7 +36,8 @@ import { NestGroupDirective } from 'projects/rds-components/src/app/rds-comp-hie
     RdsButtonModule,
     NgxShimmerLoadingModule,
     RdsModalModule,
-
+    RdsCheckboxModule,
+    RdsDataTableModule
 
   ],
   providers: [ArrayToTreeConverterService],

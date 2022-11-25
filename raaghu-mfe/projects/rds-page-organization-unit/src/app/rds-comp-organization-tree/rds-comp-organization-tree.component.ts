@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 
 import { TranslateService } from '@ngx-translate/core';
+import { AlertPopupData } from 'projects/rds-components/src/app/rds-comp-alert-popup/rds-comp-alert-popup.component';
 // import { AlertPopupData } from 'projects/rds-components/src/app/rds-comp-alert-popup/rds-comp-alert-popup.component';
 declare var bootstrap: any;
 @Component({
@@ -9,16 +10,19 @@ declare var bootstrap: any;
   styleUrls: ['./rds-comp-organization-tree.component.scss']
 })
 export class RdsOrganizationTreeComponent implements OnInit {
-  // public alertData: AlertPopupData = {
-  //   iconUrl: "delete",
-  //   colorVariant: "danger",
-  //   alertConfirmation: "Are you sure ?",
-  //   messageAlert: "The record will be deleted permanently",
-  //   CancelButtonLabel: "Cancel",
-  //   DeleteButtonLabel: "Delete"
-  // }
+  public alertData: AlertPopupData = {
+    iconUrl: "delete",
+    colorVariant: "danger",
+    alertConfirmation: "Are you sure ?",
+    messageAlert: "The record will be deleted permanently",
+    CancelButtonLabel: "Cancel",
+    DeleteButtonLabel: "Delete"
+  }
   private deleteNodeId: any;
   @Input() organizationTreeData;
+  @Input() OrganizationTreeType;
+  @Input() OrganizationTreeLabeles;
+
   @Input() mutable: boolean;
   @Input() nodeColor: string[] = ['#BDCEFC', '#0D79AE', '#14A94B', '#FBA919'];
   @Output() onSelectnode = new EventEmitter<{ item: any }>()
