@@ -1,0 +1,18 @@
+.mobile-btn{
+    display: none;
+}
+.desktop-btn{
+    display: block;
+}
+
+@media (max-width: 767px){
+    .mobile-btn{
+        display: block;
+    }
+    .desktop-btn{
+        display: none;
+    }
+    .card.h-100 {
+        height: calc(100vh - 90px) !important;
+    }
+}

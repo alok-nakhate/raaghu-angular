@@ -1,0 +1,44 @@
+<div>
+    <div class="tab-content py-4 px-3 navsm-p-0">
+      <form #Roleform="ngForm">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group mb-3">
+              <rds-input [inputType]="'text'" [label]="translate.instant('Role Name')" [(ngModel)]="roleData.displayName"
+                [labelPosition]="'top'" name="Role_name" required #name="ngModel"
+                [placeholder]="translate.instant('Role Name')" [isRequired]=true required>
+              </rds-input>
+              <div class="form-control-feedback" *ngIf="name.errors&&(name.dirty||name.touched)">
+                <span class="text-danger" *ngIf="name.errors.required">{{"Role Name is required"|translate}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group mb-3">
+              <rds-checkbox [disabled]="false" [label]="translate.instant('Default')" [checked]="roleData.isDefault"
+                [(ngModel)]="roleData.isDefault" name="check-box" [withLabel]="true" [switch]="false" [inline]="false"
+                [id]="'isDefault'"></rds-checkbox>
+              <div class="fw-normal opacity-50">
+                <rds-label [label]="translate.instant('Assign to new users by default')"></rds-label>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 pt-4">
+            <rds-banner
+              [bannerText]="translate.instant('If you are changing your own permissions, you may need to refresh page (F5) to take effect of permission changes on your own screen!')"
+              [sticky]="false" position="bottom" colorVariant="primary"></rds-banner>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="footer-buttons my-2">
+      <rds-button [label]="translate.instant('Cancel')" [isOutline]="true" [colorVariant]="'primary'" [size]="'small'"
+        (click)="onCanceledRole()" data-bs-dismiss="offcanvas">
+      </rds-button>
+      <rds-button [label]="translate.instant('Save')" [isDisabled]="!Roleform.valid" [size]="'small'" class="ms-2"
+        [colorVariant]="'primary'" (click)="addRole(Roleform)" data-bs-target="#AddEdition">
+      </rds-button>
+    </div>
+  </div>
+  <!-- <rds-comp-new-role-shimmer *ngIf="EditShimmer"></rds-comp-new-role-shimmer> -->
+  

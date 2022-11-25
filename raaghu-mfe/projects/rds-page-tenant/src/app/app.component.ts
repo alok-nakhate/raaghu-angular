@@ -92,6 +92,9 @@ export class AppComponent {
   ngOnInit(): void {
     this.isAnimation = true;
 
+
+
+    
     this.store.select(selectDefaultLanguage).subscribe((res: any) => {
       if (res) {
         this.translate.use(res);
@@ -110,84 +113,7 @@ export class AppComponent {
         userList:this.userTableData,
         tenantLoginList:this.tenantLoginLists
       },
-      output: {
-        onSaveTenant: (tenant: any) => {
-          if (tenant && tenant.tenantInfo) {
-            if (tenant.tenantInfo.id) {
-              const data: any = {
-                tenancyName: tenant.tenantInfo.tenancyName,
-                name: tenant.tenantInfo.tenantName,
-                connectionString: tenant.tenantSettings.connectionString,
-                editionId: +tenant.tenantInfo.edition,
-                isActive: tenant.tenantSettings.isActive,
-                subscriptionEndDateUtc: (tenant.tenantInfo.unlimitedSubscription||!tenant.tenantInfo.subscriptionEndDate||tenant.tenantInfo.subscriptionEndDate==null) ? null : new Date(tenant.tenantInfo.subscriptionEndDate).toISOString(),
-                isInTrialPeriod: false,
-                id: tenant.tenantInfo.id
-              };
-              this.store.dispatch(updateTenant(data))
-
-            } else {
-              const data: any = {
-                tenancyName: tenant.tenantInfo.tenancyName,
-                name: tenant.tenantInfo.tenantName,
-                adminEmailAddress: tenant.tenantInfo.adminEmailAddress,
-                adminPassword: tenant.tenantSettings.password,
-                connectionString: tenant.tenantSettings.connectionString,
-                shouldChangePasswordOnNextLogin: tenant.tenantSettings.changePasswordOnNextLogin,
-                sendActivationEmail: tenant.tenantSettings.sendActivationEmail,
-                editionId: +tenant.tenantInfo.edition,
-                isActive: tenant.tenantSettings.isActive,
-                subscriptionEndDateUtc: (tenant.tenantInfo.unlimitedSubscription||!tenant.tenantInfo.subscriptionEndDate||tenant.tenantInfo.subscriptionEndDate==null) ? null : new Date(tenant.tenantInfo.subscriptionEndDate).toISOString(),
-                isInTrialPeriod: false
-              };
-              this.store.dispatch(saveTenant(data, 30))
-
-            }
-
-          }
-
-        },
-        onEditTenant: (selectedTenant: any) => {
-          this.store.dispatch(getTenantForEdit(selectedTenant));
-          this.store.dispatch(getTenantFeaturesForEdit(selectedTenant))
-        },
-        onReset: (event: any) => {
-          this.tenantData = undefined;
-          this.tenantSettingsInfo = undefined;
-          this.tenantFeatureValues = [];
-          this.tenantFeatures = [];
-          const mfeConfig = this.rdsTenantMfeConfig
-          mfeConfig.input.tenantData = { ... this.tenantData };
-          mfeConfig.input.tenantSettingsInfo = { ... this.tenantSettingsInfo };
-          mfeConfig.input.tenantFeatureValues = [... this.tenantFeatureValues];
-          mfeConfig.input.tenantFeatures = [... this.tenantFeatures];
-          if (event.newtenant) {
-            mfeConfig.input.editShimmer = false;
-          } else {
-            mfeConfig.input.editShimmer = true;
-          }
-
-          this.rdsTenantMfeConfig = mfeConfig;
-
-        },
-        deleteEvent: (event: any) => {
-          this.store.dispatch(deleteTenant(event.id, 30))
-        },
-        onSaveFeatures: (feature: any) => {
-          this.store.dispatch(updateTenantFeatureValues(feature))
-        },
-        onSelectTenant:(event:any)=>{
-          this.store.dispatch(getTenantUsers(event));
-        },
-        onTenantLogIn:(event:any)=>{  
-          this.loginList=event.tenantId;                   
-           const data:any={
-            tenantId:this.loginList,
-            userId:event.userId
-           };
-           this.store.dispatch(getTenantLogin(data)); 
-                             
-        }
+      output: {              
       }
     };
 
@@ -223,7 +149,7 @@ export class AppComponent {
 
     this.store.select(selecteTeantLoginList).subscribe((res: any) => {     
       if (res && res.tenantLogin  && res.status == "success") {        
-        let targetUrl='https://anzstageui.raaghu.io/login'+'?impersonationToken='+res.tenantLogin.impersonationToken+ '&tenantId=' + this.loginList+ '&tenancyName='+res.tenantLogin.tenancyName;
+        let targetUrl='http://localhost:8080/login'+'?impersonationToken='+res.tenantLogin.impersonationToken+ '&tenantId=' + this.loginList+ '&tenancyName='+res.tenantLogin.tenancyName;
       this.userAuthService.unauthenticateUser(true,targetUrl);      
       }
     })      
@@ -353,4 +279,86 @@ export class AppComponent {
 
   
 
-}
+  onSaveTenant (tenant: any)  {
+    if (tenant && tenant.tenantInfo) {
+      if (tenant.tenantInfo.id) {
+        const data: any = {
+          tenancyName: tenant.tenantInfo.tenancyName,
+          name: tenant.tenantInfo.tenantName,
+          connectionString: tenant.tenantSettings.connectionString,
+          editionId: +tenant.tenantInfo.edition,
+          isActive: tenant.tenantSettings.isActive,
+          subscriptionEndDateUtc: (tenant.tenantInfo.unlimitedSubscription||!tenant.tenantInfo.subscriptionEndDate||tenant.tenantInfo.subscriptionEndDate==null) ? null : new Date(tenant.tenantInfo.subscriptionEndDate).toISOString(),
+          isInTrialPeriod: false,
+          id: tenant.tenantInfo.id
+        };
+        this.store.dispatch(updateTenant(data))
+
+      } else {
+        const data: any = {
+          tenancyName: tenant.tenantInfo.tenancyName,
+          name: tenant.tenantInfo.tenantName,
+          adminEmailAddress: tenant.tenantInfo.adminEmailAddress,
+          adminPassword: tenant.tenantSettings.password,
+          connectionString: tenant.tenantSettings.connectionString,
+          shouldChangePasswordOnNextLogin: tenant.tenantSettings.changePasswordOnNextLogin,
+          sendActivationEmail: tenant.tenantSettings.sendActivationEmail,
+          editionId: +tenant.tenantInfo.edition,
+          isActive: tenant.tenantSettings.isActive,
+          subscriptionEndDateUtc: (tenant.tenantInfo.unlimitedSubscription||!tenant.tenantInfo.subscriptionEndDate||tenant.tenantInfo.subscriptionEndDate==null) ? null : new Date(tenant.tenantInfo.subscriptionEndDate).toISOString(),
+          isInTrialPeriod: false
+        };
+        this.store.dispatch(saveTenant(data, 30))
+
+      }
+    }
+    }
+
+    onEditTenant (selectedTenant: any) {
+      this.store.dispatch(getTenantForEdit(selectedTenant));
+      this.store.dispatch(getTenantFeaturesForEdit(selectedTenant))
+    }
+
+    onReset (event: any) {
+      this.tenantData = undefined;
+      this.tenantSettingsInfo = undefined;
+      this.tenantFeatureValues = [];
+      this.tenantFeatures = [];
+      const mfeConfig = this.rdsTenantMfeConfig
+      mfeConfig.input.tenantData = { ... this.tenantData };
+      mfeConfig.input.tenantSettingsInfo = { ... this.tenantSettingsInfo };
+      mfeConfig.input.tenantFeatureValues = [... this.tenantFeatureValues];
+      mfeConfig.input.tenantFeatures = [... this.tenantFeatures];
+      if (event.newtenant) {
+        mfeConfig.input.editShimmer = false;
+      } else {
+        mfeConfig.input.editShimmer = true;
+      }
+
+      this.rdsTenantMfeConfig = mfeConfig;
+
+    }
+
+    deleteEvent (event: any){
+      this.store.dispatch(deleteTenant(event.id, 30))
+    }
+
+    onSaveFeatures (feature: any){
+      this.store.dispatch(updateTenantFeatureValues(feature))
+    }
+
+    onSelectTenant(event:any){
+      this.store.dispatch(getTenantUsers(event));
+    }
+    
+    onTenantLogIn(event:any){  
+      this.loginList=event.tenantId;                   
+       const data:any={
+        tenantId:this.loginList,
+        userId:event.userId
+       };
+       this.store.dispatch(getTenantLogin(data)); 
+                         
+    }
+
+  }

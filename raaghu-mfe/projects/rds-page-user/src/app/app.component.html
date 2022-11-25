@@ -2,6 +2,22 @@
     <mfe-loader [config]="rdsAlertMfeConfig"></mfe-loader>
 </ng-container>-->
 <div [@fadeAnimation]="isAnimation ? 'fadeAnimation' : ''">
-  <mfe-loader [config]="rdsUserMfeConfig"></mfe-loader>
+  <!-- <mfe-loader [config]="rdsUserMfeConfig"></mfe-loader> -->
+  <rds-comp-user-permissions 
+  [userList]="userList"
+  [roles]="roles"
+  [orgTreeData]="treeData1"  
+  [isEdit]="false"
+  [userinfo]="userinfo"
+  [OrganizationUnit]="OrganizationUnit"
+  [selectedOrganizations]="SelectedOrganizationUnit"
+  [permissionsList]="Permission"  
+  [FilterPermissionList]="UserPermissionFiltertreeData"
+  (Saveuserinfo)="Saveuserinfo($event)"
+   (deleteUser)="deleteUser($event)" 
+   (onClose)="onClose($event)"
+   (FilterPermission)="FilterPermission($event)"
+   (CreateOrEditUser)="CreateOrEditUser($event)"
+   (UpdateUserPermission)="UpdateUserPermission($event)"></rds-comp-user-permissions>
 </div>
 

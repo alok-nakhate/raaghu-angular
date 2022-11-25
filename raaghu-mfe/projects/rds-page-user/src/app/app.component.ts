@@ -144,215 +144,7 @@ export class AppComponent {
         isShimmer: true,
         editShimmer: true
       },
-      output: {
-        Saveuserinfo: (eventData: any) => {
-          const data: any = {
-            user: eventData.item.userInfo,
-            assignedRoleNames: eventData.item.roles,
-            organizationUnits: eventData.item.organizationUnits,
-            sendActivationEmail: false,
-            setRandomPassword: false,
-          };
-          this.store.dispatch(saveUser(data));
-        },
-        onClose: (event: any) => {
-          this.userinfo = undefined;
-          const mfeConfigedit = this.rdsUserMfeConfig;
-          mfeConfigedit.input.userinfo = { ...this.userinfo };
-          mfeConfigedit.input.editShimmer = true;
-          this.rdsUserMfeConfig = mfeConfigedit;
-        },
-        deleteUser: (eventData: any) => {
-          this.store.dispatch(deleteUser(eventData.id));
-        },
-        FilterPermission: (event: any) => {
-          if (event && event.FilterPermission.length) {
-            this.FilterselectedPermissions(event.FilterPermission);
-            const data: any = {
-              grantedPermissionNames: this.selectedFilterPermissions,
-            };
-            this.store.dispatch(getUsers(this.selectedFilterPermissions));
-            this.store.select(selectAllUsers).subscribe((res: any) => {
-              this.userList = [];
-              if (res && res.users && res.users.items) {
-                res.users.items.forEach((element: any) => {
-                  const item: any = {
-                    userName: element.userName,
-                    name: element.name,
-                    emailAddress: element.emailAddress,
-                    isEmailConfirmed: element.isEmailConfirmed,
-                    isActive: element.isActive,
-                    creationTime: this.datepipe.transform(new Date(element.creationTime), 'MM/dd/yyyy, hh:mm:ss a'),
-                    id: element.id,
-                  };
-                  if (element && element.roles) {
-                    this.roleName = '';
-                    element.roles.forEach((e: any) => {
-                      if (this.roleName == '') {
-                        this.roleName = e.roleName
-                      }
-                      else {
-                        this.roleName = this.roleName + ' , ' + e.roleName;
-                      }
-                    });
-                    item.roleName = this.roleName
-                  }
-                  this.userList.push(item);
-
-                });
-                const mfeConfig = this.rdsUserMfeConfig;
-                mfeConfig.input.userList = [...this.userList];
-                this.rdsUserMfeConfig = mfeConfig;
-              }
-            });
-          }
-        },
-        CreateOrEditUser: (eventData: any) => {
-          if (eventData.id) {
-            this.isEdit = true;
-          } else {
-
-            this.isEdit = false;
-            const mfeConfigedit = this.rdsUserMfeConfig;
-            mfeConfigedit.input.editShimmer = false;
-            this.userinfo = undefined;
-            mfeConfigedit.input.userinfo = { ...this.userinfo };
-            this.rdsUserMfeConfig = { ...mfeConfigedit };
-
-          }
-          this.store.dispatch(getUserForEdit(eventData.id));
-          this.store.select(selectUserForEdit).subscribe((res: any) => {
-            if (res && res.UserEditI && res.UserEditI.roles && res.UserEditI.roles.length) {
-              this.roles = [];
-              res.UserEditI.roles.forEach((element: any) => {
-                const item: any = {
-                  roleDisplayName: element.roleDisplayName,
-                  isAssigned: element.isAssigned,
-                  roleId: element.roleId,
-                  roleName: element.roleName,
-                  inheritedFromOrganizationUnit:
-                    element.inheritedFromOrganizationUnit,
-                };
-                this.roles.push(item);
-              });
-            }
-            if (res && res.UserEditI && res.UserEditI.user) {
-              const item: any = {
-                name: res.UserEditI.user.name,
-                emailAddress: res.UserEditI.user.emailAddress,
-                phoneNumber: res.UserEditI.user.phoneNumber,
-                userName: res.UserEditI.user.userName,
-                password: res.UserEditI.user.password,
-                confirmPass: res.UserEditI.user.confirmPass,
-                id: res.UserEditI.user.id,
-                setRandomPassword: res.UserEditI.user.setRandomPassword,
-                isActive: res.UserEditI.user.isActive,
-                isLockoutEnabled: res.UserEditI.user.isLockoutEnabled,
-                isTwoFactorEnabled: res.UserEditI.user.isTwoFactorEnabled,
-                shouldChangePasswordOnNextLogin:
-                  res.UserEditI.user.shouldChangePasswordOnNextLogin,
-                surname: res.UserEditI.user.surname,
-                imageUrl: '../assets/edit-profile.png',
-              };
-              this.userinfo = item;
-            }
-            if (res && res.UserEditI && res.UserEditI.allOrganizationUnits && res.status == "success") {
-              this.resOrganizationUnit = res.UserEditI.allOrganizationUnits
-              this.OrganizationUnit = [];
-              this.SelectedOrganizationUnit = [];
-              this.OrganizationUnit = this._arrayToTreeConverterService.createTree(
-                res.UserEditI.allOrganizationUnits,
-                'parentId',
-                'id',
-                null,
-                'children',
-                [
-                  {
-                    target: 'label',
-                    source: 'displayName',
-                  },
-                  {
-                    target: 'expandedIcon',
-                    value: 'fa fa-folder-open text-warning',
-                  },
-                  {
-                    target: 'collapsedIcon',
-                    value: 'fa fa-folder text-warning',
-                  },
-                  {
-                    target: 'expanded',
-                    value: true,
-                  },
-                ],
-                1
-              );
-              if (this.isEdit) {
-                this.SelectedOrganizationUnit = [];
-                if (res && res.UserEditI && res.UserEditI.memberedOrganizationUnits && res.UserEditI.memberedOrganizationUnits.length && res.status == "success") {
-                  res.UserEditI.memberedOrganizationUnits.forEach((element: any) => {
-                    this.CheckSelectedOrganizationUnit(element)
-                  })
-                }
-              }
-              const mfeConfigedit = this.rdsUserMfeConfig;
-              mfeConfigedit.input.OrganizationUnit = [...this.OrganizationUnit];
-              mfeConfigedit.input.selectedOrganizations = [...this.SelectedOrganizationUnit];
-            }
-            const mfeConfigedit = this.rdsUserMfeConfig;
-            if (!this.isEdit) {
-              this.roles.forEach(node => {
-                node.isAssigned = false;
-              })
-            }
-            mfeConfigedit.input.roles = [...this.roles];
-            if (this.userinfo) {
-              mfeConfigedit.input.userinfo = { ...this.userinfo };
-            }
-            mfeConfigedit.input.isEdit = this.isEdit;
-            this.rdsUserMfeConfig = { ...mfeConfigedit };
-          });
-          if (eventData.id) {
-            this.store.dispatch(getUserPermission(eventData.id));
-            this.store
-              .select(selectUserPermissionEdit)
-              .subscribe((result: any) => {
-                if (
-                  result &&
-                  result.UserPermissionI &&
-                  result.UserPermissionI.permissions && result.status == "success"
-                ) {
-                  this.Permission = [];
-                  this.selectedPermissions = [];
-                  this.Permission = this.ConvertArraytoTreedata(
-                    result.UserPermissionI.permissions
-                  );
-                  if (result.UserPermissionI.grantedPermissionNames) {
-                    this.selectedPermissions = [];
-                    result.UserPermissionI.grantedPermissionNames.forEach(
-                      (item) => {
-                        this.checkSelectedNodes(this.Permission, item);
-                      }
-                    );
-                  }
-                  const mfeConfigedit = this.rdsUserMfeConfig;
-                  mfeConfigedit.input.permissionsList = [...this.Permission];
-                  mfeConfigedit.input.selectedPermissions = [...this.selectedPermissions];
-                  mfeConfigedit.input.editShimmer = false;
-                  this.rdsUserMfeConfig = { ...mfeConfigedit };
-                }
-
-              });
-          }
-        },
-        UpdateUserPermission: (eventData: any) => {
-          if (eventData.Permission) {
-            const data: any = {
-              grantedPermissionNames: eventData.Permission,
-              id: eventData.id,
-            };
-            this.store.dispatch(UpdateUserPermission(data));
-          }
-        },
+      output: {                           
       },
     };
     this.store.dispatch(getUsers([]));
@@ -553,5 +345,218 @@ export class AppComponent {
 
   }
 
+  Saveuserinfo (eventData: any)  {
+    const data: any = {
+      user: eventData.item.userInfo,
+      assignedRoleNames: eventData.item.roles,
+      organizationUnits: eventData.item.organizationUnits,
+      sendActivationEmail: false,
+      setRandomPassword: false,
+    };
+    this.store.dispatch(saveUser(data));
+  }
 
+   
+  onClose (event: any)  {
+    this.userinfo = undefined;
+    const mfeConfigedit = this.rdsUserMfeConfig;
+    mfeConfigedit.input.userinfo = { ...this.userinfo };
+    mfeConfigedit.input.editShimmer = true;
+    this.rdsUserMfeConfig = mfeConfigedit;
+  }
+
+  deleteUser (eventData: any) {
+    this.store.dispatch(deleteUser(eventData.id));
+  }
+
+  FilterPermission (event: any) {
+    if (event && event.FilterPermission.length) {
+      this.FilterselectedPermissions(event.FilterPermission);
+      const data: any = {
+        grantedPermissionNames: this.selectedFilterPermissions,
+      };
+      this.store.dispatch(getUsers(this.selectedFilterPermissions));
+      this.store.select(selectAllUsers).subscribe((res: any) => {
+        this.userList = [];
+        if (res && res.users && res.users.items) {
+          res.users.items.forEach((element: any) => {
+            const item: any = {
+              userName: element.userName,
+              name: element.name,
+              emailAddress: element.emailAddress,
+              isEmailConfirmed: element.isEmailConfirmed,
+              isActive: element.isActive,
+              creationTime: this.datepipe.transform(new Date(element.creationTime), 'MM/dd/yyyy, hh:mm:ss a'),
+              id: element.id,
+            };
+            if (element && element.roles) {
+              this.roleName = '';
+              element.roles.forEach((e: any) => {
+                if (this.roleName == '') {
+                  this.roleName = e.roleName
+                }
+                else {
+                  this.roleName = this.roleName + ' , ' + e.roleName;
+                }
+              });
+              item.roleName = this.roleName
+            }
+            this.userList.push(item);
+
+          });
+          const mfeConfig = this.rdsUserMfeConfig;
+          mfeConfig.input.userList = [...this.userList];
+          this.rdsUserMfeConfig = mfeConfig;
+        }
+      });
+    }
+  }
+
+  CreateOrEditUser (eventData: any) {
+    if (eventData.id) {
+      this.isEdit = true;
+    } else {
+
+      this.isEdit = false;
+      const mfeConfigedit = this.rdsUserMfeConfig;
+      mfeConfigedit.input.editShimmer = false;
+      this.userinfo = undefined;
+      mfeConfigedit.input.userinfo = { ...this.userinfo };
+      this.rdsUserMfeConfig = { ...mfeConfigedit };
+
+    }
+    this.store.dispatch(getUserForEdit(eventData.id));
+    this.store.select(selectUserForEdit).subscribe((res: any) => {
+      if (res && res.UserEditI && res.UserEditI.roles && res.UserEditI.roles.length) {
+        this.roles = [];
+        res.UserEditI.roles.forEach((element: any) => {
+          const item: any = {
+            roleDisplayName: element.roleDisplayName,
+            isAssigned: element.isAssigned,
+            roleId: element.roleId,
+            roleName: element.roleName,
+            inheritedFromOrganizationUnit:
+              element.inheritedFromOrganizationUnit,
+          };
+          this.roles.push(item);
+        });
+      }
+      if (res && res.UserEditI && res.UserEditI.user) {
+        const item: any = {
+          name: res.UserEditI.user.name,
+          emailAddress: res.UserEditI.user.emailAddress,
+          phoneNumber: res.UserEditI.user.phoneNumber,
+          userName: res.UserEditI.user.userName,
+          password: res.UserEditI.user.password,
+          confirmPass: res.UserEditI.user.confirmPass,
+          id: res.UserEditI.user.id,
+          setRandomPassword: res.UserEditI.user.setRandomPassword,
+          isActive: res.UserEditI.user.isActive,
+          isLockoutEnabled: res.UserEditI.user.isLockoutEnabled,
+          isTwoFactorEnabled: res.UserEditI.user.isTwoFactorEnabled,
+          shouldChangePasswordOnNextLogin:
+            res.UserEditI.user.shouldChangePasswordOnNextLogin,
+          surname: res.UserEditI.user.surname,
+          imageUrl: '../assets/edit-profile.png',
+        };
+        this.userinfo = item;
+      }
+      if (res && res.UserEditI && res.UserEditI.allOrganizationUnits && res.status == "success") {
+        this.resOrganizationUnit = res.UserEditI.allOrganizationUnits
+        this.OrganizationUnit = [];
+        this.SelectedOrganizationUnit = [];
+        this.OrganizationUnit = this._arrayToTreeConverterService.createTree(
+          res.UserEditI.allOrganizationUnits,
+          'parentId',
+          'id',
+          null,
+          'children',
+          [
+            {
+              target: 'label',
+              source: 'displayName',
+            },
+            {
+              target: 'expandedIcon',
+              value: 'fa fa-folder-open text-warning',
+            },
+            {
+              target: 'collapsedIcon',
+              value: 'fa fa-folder text-warning',
+            },
+            {
+              target: 'expanded',
+              value: true,
+            },
+          ],
+          1
+        );
+        if (this.isEdit) {
+          this.SelectedOrganizationUnit = [];
+          if (res && res.UserEditI && res.UserEditI.memberedOrganizationUnits && res.UserEditI.memberedOrganizationUnits.length && res.status == "success") {
+            res.UserEditI.memberedOrganizationUnits.forEach((element: any) => {
+              this.CheckSelectedOrganizationUnit(element)
+            })
+          }
+        }
+        const mfeConfigedit = this.rdsUserMfeConfig;
+        mfeConfigedit.input.OrganizationUnit = [...this.OrganizationUnit];
+        mfeConfigedit.input.selectedOrganizations = [...this.SelectedOrganizationUnit];
+      }
+      const mfeConfigedit = this.rdsUserMfeConfig;
+      if (!this.isEdit) {
+        this.roles.forEach(node => {
+          node.isAssigned = false;
+        })
+      }
+      mfeConfigedit.input.roles = [...this.roles];
+      if (this.userinfo) {
+        mfeConfigedit.input.userinfo = { ...this.userinfo };
+      }
+      mfeConfigedit.input.isEdit = this.isEdit;
+      this.rdsUserMfeConfig = { ...mfeConfigedit };
+    });
+    if (eventData.id) {
+      this.store.dispatch(getUserPermission(eventData.id));
+      this.store
+        .select(selectUserPermissionEdit)
+        .subscribe((result: any) => {
+          if (
+            result &&
+            result.UserPermissionI &&
+            result.UserPermissionI.permissions && result.status == "success"
+          ) {
+            this.Permission = [];
+            this.selectedPermissions = [];
+            this.Permission = this.ConvertArraytoTreedata(
+              result.UserPermissionI.permissions
+            );
+            if (result.UserPermissionI.grantedPermissionNames) {
+              this.selectedPermissions = [];
+              result.UserPermissionI.grantedPermissionNames.forEach(
+                (item) => {
+                  this.checkSelectedNodes(this.Permission, item);
+                }
+              );
+            }
+            const mfeConfigedit = this.rdsUserMfeConfig;
+            mfeConfigedit.input.permissionsList = [...this.Permission];
+            mfeConfigedit.input.selectedPermissions = [...this.selectedPermissions];
+            mfeConfigedit.input.editShimmer = false;
+            this.rdsUserMfeConfig = { ...mfeConfigedit };
+          }
+
+        });
+    }
+  }
+
+  UpdateUserPermission (eventData: any)  {
+    if (eventData.Permission) {
+      const data: any = {
+        grantedPermissionNames: eventData.Permission,
+        id: eventData.id,
+      };
+      this.store.dispatch(UpdateUserPermission(data));
+    }
+  }
 }

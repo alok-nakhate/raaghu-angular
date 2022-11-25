@@ -2,5 +2,17 @@
   <mfe-loader [config]="rdsAlertMfeConfig"></mfe-loader>
 </ng-container>-->
 <div [@fadeAnimation]="isAnimation ? 'fadeAnimation' : ''">
-  <mfe-loader [config]="rdsNewRoleMfeConfig"></mfe-loader>
+  <!-- <mfe-loader [config]="rdsNewRoleMfeConfig"></mfe-loader> -->
+  <rds-comp-role-list 
+  [roleHeaders]="RoleTableHeader" 
+  [roleList]="RoleDatatable"  
+  noDataTitle="Currently you do not have tenant"
+  (onSaveRole)="onSaveRole($event)"
+  (onEditRole)="onEditRole($event)"
+  (onnewRole)="onnewRole($event)"
+  (onRefreshRole)="onRefreshRole()"
+  (onReset)="onReset($event)"
+  (deleteEvent)="deleteEvent($event)"
+  (onFilterPermission)="onFilterPermission($event)"
+  (onFilterPermissionReset)="onFilterPermissionReset($event)"></rds-comp-role-list>
 </div>

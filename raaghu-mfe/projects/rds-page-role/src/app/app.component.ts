@@ -114,84 +114,9 @@ export class AppComponent implements OnInit {
         roleList: this.RoleDatatable,
         isShimmer: true,
         EditShimmer: true,
+        noDataTitle: 'Currently you do not have edition',
       },
-      output: {
-        onSaveRole: (eventData: any) => {
-          if (eventData && eventData.role) {
-            if (eventData.grantedPermissionNames && eventData.grantedPermissionNames.length) {
-              this.FilterselectedPermissions(eventData.grantedPermissionNames)
-              const data: any = {
-                role: eventData.role,
-                grantedPermissionNames: this.selectedPermissions
-              };
-              this.store.dispatch(saveRole(data));
-            } else {
-              const data: any = {
-                role: eventData.role,
-                grantedPermissionNames: [],
-              };
-              this.store.dispatch(saveRole(data));
-            }
-          }
-        },
-        onEditRole: (event: any) => {
-          if (event) {
-            this.store.dispatch(getRolByEdit(event));
-            this.isEdit = true;
-          } else {
-            this.Roledetails = undefined;
-            const mfeConfig = this.rdsNewRoleMfeConfig
-            mfeConfig.input.RolesData = { ... this.Roledetails };
-            this.rdsNewRoleMfeConfig = mfeConfig;
-          }
-        },
-        onnewRole: (data: any) => {
-          this.store.dispatch(getPermission());
-          this.selectedPermissions = []
-        },
-        onRefreshRole: () => {
-          const mfeConfig = this.rdsNewRoleMfeConfig
-          mfeConfig.input.SelectedPermissionValues = [];
-          this.rdsNewRoleMfeConfig = { ...mfeConfig };
-          this.store.dispatch(getRoles([]));
-        },
-        onReset: (event: any) => {
-          this.Roledetails = undefined;
-          this.treeData = [];
-          this.selectedPermissions = [];
-          this.selectedPermissionValues = [];
-          const mfeConfig = this.rdsNewRoleMfeConfig
-          mfeConfig.input.RolesData = { ... this.Roledetails };
-          mfeConfig.input.permissionsList = [... this.treeData];
-          mfeConfig.input.EditShimmer = true;
-          this.rdsNewRoleMfeConfig = mfeConfig;
-        },
-        deleteEvent: (event: any) => {
-          this.store.dispatch(deleteRole(event.id))
-        },
-        onFilterPermission: (event: any) => {
-          if (event && event.length) {
-            this.FilterselectedPermissions(event)
-            const data: any = {
-              grantedPermissionNames: this.selectedPermissions
-            };
-            this.selectedPermissionValues = event;
-            this.store.dispatch(getRoles(this.selectedPermissions));
-            const mfeConfig = this.rdsNewRoleMfeConfig
-            mfeConfig.input.SelectedPermissionValues = [...this.selectedPermissionValues];
-            this.rdsNewRoleMfeConfig = { ...mfeConfig };
-          }
-        },
-        onFilterPermissionReset: (event: any) => {
-          this.treeData = [];
-          this.selectedPermissions = [];
-          this.selectedPermissionValues = [];
-          const mfeConfig = this.rdsNewRoleMfeConfig
-          mfeConfig.input.RolesData = { ... this.Roledetails };
-          mfeConfig.input.permissionsList = [... this.treeData];
-          mfeConfig.input.SelectedPermissionValues = [... this.selectedPermissionValues];
-          this.rdsNewRoleMfeConfig = mfeConfig;
-        },
+      output: {             
       }
     };
     const mfeConfig = this.rdsNewRoleMfeConfig;
@@ -356,5 +281,89 @@ export class AppComponent implements OnInit {
       this.rdsAlertMfeConfig = rdsAlertMfeConfig;
     });
 
+  }
+
+  onSaveRole (eventData: any){
+    if (eventData && eventData.role) {
+      if (eventData.grantedPermissionNames && eventData.grantedPermissionNames.length) {
+        this.FilterselectedPermissions(eventData.grantedPermissionNames)
+        const data: any = {
+          role: eventData.role,
+          grantedPermissionNames: this.selectedPermissions
+        };
+        this.store.dispatch(saveRole(data));
+      } else {
+        const data: any = {
+          role: eventData.role,
+          grantedPermissionNames: [],
+        };
+        this.store.dispatch(saveRole(data));
+      }
+    }
+  }
+
+  onEditRole (event: any)  {
+    if (event) {
+      this.store.dispatch(getRolByEdit(event));
+      this.isEdit = true;
+    } else {
+      this.Roledetails = undefined;
+      const mfeConfig = this.rdsNewRoleMfeConfig
+      mfeConfig.input.RolesData = { ... this.Roledetails };
+      this.rdsNewRoleMfeConfig = mfeConfig;
+    }
+  }
+
+  onnewRole (data: any)  {
+    this.store.dispatch(getPermission());
+    this.selectedPermissions = []
+  }
+
+  onRefreshRole ()  {
+    const mfeConfig = this.rdsNewRoleMfeConfig
+    mfeConfig.input.SelectedPermissionValues = [];
+    this.rdsNewRoleMfeConfig = { ...mfeConfig };
+    this.store.dispatch(getRoles([]));
+  }
+
+  onReset(event: any) {
+    this.Roledetails = undefined;
+    this.treeData = [];
+    this.selectedPermissions = [];
+    this.selectedPermissionValues = [];
+    const mfeConfig = this.rdsNewRoleMfeConfig
+    mfeConfig.input.RolesData = { ... this.Roledetails };
+    mfeConfig.input.permissionsList = [... this.treeData];
+    mfeConfig.input.EditShimmer = true;
+    this.rdsNewRoleMfeConfig = mfeConfig;
+  }
+
+  deleteEvent (event: any)  {
+    this.store.dispatch(deleteRole(event.id))
+  }
+
+  onFilterPermission (event: any)  {
+    if (event && event.length) {
+      this.FilterselectedPermissions(event)
+      const data: any = {
+        grantedPermissionNames: this.selectedPermissions
+      };
+      this.selectedPermissionValues = event;
+      this.store.dispatch(getRoles(this.selectedPermissions));
+      const mfeConfig = this.rdsNewRoleMfeConfig
+      mfeConfig.input.SelectedPermissionValues = [...this.selectedPermissionValues];
+      this.rdsNewRoleMfeConfig = { ...mfeConfig };
+    }
+  }
+
+  onFilterPermissionReset(event: any)  {
+    this.treeData = [];
+    this.selectedPermissions = [];
+    this.selectedPermissionValues = [];
+    const mfeConfig = this.rdsNewRoleMfeConfig
+    mfeConfig.input.RolesData = { ... this.Roledetails };
+    mfeConfig.input.permissionsList = [... this.treeData];
+    mfeConfig.input.SelectedPermissionValues = [... this.selectedPermissionValues];
+    this.rdsNewRoleMfeConfig = mfeConfig;
   }
 }

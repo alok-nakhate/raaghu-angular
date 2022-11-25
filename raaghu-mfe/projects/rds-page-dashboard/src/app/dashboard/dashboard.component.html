@@ -20,8 +20,10 @@
   </div>
 </div>-->
 <div *ngIf="istenant">
-  <mfe-loader [config]="rdsTenantDashboardMfeConfig"></mfe-loader> 
+  <!-- <mfe-loader [config]="rdsTenantDashboardMfeConfig"></mfe-loader>  -->
+  <rds-comp-tenant-dashboard ></rds-comp-tenant-dashboard>
 </div>
 <div *ngIf="!istenant">
-  <mfe-loader [config]="rdsAdminDashboardMfeConfig"></mfe-loader> 
+  <!-- <mfe-loader [config]="rdsAdminDashboardMfeConfig"></mfe-loader>  -->
+  <rds-admin-dashboard></rds-admin-dashboard>
  </div>

@@ -8,7 +8,13 @@
   <div class="col-md-12">
     <div class="card p-2 h-100 border-0 rounded-0 card-full-stretch">
       <div [@fadeAnimation]="isAnimation ? 'fadeAnimation' : ''">
-        <mfe-loader [config]="rdsLanguageTableMfeConfig"></mfe-loader>
+        <!-- <mfe-loader [config]="rdsLanguageTableMfeConfig"></mfe-loader> -->
+        <rds-data-table [tableData]="languageTableData" [inlineEdit]="false" [pagination]="true"
+        [recordsPerPage]="10" [actions]="actions" (onActionSelection)="onActionSelection($event)"
+        noDataTitle="Currently you do not have language" [tableHeaders]="languageTableHeader"
+        ></rds-data-table>
+
+
       </div>
     </div>
   </div>
@@ -20,6 +26,12 @@
 <ng-container *ngIf="viewCanvas">
   <rds-offcanvas [canvasTitle]="translate.instant(languageCanvasTitle)" [offId]="'AddLanguage'"
     (onClose)="closeCanvas()" [offcanvaswidth]="550" [placement]="'end'">
-    <mfe-loader [config]="rdsNewLanguageMfeConfig"></mfe-loader>
+    <rds-comp-new-language [flags]="flags"
+     [languageNames]="languageNames"
+      [selectedLanguage]="selectedLanguage" 
+      (onLanguageSave)="onLanguageSave($event)"
+      (onCloseCanvas)="onCloseCanvas($event)"></rds-comp-new-language>
+    <!-- <mfe-loader [config]="rdsNewLanguageMfeConfig"></mfe-loader> -->
+
   </rds-offcanvas>
 </ng-container>
