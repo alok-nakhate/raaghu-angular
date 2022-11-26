@@ -1,3 +1,6 @@
+<ng-container *ngIf="currentAlerts&&currentAlerts.length>0">
+    <rds-comp-alert [currentAlerts]="currentAlerts" (onAlertHide)="onAlertHide($event)"></rds-comp-alert>
+  </ng-container>
 <div>
     <div class="row">
         <div class="col-md-12 text-end pb-3 desktop-btn">
@@ -84,4 +87,3 @@
         </div>
     </div>
 </rds-offcanvas>
-<!-- <mfe-loader [config]="rdsAlertMfeConfig"></mfe-loader> -->

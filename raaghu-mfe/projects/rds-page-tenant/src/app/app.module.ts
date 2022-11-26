@@ -17,6 +17,7 @@ import { RdsCompTenantInformationShimmerComponent } from './rds-comp-tenant-info
 import { NgxShimmerLoadingModule } from 'ngx-shimmer-loading';
 import { NgxShimmerLoadingComponent } from 'ngx-shimmer-loading/lib/ngx-shimmer-loading.component';
 import { RdsPermissionTreeModule } from 'projects/rds-components/src/app/rds-comp-permission-tree/permission-tree.module';
+import { RdsAlertCompModule } from 'projects/rds-components/src/app/rds-comp-alert/rds-alert.module';
 export const featureReducersMap = {
   tenants: TenantReducer,
   tenantInfo: TenantInfoReducer,
@@ -54,7 +55,8 @@ export const featureReducersMap = {
     RdsDataTableModule,
     NgxShimmerLoadingModule,
     RdsInputModule,
-    RdsPermissionTreeModule
+    RdsPermissionTreeModule,
+    RdsAlertCompModule
   ],
   providers: [
     TranslateService,
