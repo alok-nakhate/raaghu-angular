@@ -12,6 +12,8 @@ import { RdsOrganizationTreeComponent } from './rds-comp-organization-tree/rds-c
 import { NgxShimmerLoadingModule } from 'ngx-shimmer-loading';
 import { NestGroupDirective } from 'projects/rds-components/src/app/rds-comp-hierarchy/node-label.directive';
 import { RdsDataTableModule } from 'projects/rds-components/src/app/rds-comp-data-table/data-table.module';
+import { RdsAlertCompModule } from 'projects/rds-components/src/app/rds-comp-alert/rds-alert.module';
+import { RdsAlertPopupModule } from 'projects/rds-components/src/app/rds-comp-alert-popup/rds-alert-popup.module';
 
 @NgModule({
   declarations: [
@@ -37,8 +39,9 @@ import { RdsDataTableModule } from 'projects/rds-components/src/app/rds-comp-dat
     NgxShimmerLoadingModule,
     RdsModalModule,
     RdsCheckboxModule,
-    RdsDataTableModule
-
+    RdsDataTableModule,
+    RdsAlertCompModule,
+    RdsAlertPopupModule
   ],
   providers: [ArrayToTreeConverterService],
   bootstrap: [AppComponent]

@@ -1,3 +1,4 @@
+import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { RdsModalModule, RdsButtonModule } from "@libs/rds-elements";
 import { RdsIconModule } from "@libs/rds-icon";
@@ -10,7 +11,8 @@ import { RdsCompAlertPopupComponent } from "./rds-comp-alert-popup.component";
         RdsModalModule,
         RdsIconModule,
         RdsLabelModule,
-        RdsButtonModule
+        RdsButtonModule,
+        CommonModule
     ],
     exports: [
         RdsCompAlertPopupComponent

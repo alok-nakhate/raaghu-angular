@@ -1,3 +1,4 @@
+import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { RdsAlertModule } from "@libs/rds-elements";
 import { NgxTranslateModule } from "@libs/shared";
@@ -9,6 +10,7 @@ import { RdsCompAlertComponent } from "./rds-comp-alert.component";
     ],
     imports: [
         RdsAlertModule,
+        CommonModule,
         NgxTranslateModule.forRoot(),
     ],
     exports: [
