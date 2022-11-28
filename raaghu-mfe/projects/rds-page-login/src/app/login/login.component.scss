@@ -1,0 +1,9 @@
+.login{
+    width: 500px !important;
+    max-width: 800px;
+
+}
+
+html[theme=dark] {
+    --bs-body-color: var(--bs-body-color);
+}

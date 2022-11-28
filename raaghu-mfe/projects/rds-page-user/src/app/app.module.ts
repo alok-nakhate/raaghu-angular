@@ -39,7 +39,6 @@ export const UsersReducersMap = {
     ReactiveFormsModule,
     FormsModule,
     StoreModule.forFeature('users', UsersReducersMap),
-    EffectsModule.forRoot([UserEffects]),
     NgxTranslateModule.forRoot(),
     RdsPermissionTreeModule,
     RdsDataTableModule,

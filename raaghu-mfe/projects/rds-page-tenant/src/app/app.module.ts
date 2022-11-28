@@ -40,7 +40,6 @@ export const featureReducersMap = {
     RdsButtonModule,
     NgxTranslateModule.forRoot(),
     StoreModule.forFeature('tenants', featureReducersMap),
-    EffectsModule.forRoot([TenantEffects]),
     RdsDatepickerModule,
     RdsCheckboxModule,
     RdsDropdownlistModule,

@@ -239,5 +239,18 @@ export class AppComponent extends MfeBaseComponent implements OnInit {
       }
       , this);
   }
+
+  onSwitchTenant(data: any) {
+    this.insertTenant(data);
+  }
+  onLogin (data: any) {
+    this.authenticateModal.userNameOrEmailAddress = data.userEmail;
+    this.authenticateModal.password = data.userPassword;
+    this.authenticateModal.rememberClient = data.rememberme;
+    this.authenticate();
+  }
+  onShimmerLoad(event: any) {
+    this.loadingshimmer = false;
+  }
 }
 

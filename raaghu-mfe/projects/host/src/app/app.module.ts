@@ -47,6 +47,8 @@ import {
   VisualsettingsReducer,
   DynamicEntityEffects,
   DynamicEntityReducer,
+  TenantEffects,
+  UserEffects,
 } from '@libs/state-management';
 import { LanguageTextEffects } from 'projects/libs/state-management/src/lib/state/language-text/language-text.effects';
 import { RdsSideNavModule } from '@libs/rds-elements';
@@ -136,7 +138,9 @@ export function getRemoteServiceBaseUrl(): any {
       LanguageTextEffects,
       DownloadEffects,
       ProfilePicEffects,
-      visualsettingEffects
+      visualsettingEffects,
+      TenantEffects,
+      UserEffects
     ]),
     SharedModule,
     UserAuthModule,

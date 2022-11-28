@@ -1,0 +1,100 @@
+<div class="text-center">
+    <!--<p class="pb-3">Current tenant:{{TenancyName}} (<a href="#" data-bs-toggle="modal" class="link-primary" data-bs-target="#ChangeTenant">Change</a>)</p>-->
+    <h2 c> <b> Log in </b> </h2>
+    <h6>
+      <rds-label [label]="translate.instant('Please Login for an account')"></rds-label>
+    </h6>
+    <small class="pb-5">{{translate.instant("Current Tenant")}} : {{TenancyName}} (<a href="#" data-bs-toggle="modal"
+        class="link-primary" (click)="openTenantModal()">{{translate.instant("Change")}}</a>)</small>
+    <div class="pt-5">
+      <form #loginForm="ngForm">
+        <div class="form-group mb-3 text-start">
+          <rds-input size="medium" [inputType]="'email'" [label]="translate.instant(UserName)"
+            [labelPosition]="'top'" [placeholder]="translate.instant(UserName)" id="txtUsername" floatinginputLabel=""
+            [(ngModel)]="userNameData" [isRequired]=true required #username="ngModel" ngDefaultControl name="userName">
+          </rds-input>
+          <div class="form-control-feedback" *ngIf="username.errors && (username.dirty || username.touched)">
+            <span class="text-danger" *ngIf="username.errors.required">{{"Username is required"|translate}}</span>
+            <!-- <span class="text-danger" *ngIf="username.errors.pattern">{{"Please enter valid username"|translate}}</span> -->
+          </div>
+        </div>
+        <div class="form-group mb-3 text-start">
+          <rds-input size="medium" [iconCursor]="'pointer'" [icon]="'eye'" [iconOpacity]="'0.4'" [iconHeight]="'18px'"
+            [iconWidth]="'18px'" [inputType]="'password'" [label]="translate.instant(Password)"
+            [labelPosition]="'top'" [placeholder]="translate.instant(Password)" floatinginputLabel="" id="txtPassword"
+            [(ngModel)]="userPasswordData" [isRequired]=true ngDefaultControl required #userPassword="ngModel"
+            name="password"></rds-input>
+          <div class="form-control-feedback" *ngIf="userPassword.errors && (userPassword.dirty || userPassword.touched)">
+            <span class="text-danger" *ngIf="userPassword.errors.required">{{"Password is required"|translate}}</span>
+          </div>
+          <div class="row d-flex justify-content-between mt-2">
+            <div class="col-md-6">
+              <div class="form-group mb-3">
+                <rds-checkbox (onChange)="onChangeRememberme($event)" [disabled]="false"
+                  [label]="translate.instant(checkboxTitle)" [checked]="rememeberMe" [withLabel]="true" [switch]="false"
+                  [inline]="false" [id]="checkboxTitle">
+                </rds-checkbox>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <a class="text-decoration-none float-end" routerLink="/forgot-password">{{translate.instant("Forgot
+                password?")}}</a>
+            </div>
+          </div>
+          <br />
+        </div>
+        <div class="pb-3">
+          <rds-button class="d-grid mb-3" colorVariant="primary" [block]="false" [size]="'medium'" [submit]="true"
+            [showLoadingSpinner]="buttonSpinner" [label]="translate.instant(buttonLabel)" (click)="submit(loginForm)">
+          </rds-button>
+          <!-- <rds-button class="d-grid border" [colorVariant]="buttonColorTypeUp" [block]="false" size="'medium'"
+            [label]="translate.instant(buttonLabelUp)">
+          </rds-button> -->
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <rds-modal [modalId]="'ChangeTenant'" [modalBackdrop]="'static'" (onClose)="onModalClose(tenantForm)" class="change-tenant">
+    <div modalheader class="d-flex w-100 border-0">
+      <h5 class="modal-title"><b> {{"Switch Tenant"|translate}}</b></h5>
+      <button type="button" class="btn-close " data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div modalbody class="p-2">
+      <form #tenantForm="ngForm">
+        <div class="row mb-3">
+          <div class="col-md-12">
+            <div class="form-group">
+              <rds-checkbox [label]="translate.instant('Switch to tenant')" [withLabel]="true" [checked]="switchTenant"
+                [(ngModel)]="switchTenant" name="disabled_switch_tenant" (onChange)="switchTenanat($event)"
+                [withLabel]="true" [switch]="true" [inline]="false" id="switchTenant"></rds-checkbox>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group" [class.disable-pointer]="!switchTenant">
+              <rds-input size="medium" [class.disabled]="!switchTenant" [inputType]="'text'"
+                [placeholder]="translate.instant('Tenancy Name')" id="txtTenantName" [(ngModel)]="TenantNameData"
+                #TenantName="ngModel" required="true" ngDefaultControl [isRequired]=true name="TenantName"
+                [labelPosition]="'top'" [label]="translate.instant('Tenancy Name')">
+              </rds-input>
+              <div class="form-control-feedback" *ngIf="TenantName.errors && (TenantName.dirty || TenantName.touched)">
+                <span class="text-danger" *ngIf="switchTenant&&TenantName.errors.required">{{"Teanancy is
+                  required"|translate}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div modalfooter class="border-0">
+      <rds-button [tooltipPlacement]="'top'" [isOutline]="true" data-bs-dismiss="modal" [colorVariant]="'primary'"
+        [size]="'medium'" (click)="back()" [label]="translate.instant('Cancel')" class="px-2">
+      </rds-button>
+      <rds-button class="mr-1" [id]="'yes'" [isDisabled]="switchTenant&&!TenantNameData" [size]="'medium'"
+        (click)="ChangeTenant(tenantForm)" [tooltipPlacement]="'top'" [colorVariant]="'primary'"
+        [label]="translate.instant('Switch to the tenant')" [showLoadingSpinner]="buttonSpinnerForChangeTenant">
+      </rds-button>
+    </div>
+  </rds-modal>

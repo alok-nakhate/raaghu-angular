@@ -11,8 +11,15 @@
                <img src="../assets/raaghu_text_logo.svg" class="img-fluid">
               </div>
             </div>
-            <mfe-loader [config]="rdsLoginMfeConfig"></mfe-loader>
-          </div>
+            <app-login
+            [rememeberMe]="rdsLoginMfeConfig.input.rememeberMe"
+            [TenancyName]="rdsLoginMfeConfig.input.TenancyName"
+            [buttonSpinner]="rdsLoginMfeConfig.input.buttonSpinner"
+            (onSwitchTenant)="onSwitchTenant($event)"
+            (onShimmerLoad)="onShimmerLoad($event)"
+            (onLogin)="onLogin($event)"
+            >
+            </app-login>          </div>
         </div>
         <!--<div class="col-md-6 order-1 order-sm-2 rounded-end"
        style="background-image: url(../assets/Login-card.svg); background-size: cover; background-position: bottom; background-repeat: no-repeat; background-color: #000;">
@@ -50,5 +57,13 @@
   <mfe-loader [config]="rdsAlertMfeConfig"></mfe-loader>
 </ng-container>
 <app-login-shimmer *ngIf="loadingshimmer">
-  <mfe-loader [config]="rdsLoginMfeConfig"></mfe-loader>
+  <app-login
+  [rememeberMe]="rdsLoginMfeConfig.input.rememeberMe"
+  [TenancyName]="rdsLoginMfeConfig.input.TenancyName"
+  [buttonSpinner]="rdsLoginMfeConfig.input.buttonSpinner"
+  (onSwitchTenant)="onSwitchTenant($event)"
+  (onShimmerLoad)="onShimmerLoad($event)"
+  (onLogin)="onLogin($event)"
+  >
+  </app-login>
 </app-login-shimmer>
