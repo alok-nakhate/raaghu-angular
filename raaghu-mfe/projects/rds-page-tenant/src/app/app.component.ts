@@ -1,7 +1,7 @@
 import { Component, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ArrayToTreeConverterService, ComponentLoaderOptions, ImpersonateTenantInput, UserAuthService } from '@libs/shared';
-import { deleteTenant, getEditionComboboxItems, getTenantFeaturesForEdit, getTenantForEdit, getTenantLogin, getTenants, getTenantUsers, impersonatedAuthenticate, saveTenant, selectAllTenants, selectDefaultLanguage, selectEditionComboboxItems,selecteTeantLoginList,selecteTeantUserList, selectTenantFeature, selectTenantInfo, updateTenant, updateTenantFeatureValues } from '@libs/state-management';
+import { deleteTenant, getEditionComboboxItems, getTenantFeaturesForEdit, getTenantForEdit, getTenantLogin, getTenants, getTenantUsers, impersonatedAuthenticate, saveTenant, selectAllTenants, selectDefaultLanguage, selectEditionComboboxItems, selecteTeantLoginList, selecteTeantUserList, selectTenantFeature, selectTenantInfo, updateTenant, updateTenantFeatureValues } from '@libs/state-management';
 import { TableHeader } from 'projects/rds-components/src/models/table-header.model';
 import { TranslateService } from '@ngx-translate/core';
 import { DatePipe } from '@angular/common';
@@ -15,9 +15,6 @@ import {
 } from '@angular/animations';
 import { profileSelector } from 'projects/libs/state-management/src/lib/state/profile-settings/profile-settings.selectors';
 import { getProfilepic } from 'projects/libs/state-management/src/lib/state/profile-settings/profile-settings.actions';
-import { el } from 'date-fns/locale';
-import { data } from 'autoprefixer';
-// import login from 'playwright/model/login';
 
 @Component({
   selector: 'app-root',
@@ -55,127 +52,93 @@ import { data } from 'autoprefixer';
   ]
 })
 export class AppComponent {
-
-
-
   title = 'tenant';
+  isShimmer: boolean = true;
   tenantSettingsInfo: any = {};
   tenantData: any = {};
-
-  rdsTenantMfeConfig: ComponentLoaderOptions = {
-    name: 'RdsCompTenantList'
-  };
   editionList: any = [];
   tenantFeatures: any = [];
   tenantFeatureValues: any = [];
   tenantLoginLists: any = [];
   tenantTableHeader: TableHeader[] = [
-    { displayName: 'Tenant', key: 'tenantInfoTemplate', dataType: 'html', dataLength: 30, sortable: true, required: true, filterable: true , colWidth: '20%'},
+    { displayName: 'Tenant', key: 'tenantInfoTemplate', dataType: 'html', dataLength: 30, sortable: true, required: true, filterable: true, colWidth: '20%' },
     { displayName: 'Edition', key: 'editionTemplate', dataType: 'html', dataLength: 30, sortable: true, required: true, filterable: true, colWidth: '20%' },
-    { displayName: 'Status', key: 'statusTemplate', dataType: 'html', dataLength: 30, sortable: true, required: true, filterable: true , colWidth: '20%'},
+    { displayName: 'Status', key: 'statusTemplate', dataType: 'html', dataLength: 30, sortable: true, required: true, filterable: true, colWidth: '20%' },
     { displayName: 'Subscription End Date', key: 'subscriptionEndDateUtc', dataType: 'html', dataLength: 30, sortable: true, required: true, filterable: true, colWidth: '20%' },
-
   ]
 
-  userTableHeader:TableHeader[]=[
+  userTableHeader: TableHeader[] = [
     { displayName: 'Name', key: 'name', dataType: 'html', dataLength: 30, sortable: true, required: true, filterable: true },
   ]
   isAnimation: boolean = true;
 
   tenantTableData: any = [];
-  userTableData: any = []   
-  loginList:any;
+  userTableData: any = []
+  loginList: any;
 
-  constructor(public datepipe: DatePipe,   private userAuthService: UserAuthService,
-    private store: Store, private translate: TranslateService, 
+  constructor(
+    public datepipe: DatePipe,
+    private userAuthService: UserAuthService,
+    private store: Store,
+    private translate: TranslateService,
     private _arrayToTreeConverterService: ArrayToTreeConverterService) { }
+
   ngOnInit(): void {
+    this.isShimmer = true;
     this.isAnimation = true;
-
-
-
-    
     this.store.select(selectDefaultLanguage).subscribe((res: any) => {
       if (res) {
         this.translate.use(res);
       }
     });
-    this.rdsTenantMfeConfig = {
-      name: 'RdsCompTenantList',
-      input: {
-        tenantHeaders: this.tenantTableHeader,
-        tenantList: this.tenantTableData,
-        editionList: this.editionList,
-        noDataTitle: 'Currently you do not have tenant',
-        isShimmer: true,
-        editShimmer: true,
-        tenantHeadersUser:this.userTableHeader,        
-        userList:this.userTableData,
-        tenantLoginList:this.tenantLoginLists
-      },
-      output: {              
-      }
-    };
-
     this.store.dispatch(getEditionComboboxItems())
     this.store.select(selectEditionComboboxItems).subscribe((res: any) => {
       if (res && res.editions) {
-        this.editionList  = []
+        this.editionList = []
         res.editions.forEach(element => {
           const data = {
-            value:element.value,
-            some:element.displayText,
-            isSelected:element.isSelected,
-            icon:'',
-            iconWidth:0,
-            iconHeight:0,
-            iconFill:false,
+            value: element.value,
+            some: element.displayText,
+            isSelected: element.isSelected,
+            icon: '',
+            iconWidth: 0,
+            iconHeight: 0,
+            iconFill: false,
             iconStroke: true,
             isFree: element.isFree
           }
           this.editionList.push(data);
-          // console.log('data' , data);
-          
-        }); 
-       
-        const mfeConfig = this.rdsTenantMfeConfig
-        mfeConfig.input.editionList = [...this.editionList];
-        this.rdsTenantMfeConfig = mfeConfig;
+        });
       }
     })
     this.store.dispatch(getProfilepic());
-    this.store.select(profileSelector).subscribe((res: any)=> {})
-
-
-    this.store.select(selecteTeantLoginList).subscribe((res: any) => {     
-      if (res && res.tenantLogin  && res.status == "success") {        
-        let targetUrl='http://localhost:8080/login'+'?impersonationToken='+res.tenantLogin.impersonationToken+ '&tenantId=' + this.loginList+ '&tenancyName='+res.tenantLogin.tenancyName;
-      this.userAuthService.unauthenticateUser(true,targetUrl);      
+    this.store.select(profileSelector).subscribe((res: any) => { })
+    this.store.select(selecteTeantLoginList).subscribe((res: any) => {
+      if (res && res.tenantLogin && res.status == "success") {
+        let targetUrl = 'http://localhost:8080/login' + '?impersonationToken=' + res.tenantLogin.impersonationToken + '&tenantId=' + this.loginList + '&tenancyName=' + res.tenantLogin.tenancyName;
+        this.userAuthService.unauthenticateUser(true, targetUrl);
       }
-    })      
+    })
 
-  
+
     this.store.select(selecteTeantUserList).subscribe((res: any) => {
-      this.userTableData=[];
-      if (res &&res.tenantUsers&&  res.tenantUsers.items && res.status == "success") {
-        res.tenantUsers.items.forEach((element: any) => {                 
+      this.userTableData = [];
+      if (res && res.tenantUsers && res.tenantUsers.items && res.status == "success") {
+        res.tenantUsers.items.forEach((element: any) => {
           const item: any = {
-            name:element.name,
-            id:element.value
+            name: element.name,
+            id: element.value
           }
           this.userTableData.push(item);
         });
-        const mfeConfig = this.rdsTenantMfeConfig
-        mfeConfig.input.userList = [... this.userTableData];
-        this.rdsTenantMfeConfig = mfeConfig;
       }
     })
 
     this.store.dispatch(getTenants());
     this.store.select(selectAllTenants).subscribe((res: any) => {
+      this.isShimmer = true;
       this.tenantTableData = [];
       if (res && res.tenants.items && res.status == "success") {
-        this.isAnimation = false;
         res.tenants.items.forEach((element: any) => {
           const status: string = (element.isActive) ? 'Active' : 'Inactive';
           // const statusTemplate = `<div class="status ${status}">${status}</div>`;
@@ -196,19 +159,17 @@ export class AppComponent {
           const item: any = {
             tenantInfoTemplate: tenantInfoTemplate,
             statusTemplate: statusTemplate,
-            subscriptionEndDateUtc: (element.subscriptionEndDateUtc && element.subscriptionEndDateUtc !== null && element.subscriptionEndDateUtc.ts) ? this.datepipe.transform((new Date(element.subscriptionEndDateUtc.ts)), 'MM/dd/yyyy') : '--',  
+            subscriptionEndDateUtc: (element.subscriptionEndDateUtc && element.subscriptionEndDateUtc !== null && element.subscriptionEndDateUtc.ts) ? this.datepipe.transform((new Date(element.subscriptionEndDateUtc.ts)), 'MM/dd/yyyy') : '--',
             editionDisplayName: element.editionDisplayName,
-            editionTemplate: (element.editionDisplayName && element.editionDisplayName !== null) ?editionTemplate : '--',
+            editionTemplate: (element.editionDisplayName && element.editionDisplayName !== null) ? editionTemplate : '--',
             id: element.id,
-            name: element.tenancyName,            
+            name: element.tenancyName,
             // creationTime: this.datepipe.transform(new Date(element.creationTime),'dd-MM-yyyy h:mm:ss a')
           }
           this.tenantTableData.push(item);
         });
-        const mfeConfig = this.rdsTenantMfeConfig
-        mfeConfig.input.tenantList = [... this.tenantTableData];
-        mfeConfig.input.isShimmer = false;
-        this.rdsTenantMfeConfig = mfeConfig;
+        this.isAnimation = false;
+        this.isShimmer = false;
       }
     });
 
@@ -222,28 +183,16 @@ export class AppComponent {
         this.tenantData['tenancyName'] = res.tenantInfo.tenancyName;
         this.tenantData['tenantName'] = res.tenantInfo.name;
         this.tenantData['adminEmailAddress'] = res.tenantInfo.adminEmailAddress;
-        this.tenantData['edition'] = (res.tenantInfo.editionId && res.tenantInfo.editionId !== null) ? res.tenantInfo.editionId.toString(): res.tenantInfo.editionId;
-        this.tenantData['unlimitedSubscription'] = (res.tenantInfo.subscriptionEndDateUtc !== null&&res.tenantInfo.subscriptionEndDateUtc) ? false : true;
+        this.tenantData['edition'] = (res.tenantInfo.editionId && res.tenantInfo.editionId !== null) ? res.tenantInfo.editionId.toString() : res.tenantInfo.editionId;
+        this.tenantData['unlimitedSubscription'] = (res.tenantInfo.subscriptionEndDateUtc !== null && res.tenantInfo.subscriptionEndDateUtc) ? false : true;
         this.tenantData['id'] = res.tenantInfo.id;
         this.tenantData['subscriptionEndDate'] = (res.tenantInfo.subscriptionEndDateUtc) ? new Date(res.tenantInfo.subscriptionEndDateUtc) : null;
-        const mfeConfig = this.rdsTenantMfeConfig
-        mfeConfig.input.tenantData = { ... this.tenantData };
-        mfeConfig.input.tenantSettingsInfo = { ... this.tenantSettingsInfo };
-        mfeConfig.input.editShimmer = false
-        this.rdsTenantMfeConfig = mfeConfig;
       }
     });
     this.store.select(selectTenantFeature).subscribe((res: any) => {
       if (res && res.tenantFeature && res.status === 'success') {
         this.tenantFeatureValues = res.tenantFeature.featureValues;
         this.tenantFeatures = this.convertArraytoTreedata(res.tenantFeature.features);
-
-        // this.editionList = res.editions;
-        const mfeConfig = this.rdsTenantMfeConfig
-        mfeConfig.input.tenantFeatureValues = [... this.tenantFeatureValues];
-        mfeConfig.input.tenantFeatures = [... this.tenantFeatures];
-
-        this.rdsTenantMfeConfig = mfeConfig;
       }
     })
   }
@@ -277,9 +226,9 @@ export class AppComponent {
     return treedaTA;
   }
 
-  
 
-  onSaveTenant (tenant: any)  {
+
+  onSaveTenant(tenant: any) {
     if (tenant && tenant.tenantInfo) {
       if (tenant.tenantInfo.id) {
         const data: any = {
@@ -288,7 +237,7 @@ export class AppComponent {
           connectionString: tenant.tenantSettings.connectionString,
           editionId: +tenant.tenantInfo.edition,
           isActive: tenant.tenantSettings.isActive,
-          subscriptionEndDateUtc: (tenant.tenantInfo.unlimitedSubscription||!tenant.tenantInfo.subscriptionEndDate||tenant.tenantInfo.subscriptionEndDate==null) ? null : new Date(tenant.tenantInfo.subscriptionEndDate).toISOString(),
+          subscriptionEndDateUtc: (tenant.tenantInfo.unlimitedSubscription || !tenant.tenantInfo.subscriptionEndDate || tenant.tenantInfo.subscriptionEndDate == null) ? null : new Date(tenant.tenantInfo.subscriptionEndDate).toISOString(),
           isInTrialPeriod: false,
           id: tenant.tenantInfo.id
         };
@@ -305,60 +254,47 @@ export class AppComponent {
           sendActivationEmail: tenant.tenantSettings.sendActivationEmail,
           editionId: +tenant.tenantInfo.edition,
           isActive: tenant.tenantSettings.isActive,
-          subscriptionEndDateUtc: (tenant.tenantInfo.unlimitedSubscription||!tenant.tenantInfo.subscriptionEndDate||tenant.tenantInfo.subscriptionEndDate==null) ? null : new Date(tenant.tenantInfo.subscriptionEndDate).toISOString(),
+          subscriptionEndDateUtc: (tenant.tenantInfo.unlimitedSubscription || !tenant.tenantInfo.subscriptionEndDate || tenant.tenantInfo.subscriptionEndDate == null) ? null : new Date(tenant.tenantInfo.subscriptionEndDate).toISOString(),
           isInTrialPeriod: false
         };
         this.store.dispatch(saveTenant(data, 30))
 
       }
     }
-    }
+  }
 
-    onEditTenant (selectedTenant: any) {
-      this.store.dispatch(getTenantForEdit(selectedTenant));
-      this.store.dispatch(getTenantFeaturesForEdit(selectedTenant))
-    }
+  onEditTenant(selectedTenant: any) {
+    this.store.dispatch(getTenantForEdit(selectedTenant));
+    this.store.dispatch(getTenantFeaturesForEdit(selectedTenant))
+  }
 
-    onReset (event: any) {
-      this.tenantData = undefined;
-      this.tenantSettingsInfo = undefined;
-      this.tenantFeatureValues = [];
-      this.tenantFeatures = [];
-      const mfeConfig = this.rdsTenantMfeConfig
-      mfeConfig.input.tenantData = { ... this.tenantData };
-      mfeConfig.input.tenantSettingsInfo = { ... this.tenantSettingsInfo };
-      mfeConfig.input.tenantFeatureValues = [... this.tenantFeatureValues];
-      mfeConfig.input.tenantFeatures = [... this.tenantFeatures];
-      if (event.newtenant) {
-        mfeConfig.input.editShimmer = false;
-      } else {
-        mfeConfig.input.editShimmer = true;
-      }
+  onReset(event: any) {
+    this.tenantData = undefined;
+    this.tenantSettingsInfo = undefined;
+    this.tenantFeatureValues = [];
+    this.tenantFeatures = [];
+  }
 
-      this.rdsTenantMfeConfig = mfeConfig;
+  deleteEvent(event: any) {
+    this.store.dispatch(deleteTenant(event.id, 30))
+  }
 
-    }
+  onSaveFeatures(feature: any) {
+    this.store.dispatch(updateTenantFeatureValues(feature))
+  }
 
-    deleteEvent (event: any){
-      this.store.dispatch(deleteTenant(event.id, 30))
-    }
+  onSelectTenant(event: any) {
+    this.store.dispatch(getTenantUsers(event));
+  }
 
-    onSaveFeatures (feature: any){
-      this.store.dispatch(updateTenantFeatureValues(feature))
-    }
-
-    onSelectTenant(event:any){
-      this.store.dispatch(getTenantUsers(event));
-    }
-    
-    onTenantLogIn(event:any){  
-      this.loginList=event.tenantId;                   
-       const data:any={
-        tenantId:this.loginList,
-        userId:event.userId
-       };
-       this.store.dispatch(getTenantLogin(data)); 
-                         
-    }
+  onTenantLogIn(event: any) {
+    this.loginList = event.tenantId;
+    const data: any = {
+      tenantId: this.loginList,
+      userId: event.userId
+    };
+    this.store.dispatch(getTenantLogin(data));
 
   }
+
+}

@@ -15,18 +15,20 @@
                   <div class="header-options mobile-header-option cursor-pointer ps-1">
                     <span (click)="sortByColumn(header)" class="text-right sort-icons mobile-sort"
                       *ngIf="header.sortable">
-                      <rds-icon [name]="'up'" [width]="'12px'" [height]="'12px'"
-                        [ngClass]="getDescIconClass(header)"></rds-icon>
-                      <rds-icon [name]="'down'" [width]="'12px'" [height]="'12px'"
-                        [ngClass]="getAscIconClass(header)"></rds-icon>
+                      <rds-icon [name]="'up'" [width]="'12px'" [height]="'12px'" [ngClass]="getDescIconClass(header)">
+                      </rds-icon>
+                      <rds-icon [name]="'down'" [width]="'12px'" [height]="'12px'" [ngClass]="getAscIconClass(header)">
+                      </rds-icon>
                     </span>
                     <div class="btn-group dropend">
-                      <span class="text-right sort-icons sortable" [id]="'search-dropdown'+i+id" (click)="openSearchModal(i)"
-                        *ngIf="header.filterable" data-bs-toggle="dropdown" aria-expanded="false">
+                      <span class="text-right sort-icons sortable" [id]="'search-dropdown'+i+id"
+                        (click)="openSearchModal(i)" *ngIf="header.filterable" data-bs-toggle="dropdown"
+                        aria-expanded="false">
                         <rds-icon [name]="'filter'" [height]="'12px'" [width]="'12px'">
                         </rds-icon>
                       </span>
-                      <ul class="dropdown-menu searchModal p-1 border-0" [attr.aria-labelledby]="'search-dropdown'+i+id">
+                      <ul class="dropdown-menu searchModal p-1 border-0"
+                        [attr.aria-labelledby]="'search-dropdown'+i+id">
                         <div>
                           <div>
                             <rds-input [placeholder]="translate.instant('Search here')+' ...'"
@@ -66,7 +68,7 @@
               </ng-template>
 
               <ng-template #nonTemplateData>
-                <td class="align-middle" >
+                <td class="align-middle">
                   <ng-container *ngIf="!data.isEdit; else editTemplate">
                     {{data[column.key]}}
                   </ng-container>
@@ -104,37 +106,37 @@
             </ng-container>
             <td *ngIf="actions.length>0" class="align-middle text-center">
               <!-- <div class="d-flex align-items-center"> -->
-                <div class="dropdown" *ngIf="!data.isEdit; else editActionTemplate">
-                  <rds-button [colorVariant]="'default'" [submit]="false" [block]="false" [size]="'small'" 
-                    [isIconFill]="true" [isIconStroke]="false" [isDisabled]="false" [isOutline]="true"
-                    [isFabIcon]="true" icon="three_dots" [iconHeight]="'16px'" [iconWidth]="'16px'"
-                     tooltipTitle="" tooltipPlacement="bottom" (click)="openAction(i)"
-                    [attr.id]="'action-dropdown'+i+id" data-bs-toggle="dropdown" aria-expanded="false"></rds-button>
-                  <div class="dropdown-menu" [attr.aria-labelledby]="'action-dropdown'+i+id">
-                    <ng-container *ngFor="let action of actions">
-                      <li>
-                        <a class="dropdown-item" [attr.aria-label]="'Update'+action.displayName+data?.name"
-                           (click)="onActionSelect(action,data)">{{translate.instant(action.displayName)}}</a>
-                      </li>
-                    </ng-container>
-                  </div>
+              <div class="dropdown" *ngIf="!data.isEdit; else editActionTemplate">
+                <rds-button [colorVariant]="'default'" [submit]="false" [block]="false" [size]="'small'"
+                  [isIconFill]="true" [isIconStroke]="false" [isDisabled]="false" [isOutline]="true" [isFabIcon]="true"
+                  icon="three_dots" [iconHeight]="'16px'" [iconWidth]="'16px'" tooltipTitle="" tooltipPlacement="bottom"
+                  (click)="openAction(i)" [attr.id]="'action-dropdown'+i+id" data-bs-toggle="dropdown"
+                  aria-expanded="false"></rds-button>
+                <div class="dropdown-menu" [attr.aria-labelledby]="'action-dropdown'+i+id">
+                  <ng-container *ngFor="let action of actions">
+                    <li>
+                      <a class="dropdown-item" [attr.aria-label]="'Update'+action.displayName+data?.name"
+                        (click)="onActionSelect(action,data)">{{translate.instant(action.displayName)}}</a>
+                    </li>
+                  </ng-container>
                 </div>
-                <ng-container *ngIf="showConfirmationPopup">
-                  <rds-comp-alert-popup [alertID]="'deleteModal'" (onCancel)="close()" (onDelete)="delete()"
-                    [alertData]="alertData">
-                  </rds-comp-alert-popup>
-                </ng-container>
-                <ng-template #editActionTemplate>
-                  <div class="d-flex">
-                    <rds-button class="action" [colorVariant]="'primary'" [isFabIcon]="true" [size]="'medium'"
+              </div>
+              <ng-container *ngIf="showConfirmationPopup">
+                <rds-comp-alert-popup [alertID]="'deleteModal'" (onCancel)="close()" (onDelete)="delete()"
+                  [alertData]="alertData">
+                </rds-comp-alert-popup>
+              </ng-container>
+              <ng-template #editActionTemplate>
+                <div class="d-flex">
+                  <rds-button class="action" [colorVariant]="'primary'" [isFabIcon]="true" [size]="'medium'"
                     [icon]="'check'" [iconHeight]="'13px'" [iconWidth]="'20px'" (click)="saveChanges(data)">
                   </rds-button>
 
-                  <rds-button class="ms-2 text-white" (click)="closeEdit(data)" [isFabIcon]="true" [tooltipPlacement]="'top'"
-                    [colorVariant]="'danger'" [size]="'medium'" [icon]="'close'" [iconHeight]="'10px'"
-                    [iconWidth]="'15px'">
+                  <rds-button class="ms-2 text-white" (click)="closeEdit(data)" [isFabIcon]="true"
+                    [tooltipPlacement]="'top'" [colorVariant]="'danger'" [size]="'medium'" [icon]="'close'"
+                    [iconHeight]="'10px'" [iconWidth]="'15px'">
                   </rds-button>
-                  </div>
+                </div>
               </ng-template>
               <!-- </div> -->
             </td>
@@ -157,7 +159,9 @@
       </div>
       <div>
         <!-- <h5> {{noDataTitle|translate}} </h5> -->
-        <h5><rds-label [label]="translate.instant(noDataTitle)"></rds-label></h5>
+        <h5>
+          <rds-label [label]="translate.instant(noDataTitle)"></rds-label>
+        </h5>
         <div *ngIf="showNodataSubtitle">
           <small class="text-muted">
             {{noDataSubTitle|translate}}

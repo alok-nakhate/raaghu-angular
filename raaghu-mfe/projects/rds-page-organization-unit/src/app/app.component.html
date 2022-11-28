@@ -1,94 +1,80 @@
+<ng-container *ngIf="currentAlerts&&currentAlerts.length>0">
+  <rds-comp-alert [currentAlerts]="currentAlerts" (onAlertHide)="onAlertHide($event)"></rds-comp-alert>
+</ng-container>
 <div>
-  <div [class]="selectedTreeNode==0">
-    <div class="row" [class.card-body]="selectedTreeNode==0">
-      <div class="col-md-6 gutter-b">
-        <div>
-          <div class="card p-2 vh-88 rounded-0 border-0" [@fadeAnimation]="isAnimation ? 'fadeAnimation' : ''">
-
-            <div class="card-header bg-transparent">
-              <h5 class="card-title">{{'Organization Tree'| translate}}</h5>
-            </div>
-            <div class="card-body overflow-auto vh-75">
-              <!-- <mfe-loader [config]="rdsOrganizationTreeConfig"></mfe-loader> -->
-              <rds-organization-tree 
-              [organizationTreeData]="treeData1"              
-              [nodeColor]="nodeColors" 
-              [mutable]="true"                       
-              (onDeleteNode)="onDeleteNode($event)"
-              (getSelectedParent)="getSelectedParent($event)"
-              (onNodeEdit)="onNodeEdit($event)"
-              (onSelectnode)="onSelectnode($event)"></rds-organization-tree>
-            </div>
+  <div class="row" [class.card-body]="selectedTreeNode==0">
+    <div class="col-md-6 gutter-b">
+      <div>
+        <div class="card p-2 vh-88 rounded-0 border-0" [@fadeAnimation]="isAnimation ? 'fadeAnimation' : ''">
+          <div class="card-header bg-transparent">
+            <h5 class="card-title">{{'Organization Tree'| translate}}</h5>
+          </div>
+          <div class="card-body overflow-auto vh-75">
+            <rds-organization-tree [organizationTreeData]="organizationTreeData" [nodeColor]="nodeColors"
+              [mutable]="true" (onDeleteNode)="onDeleteNode($event)" (getSelectedParent)="getSelectedParent($event)"
+              (onNodeEdit)="onNodeEdit($event)" (onSelectnode)="onSelectnode($event)"></rds-organization-tree>
           </div>
         </div>
-
       </div>
+    </div>
+    <div class="col-md-6 gutter-b">
+      <div class="card p-2  vh-88 rounded-0 border-0">
+        <div class="card-header bg-transparent" *ngIf="selectedTreeNode == 0">
+          <h5 class="card-title">{{'Select an organization unit to see members' | translate}}</h5>
+        </div>
+        <div [@fadeAnimation]="isAnimation ? 'fadeAnimation' : ''">
+          <div class="">
+            <div *ngIf="selectedTreeNode != 0">
+              <div class="card-header d-flex justify-content-between bg-transparent align-items-center">
+                <h5 class="card-title text-primary">
+                  {{ organizationName }}
+                </h5>
+                <rds-button [label]="translate.instant('New Member')" *ngIf="selectedTabIndex == 0" [size]="'small'"
+                  [colorVariant]="'primary'" (click)="newUser($event)" [icon]="'plus'" iconHeight="12px"
+                  iconWidth="12px">
+                </rds-button>
+                <rds-button [label]="translate.instant('New Role')" (click)="newRole($event)" type="button"
+                  *ngIf="selectedTabIndex == 1" [size]="'small'" class="px-2" [colorVariant]="'primary'"
+                  data-bs-dismiss="offcanvas" data-bs-target="#addRoleModal" [icon]="'plus'" iconHeight="12px"
+                  iconWidth="12px">
+                </rds-button>
+              </div>
 
-      <div class="col-md-6 gutter-b">
-        <div class="card p-2  vh-88 rounded-0 border-0">
-          <div class="card-header bg-transparent" *ngIf="selectedTreeNode == 0">
-            <h5 class="card-title">{{'Select an organization unit to see members' | translate}}</h5>
-          </div>
-
-          <div [@fadeAnimation]="isAnimation ? 'fadeAnimation' : ''">
-            <div class="">
-              <div *ngIf="selectedTreeNode != 0">
-
-                <div class="card-header d-flex justify-content-between bg-transparent align-items-center">
-                  <h5 class="card-title text-primary">
-                    {{ organizationName }}
-                  </h5>
-                  <rds-button [label]="translate.instant('New Member')" *ngIf="selectedTabIndex == 0" [size]="'small'"
-                    [colorVariant]="'primary'" (click)="newUser($event)" [icon]="'plus'" iconHeight="12px" iconWidth="12px">
-                    
-                  </rds-button>
-                  <rds-button [label]="translate.instant('New Role')" (click)="newRole($event)" type="button"
-                    *ngIf="selectedTabIndex == 1" [size]="'small'" class="px-2" [colorVariant]="'primary'"
-                    data-bs-dismiss="offcanvas" data-bs-target="#addRoleModal" [icon]="'plus'" iconHeight="12px" iconWidth="12px">
-                   
-                  </rds-button>
+              <div class="card-body pt-2">
+                <div class="col-md-12 mb-2">
+                  <rds-nav-tab [navtabsItems]="getNavTabItems()" [horizontalAlignment]="'start'"
+                    [verticalAlignment]="false" [pills]="false" [tabs]="true" [fill]="false" [justified]="false"
+                    (onClicktab)="btnClick($event)"></rds-nav-tab>
                 </div>
-
-                <div class="card-body pt-2">
-                  <div class="col-md-12 mb-2">
-                    <rds-nav-tab [navtabsItems]="getNavTabItems()" [horizontalAlignment]="'start'"
-                      [verticalAlignment]="false" [pills]="false" [tabs]="true" [fill]="false" [justified]="false"
-                      (onClicktab)="btnClick($event)"></rds-nav-tab>
-                  </div>
-                  <div naveContent class="row tab-content" id="nav-tabContent">
-                    <div class="tab-pane fade show active" id="Members" role="tabpanel" aria-labelledby="nav-home-tab">
-                      <div [@fadeAnimation]="isAnimation ? 'fadeAnimation' : ''"></div>
-                      <div class="row">
-                        <!-- <mfe-loader [config]="rdsDataTableForMemberMfeConfig"></mfe-loader> -->
-                        <rds-data-table 
-                        [tableData]="tableDataForMember" 
-                        [tableHeaders]="tableHeadersForMember"
-                        [recordsPerPage]="10" 
-                        [pagination]="true" [actions]="actions" noDataTitle='Currently you do not have member' (onActionSelection)="onActionSelection($event)"></rds-data-table>
-                      </div>
+                <div naveContent class="row tab-content" id="nav-tabContent">
+                  <div class="tab-pane fade show active" id="Members" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <div [@fadeAnimation]="isAnimation ? 'fadeAnimation' : ''"></div>
+                    <div class="row">
+                      <rds-data-table [tableData]="tableDataForMember" [tableHeaders]="tableHeadersForMember"
+                        [recordsPerPage]="10" [pagination]="true" [actions]="actions"
+                        [noDataTitle]="'Currently you do not have member'"
+                        (onActionSelection)="onMemberActionSelection($event)">
+                      </rds-data-table>
                     </div>
-                    <div class="tab-pane fade" id="Roles" role="tabpanel" aria-labelledby="nav-home-tab">
-                      <div class="row">
-                        <!-- <mfe-loader [config]="rdsDataTableForRoleMfeConfig"></mfe-loader> -->
-                        <rds-data-table 
-                        [tableData]="tableDataForRoles" 
-                        [tableHeaders]="tableHeadersForRoles"
-                        [recordsPerPage]="10" 
-                        [pagination]="true" [actions]="actions" noDataTitle='Currently you do not have role' (onActionSelection)="onActionSelection($event)"></rds-data-table>
-                      </div>
+                  </div>
+                  <div class="tab-pane fade" id="Roles" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <div class="row">
+                      <rds-data-table [tableData]="tableDataForRoles" [tableHeaders]="tableHeadersForRoles"
+                        [recordsPerPage]="10" [pagination]="true" [actions]="actions"
+                        [noDataTitle]="'Currently you do not have role'"
+                        (onActionSelection)="onRoleActionSelection($event)">
+                      </rds-data-table>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </div>
   </div>
-</div>
-
+ </div>
 
 <rds-offcanvas [canvasTitle]="translate.instant(usercanvasTitle)" [offId]="'addUserModal'" [offcanvaswidth]="550"
   *ngIf="viewCanvas" [placement]="'end'" (onClose)="close()">
@@ -97,16 +83,11 @@
       <div class="tab-content">
         <div class="form-group mb-3">
           <div class="col-md-12  mt-2">
-            <!-- (deleteEvent)="deleteUsers.emit($event)" -->
-            <!-- <mfe-loader [config]="rdsDataTableForUserListMfeConfig"></mfe-loader> -->
-            <rds-data-table 
-            [tableData]="tableDataForUserAdd" 
-            [tableHeaders]="tableHeadersForUserAdd"
-            [recordsPerPage]="10" 
-            [pagination]="true"           
-            noDataSubTitle="'Click on the button above to add'" 
-            noDataTitle="'Currently you do not have role' "
-            (getAllCheckedItems)="getAllCheckedItems($event)"></rds-data-table>
+            <rds-data-table [tableData]="tableDataForUserAdd" [enableCheckboxSelection]="true"
+              [tableHeaders]="tableHeadersForUserAdd" [recordsPerPage]="10" [pagination]="true"
+              [noDataSubTitle]="'Click on the button above to add'" [noDataTitle]="'Currently you do not have users'"
+              (getAllCheckedItems)="getAllCheckedItems($event,true)">
+            </rds-data-table>
           </div>
         </div>
       </div>
@@ -118,7 +99,7 @@
                 [colorVariant]="'primary'" [isOutline]="true" data-bs-dismiss="offcanvas">
               </rds-button>
             </div>
-            <div *ngIf="addedDataMember">
+            <div>
               <rds-button [label]="translate.instant('Save')" [isDisabled]="!selectedUsers||selectedUsers.length==0"
                 type="button" [size]="'small'" class="px-2" [colorVariant]="'primary'" (click)="pushUser()"
                 data-bs-dismiss="offcanvas" data-bs-target="#addUserModal">
@@ -130,6 +111,7 @@
     </form>
   </div>
 </rds-offcanvas>
+
 <rds-offcanvas [canvasTitle]="translate.instant(rolecanvasTitle)" [offId]="'addRoleModal'" [offcanvaswidth]="550"
   *ngIf="viewCanvas" [placement]="'end'" (onClose)="close()">
   <div class="row form-style">
@@ -137,15 +119,11 @@
       <div class="tab-content">
         <div class="form-group mb-3">
           <div class="col-md-12 mt-3">
-            <!-- (deleteEvent)="deleteRoles.emit($event)" -->
-            <!-- <mfe-loader [config]="rdsDataTableForRoleListMfeConfig"></mfe-loader> -->
-            <rds-data-table 
-            [tableData]="tableDataForUserAdd" 
-            [tableHeaders]="tableHeadersForUserAdd"
-            [recordsPerPage]="10" 
-            [pagination]="true"           
-            noDataSubTitle="'Click on the button above to add'"            
-            (getAllCheckedItems)="getAllCheckedItems($event)"></rds-data-table>
+            <rds-data-table [tableData]="tableDataForRoleAdd" [tableHeaders]="tableHeadersForUserAdd"
+              [enableCheckboxSelection]="true" [recordsPerPage]="10" [pagination]="true"
+              [noDataTitle]="'Currently you do not have roles'" [noDataSubTitle]="'Click on the button above to add'"
+              (getAllCheckedItems)="getAllCheckedItems($event,false)">
+            </rds-data-table>
           </div>
         </div>
       </div>
@@ -157,7 +135,7 @@
                 [colorVariant]="'primary'" [isOutline]="true" data-bs-dismiss="offcanvas">
               </rds-button>
             </div>
-            <div *ngIf="addedDataRole">
+            <div>
               <rds-button [label]="translate.instant('Save')" [isDisabled]="!selectedRoles||selectedRoles.length==0"
                 type="button" [size]="'small'" class="px-2" [colorVariant]="'primary'" (click)="pushRole()"
                 data-bs-dismiss="offcanvas" data-bs-target="#addRoleModal">
@@ -178,9 +156,9 @@
       <div class="col-md-12">
         <form #nodeForm="ngForm" novalidate>
           <div class="form-group mb-3">
-            <rds-input size="medium" [label]="translate.instant('Name')" [labelPosition]="'top'" [placeholder]="'Wai Technologies'"
-              [(ngModel)]="node" id="txtDescription" name="node_name" [isRequired]="true" required ngDefaultControl
-              #nodeName="ngModel">
+            <rds-input size="medium" [label]="translate.instant('Name')" [labelPosition]="'top'"
+              [placeholder]="'Wai Technologies'" [(ngModel)]="node" id="txtDescription" name="node_name"
+              [isRequired]="true" required ngDefaultControl #nodeName="ngModel">
             </rds-input>
             <div class="form-control-feedback" *ngIf="nodeName.errors && (nodeName.dirty || nodeName.touched)">
               <span class="text-danger" *ngIf="nodeName.errors.required">{{"Name is required"|translate}}</span>
