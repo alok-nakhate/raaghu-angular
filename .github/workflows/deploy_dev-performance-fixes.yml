@@ -1,0 +1,92 @@
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
+name: "Build and deploy performance-fix anzstageui.raaghu.io"
+
+on:
+  push:
+    branches: [dev-performance-fixes]
+
+  workflow_dispatch:
+
+env:
+  AZURE_WEBAPP_NAME: raaghumfestageuiapp   # set this to your application's name
+  AZURE_WEBAPP_PACKAGE_PATH: '.'      # set this to the path to your web app project, defaults to the repository root
+  NODE_VERSION: '16.15.0'                # set this to the node version to use
+  NODE_OPTIONS: "--max_old_space_size=6144"
+
+permissions:
+  contents: read
+   
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout raaghu code
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+        cache-dependency-path: './raaghu-mfe'  
+   
+#    - uses: microsoft/variable-substitution@v1 
+#      with:
+#        files: '**/appconfig.json'
+#      env:
+#        appBaseUrl: ${{ secrets.APPBASEURL_STAGING }}
+#        remoteServiceBaseUrl: ${{ secrets.REMOTESERVICEBASEURL_STAGING }}
+   
+    - name: npm install raaghu-elements
+      working-directory: raaghu-elements
+      run: |
+        npm install
+       
+    - name: npm install, build, and test raaghu-mfe
+      working-directory: ./raaghu-mfe
+      run: |
+        npm install
+        npm run sync-elements
+        npm run patch-dev-server
+        npm run build-all
+        cp web.config dist
+        cp dist/host/* dist -r
+
+    - name: Upload artifact for deployment job
+      uses: actions/upload-artifact@v3
+      with:
+        name: node-app
+        path: ./raaghu-mfe/dist
+    
+#    - uses: microsoft/variable-substitution@v1 
+#      with:
+#        files: '**/appconfig.json'
+#      env:
+#        appBaseUrl: ${{ secrets.APPBASEURL }}
+#        remoteServiceBaseUrl: ${{ secrets.REMOTESERVICEBASEURL }}
+            
+  deploy:
+    permissions:
+      contents: none
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: 'Development'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+
+    steps:
+    - name: Download artifact from build job
+      uses: actions/download-artifact@v3
+      with:
+        name: node-app
+
+    - name: Deploy to Azure Web App
+      uses: azure/webapps-deploy@v2
+      id: deploy-to-webapp
+      with:
+        app-name: 'raaghumfestageuiapp'
+        slot-name: 'production'
+        publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_392363CA3B8C4905BC10144A553C3367 }}
+        package: .
