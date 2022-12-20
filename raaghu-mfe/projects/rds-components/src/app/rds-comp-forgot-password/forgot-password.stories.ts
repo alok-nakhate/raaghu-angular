@@ -22,3 +22,7 @@ export default {
 const Template: Story<RdsForgotPasswordComponent> = (args: RdsForgotPasswordComponent) => ({});
 
 export const Default = Template.bind({});
+Default.args={
+  mailID:'',
+  buttonColorType:'primary'
+}

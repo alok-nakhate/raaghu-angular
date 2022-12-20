@@ -1,18 +1,18 @@
-<div class="" *ngIf="dataSource && dataSource.length > 0; else emptyTemplate">
-  <div class="row w-100 border-bottom m-0" *ngFor="let item of dataSource">
-    <div class="col-9 py-3">
+<div class="" *ngIf="cashedata && cashedata.length > 0; else emptyTemplate">
+  <div class="w-100 border-bottom m-0 d-flex justify-content-between px-3" *ngFor="let item of dataSource">
+    <div class="py-3">
       <span class="sm-word-wrap">
         {{ item.name }}
       </span>
     </div>
-    <div class="col-3 py-3 text-end">
-      <rds-button (click)="deleteConfirmation(item.name)" [size]="'small'"
-        [icon]="'delete'" [iconHeight]="'18px'" [iconWidth]="'18px'" [roundedButton]="true" [label]="'delete' + item.name">
+    <div class="py-3">
+      <rds-button (click)="deleteConfirmation(item.name)" [size]="'small'" [icon]="'delete'" [iconHeight]="'17px'"
+        [iconWidth]="'17px'" [isFabIcon]="true" >
       </rds-button>
     </div>
   </div>
   <div class="pt-2">
-    <rds-pagination [reset]="resetPagination" (onPageChange)="onPagination($event)" [recordsPerPage]="+recordsPerPage"
+    <rds-pagination  (onPageChange)="onPagination($event)" [recordsPerPage]="+recordsPerPage"
       [totalRecords]="getTotalRecords()" [alignmentType]="alignmentType" [role]="role"></rds-pagination>
   </div>
 
@@ -22,7 +22,7 @@
   <div class="my-5 py-5 d-flex align-items-center justify-content-center">
     <div class="text-center">
       <div class="mb-3">
-        <rds-icon  name="file_plus" width="100px" height="100px"></rds-icon>
+        <rds-icon name="file_plus" width="100px" height="100px"></rds-icon>
       </div>
       <div>
         <h5> {{"Currently you do not have cache"|translate}} </h5>

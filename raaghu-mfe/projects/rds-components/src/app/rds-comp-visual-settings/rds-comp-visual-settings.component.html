@@ -1,193 +1,373 @@
 <div class="row" *ngIf="!isShimmer">
   <div class="col-md-12">
-    <div class=" card p-2 border-0 rounded-0 vh-88">
+    <div class="card p-2 border-0 rounded-0 vh-88">
       <div class="row pt-4 theam-cards">
-
-       
         <div class="col-md-4 mb-4">
-          <div class="d-inline-block p-3 pb-0" [ngClass]="{ 'selected' : selectedThemeIndex === '2' }">
+          <div
+            class="d-inline-block p-3 pb-0"
+            [ngClass]="{ selected: selectedThemeIndex === '12' }"
+          >
             <!--<rds-card class="rounded-avatar-basic" style="cursor:pointer">-->
-            <div class="p-0" body (click)="getThemeSettings('2')" style="cursor:pointer">
-              <img src="https://stageui.raaghu.io/assets/Dashboard.png" class="w-100">
+            <div
+              class="p-0"
+              body
+              value="selectedTheme.accessible"
+              (click)="getThemeSettings('12', 'default')"
+              style="cursor: pointer"
+            >
+              <img
+                src="https://anzstageui.raaghu.io/assets/LightTheme.png"
+                class="w-100"
+              />
             </div>
             <div class="col-md-12">
               <h6 class="text-center"></h6>
             </div>
             <!--</rds-card>-->
             <div class="p-2">
-              <h5 class="text-center"> Default </h5>
+              <h5 class="text-center">Default</h5>
             </div>
           </div>
         </div>
-        <div class="col-md-4 mb-4">
-          <div class="d-inline-block p-3 pb-0" [ngClass]="{ 'selected' : selectedThemeIndex === '0' }">
-            <!--<rds-card class="rounded-avatar-basic" style="cursor:pointer">-->
-            <div class="p-0" body (click)="getThemeSettings('0')" style="cursor:pointer">
-              <img src="https://stageui.raaghu.io/assets/LightTheme.png" class="w-100">
+        <!-- <div class="col-md-4 mb-4">
+          <div
+            class="d-inline-block p-3 pb-0"
+            [ngClass]="{ selected: selectedThemeIndex === '11' }"
+          >
+            <div
+              class="p-0"
+              body
+              value="selectedTheme.dark"
+              (click)="getThemeSettings('11', 'light')"
+              style="cursor: pointer"
+            >
+              <img
+                src="https://anzstageui.raaghu.io/assets/LightTheme.png"
+                class="w-100"
+              />
             </div>
-            <!--/rds-card>-->
             <div class="p-3">
-              <h5 class="text-center"> Light </h5>
+              <h5 class="text-center">Light</h5>
             </div>
           </div>
-        </div>
+        </div> -->
         <div class="col-md-4 mb-4">
-          <div class="d-inline-block p-3 pb-0" [ngClass]="{ 'selected' : selectedThemeIndex === '1' }">
+          <div
+            class="d-inline-block p-3 pb-0"
+            [ngClass]="{ selected: selectedThemeIndex == '7' }"
+          >
             <!--<rds-card class="rounded-avatar-basic" style="cursor:pointer">-->
-            <div class="p-0" body (click)="getThemeSettings('1')" style="cursor:pointer">
-              <img src="https://stageui.raaghu.io/assets/Dashboard.png" class="w-100">
+            <div
+              class="p-0"
+              body
+              value="selectedTheme.dark"
+              (click)="getThemeSettings('7', 'dark')"
+              style="cursor: pointer"
+            >
+              <img
+                src="https://anzstageui.raaghu.io/assets/Dashboard.png"
+                class="w-100"
+              />
             </div>
 
             <!--</rds-card>-->
             <div class="p-2">
-              <h5 class="text-center"> Dark </h5>
+              <h5 class="text-center">Dark</h5>
             </div>
-          </div> 
+          </div>
         </div>
+        <div class="col-md-4 mb-4">
+          <div
+            class="d-inline-block p-3 pb-0"
+            [ngClass]="{ selected: selectedThemeIndex == '4' }"
+          >
+            <!--<rds-card class="rounded-avatar-basic" style="cursor:pointer">-->
+            <div
+              class="p-0"
+              body
+              value="selectedTheme.accessible"
+              (click)="getThemeSettings('4', 'accessible')"
+              style="cursor: pointer"
+            >
+              <img
+                src="../assets/accessibleTheme.png"
+                class="w-100"
+              />
+            </div>
+
+            <!--</rds-card>-->
+            <div class="p-2">
+              <h5 class="text-center">Accessible</h5>
+            </div>
+          </div>
+        </div>
+        
       </div>
-      <!-- </div>
-      <div class="col-md-4">
-        <div class="d-inline-block">
-          <div class="col-md-12">
-            <a href="">
-              <img src="http://localhost:5008/assets/LightTheme.jpg" class="w-100" alt="">
-            </a>
-          </div>
-          <div class="col-md-12">
-            <h6 class="py-3 text-center">Theme 2</h6>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="d-inline-block">
-          <div class="col-md-12">
-            <a href="">
-              <img src="http://localhost:5008/assets/Theme3.jpg" class="w-100" alt="">
-            </a>
-          </div>
-          <div class="col-md-12">
-            <h6 class="py-3 text-center">Theme 3</h6>
-          </div>
-        </div>
-      </div> -->
       <div class="row ps-3 navsm-p-0">
-        <rds-nav-tab [navtabsItems]="getNavTabItems()" horizontalAlignment="start" [verticalAlignment]="false"
-          [pills]="false" [tabs]="true"  (onClicktab)=" onSelectnode($event)" [justified]="false" [flex]="false">
+     
+        <rds-nav-tab
+          [navtabsItems]="navtabItems"
+          [activeTab]="selectedTabIndex"
+          horizontalAlignment="start"
+          [verticalAlignment]="false"
+          [pills]="false"
+          [tabs]="true"
+          (onClicktab)="onTabSelect($event)"
+          [justified]="false"
+        >
         </rds-nav-tab>
-      </div>
-      <div naveContent class="tab-content" id="headerbar">
-        <div class="tab-pane fade active show p-4 navsm-p-0" id="nav-headerbar" role="tabpanel" aria-labelledby="nav-headerbar">
-          <div class="row">
-            <div class="col-md-4">
-              <div class="form-group mb-3">
-                <rds-select-list [value]="visualSettingsMenu.asideSkin"  name="Listskin"
-                  [label]="translate.instant('Skin')"  labelPosition="top" placeholderText="Select Skin" [itemList]="listskin" [(ngModel)]="visualSettingsMenu.asideSkin">
-                </rds-select-list>
+        <ng-container *ngIf="selectedTheme == 'default'">
+          <div naveContent class="tab-content" id="headerbar">
+            <div
+              class="tab-pane fade p-4"
+              id="nav-subheader"
+              [ngClass]="{ 'show active': selectedTabIndex ===  0}"
+              role="tabpanel"
+              aria-labelledby="nav-subheader"
+            >
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="mb-2">
+                    <rds-label
+                      [label]="translate.instant('Subheader')"
+                    ></rds-label>
+                  </div>
+                  <div class="form-group mb-3">
+                    <rds-checkbox
+                      [disabled]="false"
+                      [label]="translate.instant('Fixed SubHeader')"
+                      [checked]="fixedSubHeader"
+                      name="check-box"
+                      [withLabel]="true"
+                      [switch]="false"
+                      (onChange)="getCheckboxValue($event, 'fixedSubHeader')"
+                      [inline]="false"
+                      [id]="'fixedHeaderSubHeader'"
+                    ></rds-checkbox>
+                  </div>
+                  <div class="form-group mb-3">
+                    <rds-button
+                      [label]="translate.instant('SAVE AS SYSTEM DEFAULT ')"
+                      type="button"
+                      [size]="'small'"
+                      [colorVariant]="'primary'"
+                      (click)="saveVisualSettings()"
+                      [isOutline]="false"
+                    ></rds-button>
+                  </div>
+                </div>
               </div>
+            </div>
+            <div
+              class="tab-pane fade p-4"
+              id="nav-Menu"
+              [ngClass]="{ 'show active': selectedTabIndex === 1 }"
+              role="tabpanel"
+              aria-labelledby="nav-Menu"
+            >
+              <div class="row">
+                <div class="col-md-4">
+                  <!-- <div class="form-group mb-3">
+                    <rds-select-list
+                      [value]="asideSkin"
+                      name="Listskin"
+                      [label]="translate.instant('Skin')"
+                      [itemList]="listskin"
+                      placeholderText="Selct Skin"
+                      labelPosition="top"
+                      [(ngModel)]="asideSkin"
+                    >
+                    </rds-select-list>
+                  </div> -->
+                  <div class="form-group mb-3">
+                    <rds-checkbox
+                      [disabled]="false"
+                      [label]="translate.instant('Fixed Aside')"
+                      [withLabel]="true"
+                      [id]="'fixedAside'"
+                      [checked]="fixedAside"
+                      (onChange)="getCheckboxValue($event, 'fixedAside')"
+                      name="check-box"
+                    >
+                    </rds-checkbox>
+                  </div>
+                  <div class="form-group mb-3">
+                    <rds-checkbox
+                      [disabled]="false"
+                      [label]="translate.instant('Allow Aside minimizing')"
+                      [withLabel]="true"
+                      [switch]="false"
+                      [inline]="false"
+                      [id]="'allowAsideMinimizing'"
+                      state="checkbox"
+                      [checked]="allowAsideMinimizing"
+                      (onChange)="
+                        getCheckboxValue($event, 'allowAsideMinimizing')
+                      "
+                      name="check-box"
+                    ></rds-checkbox>
+                  </div>
+                  <div class="form-group mb-3">
+                    <rds-checkbox
+                      [label]="translate.instant('Default Minimized Aside')"
+                      [checked]="defaultMinimizedAside"
+                      [withLabel]="true"
+                      name="defaultMinimizedAside"
+                      [id]="'defaultAsideMinimizing'"
+                      [checked]="defaultMinimizedAside"
+                      (onChange)="
+                        getCheckboxValue($event, 'defaultMinimizedAside')
+                      "
+                      name="check-box"
+                      [disabled]="!allowAsideMinimizing"
+                    ></rds-checkbox>
+                  </div>
+                  <div class="form-group mb-3">
+                    <rds-checkbox
+                      [label]="translate.instant('Expand Menu When Hovered')"
+                      [checked]="hoverableAside"
+                      [withLabel]="true"
+                      name="hoverableAside"
+                      [checked]="hoverableAside"
+                      name="check-box"
+                      (onChange)="getCheckboxValue($event, 'hoverableAside')"
+                      [id]="'expandMenuOnHover'"
+                    ></rds-checkbox>
+                  </div>
+                  <div class="form-group mb-3">
+                    <rds-select-list
+                      [value]="submenuToggle"
+                      name="ListSubmenu"
+                      [label]="translate.instant('Submenu Toggle')"
+                      [placeholder]="translate.instant('Selct Submenu')"
+                      labelPosition="top"
+                      [itemList]="listSubmenu"
+                      [(ngModel)]="submenuToggle"
+                    >
+                    </rds-select-list>
+                  </div>
+                  <div class="form-group mb-3">
+                    <rds-button
+                      [label]="translate.instant('SAVE AS SYSTEM DEFAULT ')"
+                      type="button"
+                      [size]="'small'"
+                      [colorVariant]="'primary'"
+                      (click)="saveVisualSettings()"
+                      [isOutline]="false"
+                    ></rds-button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="tab-pane fade p-4"
+              id="nav-footer"
+              [ngClass]="{ 'show active': selectedTabIndex === 2 }"
+              role="tabpanel"
+              aria-labelledby="nav-footer"
+            >
+            <div class="row">
+              <div class="col-md-4">
               <div class="mb-2">
-              <rds-label [label]="translate.instant('Desktop')"></rds-label>
-            </div>
-              <div class="form-group mb-3">
-                <rds-checkbox [disabled]="false" [label]="translate.instant('Fixed Header')" [withLabel]="true" [switch]="false"
-                  [inline]="false" [id]="'fixedHeaderDesktop'" state="checkbox"
-                  [(ngModel)]="visualSettingsHeader.desktopFixedHeader"></rds-checkbox>
-              </div>
-               <div class="mb-2">
-                <rds-label [label]="translate.instant('Mobile')"></rds-label>
+                <rds-label [label]="translate.instant('Footer')"></rds-label>
               </div>
               <div class="form-group mb-3">
-                <rds-checkbox [disabled]="false" [label]="translate.instant('Fixed Header')" [withLabel]="true" [switch]="false"
-                  [inline]="false" [id]="'fixedHeaderMobile'" state="checkbox"
-                  [(ngModel)]="visualSettingsHeader.mobileFixedHeader"></rds-checkbox>
+                <rds-checkbox
+                  [disabled]="false"
+                  [label]="translate.instant('Fixed Footer')"
+                  [checked]="fixedFooter"
+                  name="check-box"
+                  (onChange)="getCheckboxValue($event, 'fixedFooter')"
+                  [withLabel]="true"
+                  [switch]="false"
+                  [inline]="false"
+                  [id]="'fixedFooter'"
+                ></rds-checkbox>
               </div>
-              <div class="form-group mb-3">
-                <rds-button [tooltipPlacement]="'bottom'" [tooltipTitle]="translate.instant('upgrade')"  [label]="translate.instant('SAVE AS SYSTEM DEFAULT ')"
-                  (click)="saveVisualSettings()" type="button" [size]="'small'" [colorVariant]="'primary'" 
-                   [outlineButton]="false"></rds-button>
+              <div class="form-group mb-3 position-fixed bottom-0 py-5">
+                <rds-button
+                 [label]="translate.instant('SAVE AS SYSTEM DEFAULT ')"
+                  (click)="saveVisualSettings()"
+                  type="button"
+                  [size]="'small'"
+                  [colorVariant]="'primary'"
+                  [isOutline]="false"
+                >
+                </rds-button>
               </div>
-            </div>
-          </div>
-        </div>
-        <div class="tab-pane fade p-4" id="nav-subheader" role="tabpanel" aria-labelledby="nav-subheader">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="mb-2">
-                <rds-label [label]="translate.instant('Subheader')"></rds-label>
               </div>
-              <div class="form-group mb-3">
-                <rds-checkbox [disabled]="false" [label]="translate.instant('Fixed Header')" [withLabel]="true" [switch]="false"
-                  [inline]="false" [id]="'fixedHeaderSubHeader'" state="checkbox"
-                  [(ngModel)]="visualSettingsSubHeader.fixedSubHeader"></rds-checkbox>
-              </div>
-              <div class="form-group mb-3">
-                <rds-button [tooltipPlacement]="'bottom'" [tooltipTitle]="translate.instant('upgrade')"  [label]="translate.instant('SAVE AS SYSTEM DEFAULT ')"
-                  type="button" [size]="'small'" [colorVariant]="'primary'"
-                  (click)="saveVisualSettings()" [outlineButton]="false"></rds-button>
               </div>
             </div>
           </div>
-        </div>
-        <div class="tab-pane fade p-4" id="nav-Menu" role="tabpanel" aria-labelledby="nav-Menu">
-          <div class="row">
-            <div class="col-md-4">
-              <div class="form-group mb-3">
-                <rds-select-list [value]="visualSettingsMenu.asideSkin"  name="Listskin"
-                  [label]="translate.instant('Skin')" [itemList]="listskin" placeholderText="Selct Skin" labelPosition="top" [(ngModel)]="visualSettingsMenu.asideSkin">
-                </rds-select-list>
-              </div>
-              <div class="form-group mb-3">
-                <rds-checkbox [disabled]="false" [label]="translate.instant('Fixed Aside')" [withLabel]="true" [id]="'fixedAside'"
-                  [(ngModel)]="visualSettingsMenu.fixedAside">
-                </rds-checkbox>
-              </div>
-              <div class="form-group mb-3">
-                <rds-checkbox [disabled]="false" [label]="translate.instant('Allow Aside minimizing')" [withLabel]="true" [switch]="false"
-                  [inline]="false" [id]="'allowAsideMinimizing'" state="checkbox"
-                  [(ngModel)]="visualSettingsMenu.allowAsideMinimizing"></rds-checkbox>
-              </div>
-              <div class="form-group mb-3">
-                <rds-checkbox [label]="translate.instant('Default Minimized Aside')" [checked]="visualSettingsMenu.defaultMinimizedAside"
-                  [withLabel]="true" name="defaultMinimizedAside" [id]="'defaultAsideMinimizing'"
-                  [(ngModel)]="visualSettingsMenu.defaultMinimizedAside"></rds-checkbox>
-              </div>
-              <div class="form-group mb-3">
-                <rds-checkbox [label]="translate.instant('Expand Menu When Hovered')" [checked]="visualSettingsMenu.hoverableAside"
-                  [withLabel]="true" name="hoverableAside" [(ngModel)]="visualSettingsMenu.hoverableAside"
-                  [id]="'expandMenuOnHover'"></rds-checkbox>
-
-              </div>
-              <div class="form-group mb-3">
-                <rds-select-list [value]="visualSettingsMenu.submenuToggle"
-                  name="ListSubmenu" [label]="translate.instant('Submenu Toggle')" placeholderText="Selct Submenu" labelPosition="top"  [itemList]="listSubmenu"
-                  [(ngModel)]="visualSettingsMenu.submenuToggle">
-
-                </rds-select-list>
-              </div>
-              <div class="form-group mb-3">
-                <rds-button [tooltipPlacement]="'bottom'" [tooltipTitle]="translate.instant('upgrade')"  [label]="translate.instant('SAVE AS SYSTEM DEFAULT ')"
-                  type="button" [size]="'small'" [colorVariant]="'primary'"
-                  (click)="saveVisualSettings()" [outlineButton]="false"></rds-button>
+        </ng-container>
+        <ng-container
+          *ngIf=" selectedTheme == 'accessible'|| selectedTheme == 'dark'"
+        >
+          <div naveContent class="tab-content" id="headerbar">
+            <div
+              class="tab-pane fade p-4 navsm-p-0"
+              [ngClass]="{ 'show active': selectedTabIndex === 0 }"
+              id="nav-headerbar"
+              role="tabpanel"
+              aria-labelledby="nav-headerbar"
+            >
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="mb-2">
+                    <rds-label
+                      [label]="translate.instant('Desktop')"
+                    ></rds-label>
+                  </div>
+                  <div class="form-group mb-3">
+                    <rds-checkbox
+                      [label]="translate.instant('Fixed Header')"
+                      [withLabel]="true"
+                      name="desktopFixedHeader"
+                      [checked]="desktopFixedHeader"
+                      name="check-box"
+                      (onChange)="
+                        getCheckboxValue($event, 'desktopFixedHeader')
+                      "
+                      [id]="'desktopFixedHeader'"
+                    ></rds-checkbox>
+                  </div>
+                  <div class="mb-2">
+                    <rds-label
+                      [label]="translate.instant('Mobile')"
+                    ></rds-label>
+                  </div>
+                  <div class="form-group mb-3">
+                    <rds-checkbox
+                      [disabled]="false"
+                      [label]="translate.instant('Fixed Header')"
+                      [withLabel]="true"
+                      [switch]="false"
+                      [inline]="false"
+                      [id]="'fixedHeaderMobile'"
+                      name="check-box"
+                      (onChange)="getCheckboxValue($event, 'mobileFixedHeader')"
+                      [checked]="mobileFixedHeader"
+                    ></rds-checkbox>
+                  </div>
+                  <div class="form-group mb-3 mt-3">
+                    <rds-button
+                     [label]="translate.instant('SAVE AS SYSTEM DEFAULT ')"
+                      (click)="saveVisualSettings()"
+                      type="button"
+                      [size]="'small'"
+                      [colorVariant]="'primary'"
+                      [isOutline]="false"
+                    ></rds-button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="tab-pane fade p-4" id="nav-footer" role="tabpanel" aria-labelledby="nav-footer">
-          <div class="mb-2">
-            <rds-label [label]="translate.instant('Footer')"></rds-label>
-          </div>
-          <div class="form-group mb-3">
-            <rds-checkbox [disabled]="false" [label]="translate.instant('Fixed Footer')" [withLabel]="true" [switch]="false"
-              [inline]="false" [id]="'fixedFooter'" [(ngModel)]="visualSettingsFooter.fixedFooter"></rds-checkbox>
-          </div>
-          <div class="form-group mb-3">
-            <rds-button [tooltipPlacement]="'bottom'" [tooltipTitle]="translate.instant('upgrade')"  [label]="translate.instant('SAVE AS SYSTEM DEFAULT ')"
-              (click)="saveVisualSettings()" type="button" [size]="'small'" [colorVariant]="'primary'"  [outlineButton]="false">
-            </rds-button>
-          </div>
-        </div>
+        </ng-container>
       </div>
     </div>
   </div>
 </div>
-<app-rds-comp-visual-settings-shimmer *ngIf="isShimmer"></app-rds-comp-visual-settings-shimmer>
-
+<rds-comp-visual-settings-shimmer
+  *ngIf="isShimmer"
+></rds-comp-visual-settings-shimmer>

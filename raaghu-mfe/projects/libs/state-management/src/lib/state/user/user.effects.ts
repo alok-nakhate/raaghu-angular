@@ -24,6 +24,12 @@ import {
   getClaimTypes,
   getClaimTypesFailure,
   getClaimTypesSuccess,
+  getTemplateContent,
+  getTemplateContentFailure,
+  getTemplateContentSuccess,
+  getTemplateDefinition,
+  getTemplateDefinitionFailure,
+  getTemplateDefinitionSuccess,
   getUsePermissionsFailure,
   getUserEditFailure,
   getUserFailure,
@@ -42,6 +48,7 @@ import {
 
 @Injectable()
 export class UserEffects {
+  textTemplateService: any;
   constructor(
     private actions$: Actions,
     private userService: ServiceProxy,
@@ -49,6 +56,42 @@ export class UserEffects {
     private store: Store
   ) {}
 
+  getTemplateDefinition$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(getTemplateDefinition),
+      switchMap(() =>
+        // Call the getTodos method, convert it to an observable
+        from(this.userService.templateDefinitions(undefined,undefined,0,1000)).pipe(
+          // Take the returned value and return a new success action containing the todos
+          map((allTextTemplate) => {
+            return getTemplateDefinitionSuccess({
+              allTextTemplate
+            });
+          }),
+          // Or... if it errors return a new failure action containing the error
+          catchError((error) => of(getTemplateDefinitionFailure({ error })))
+        )
+      )
+    )
+  );
+  getTemplateContent$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(getTemplateContent),
+      switchMap(({data}) =>
+        // Call the getTodos method, convert it to an observable
+        from(this.userService.templateContentsGET(data.templateName,undefined)).pipe(
+          // Take the returned value and return a new success action containing the todos
+          map((templateContent) => {
+            return getTemplateContentSuccess({
+              templateContent
+            });
+          }),
+          // Or... if it errors return a new failure action containing the error
+          catchError((error) => of(getTemplateContentFailure({ error })))
+        )
+      )
+    )
+  );
   getUsers$ = createEffect(() =>
     this.actions$.pipe(
       ofType(getUsers),
@@ -284,3 +327,17 @@ export class UserEffects {
   //     )
   //   );
 }
+
+// export class TextTemplateEffects {
+//   constructor(
+//     private actions$: Actions,
+//     private textTemplateService: ServiceProxy,
+//     private alertService: AlertService,
+//     private store: Store
+//   ) { }
+  
+
+  
+ 
+
+//         }

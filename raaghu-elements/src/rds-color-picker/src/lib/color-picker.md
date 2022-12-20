@@ -10,7 +10,7 @@ title: "Elements > Color-picker"
 
 #### Color Picker
 
-<p class="">A card is a small rectangular module with images and text. It is an entry point for users to learn more details</p>
+<p class="">Color picker allows an user to visually customize and select color for the usage.</p>
 <section class="py-4">
     <h6>Default</h6>
     <div class="py-3">
@@ -53,4 +53,19 @@ title: "Elements > Color-picker"
       </div>
     </div>
   </section>
-   
+
+<section class="py-4">
+                        <h6>
+                           Skeleton / Specifications
+                        </h6>
+                        <div class="py-3">
+                              <!-- Tab panes -->
+                              <div class="card border p-5">
+                                 <div class="row">
+                                    <div class="col-md-12">
+                                       <img src="/images/color-picker-skeleton.png" class="img-fluid">
+                                    </div>
+                                 </div>
+                              </div>
+                        </div>
+</section>

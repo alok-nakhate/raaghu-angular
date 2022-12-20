@@ -19,6 +19,7 @@ export class RdsModalComponent implements OnInit, AfterViewInit {
   @Input() scrollable: boolean = false;
   @Input() verticallyCenterd: boolean = false;
   @Input() modalAnimation: 'modal fade' | 'modal fade-scale' | 'modal fade-rotate' | 'modal fade-flip' = 'modal fade';
+  @Input() preventEscapeKey: boolean = false;
 
 
 

@@ -37,16 +37,6 @@ export class RdsChartAreaComponent implements OnInit, OnChanges, AfterViewInit {
 
   ngOnInit(): void {
     this.style = getComputedStyle(document.body);
-    this.chartDataSets[0].backgroundColor[0] = this.style.getPropertyValue('--chartColor1');
-    this.chartDataSets[0].backgroundColor[1] = this.style.getPropertyValue('--chartColor2');
-    this.chartDataSets[0].backgroundColor[2] = this.style.getPropertyValue('--chartColor3');
-    this.chartDataSets[0].backgroundColor[3] = this.style.getPropertyValue('--chartColor4');
-    this.chartDataSets[0].backgroundColor[4] = this.style.getPropertyValue('--chartColor5');
-    this.chartDataSets[0].backgroundColor[5] = this.style.getPropertyValue('--chartColor6');
-    this.chartDataSets[0].backgroundColor[6] = this.style.getPropertyValue('--chartColor7');
-    this.chartDataSets[0].backgroundColor[7] = this.style.getPropertyValue('--chartColor8');
-    this.chartDataSets[0].backgroundColor[8] = this.style.getPropertyValue('--chartColor9');
-    this.chartDataSets[0].backgroundColor[9] = this.style.getPropertyValue('--chartColor10');
   }
 
   ngOnChanges(): void {
@@ -62,6 +52,14 @@ export class RdsChartAreaComponent implements OnInit, OnChanges, AfterViewInit {
     if (chartStatus != undefined) {
       chartStatus.destroy();
     }
+    this.chartDataSets.forEach((element: any) => {
+      if (element && this.style) {
+        let color = this.style.getPropertyValue(element.backgroundColor);
+        if (color) {
+          element.backgroundColor = color;
+        }
+      }
+    });
     this.canvas = document.getElementById(this.chartId);
     if (this.canvas !== null) {
       this.ctx = this.canvas.getContext('2d');

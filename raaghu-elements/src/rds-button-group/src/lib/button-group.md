@@ -9,12 +9,14 @@ title: "Elements > Button-group"
 <link rel="stylesheet" href="../../../../../../../raaghu/src/assets/css/style-elements.css">
 <link rel="stylesheet" href="../../../../../../../raaghu/src/assets/css/main.css">
 
-#### Buttons Group
+#### Button Group
 
 <p class="checkbox-def">Button group wraps a series of buttons together into a single line (navbar} or stack in a vertical column.</p>
 
+<!-- Default -->
+
 <section class="py-4">
-    <h6>Default</h6>
+    <h6>Default Filled</h6>
     <div class="py-3">
       <div class="cust-tabs">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -43,12 +45,10 @@ title: "Elements > Button-group"
 ```html
 <rds-button-group
   [vertical]="false"
-  type="primary"
-  [outline]="false"
+  colorVariant="primary"
   role="button"
   size="medium"
   [buttonGroupItem]="buttonGroupItem"
-  (onClick)="onClick($event)"
 ></rds-button-group>
 ```
 
@@ -61,9 +61,10 @@ title: "Elements > Button-group"
 
 
 
-<!-- Checkbox Button Group -->
+<!-- Outline Button Group-->
+
 <section class="py-4" style="margin-bottom: 40px">
-    <h6>Checkbox Button Group</h6>
+    <h6>Outline Button Group</h6>
     <div class="py-3">
       <div class="cust-tabs">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -92,12 +93,11 @@ title: "Elements > Button-group"
 ```html
 <rds-button-group
   [vertical]="false"
-  type="primary"
+  colorVariant="primary"
   [outline]="true"
   role="checkbox"
   size="medium"
   [buttonGroupItem]="buttonGroupItem"
-  (onClick)="onClick($event)"
 ></rds-button-group>
 ```
 
@@ -108,9 +108,10 @@ title: "Elements > Button-group"
     </div>
   </section>
 
+<!-- Icon Group Filled -->
 
 <section class="py-4" style="margin-bottom: 40px">
-    <h6>Icon Button Group</h6>
+    <h6>Icon Group Filled</h6>
     <div class="py-3">
       <div class="cust-tabs">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -139,12 +140,9 @@ title: "Elements > Button-group"
 ```html
 <rds-button-group
   [vertical]="false"
-  type="primary"
-  [outline]="false"
-  role="button"
+  colorVariant="primary"
   size="medium"
   [buttonGroupItem]="buttonGroupItem"
-  (onClick)="onClick($event)"
 ></rds-button-group>
 ```
 
@@ -155,6 +153,7 @@ title: "Elements > Button-group"
     </div>
   </section>
 
+<!-- Radio Button Group -->
 
 <section class="py-4" style="margin-bottom: 40px">
     <h6>Radio Button Group</h6>
@@ -186,15 +185,13 @@ title: "Elements > Button-group"
 ```html
 <rds-button-group
   [vertical]="false"
-  type="primary"
+  colorVariant="primary"
   [outline]="true"
   role="radio"
   size="medium"
   [buttonGroupItem]="buttonGroupItem"
-  (onClick)="onClick($event)"
 ></rds-button-group>
 ```
-
 </div>
           </div>
         </div>
@@ -202,8 +199,10 @@ title: "Elements > Button-group"
     </div>
   </section>
 
+<!-- Vertical Group Filled -->
+
 <section class="py-4" style="margin-bottom: 40px">
-    <h6>Vertical</h6>
+    <h6>Vertical Group Filled</h6>
     <div class="py-3">
       <div class="cust-tabs">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -232,12 +231,9 @@ title: "Elements > Button-group"
 ```html
 <rds-button-group
   [vertical]="true"
-  type="primary"
-  [outline]="false"
-  role="button"
+  colorVariant="primary"
   size="medium"
   [buttonGroupItem]="buttonGroupItem"
-  (onClick)="onClick($event)"
 ></rds-button-group>
 ```
 
@@ -259,19 +255,15 @@ title: "Elements > Button-group"
                         </h6>
                         <div class="py-3">
                               <!-- Tab panes -->
-                              <div class="">
+                              <div class="card border p-5">
                                  <div class="row">
-                                    <div class="col-md-6">
-                                       <img src="https://portal.raaghu.io/images/components/_button-group/_btn-group1.png" class="img-fluid">
-                                    </div>
-                                    <div class="col-md-6 ">
-                                       <img src="https://portal.raaghu.io/images/components/_button-group/_btn-group2.png" class="img-fluid">
+                                    <div class="col-md-9 col-12">
+                                       <img src="/images/skel-button-group.png" class="img-fluid">
                                     </div>
                                  </div>
                               </div>
                         </div>
                      </section>
-
 
 
 

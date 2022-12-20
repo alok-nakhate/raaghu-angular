@@ -14,7 +14,7 @@ export class RdsSpinnerComponent implements OnInit {
 
   @Input() size: 'sm' | 'md' = 'md';
 
-  @Input() colorVariant: 'text-primary' | 'text-secondary' | 'text-success' | 'text-danger' | 'text-warning' | 'text-info' | 'text-light' | 'text-dark' = 'text-primary';
+  @Input() colorVariant: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark' = 'primary';
 
   constructor() { }
 
@@ -22,7 +22,7 @@ export class RdsSpinnerComponent implements OnInit {
   }
 
   public get classes(): string {
-    const border = `${this.spinnerType ? 'spinner-grow ' + this.colorVariant : 'spinner-border ' + this.colorVariant} `;
+    const border = `${this.spinnerType ? 'spinner-grow ' + 'text-' + this.colorVariant : 'spinner-border ' + 'text-' + this.colorVariant} `;
     const size = `spinner-border-${this.size}`
     return border + size;
   }

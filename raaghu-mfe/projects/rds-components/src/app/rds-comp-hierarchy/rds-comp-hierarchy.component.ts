@@ -3,7 +3,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { TreeNode, TreeNodeLabeles, TreeType } from '../../models/tree-node.model';
 
 @Component({
-  selector: 'app-rds-comp-hierarchy',
+  selector: 'rds-comp-hierarchy',
   templateUrl: './rds-comp-hierarchy.component.html',
   styleUrls: ['./rds-comp-hierarchy.component.scss']
 })

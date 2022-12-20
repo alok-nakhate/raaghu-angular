@@ -12,6 +12,8 @@ title: "Elements > Rating"
 
 #### Rating
 
+<p class="">Rating helps an user to keep track of the popularity of an product.</p>
+
  <section class="py-4">
     <h6>Default</h6>
     <div class="py-3">
@@ -30,8 +32,8 @@ title: "Elements > Rating"
          <div class="contents p-5">
               <div class="row">
                  <div class="col-md-12">
-                  <img src="\images\rating-basic.png" class="img-fluid w-50">
-                </div>>             
+                  <img src="\images\rating-basic.png" class="img-fluid">
+                </div>            
               </div>
                        
   </div>

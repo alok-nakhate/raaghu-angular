@@ -18,7 +18,6 @@ export class RdsPaginationComponent implements OnInit {
   size: 'large' | 'small' | 'medium' = 'medium';
   @Input() alignmentType: 'start' | 'center' | 'end' = 'start';
   @Input() role: 'Basic' | 'Advanced' = 'Basic';
-  @Input() reset: boolean = false;
   @Output() onPageChange = new EventEmitter<any>();
   @Output() onRecordsPerPageChange = new EventEmitter<any>();
 
@@ -28,7 +27,7 @@ export class RdsPaginationComponent implements OnInit {
     this.setPage(1);
   }
   public get classes(): string {
-    const size = ` pagination-${this.size === 'large' ? 'lg ' : this.size === 'small' ? 'sm ' : 'medium'}`;
+    const size = ` pagination-${this.size === 'large' ? 'lg ' : this.size === 'small' ? 'sm ' : 'md'}`;
     const align = `pagination justify-content-${this.alignmentType}`;
     return size + align;
   }
@@ -53,6 +52,10 @@ export class RdsPaginationComponent implements OnInit {
   ngOnInit(): void {
     this.setPage(1);
 
+  }
+  getSize():string{
+      const size = `${this.size === 'large' ? 'lg py-3' : this.size === 'small' ? 'sm ' : 'md py-2'}`;
+      return size ;
   }
 
 }

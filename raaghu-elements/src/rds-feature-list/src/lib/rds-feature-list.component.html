@@ -1,4 +1,40 @@
-<h6>{{header}}</h6>
+
+<h6 class="text-primary">{{header}}</h6>
 <ul class="px-3" [ngStyle]="{'column-count': columns}">
+
+
+<!-- <ul class="px-3" [ngStyle]="{'column-count': columns}">
+
     <li *ngFor="let item of listItems">{{item.value}}</li>
-</ul>
+</ul> -->
+<ng-container *ngIf="display_type=='basic'">
+    <ng-container *ngTemplateOutlet="featureListTemplate; context: { list: listItems }"></ng-container>
+</ng-container>
+
+<ng-template #featureListTemplate let-list="list">
+    <ul class="px-3" [ngClass]="{'column-count': columns}">
+        <li *ngFor="let item of list">{{item.value}}
+            <ng-container *ngIf="item&&item.listItems">
+                <ng-container *ngTemplateOutlet="featureListTemplate; context: { list: item.listItems }">
+                </ng-container>
+            </ng-container>
+        </li>
+    </ul>
+</ng-template>
+<ng-template #advancedFeatureListTemplate let-list="list" let-iconInfo="iconInfo">
+    <div *ngFor="let item of list" [class.ms-4]="item.depth!==0">
+        <rds-icon [name]="iconInfo.icon" [colorVariant]="iconInfo.colorVariant" [fill]="iconInfo.fill"
+            [width]="iconInfo.width" [height]="iconInfo.height" [strokeWidth]="iconInfo.strokeWidth" class="me-2">
+        </rds-icon>{{item.value}}
+        <ng-container *ngIf="item&&item.listItems">
+            <ng-container
+                *ngTemplateOutlet="advancedFeatureListTemplate; context: { list: item.listItems,iconInfo:getIconIfo(item.listItems)}">
+            </ng-container>
+        </ng-container>
+    </div>
+</ng-template>
+<ng-container *ngIf="display_type=='advanced'">
+    <ng-container
+        *ngTemplateOutlet="advancedFeatureListTemplate; context: { list: listItems ,iconInfo:{icon:'check',colorVariant:'primary',fill:false,height:'12px',width:'12px',strokeWidth:'3px'}}">
+    </ng-container>
+</ng-container>

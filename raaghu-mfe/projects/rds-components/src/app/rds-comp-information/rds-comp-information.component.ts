@@ -4,7 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-rds-comp-information',
+  selector: 'rds-comp-information',
   templateUrl: './rds-comp-information.component.html',
   styleUrls: ['./rds-comp-information.component.scss'],
 })
@@ -39,10 +39,13 @@ export class RdsCompInformationComponent implements OnInit {
 
 
   ngOnChanges(changes: SimpleChanges): void {
-    if(this.dynamicPropertiesData.displayName != "" && this.dynamicPropertiesData.propertyName !="" && this.dynamicPropertiesData.inputType != ""){ 
+    if( this.dynamicPropertiesData.propertyName !="" &&  this.dynamicPropertiesData.propertyName){ 
       this.dynamicPropertiesInfo.emit({
         dynamicProperties: this.dynamicPropertiesData,
       });
     }
+  }
+  getInputTypeData(event){
+    this.dynamicPropertiesData.inputType = event.item.value;
   }
 }

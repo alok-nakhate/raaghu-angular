@@ -9,44 +9,47 @@
     <mfe-loader [config]="rdsClientMfeConfig"></mfe-loader>
   </div>
 </div>
-  
-<ng-container *ngIf="viewCanvas">
-  <rds-offcanvas [canvasTitle]="canvasTitle" [offcanvaswidth]="700" [offId]="offcanvasId"
-    [placement]="'end'" (onClose)="close()">
-    <div class="section">
-      <rds-nav-tab [navtabsItems]="getNavTabItems()" [activepage]="activePage" [horizontalAlignment]="'start'"
-        [verticalAlignment]="false" [pills]="false" [tabs]="true" [fill]="false" [justified]="false">
-        <div naveContent class="row tab-content m-2" id="nav-tabContent">
-          <div class="tab-pane fade" [ngClass]="{'show active': activePage === 0}" id="basics" role="tabpanel"
-            aria-labelledby="nav-home-tab"> 
-            <mfe-loader [config]="rdsClientBasicsMfeConfig"></mfe-loader>
-            <!-- <app-client-basics (clientBasicInfo)="getClientInfo($event)" [clientInfo]="client.basicInfo"></app-client-basics> -->
-          </div>  
-          <div class="tab-pane fade" [ngClass]="{'show active': activePage === 1}" id="secrets" role="tabpanel"
-            aria-labelledby="nav-home-tab">
-            <mfe-loader [config]="rdsClientSecretsMfeConfig"></mfe-loader>
-            <div class="row">
-              <div class="col-md-12">
-                <rds-button [label]="'New Secrets'" [colorVariant]="'primary'" (click)="addSecrets()">
-                  <rds-icon left name="plus" height="12px" width="12px"></rds-icon>
-                </rds-button>
-              </div> 
-            </div>
-          </div>
-          <div class="tab-pane fade" [ngClass]="{'show active': activePage === 2}" id="resources" role="tabpanel"
-            aria-labelledby="nav-home-tab">
-            <mfe-loader [config]="rdsClientResourcesMfeConfig"></mfe-loader>
-            <!-- <app-client-resources [clientResources]="client.resources" (selectedResources)="getSelectedResources($event)" ></app-client-resources> -->
-          </div>
 
+<ng-container *ngIf="viewCanvas">
+  <rds-offcanvas [canvasTitle]="canvasTitle" [offcanvaswidth]="710" [offId]="offcanvasId" [placement]="'end'"
+    (onClose)="close()">
+    <rds-nav-tab [navtabsItems]="getNavTabItems()" [horizontalAlignment]="'start'"
+      [verticalAlignment]="false" [pills]="false" [tabs]="true" [fill]="false" [justified]="false">
+      <div naveContent class="row tab-content m-2" id="nav-tabContent">
+        <div class="tab-pane fade" [ngClass]="{'show active': activePage === 0}" id="basics" role="tabpanel"
+          aria-labelledby="nav-home-tab">
+          <mfe-loader [config]="rdsClientBasicsMfeConfig"></mfe-loader>
         </div>
-      </rds-nav-tab>
-    </div>
-    <div class="">
-      <rds-button [label]="'Cancel'"  [colorVariant]="'primary'"  [size]="'small'" (click)="close()" data-bs-dismiss="offcanvas" aria-label="Close">
-      </rds-button>
-      <rds-button [label]="getBtnName()" [colorVariant]="'primary'" [size]="'small'" [disabled]="!client.basicInfo" (click)="save()">
-      </rds-button>
+        <div class="tab-pane fade" [ngClass]="{'show active': activePage === 1}" id="secrets" role="tabpanel"
+          aria-labelledby="nav-home-tab">
+          <mfe-loader [config]="rdsClientSecretsMfeConfig"></mfe-loader>
+        </div>
+        <div class="tab-pane fade" [ngClass]="{'show active': activePage === 2}" id="resources" role="tabpanel"
+          aria-labelledby="nav-home-tab">
+          <mfe-loader [config]="rdsClientResourcesMfeConfig"></mfe-loader>
+        </div>
+        <div class="tab-pane fade" [ngClass]="{'show active': activePage === 3}" id="permissions" role="tabpanel"
+          aria-labelledby="nav-home-tab">
+          <mfe-loader [config]="rdsPermissionRoleMfeConfig"></mfe-loader>
+        </div>
+        <div class="tab-pane fade" [ngClass]="{'show active': activePage === 4}" *ngIf="isEdit" id="advanced" role="tabpanel"
+          aria-labelledby="nav-home-tab">
+          <mfe-loader [config]="rdsClientAdvancedMfeConfig"></mfe-loader>
+        </div>
+      </div>
+    </rds-nav-tab>
+
+    <div class="footer-buttons d-flex">
+      <div class="mx-2">
+        <rds-button [label]="'Cancel'" [colorVariant]="'primary'" [size]="'small'" (click)="close()"
+          data-bs-dismiss="offcanvas" aria-label="Close">
+        </rds-button>
+      </div>
+      <div class="mx-2">
+        <rds-button [label]="getBtnName()" [colorVariant]="'primary'" [size]="'small'" [isDisabled]="false"
+          (click)="save()">
+        </rds-button>
+      </div>
     </div>
   </rds-offcanvas>
 </ng-container>

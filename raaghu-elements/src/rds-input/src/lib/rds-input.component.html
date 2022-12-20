@@ -2,22 +2,28 @@
   <div class="d-flex position-relative w-100" [ngClass]="floatclasses">
     <input (keyup)="onKeyup($event)" data-bs-toggle="tooltip" [attr.id]="id" (focus)="focus()" [attr.type]="inputType"
       [ngClass]="classes" [attr.placeholder]="placeholder" [(ngModel)]="value" [value]="value" data-bs-toggle="tooltip"
-      [attr.data-bs-placement]="tooltipPlacement" title="" [attr.id]="id" [disabled]="disabled" [readonly]="readonly"
-      (mouseup)="onMouseup($event)" class="" />
-    <rds-icon [title]="iconTitle" *ngIf="formState&&icon" [ngStyle]="{'cursor': iconCursor}"  [ngClass]="iconClass" [height]="iconHeight" [width]="iconWidth" [fill]="iconFill"
-      [stroke]="iconStroke" [opacity]="iconOpacity" class="icon-position" [name]="icon" (click)="showPassword(inputType)"></rds-icon>
+      [attr.data-bs-placement]="tooltipPlacement" [attr.data-bs-title]="tooltipTitle" [attr.id]="id" [disabled]="disabled" [readonly]="readonly"
+      (mouseup)="onMouseup($event)" />
+    <rds-icon [title]="iconTitle" *ngIf="icon" [ngStyle]="{'cursor': iconCursor}" [ngClass]="iconClass"
+      [height]="iconHeight" [width]="iconWidth" [fill]="iconFill" [stroke]="iconStroke" [opacity]="iconOpacity"
+      class="icon-position" [name]="icon" (click)="showPassword(inputType)"></rds-icon>
     <rds-icon [name]="'disable'" *ngIf="disabled && !readonly"></rds-icon>
-    <label *ngIf="floatclasses" [ngClass]="Title == '' ? 'd-none' : 'form-label'" class="d-none" for="Errormessage" mb-2>{{
-      Title
+    <!-- <label *ngIf="labelPosition==='floating'&&label" class="form-label" for="Errormessage" mb-2>{{
+      label
       }} <span class="text-danger" *ngIf="isRequired">*</span>
-    </label>
-
+    </label> -->
+   <!-- <rds-label [label]="'shibhan'" [size]="size"></rds-label> -->
   </div>
 
-  <label [ngClass]="labelClass" [ngClass]="Title == '' ? 'd-none' : 'form-label'" for="Errormessage">
+  <label [ngClass]="labelClass" *ngIf="labelPosition!=='floating'&&label" class="form-label"  for="Errormessage">
     {{
-    Title
+      label
     }} <span class="text-danger" *ngIf="isRequired">*</span>
   </label>
+
+  <!-- <rds-label [label]="label" [ngClass]="labelClass" *ngIf="labelPosition!=='floating'&&label" class="form-label" for="Errormessage">
+    <span class="text-danger" *ngIf="isRequired">*</span>
+  </rds-label> -->
+
 
 </div>

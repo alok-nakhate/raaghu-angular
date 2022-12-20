@@ -25,7 +25,9 @@ export class RdsCardDetailComponent implements OnInit {
   @Output() onSetDefaultcard = new EventEmitter<any>();
   @Output() onSelectPaymentMethod = new EventEmitter<any>();
   @Output() onEditCard = new EventEmitter<any>();
-  @Input() label:string='';
+  @Input() label: string = '';
+  iconHeight: "38px";
+  iconWidth: "38px";
   constructor() { }
 
   ngOnInit(): void {

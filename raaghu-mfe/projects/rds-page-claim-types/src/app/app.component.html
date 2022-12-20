@@ -1,21 +1,17 @@
-
-
 <div class="container">
     <div class="row">
         <div class="d-flex justify-content-end mt-2">
-            <rds-button  [id]="'yes'" [size]="'small'" [tooltipPlacement]="'top'"
-                [colorVariant]="'primary'" [label]="'NEW CLAIM TYPES'"  [attr.data-bs-toggle]="'offcanvas'"
+            <rds-button [id]="'yes'" [size]="'small'" [tooltipPlacement]="'top'" [colorVariant]="'primary'"
+                [label]="'NEW CLAIM TYPES'" [attr.data-bs-toggle]="'offcanvas'"
                 [attr.data-bs-target]="'#addnewclaimtype'" [attr.aria-controls]="'addnewclaimtype'">
             </rds-button>
         </div>
         <div class="row mx-3 mt-2">
-            <mfe-loader  [config]="rdsclaimtypeTableMfeConfig"></mfe-loader>
+            <mfe-loader [config]="rdsclaimtypeTableMfeConfig"></mfe-loader>
         </div>
-</div>
-<rds-offcanvas [canvasTitle]="'NEW CLAIM TYPE'" [offId]="'addnewclaimtype'"
-[placement]="'end'" [offcanvaswidth]="600" >
-<app-claim-types (onClaimTypeSave)="AddClaimType($event)"></app-claim-types>
-
-</rds-offcanvas>
-
+    </div>
+    <rds-offcanvas [canvasTitle]="'NEW CLAIM TYPE'" [offId]="'addnewclaimtype'" [placement]="'end'"
+        [offcanvaswidth]="600">
+        <mfe-loader [config]="rdsNewclaimtypeMfeConfig"></mfe-loader>
+    </rds-offcanvas>
 </div>

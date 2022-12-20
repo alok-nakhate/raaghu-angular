@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Collapse } from 'bootstrap'
+
 export interface SideNavItem {
   label: string,
   id?: string,
@@ -13,7 +15,16 @@ export interface SideNavItem {
     icon: string,
     iconFill?: boolean,
     iconStroke?: boolean,
-    path: string
+    path: string,
+    children?: {
+      label: string,
+      id?: string,
+      icon: string,
+      iconFill?: boolean,
+      iconStroke?: boolean,
+      path: string,
+
+    }[]
   }[]
 }
 @Component({
@@ -28,15 +39,6 @@ export interface SideNavItem {
   }]
 })
 export class RdsSideNavComponent implements OnInit {
-
-
-  title = 'rds-side-nav';
-
-
-  ngOnInit(): void {
-
-  }
-
   @Input() sidenavItems: SideNavItem[] = [];
   @Input() isPageWrapper: boolean = false;
   @Input() collapseRequired: boolean = true;
@@ -45,14 +47,35 @@ export class RdsSideNavComponent implements OnInit {
   @Output() emitPath = new EventEmitter<any>();
   @Output() collapsedState = new EventEmitter<any>();
   @Input() activepage: any = 0;
-  @Input() activesubmenu: any = 0;
+  @Input() activesubmenu: any = '';
   @Output() selectedMode = new EventEmitter<any>();
   activeMenuWithChildren: any = 0;
-  isLightMode = true;
+  @Input() isLightMode: boolean = true;
   collapsed = false;
   openedMenu = false;
 
-  showHide:boolean=true;
+  showHide: boolean = false;
+  showHideSubmenu: boolean = false;
+
+  title = 'rds-side-nav';
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.activesubmenu !== '') {
+      if (this.activesubmenu !== '' && this.activesubmenu !== undefined) {
+        this.showHide = true
+        const x = document.getElementById('menuWithChildren' + this.activesubmenu);
+        if (x) {
+          var dropdown = new Collapse(x);
+          dropdown.show();
+        }
+
+      }
+    }
+  }
+  ngOnInit(): void {
+  }
+  // @Input() mode : string = 'light';
+
   onClick(event: any, i: number, path: any): void {
     event.preventDefault();
     // this.router.navigateByUrl(path);
@@ -60,24 +83,72 @@ export class RdsSideNavComponent implements OnInit {
     this.activepage = i;
     this.activesubmenu = '';
     this.activeMenuWithChildren = '';
+    this.showHide = false;
   }
   onMenuWithChildrenClick(i: number, path: any) {
+    this.showHide = !this.showHide
     const x = document.getElementById('menuWithChildren' + i);
+    if (x) {
+      var dropdown = new Collapse(x);
+      if (this.showHide) {
+        dropdown.show();
+        this.activesubmenu = 0;
+        this.activepage = i;
+        this.emitPath.emit(path);
+      } else {
+        dropdown.hide();
+        // this.activesubmenu = '';
+      }
+    }
+
     if (x !== null)
-      this.openedMenu = x.classList.contains('collapsed');
-    if (!this.openedMenu) {
-      this.showHide=true;
-      this.activepage = i;
-      this.activesubmenu = 0;
-      this.emitPath.emit(path);
-    }
-    else{
-      this.showHide=false;
-      this.activepage = i;
-      this.activesubmenu = '';
-      this.activeMenuWithChildren = '';
-    }
+      // this.openedMenu = x.classList.contains('collapsed');
+      if (!this.openedMenu) {
+        // this.showHide = true;
+        this.activepage = i;
+        this.activesubmenu = 0;
+        this.emitPath.emit(path);
+      }
+      else {
+        // this.showHide = false;
+        this.activepage = i;
+        this.activesubmenu = '';
+        this.activeMenuWithChildren = '';
+      }
   }
+  onSubMenuWithChildrenClick(i: number, path: any) {
+    this.showHideSubmenu = !this.showHideSubmenu
+    const x = document.getElementById('submenuWithChildren' + i);
+    if (x) {
+      var dropdown = new Collapse(x);
+      if (this.showHide) {
+        dropdown.show();
+        this.activesubmenu = 0;
+        this.activepage = i;
+        this.emitPath.emit(path);
+      } else {
+        dropdown.hide();
+        // this.activesubmenu = '';
+      }
+    }
+
+    if (x !== null)
+      // this.openedMenu = x.classList.contains('collapsed');
+      if (!this.openedMenu) {
+        // this.showHide = true;
+        this.activepage = i;
+        this.activesubmenu = 0;
+        this.emitPath.emit(path);
+      }
+      else {
+        // this.showHide = false;
+        this.activepage = i;
+        this.activesubmenu = '';
+        this.activeMenuWithChildren = '';
+      }
+  }
+
+
   onClickSubMenu(event: any, i: number, j: number, path: any): void {
     event.preventDefault();
     this.emitPath.emit(path);
@@ -91,15 +162,14 @@ export class RdsSideNavComponent implements OnInit {
   }
   toggleLightAndDarkMode() {
     this.isLightMode = !this.isLightMode
-    console.log(this.isLightMode)
     this.selectedMode.emit(this.isLightMode)
   }
 
   public get menu(): string[] {
     var customMenu = ['collapse pt-2'];
-    if(this.activepage===0){
+    if (this.activepage === 0) {
       customMenu.push('show')
-    }else{
+    } else {
       customMenu.push('hide');
     }
     return customMenu;

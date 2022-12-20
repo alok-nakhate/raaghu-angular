@@ -1,52 +1,23 @@
 <div class="row">
   <div [ngClass]="flexClass">
+    <ul class="nav mobile-ul-tabs" [ngClass]="classes">
+      <ng-container *ngFor="let item of navtabsItems; index as i">
+        <li class="nav-item mobile-nav-item p-0 px-2" *ngIf="!item.hide" >
+          <a class="nav-link" [class.active]="activeTab==i" aria-current="page" href="#" (click)="onClick(i)"
+            [attr.data-bs-target]="item.tablink" data-bs-toggle="tab" [attr.aria-controls]="item.ariacontrols"
+            [class.disabled]="item.disabled">
+            <rds-icon class="me-2" *ngIf="item.icon" [fill]="item.iconFill" [stroke]="item.iconStroke" [name]="item.icon" [height]="item.iconHeight" [fill]="item.iconFill"
+              [stroke]="item.stroke" [width]="item.iconWidth"></rds-icon>
+            <span class="" [ngClass]="{'fw-semibold': item.subText || !item.icon}">
+              {{item.label}}
+            </span>
+            <div class="text-muted fw-light ms-2" [ngClass]="{'ps-4': item.icon}">{{item.subText}}</div>
+          </a>
+        </li>
+      </ng-container>
 
-
-    <ul class="nav nav-tabs mobile-ul-tabs border-0" [ngClass]="classes">
-      <li class="nav-item mobile-nav-item p-0" *ngFor="let item of navtabsItems; index as i">
-            <a class="nav-link" [class.active]="activepage==i" aria-current="page" href="#" (click)="onClick(i)"
-               [attr.data-bs-target]="item.tablink" data-bs-toggle="tab" [attr.aria-controls]="item.ariacontrols"
-               [class.disabled]="item.disabled" >
-              
-                  <rds-icon class="me-2" [name]="item.icon" [height]="iconHeight" [fill]="item.iconFill" [stroke]="item.stroke" [width]="iconWidth"></rds-icon>
-                  <!--<div class="p-1 d-flex align-items-center">
-                        <rds-icon [name]="item.icon" [height]="iconHeight" [width]="iconWidth"></rds-icon>
-                      </div>-->
-                      <!--</div>
-                      <div class="col-10">-->
-                  <span class="" [ngClass]="{'fw-semibold': item.subText, 'fw-semibold ps-4': !item.icon}">
-                    {{item.label}}
-                  </span>
-                  <div class="text-muted fw-light ps-4 ms-2">{{item.subText}}</div>
-              
-            </a>
-         
-    
-        <!--<a class="nav-link" [class.active]="activepage==i" aria-current="page" href="#" (click)="onClick(i)"
-           [attr.data-bs-target]="item.tablink" data-bs-toggle="tab" [attr.aria-controls]="item.ariacontrols"
-           [class.disabled]="item.disabled" [ngClass]="class1">
-          <rds-icon [name]="item.icon" [height]="iconHeight" [width]="iconWidth"></rds-icon>{{item.label}}
-          <div class="text-muted fs-6 fw-light">{{item.subText}}</div>
-        </a>-->
-        <!--<a *ngIf="activepage!=i" class="nav-link" [attr.data-bs-target]="item.tablink" data-bs-toggle="tab"
-      [attr.aria-controls]="item.ariacontrols" href="#" (click)="  onClick(i)" [class.disabled]="item.disabled"
-      [ngClass]="class1">{{item.label}}</a>-->
-    
-      </li>
     </ul>
     <ng-content select="[naveContent]" class="vertical-class"></ng-content>
-    <!--<div naveContent class="tab-content" id="nav-tabContent">
-      <div class="tab-pane fade show active p-2" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-      <div class="contents">
-      <p>This is some placeholder content the Profile tab's associated content. Clicking another tab will toggle the visibility of this one for the next.<br>
-       The tab JavaScript swaps classes to control the content visibility and styling. You can use it with tabs, pills, and any other</p></div></div>
-      <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"><div class="contents bg-white p-2">This is some placeholder content the Home tab's associated content. Clicking another tab will toggle the visibility of this one for the next.<br>
-       The tab JavaScript swaps classes to control the content visibility and styling. You can use it with tabs, pills, and any other .nav-powered navigation.</div></div>
-      <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab"><div class="contents bg-white p-2">Tab3</div></div>
-      <div class="tab-pane fade" id="nav-deabled" role="tabpanel" aria-labelledby="nav-contact-tab"><div class="contents bg-white p-2">test</div></div>
-    </div>-->
-
   </div>
-
 </div>
 

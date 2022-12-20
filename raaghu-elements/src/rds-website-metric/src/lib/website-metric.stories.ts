@@ -19,27 +19,34 @@ export default {
         }),
     ],
     argTypes: {
-    },
+        colorVariant: {
+            options: ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'],
+            control: { type: 'select' }
+        },
+        display_type: { table: { disable: true, }, },
+    }
 } as Meta;
 
 const Template: Story<RdsWebsiteMetricComponent> = (args: RdsWebsiteMetricComponent) => ({
     props: args,
 });
 
-export const type1 = Template.bind({})
-type1.args = {
+export const Default = Template.bind({})
+Default.parameters = { controls: { include: ['display_type', 'item'] } };
+Default.args = {
+    display_type: 'metric_type1',
     item: {
-        display_type: 'metric_type1',
         title: '510+',
         link: 'Learn more',
         subtitle: 'Clients Worked with'
     }
 }
 
-export const type2 = Template.bind({})
-type2.args = {
+export const withTopBorder = Template.bind({})
+withTopBorder.parameters = { controls: { include: ['display_type', 'item'] } };
+withTopBorder.args = {
+    display_type: 'metric_type2',
     item: {
-        display_type: 'metric_type2',
         title: '510+',
         link: 'Learn more',
         subtitle: 'Clients Worked with'
@@ -47,42 +54,53 @@ type2.args = {
     }
 }
 
-export const type3 = Template.bind({})
-type3.args = {
+export const leftAligned = Template.bind({})
+leftAligned.parameters = { controls: { include: ['display_type', 'item'] } };
+leftAligned.args = {
+    display_type: 'metric_type3',
     item: {
-        display_type: 'metric_type3',
         title: '510+',
         link: 'Learn more',
-        subtitle: 'Clients Worked with'
+        subtitle: 'Clients Worked with',
+        icon: 'edit',
+        iconHeight: '20px',
+        iconWidth: '20px'
+    }
+}
+export const withLeftAlignedIcon = Template.bind({})
+withLeftAlignedIcon.parameters = { controls: { include: ['display_type', 'item'] } };
+withLeftAlignedIcon.args = {
+    display_type: 'metric_type4',
+    item: {
+        title: '510+',
+        link: 'Learn more',
+        subtitle: 'Clients Worked with',
+        icon: 'edit',
+        iconHeight: '20px',
+        iconWidth: '20px',
 
     }
 }
-export const type4 = Template.bind({})
-type4.args = {
+export const withCenterAlignedIcon = Template.bind({})
+withCenterAlignedIcon.parameters = { controls: { include: ['display_type', 'item'] } };
+withCenterAlignedIcon.args = {
+    display_type: 'metric_type5',
     item: {
-        display_type: 'metric_type4',
         title: '510+',
+        icon: 'edit',
+        iconHeight: '20px',
+        iconWidth: '20px',
         link: 'Learn more',
         subtitle: 'Clients Worked with'
 
 
     }
 }
-export const type5 = Template.bind({})
-type5.args = {
+export const centerAligned = Template.bind({})
+centerAligned.parameters = { controls: { include: ['display_type', 'item'] } };
+centerAligned.args = {
+    display_type: 'metric_type6',
     item: {
-        display_type: 'metric_type5',
-        title: '510+',
-        link: 'Learn more',
-        subtitle: 'Clients Worked with'
-
-
-    }
-}
-export const type6 = Template.bind({})
-type6.args = {
-    item: {
-        display_type: 'metric_type6',
         title: '510+',
         link: 'Learn more',
         subtitle: 'Clients Worked with',

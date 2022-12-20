@@ -254,6 +254,25 @@ html[theme=light] {
 //.checkbox-variables
 //tree element
 .dottedstyle {
+  .vertical-dotted-line-select-all {
+    position: absolute;
+    left: 0.4375rem;
+    bottom: 0;
+    top: 1.2rem;
+    width: 0.1875rem;
+    height: 2702px;
+    border-right: $dot-verticle-border-width dashed;
+}
+  .vertical-dotted-line-extraa {
+    position: absolute;
+    left: -0.95rem;
+    bottom: 0;
+    top: 1.5rem;
+    width: 0.1875rem;
+    height: 100%;
+    border-left: $dot-verticle-border-width dashed;
+  }
+
   .vertical-dotted-line {
     position: absolute;
     left: 0.4375rem;
@@ -313,9 +332,27 @@ html[theme=light] {
 }
 
 .checkedstyle {
+  .vertical-dotted-line-select-all {
+    position: absolute;
+    left: 0.4375rem;
+    bottom: 0;
+    top: 1.2rem;
+    width: 0.1875rem;
+    height: 2702px;
+    border-right: $dot-verticle-border-width dashed;
+}
+  .vertical-dotted-line-extraa {
+    position: absolute;
+    left: -0.95rem;
+    bottom: 0;
+    top: 1.5rem;
+    width: 0.1875rem;
+    height: 100%;
+    border-left: $dot-verticle-border-width dashed;
+  }
   .vertical-dotted-line {
     position: absolute;
-    left: 0;
+    left: 3px;
     bottom: 0;
     top: 1.5rem;
     width: 0.5625rem;
@@ -325,13 +362,11 @@ html[theme=light] {
 
   .horizontal-dotted-line {
     height: 0.25rem;
-    width: 1.75rem;
+    width: 1.05rem;
     border-bottom: $check-verticle-border-width dashed;
     position: relative;
-    // right: 1.625rem;
-    // margin-top: 0.625rem;
-    right: 1.725rem;
-    margin-top: -1.095rem;
+    right: 1rem;
+    bottom: 1rem;
   }
 
   .node-dot {

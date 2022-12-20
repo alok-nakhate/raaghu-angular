@@ -1,14 +1,15 @@
 <div [ngSwitch]="role">
   <div *ngSwitchCase="'with_split'">
     <div [ngClass]="dropdownDirection">
-      <button [ngClass]="button1" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true"
-        aria-expanded="false" class="border">
+      <button [ngClass]="button1" type="button" [attr.id]="id" (click)="open()" data-bs-toggle="dropdown" aria-haspopup="true"
+        [attr.aria-expanded]="show" class="border">
         {{ label }}
       </button>
-      <button type="button" class="border" [ngClass]="classes" data-bs-toggle="dropdown" aria-expanded="false">
+      <button [ngClass]="button1" type="button" [attr.id]="id" (click)="open()" data-bs-toggle="dropdown" aria-haspopup="true"
+      [attr.aria-expanded]="show" class="border">
         <span class="visually-hidden">Toggle Dropdown</span>
       </button>
-      <ul [ngClass]="menu" aria-labelledby="dropdownMenuButton1">
+      <ul [ngClass]="menu" [attr.aria-labelledby]="id">
         <li class="pb-2" (click)="onclick($event,item)" *ngFor="let item of listItems; index as i;">
           <a class="dropdown-item">
             <div class="d-flex justify-content-between align-items-center">
@@ -23,29 +24,29 @@
     </div>
   </div>
 <div class="row ">
-  <div class="col-md-12 ">
+  <div class="col-md-12 text-center p-3 pt-5">
 
-  <div *ngSwitchCase="'dropdown-button'">
-    <div [ngClass]="dropdownDirection">
-      <button  [ngClass]="classes" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
-        aria-expanded="false">
-        {{ label }}
-      </button>
-      <ul [ngClass]="menu" aria-labelledby="dropdownMenuButton1">
+    <div *ngSwitchCase="'dropdown-button'">
+      <div [ngClass]="dropdownDirection">
+        <button [ngClass]="classes" type="button" (click)="open()" [attr.id]="id" data-bs-toggle="dropdown"
+        [attr.aria-expanded]="show">
+          {{ label }}
+        </button>
+        <ul [ngClass]="menu" [attr.aria-labelledby]="id">
 
-        <li (click)="onclick($event,item)" *ngFor="let item of listItems; index as i;">
-          <a class="dropdown-item">
-            <div class="d-flex justify-content-between align-items-center">
-              <span>{{item.value}} </span>
-              <rds-icon [name]="item.icon" *ngIf="item.icon" [width]="item.iconWidth"
-              [fill]="item.iconFill" [stroke]="item.iconStroke" [height]="item.iconHeight"></rds-icon>
-            </div>
+          <li (click)="onclick($event,item)" *ngFor="let item of listItems; index as i;">
+            <a class="dropdown-item">
+              <div class="d-flex justify-content-between align-items-center">
+                <span>{{item.value}} </span>
+                <rds-icon [name]="item.icon" *ngIf="item.icon" [width]="item.iconWidth"
+                          [fill]="item.iconFill" [stroke]="item.iconStroke" [height]="item.iconHeight"></rds-icon>
+              </div>
             </a>
-        </li>
-      </ul>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
-</div>
     
 </div>
 </div>

@@ -1,8 +1,10 @@
-<label for="exampleFormControlTextarea1" class="form-label" *ngIf="!isFloatingInputLabel">{{label}}<span class="text-danger" *ngIf="isRequired"> *</span></label>
+<label for="exampleFormControlTextarea1" class="form-label" *ngIf="!isFloatingInputLabel&&label&&labelPosition==='top'">{{label}}<span class="text-danger" *ngIf="isRequired"> *</span></label>
 <div [ngClass]="divclasses">
   <textarea class="form-control resize-none" data-bs-toggle="tooltip" [attr.data-bs-placement]="tooltipPlacement"
             (click)="setValue($event)" (keyup)="setValue($event)" title="" [attr.id]="id" [attr.rows]="rows" [value]="value"
-            ngDefaultControl name="text-area1" [disabled]="disabled" [placeholder]="placeholderText" [(ngModel)]="value"
+            ngDefaultControl name="text-area1" [attr.data-bs-title]="tooltipTitle" [disabled]="disabled" [placeholder]="placeholderText" [(ngModel)]="value"
             [readonly]="readonly"></textarea>
-  <label *ngIf="isFloatingInputLabel" for="exampleFormControlTextarea1">{{label}}<span class="text-danger" *ngIf="isRequired"> *</span></label>
+  <label *ngIf="isFloatingInputLabel&&label" for="exampleFormControlTextarea1">{{label}}<span class="text-danger" *ngIf="isRequired"> *</span></label>
 </div>
+<label for="exampleFormControlTextarea1" class="form-label mt-2" *ngIf="!isFloatingInputLabel&&label&&labelPosition==='bottom'">{{label}}<span class="text-danger" *ngIf="isRequired"> *</span></label>
+

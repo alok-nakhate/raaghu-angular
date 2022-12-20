@@ -6,9 +6,10 @@ export default {
   component: RdsListGroupComponent,
   argTypes: {
     labelPosition: {
-      options: ['Top', 'Bottom', 'Left', 'Right'],
+      options: ['top', 'bottom'],
       control: { type: 'select' },
     },
+    multiSelect: {table: {disable: true,},},
     // labelPosition: {
     //   options: [ 'start', 'top', 'end', 'bottom'],
     //   control: { type: 'select' }
@@ -22,14 +23,15 @@ const Template: Story<RdsListGroupComponent> = (
   props: args,
 });
 
-export const list_group: Story<RdsListGroupComponent> = (args) => ({
+export const Default: Story<RdsListGroupComponent> = (args) => ({
   props: args,
  
 });
-list_group.args = {
-  // label: '',
-  // labelPosition: 'top',
-  label: '',
+Default.parameters = { controls: { include: ['labelPosition', 'label', 'listItem'] } };
+
+Default.args = {
+  labelPosition: 'top',
+  label: 'List Group',
   listItem: [
     {
       label: ' label 1',
@@ -65,8 +67,7 @@ export const list_group_with_multiselect: Story<RdsListGroupComponent> = (args) 
 
 });
 list_group_with_multiselect.args = {
-  // label: '',
-  label: '',
+  label: 'List Group',
   multiSelect: true,
   listItem: [
     {
@@ -100,7 +101,10 @@ list_group_with_multiselect.args = {
       type: '',
     },
   ],
+  labelPosition: 'top',
+
 };
+list_group_with_multiselect.parameters = { controls: { include: ['labelPosition', 'label', 'listItem', 'multiSelect'] } };
 
 
 // Template 1

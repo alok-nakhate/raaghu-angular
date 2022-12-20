@@ -1,6 +1,6 @@
 <div [ngClass]="Classes">
-    <label for="label" *ngIf="iconposition==='right'&&label" class="p-1">{{label}}</label>
+    <label for="label" [class]="getLabelColor()" *ngIf="iconposition==='right'&&label" class="p-1">{{label}}</label>
     <rds-icon class="icon-position p-1" [name]="icon" [colorVariant]="colorVariant" [height]="height" [width]="width"
         [stroke]="stroke" [fill]="fill"></rds-icon>
-    <label for="label" *ngIf="iconposition==='left'&&label" class="p-1">{{label}}</label>
+    <label for="label" *ngIf="iconposition==='left'&&label" [class]="getLabelColor()" class="p-1">{{label}}</label>
 </div>

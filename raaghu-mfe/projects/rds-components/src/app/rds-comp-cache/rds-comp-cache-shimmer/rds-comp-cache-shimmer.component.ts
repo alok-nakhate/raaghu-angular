@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-rds-comp-cache-shimmer',
+  selector: 'rds-comp-cache-shimmer',
   templateUrl: './rds-comp-cache-shimmer.component.html',
   styleUrls: ['./rds-comp-cache-shimmer.component.scss']
 })

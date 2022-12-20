@@ -1,16 +1,13 @@
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ComponentLoaderOptions } from '@libs/shared';
+import { ClaimTypeDto, ComponentLoaderOptions, GetPermissionListResultDto, IdentityRoleClaimDto, IdentityRoleDto } from '@libs/shared';
 // import { selectDefaultLanguage } from '@libs/state-management';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { AlertService } from 'projects/libs/shared/src/lib/alert.service';
 import { ArrayToTreeConverterService } from 'projects/libs/shared/src/lib/array-to-tree-converter.service';
 
-import { getRoles, saveRole } from 'projects/libs/state-management/src/lib/state/role/role.actions';
-import { selectAllRoles } from 'projects/libs/state-management/src/lib/state/role/role.selector';
-import { PermissionNode } from 'projects/rds-components/src/models/pemission.model';
-import { TableHeader } from 'projects/rds-components/src/models/table-header.model';
+import { deleteRole, getAllClaimTypes, getClaimTypes, getPermission, getRolByEdit, getRoles, saveClaims, savePermissions, saveRole, updateRole } from 'projects/libs/state-management/src/lib/state/role/role.actions';
+import { selectAllClaimsTypesRoles, selectAllPermissions, selectAllRoles, selectClaimsTypeByRole, selectRoleForEdit } from 'projects/libs/state-management/src/lib/state/role/role.selector';
 import {
   transition,
   trigger,
@@ -57,45 +54,94 @@ declare let bootstrap: any;
   ]
 })
 export class AppComponent implements OnInit {
-
   isAnimation: boolean = true;
-
-  currentAlerts: any = [];
-  public rdsAlertMfeConfig: ComponentLoaderOptions = {
-    name: 'RdsCompAlert',
-    input: {
-      currentAlerts: this.currentAlerts
+  viewCanvas: boolean = false;
+  activePage: number = 0;
+  viewCreateOrganisationCanvas: boolean = false;
+  selectedTreeNode: number = 0;
+  canvasTitle: string = 'New Role';
+  navtabsItems: any = [
+    {
+      label: this.translate.instant('Role'),
+      tablink: '#Role',
+      ariacontrols: 'Role-information',
     },
-    output: {
-      onAlertHide: (event: any) => {
-        this.currentAlerts = event;
-      }
+    {
+      label: this.translate.instant('Permission'),
+      tablink: '#Permission',
+      ariacontrols: 'Permission',
+
+    },
+    {
+      label: this.translate.instant('Claims'),
+      tablink: '#Claims',
+      ariacontrols: 'Claims',
     }
-  }
-  constructor(public datepipe: DatePipe, private store: Store, private _arrayToTreeConverterService: ArrayToTreeConverterService, private alertService: AlertService, public translate: TranslateService) { }
-
-  rdsNewRoleMfeConfig: ComponentLoaderOptions = {
-    name: 'RdsCompRoleList'
+  ];
+  TreeNodeLabeles: any = {
+    ParentItemPlaceholder: "Parent node",
+    ChildItemPlaceholder: "Child Node",
+    ParentDescriptionPlaceholder: "Parent label",
+    ChildDescriptionPlaceholder: "Child label",
+    ChildDescriptionEditPlaceholder: "Child Label",
+    ParentNodeTitle: "Parent Node Title",
+    ChildNodeTitle: "Child node Title",
   };
-
-  // public rdsNewRoleMfeConfig: ComponentLoaderOptions;
-
-  treeData: any = [];
-  Roledetails: any = {}
-  selectdnames: any = [];
-  EditPermissionData: any;
-  isEdit = false;
-  selectedPermissions: any = [];
-  selectedPermissionnames: any = [];
-  @Input() RoleTableHeader: TableHeader[] = [
-    { displayName: 'Role Name', key: 'rolename', dataType: 'html', dataLength: 30, sortable: true, required: true, filterable: true },
-
-    { displayName: ' Creation Date & Time', key: 'creationTime', dataType: 'text', dataLength: 30, required: true, sortable: true }
-  ]
-  @Output() deleteRole = new EventEmitter<{ item: any }>();
-  RoleDatatable: any = []
+  TreeType: any = {
+    IconLabel: true,
+    Normal: false,
+    checkbox: false,
+  };
+  treeData1 = [{
+    "data": {
+      "parentId": null,
+      "code": "00001",
+      "displayName": null,
+      "memberCount": 1,
+      "roleCount": 3,
+      "lastModificationTime": "2022-05-06T00:08:34.702+05:30",
+      "lastModifierUserId": 6,
+      "creationTime": "2022-04-29T11:43:17.223+05:30",
+      "creatorUserId": 1,
+      "id": 1
+    },
+    "level": 1,
+    "selected": false,
+    "label": "waii",
+    "expandedIcon": "fa fa-folder-open text-warning",
+    "collapsedIcon": "fa fa-folder text-warning",
+    "expanded": true,
+  }];
   nodeColors = ['#6E4D9F', '#0D79AE', '#14A94B', '#FBA919'];
-  rdsRoleTableMfeConfig: ComponentLoaderOptions;
+  rdsOrganizationTreeConfig: ComponentLoaderOptions;
+  treeData2: any;
+  node: string = '';
+  selectedNodeInfo: any;
+  RdsCompNewRoleConfig: ComponentLoaderOptions;
+  rdsClaimTypeRoleMfeConfig: ComponentLoaderOptions;
+  rdsPermissionRoleMfeConfig: ComponentLoaderOptions;
+  selectedPermissionList: any = [];
+  actionId: 'edit' | 'new' | 'delete' = 'new';
+  isReset: boolean = false;
+  EditShimmer: boolean = false;
+  Roledetails: any = {};
+  treeData: any = [];
+  selectedPermissions: any = [];
+  claimValueData: any[] = [];
+  claimDisplayArray: any[] = [];
+  emitRoleData: any = {};
+  emitClaimData = { claimData: [], id: undefined };
+  saveNextBtn = 'Next';
+  getOriginalData: any;
+  permissionTreeData: any = [];
+  emitPermissionsData = { name: undefined, permissions: { permissions: [] } };
+
+  constructor(
+    private store: Store,
+    private _arrayToTreeConverterService: ArrayToTreeConverterService,
+    public datepipe: DatePipe,
+    public translate: TranslateService
+  ) { }
 
   ngOnInit(): void {
     this.isAnimation = true;
@@ -104,284 +150,383 @@ export class AppComponent implements OnInit {
     //     this.translate.use(res);
     //   }
     // })
-
-    this.subscribeToAlerts();
-    this.rdsNewRoleMfeConfig = {
-      name: 'RdsCompRoleList',
+    this.rdsOrganizationTreeConfig = {
+      name: 'RdsOrganizationTree',
       input: {
-        roleHeaders: this.RoleTableHeader,
-        roleList: this.RoleDatatable,
-        isShimmer: true,
-        EditShimmer: true,
+        organizationTreeData: this.treeData1,
+        nodeColor: this.nodeColors,
+        mutable: true,
+        OrganizationTreeType: this.TreeType,
+        OrganizationTreeLabeles: this.TreeNodeLabeles,
+        ButtonLabel: "",
       },
       output: {
-        onSaveRole: (eventData: any) => {
-          if (eventData && eventData.role) {
-            if (eventData.grantedPermissionNames && eventData.grantedPermissionNames.length) {
-              this.FilterselectedPermissions(eventData.grantedPermissionNames)
-              const data: any = {
-                role: eventData.role,
-                grantedPermissionNames: this.selectedPermissions
-              };
-              this.store.dispatch(saveRole(data));
-            } else {
-              const data: any = {
-                role: eventData.role,
-                grantedPermissionNames: [],
-              };
-              this.store.dispatch(saveRole(data));
+        onDeleteNode: (data: any) => {
+          this.store.dispatch(deleteRole(data.id));
+          this.updateOrganizationTree();
+        },
+        getSelectedParent: (parent: any) => {
+          this.emitRoleData = {};
+          this.emitPermissionsData = { name: undefined, permissions: { permissions: [] } };
+          this.emitClaimData = { claimData: [], id: undefined };
+          this.store.dispatch(getPermission('admin'));
+          this.canvasTitle = 'New Role';
+          this.viewCreateOrganisationCanvas = true;
+          this.actionId = 'new';
+          setTimeout(() => {
+            this.openCanvas();
+          }, 100);
+
+          // Permissions
+          this.store.select(selectAllPermissions).subscribe((res: any) => {
+            if (res && res.groups) {
+              this.permissionTreeData = res.groups;
+              const mfeConfig = this.rdsPermissionRoleMfeConfig
+              mfeConfig.input.treeData = [... this.permissionTreeData];
+              mfeConfig.input.roleName = res.entityDisplayName;
+              mfeConfig.input.isEdit = false;
+              this.rdsPermissionRoleMfeConfig = { ...mfeConfig };
             }
-          }
-        },
-        onEditRole: (event: any) => {
-          if (event) {
-            //this.store.dispatch(getRolByEdit(event));
-            this.isEdit = true;
-          } else {
-            this.Roledetails = undefined;
-            const mfeConfig = this.rdsNewRoleMfeConfig
-            mfeConfig.input.RolesData = { ... this.Roledetails };
-            this.rdsNewRoleMfeConfig = mfeConfig;
+          });
 
-          }
-          // this.store.select(selectRoleForEdit).subscribe((res: any) => {
-          //   if (res && res.RoleEditI && res.RoleEditI.role && res.status == 'success') {
-          //     this.Roledetails = {}
-          //     const itemRole: any = {
-          //       displayName: res.RoleEditI.role.displayName,
-          //       id: res.RoleEditI.role.id,
-          //       isDefault: res.RoleEditI.role.isDefault,
-          //       name: res.RoleEditI.role.displayName
-          //     }
-          //     this.Roledetails['displayName'] = res.RoleEditI.role.displayName;
-          //     this.Roledetails['id'] = res.RoleEditI.role.id;
-          //     this.Roledetails['isDefault'] = res.RoleEditI.role.isDefault,
-          //       this.Roledetails = itemRole
-          //     const mfeConfig = this.rdsNewRoleMfeConfig
-          //     mfeConfig.input.RolesData = this.Roledetails
-          //     mfeConfig.input.EditShimmer = false;
-          //     this.rdsNewRoleMfeConfig = { ...mfeConfig };
-          //   }
-          //   if (res && res.RoleEditI && res.RoleEditI.permissions) {
-          //     this.EditPermissionData = res.RoleEditI.permissions
-          //     this.treeData = this.ConvertArraytoTreedata(res.RoleEditI.permissions)
-          //     if (this.treeData && res.RoleEditI.grantedPermissionNames) {
-          //       this.selectedPermissions = [];
-          //       this.checkSelectedNodes(res.RoleEditI.grantedPermissionNames);
-          //     }
-          //     const mfeConfig = this.rdsNewRoleMfeConfig
-          //     mfeConfig.input.permissionsList = this.treeData
-          //     mfeConfig.input.SelectedPermissionValues = [...this.selectedPermissions]
-          //     mfeConfig.input.SelectedPermissionList = [...res.RoleEditI.grantedPermissionNames]
-          //     this.rdsNewRoleMfeConfig = { ...mfeConfig };
-          //   }
-          // })
+          // Claim Types
+          this.store.dispatch(getAllClaimTypes());
+          this.store.select(selectAllClaimsTypesRoles).subscribe((res: ClaimTypeDto[]) => {
+            if (res) {
+              res.forEach(element => {
+                this.claimValueData.push({
+                  id: element.id,
+                  value: element.name,
+                  some: element.name
+                });
+              });
+              this.rdsClaimTypeRoleMfeConfig.input.claimValueData = this.claimValueData;
+            }
+          });
         },
-        onnewRole: (data: any) => {
-          // this.store.dispatch(getPermission());
-          this.selectedPermissions = []
-          // this.store.select(selectAllPermissions).subscribe((res: any) => {
-          //   if (res && res.PermissionI && res.PermissionI.items && res.status == 'success') {
-          //     this.treeData = this.ConvertArraytoTreedata(res.PermissionI.items)
-          //     const mfeConfig = this.rdsNewRoleMfeConfig
-          //     mfeConfig.input.permissionsList = [... this.treeData];
-          //     mfeConfig.input.SelectedPermissionValues = [...this.selectedPermissions]
-          //     if (data) {
-          //       mfeConfig.input.EditShimmer = false;
-          //     } else {
-          //       mfeConfig.input.EditShimmer = true;
-          //     }
-          //     this.rdsNewRoleMfeConfig = { ...mfeConfig };
-          //   }
-          // })
 
-        },
-        onRefreshRole: () => {
-          this.store.dispatch(getRoles());
-          // this.updateRoleData();
-        },
-        onReset: (event: any) => {
-          this.Roledetails = undefined;
-          this.treeData = [];
-          this.selectedPermissions = [];
-          const mfeConfig = this.rdsNewRoleMfeConfig
-          mfeConfig.input.RolesData = { ... this.Roledetails };
-          mfeConfig.input.permissionsList = [... this.treeData];
-          mfeConfig.input.tenantFeatures = [... this.selectedPermissions];
-          mfeConfig.input.EditShimmer = true;
-          this.rdsNewRoleMfeConfig = mfeConfig;
-        },
-        deleteEvent: (event: any) => {
-          // this.store.dispatch(deleteRole(event.id))
-        },
-        onFilterPermission: (event: any) => {
-          if (event && event.length) {
-            this.FilterselectedPermissions(event)
-            const data: any = {
-              grantedPermissionNames: this.selectedPermissions
+        // Edit Actio click
+        onNodeEdit: (node: any) => {
+          this.actionId = 'edit';
+          this.viewCreateOrganisationCanvas = true;
+          this.canvasTitle = 'Edit Role';
+          this.emitRoleData = {};
+          this.emitPermissionsData = { name: undefined, permissions: { permissions: [] } };
+          this.emitClaimData = { claimData: [], id: undefined };
+          this.claimDisplayArray = [];
+          this.claimValueData = [];
+          this.selectedNodeInfo = node;
+          this.node = node.data.displayName;
+          this.emitPermissionsData.name = node.data.displayName;
+          let openCanvasPromise = new Promise<void>((resolve, reject) => {
+            setTimeout(() => {
+              this.openCanvas();
+              this.emitClaimData.id = node.data.id;
+              resolve();
+            }, 100);
+          });
+          openCanvasPromise.then(() => {
+            this.store.dispatch(getRolByEdit(this.emitClaimData.id));
+            this.store.dispatch(getPermission(this.emitPermissionsData.name));
+            this.store.dispatch(getAllClaimTypes());
+            this.store.dispatch(getClaimTypes(this.emitClaimData.id));
+          });
+
+          // Bind Edit Role
+          this.store.select(selectRoleForEdit).subscribe((res: IdentityRoleDto) => {
+            if (res) {
+              this.Roledetails = {};
+              const itemRole: any = {
+                name: res.name,
+                id: res.id,
+                isDefault: res.isDefault,
+                isPublic: res.isPublic,
+              };
+              this.Roledetails['name'] = res.name;
+              this.Roledetails['id'] = res.id;
+              this.Roledetails['isDefault'] = res.isDefault;
+              this.Roledetails['isPublic'] = res.isPublic;
+              this.Roledetails = itemRole;
+              const mfeConfig = this.RdsCompNewRoleConfig;
+              mfeConfig.input.roleData = this.Roledetails;
+              mfeConfig.input.EditShimmer = false;
+              this.RdsCompNewRoleConfig = { ...mfeConfig };
             };
-            this.store.dispatch(getRoles());
-            // this.updateRoleData();
-          }
+          });
+
+          // Bind Edit Permissions
+          this.store.select(selectAllPermissions).subscribe(res => {
+            if (res && res.groups) {
+              this.permissionTreeData = res.groups;
+              const mfeConfig = this.rdsPermissionRoleMfeConfig
+              mfeConfig.input.treeData = [... this.permissionTreeData];
+              mfeConfig.input.roleName = res.entityDisplayName;
+              mfeConfig.input.isEdit = true;
+              this.rdsPermissionRoleMfeConfig = { ...mfeConfig };
+            }
+          });
+
+          // Bind Edit Claim Types
+          this.store.select(selectAllClaimsTypesRoles).subscribe((res: ClaimTypeDto[]) => {
+            if (res) {
+              res.forEach(element => {
+                this.claimValueData.push({
+                  id: element.id,
+                  value: element.name,
+                  some: element.name
+                });
+              });
+              this.rdsClaimTypeRoleMfeConfig.input.claimValueData = this.claimValueData;
+            };
+          });
+          this.store.select(selectClaimsTypeByRole).subscribe((res: IdentityRoleClaimDto[]) => {
+            if (res) {
+              if (this.claimDisplayArray.length > 0) this.claimDisplayArray = [];
+              res.forEach(element => {
+                this.claimDisplayArray.push({
+                  roleId: element.roleId,
+                  claimType: element.claimType,
+                  claimValue: element.claimValue
+                });
+              });
+              this.rdsClaimTypeRoleMfeConfig.input.claimDisplayArray = this.claimDisplayArray;
+            };
+          });
         },
-        onFilterPermissionReset: (event: any) => {
-          this.treeData = [];
-          this.selectedPermissions = [];
-          const mfeConfig = this.rdsNewRoleMfeConfig
-          mfeConfig.input.RolesData = { ... this.Roledetails };
-          mfeConfig.input.permissionsList = [... this.treeData];
-          mfeConfig.input.tenantFeatures = [... this.selectedPermissions];
-          this.rdsNewRoleMfeConfig = mfeConfig;
-        },
+
+        onSelectnode: (onSelectnodeevent) => { },
       }
     };
-    const mfeConfig = this.rdsNewRoleMfeConfig;
-    mfeConfig.input.isShimmer = false;
-    this.rdsNewRoleMfeConfig = mfeConfig;
+
+    // New Role
+    this.RdsCompNewRoleConfig = {
+      name: 'RdsCompNewRole',
+      input: {
+        roleData: this.Roledetails,
+        isReset: this.isReset,
+        EditShimmer: this.EditShimmer
+      },
+      output: {
+        RoleInfo: (eventdata: any) => {
+          if (eventdata.isOnSave) {
+            this.emitRoleData = eventdata.role;
+            this.activePage = 1;
+          }
+        },
+        onCancel: () => {
+          this.close();
+        }
+      }
+    };
+
+    // Permission
+    this.rdsPermissionRoleMfeConfig = {
+      name: 'RdsCompPermissionTree',
+      input: {
+        treeData: this.permissionTreeData,
+        roleName: undefined,
+        isEdit: false
+      },
+      output: {
+        getAllselectedPermissions: (event: any) => {
+          this.emitPermissionsData.permissions.permissions = [];
+          this.emitPermissionsData.permissions.permissions = event;
+        }
+      }
+    }
+
+    // Claim Type
+    this.rdsClaimTypeRoleMfeConfig = {
+      name: 'RdsCompClaimTypeRole',
+      input: {
+        claimValueData: this.claimValueData,
+        claimDisplayArray: this.claimDisplayArray
+      },
+      output: {
+        addClaim: (data: any) => {
+          if (this.actionId == 'edit') data.roleId = this.emitClaimData.id;
+          this.claimDisplayArray.push(data);
+          const mfeConfig = this.rdsClaimTypeRoleMfeConfig;
+          mfeConfig.input.claimDisplayArray = this.claimDisplayArray;
+        },
+        deleteClaim: (deleteEvent: any) => {
+          const deleteData = this.claimDisplayArray.find(x => x.roleId == deleteEvent.roleId);
+          const deleteDataIndex = this.claimDisplayArray.indexOf(deleteData, 0);
+          if (deleteDataIndex != undefined) this.claimDisplayArray.splice(deleteDataIndex, 1);
+        },
+        onClaimSave: () => {
+          let promise = new Promise<void>((resolve, reject) => {
+
+            // New
+            if (this.actionId == 'new') {
+              this.store.dispatch(saveRole(this.emitRoleData));
+              this.store.dispatch(getRoles());
+              this.store.select(selectAllRoles).subscribe(res => {
+                const resArrayId: any[] = [];
+                if (res && res.items) {
+                  res.items.forEach(element => {
+                    const item = {
+                      id: element.id,
+                      creationTime: undefined,
+                      creatorId: undefined,
+                      lastModificationTime: undefined,
+                      lastModifierId: null,
+                      isDeleted: false,
+                      deleterId: null,
+                      deletionTime: undefined,
+                      parentId: null,
+                      code: undefined,
+                      displayName: element.name,
+                      roles: [],
+                      concurrencyStamp: undefined,
+                      extraProperties: {}
+                    }
+                    resArrayId.push(item);
+                  });
+                  this.emitPermissionsData.name = this.emitRoleData.name;
+                  const getId = resArrayId.filter(x => x.displayName == this.emitRoleData.name).map(m => m.id).toString();
+                  this.emitClaimData.id = getId;
+                  this.emitClaimData.claimData = this.claimDisplayArray;
+                  for (let i = 0; i < this.claimDisplayArray.length; i++) {
+                    this.emitClaimData.claimData[i].roleId = getId;
+                  }
+                  if (this.emitClaimData.id != '') {
+                    resolve();
+                  }
+                }
+              });
+            }
+
+            // Edit
+            else if (this.actionId == 'edit') {
+              if (this.claimDisplayArray.length > 0) this.emitClaimData.claimData = this.claimDisplayArray;
+              const roleData = { ...this.emitRoleData, id: this.emitClaimData.id }
+              this.store.dispatch(updateRole(roleData));
+              this.store.dispatch(getRoles());
+              this.store.select(selectAllRoles).subscribe(res => {
+                if (res) {
+                  this.emitPermissionsData.name = this.emitRoleData.name
+                  resolve();
+                }
+              })
+            }
+          });
+          promise.then(() => {
+            setTimeout(() => {
+              if (this.claimDisplayArray.length > 0) this.store.dispatch(saveClaims(this.emitClaimData));
+            }, 1000);
+          }).then(() => {
+            setTimeout(() => {
+              if (this.emitPermissionsData.permissions.permissions.length > 0) this.store.dispatch(savePermissions(this.emitPermissionsData));
+              this.close();
+            }, 2000);
+          });
+        },
+        onCancel: () => {
+          this.close();
+        }
+      }
+    }
+    this.updateOrganizationTree();
+  }
+
+  getSelectedNavTab(event: any): void {
+    this.activePage = event;
+  }
+
+  close(): void {
+    this.viewCanvas = false;
+    this.activePage = 0;
+    this.Roledetails = undefined;
+    this.treeData = [];
+    this.selectedPermissions = [];
+    this.EditShimmer = false;
+  }
+
+  updateOrganizationTree() {
     this.store.dispatch(getRoles());
     this.store.select(selectAllRoles).subscribe((res: any) => {
-      console.log(res);
-      this.RoleDatatable = [];
+      this.isAnimation = false;
       if (res && res.items) {
-        this.isAnimation = false;
-        console.log(res)
-        res.items.forEach((element: any) => {
-          const status: string = (element.isStatic) ? '<span class="badge badge-primary p-1 mx-1 rounded">Static</span> ' : '';
-          const status1: string = (element.isDefault) ? '<span class="badge badge-success p-1 mx-1 rounded">Default</span> ' : '';
-          const roleName: string = (element.name);
-          const defaultLanguageTemplate = `<div class="d-flex align-items-center"> ${roleName} <div class="d-block text-end"> ${status} ${status1} </div></div> `
-          const item: any = {
-            // rolename: defaultLanguageTemplate,
-            // isDefault: element.isDefault,
-            //creationTime: this.datepipe.transform(new Date(element.creationTime), 'MM/dd/yyyy, h:mm:ss a'),
-            rolename: element.name,
-            id: element.id
+        const resArrayId: any[] = []
+        res.items.forEach(element => {
+          const item = {
+            id: element.id,
+            creationTime: undefined,
+            creatorId: undefined,
+            lastModificationTime: undefined,
+            lastModifierId: null,
+            isDeleted: false,
+            deleterId: null,
+            deletionTime: undefined,
+            parentId: null,
+            code: undefined,
+            displayName: element.name,
+            roles: [],
+            concurrencyStamp: undefined,
+            extraProperties: {}
           }
-          this.RoleDatatable.push(item);
-
-
+          resArrayId.push(item);
         });
-        console.log(this.RoleDatatable)
-        const mfeConfig = this.rdsNewRoleMfeConfig
-        mfeConfig.input.roleList = [...this.RoleDatatable]
-        mfeConfig.input.isShimmer = false;
-        this.rdsNewRoleMfeConfig = mfeConfig;
-      }
-    })
-    this.updateRoleData();
-  }
-
-  updateRoleData() {
-    this.store.select(selectAllRoles).subscribe((res: any) => {
-      this.RoleDatatable = [];
-      console.log(res)
-      if (res && res.items) {
-        res.items.forEach((element: any) => {
-          const status: string = (element.isStatic) ? '<span class="badge badge-primary p-1 mx-1 rounded">Static</span> ' : '';
-          const status1: string = (element.isDefault) ? '<span class="badge badge-success p-1 mx-1 rounded">Default</span> ' : '';
-
-          const roleName: string = (element.displayName);
-          const defaultLanguageTemplate = `<div class="d-flex align-items-center"> ${roleName} <div class="d-block text-end"> ${status} ${status1} </div></div> `
-          const item: any = {
-            roleid: element.id,
-            rolename: element.name,
-            // isDefault: element.isDefault,
-            // creationTime: this.datepipe.transform(new Date(element.creationTime), 'MM/dd/yyyy, h:mm:ss a')
-          }
-          this.RoleDatatable.push(item);
-          const mfeConfig = this.rdsNewRoleMfeConfig
-          mfeConfig.input.roleHeaders = this.RoleTableHeader
-          mfeConfig.input.roleList = [...this.RoleDatatable]
-          this.rdsNewRoleMfeConfig = { ...mfeConfig };
-        });
-      }
-    })
-  }
-
-
-  ConvertArraytoTreedata(tredata: any) {
-    const treedaTA = this._arrayToTreeConverterService.createTree(
-      tredata,
-      'parentName',
-      'name',
-      null,
-      'children',
-      [
-        {
-          target: 'label',
-          source: 'displayName',
-        },
-        {
-          target: 'expandedIcon',
-          value: 'fa fa-folder-open text-warning',
-        },
-        {
-          target: 'collapsedIcon',
-          value: 'fa fa-folder text-warning',
-        },
-        {
-          target: 'expanded',
-          value: true,
-        },
-      ],
-      1
-    );
-    return treedaTA;
-  }
-
-  checkSelectedNodes(node: any) {
-    if (node) {
-      node.forEach((item: any) => {
-
-        const selecteditem: any = {
-          name: item,
-          value: true
+        this.getOriginalData = resArrayId;
+        this.treeData2 = this._arrayToTreeConverterService.createTree(
+          this.getOriginalData,
+          'parentId',
+          'id',
+          null,
+          'children',
+          [
+            {
+              target: 'label',
+              source: 'displayName',
+            },
+            {
+              target: 'expandedIcon',
+              value: 'fa fa-folder-open text-warning',
+            },
+            {
+              target: 'collapsedIcon',
+              value: 'fa fa-folder text-warning',
+            },
+            {
+              target: 'expanded',
+              value: true,
+            },
+          ],
+          1
+        );
+        const mfeConfig = this.rdsOrganizationTreeConfig;
+        if (this.treeData2.length > 0) {
+          mfeConfig.input.organizationTreeData = this.treeData2;
         }
-        this.selectedPermissions.push(selecteditem);
+        else {
+          mfeConfig.input.organizationTreeData = this.treeData1;
+        }
+        this.rdsOrganizationTreeConfig = mfeConfig;
+      }
+    });
+  }
+
+  getNavTabItems(): any {
+    return this.navtabsItems;
+  }
+
+  onCancelOrganisation(): void {
+    this.viewCreateOrganisationCanvas = false;
+    this.rdsPermissionRoleMfeConfig.input.treeData = [];
+    this.activePage = 0;
+  }
+
+  openCanvas(): void {
+    var offcanvas = document.getElementById('addNodeOffcanvas');
+    if (offcanvas) {
+      var bsOffcanvas = new bootstrap.Offcanvas(offcanvas);
+      bsOffcanvas.show();
+      offcanvas.addEventListener('hidden.bs.offcanvas', event => {
+        this.viewCreateOrganisationCanvas = false;
+        this.selectedNodeInfo = undefined;
+        this.node = '';
       })
     }
-  }
-  FilterselectedPermissions(event: any) {
-    this.selectedPermissions = [];
-    for (const n of this.treeData) {
-      this.selectedPermissionname(n, event);
-    }
-
-
-  }
-  selectedPermissionname(node: any, checked: boolean) {
-    if (node.selected == true) {
-      this.selectedPermissions.push(node.data.name)
-    }
-    for (const n of node.children) {
-      this.selectedPermissionname(n, checked);
-    }
-
-  }
-
-  SetEditVar() {
-    this.isEdit = false;
-
-    const mfeConfig = this.rdsNewRoleMfeConfig
-    mfeConfig.input.permissionsList = this.treeData;
-    mfeConfig.input.selectedPermissions = ''
-    mfeConfig.input.IsEdit = false;
-    mfeConfig.input.RoleName = ''
-    this.rdsNewRoleMfeConfig = { ...mfeConfig };
-  }
-  subscribeToAlerts() {
-    this.alertService.alertEvents.subscribe((alert) => {
-      this.currentAlerts = [];
-      const currentAlert: any = {
-        type: alert.type,
-        title: alert.title,
-        message: alert.message,
-      };
-      this.currentAlerts.push(currentAlert);
-      const rdsAlertMfeConfig = this.rdsAlertMfeConfig;
-      rdsAlertMfeConfig.input.currentAlerts = [...this.currentAlerts];
-      this.rdsAlertMfeConfig = rdsAlertMfeConfig;
-    });
-
   }
 }

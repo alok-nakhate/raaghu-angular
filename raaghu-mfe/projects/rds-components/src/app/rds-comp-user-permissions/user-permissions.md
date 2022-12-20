@@ -1,5 +1,5 @@
 ---
-slug: "/comp-user-permission"
+slug: "/comp-user-permissions"
 date: "2019-05-04"
 title: "Components > User-permission"
 ---
@@ -9,9 +9,8 @@ title: "Components > User-permission"
 
 #### User Permission
 
-<p class="">A card is a small rectangular module with images and text. It is an entry point for users to learn more details</p>
+<p >Gives a tabular details of a user and its respective role</p>
 <section class="py-4">
-    <h6>Default</h6>
     <div class="py-3">
       <div class="cust-tabs">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -38,14 +37,14 @@ title: "Components > User-permission"
 <div class="row m-0">
 
 ```html
-<app-rds-comp-user-permissions
+<rds-comp-user-permissions
 [FilterPermissionList]="FilterPermissionList"
 [userList]="userList"
 [roles]="roles"
 [permissionsList]="permissionsList"
 [userHeaders]="userHeaders"
 [orgTreeData]="orgTreeData">
-</app-rds-comp-user-permissions>
+</rds-comp-user-permissions>
 ```
 </div>
 </div>

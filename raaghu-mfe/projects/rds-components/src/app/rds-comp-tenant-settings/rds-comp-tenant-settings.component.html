@@ -1,4 +1,4 @@
-<div class="tab-content py-4">
+<div class="tab-content py-3 p-2">
 
     <form #tenantSettingsForm="ngForm">
         <div class="row" *ngIf="showEditData">
@@ -7,45 +7,54 @@
                     <rds-checkbox [disabled]="false" [label]="translate.instant('Use Host Database')"
                         (onChange)="getCheckboxValue($event,'host')" [withLabel]="true"
                         [checked]="tenantSettingsInfo.useHostDatabase" [switch]="false" [inline]="false"
-                        [id]="'useHostDatabase'" ></rds-checkbox>                           
+                        [id]="'useHostDatabase'"></rds-checkbox>
                 </div>
             </div>
         </div>
-        <div class="row  mb-3">
-            <div class="col-md-6 sm-p-0" >
+        <div class="row mb-3">
+            <div class="col-md-6 sm-p-0">
                 <div class="form-group mb-3">
-                    <!-- <rds-input [inputType]="'password'" [Title]="translate.instant('Password')" [TitleType]="'Top'"
+                    <!-- <rds-input [inputType]="'password'" [Title]="translate.instant('Password')" [labelPosition]="'Top'"
                         [placeholder]="translate.instant('Password')" (keyup)="confirmPasswordValidation()"
                         [(ngModel)]="tenantSettingsInfo.password" [isRequired]=true name="password" required>
                     </rds-input> -->
-                    <rds-input [inputType]="'password'" [Title]="translate.instant('Password')" [(ngModel)]="tenantSettingsInfo.password" [TitleType]="'Top'" name="password"
-                    required #newpswd="ngModel" [placeholder]="translate.instant('Password')" [isRequired]="passwordValidation" required>
-                  </rds-input>
-                  <div class="form-control-feedback" *ngIf="newpswd.errors&&(newpswd.dirty||newpswd.touched)&& passwordValidation">
-                    <span class="text-danger" *ngIf="newpswd.errors.required">{{"Password is required"|translate}}</span>
-                  </div>
-                </div>
-            </div>
-            <div class="col-md-6 sm-p-0" >
-                <div class="form-group mb-3">
-                    <rds-input [inputType]="'password'" [Title]="translate.instant('Confirm Password')" [TitleType]="'Top'"
-                        [placeholder]="translate.instant('Confirm Password')" #confirmpswd="ngModel" (keyup)="confirmPasswordValidation()"
-                        [(ngModel)]="tenantSettingsInfo.confirmPassword" [isRequired]="passwordValidation" name="cpassword" required>
+                    <rds-input [inputType]="'password'" [iconCursor]="'pointer'" [icon]="'eye'" [iconOpacity]="'0.4'"
+                        [iconHeight]="'18px'" [iconWidth]="'18px'" [label]="translate.instant('Password')"
+                        [(ngModel)]="tenantSettingsInfo.password" [labelPosition]="'top'" name="password" required
+                        #newpswd="ngModel" [placeholder]="translate.instant('Password')"
+                        [isRequired]="passwordValidation" required>
                     </rds-input>
-                    <div class="form-control-feedback" *ngIf="confirmpswd.errors&&(confirmpswd.dirty||confirmpswd.touched)&&passwordValidation">
-                        <span class="text-danger" *ngIf="confirmpswd.errors.required">{{"Confirm Password is required"|translate}}</span>
-                      </div>
+                    <div class="form-control-feedback"
+                        *ngIf="newpswd.errors&&(newpswd.dirty||newpswd.touched)&& passwordValidation">
+                        <span class="text-danger" *ngIf="newpswd.errors.required">{{"Password is
+                            required"|translate}}</span>
+                    </div>
                 </div>
             </div>
-            <div class="col-12 sm-p-0">
-                <span class="text-danger" *ngIf="isPasswordMismatch"><small>{{"Password mismatch found"|translate}}</small></span>
+            <div class="col-md-6 sm-p-0">
+                <div class="form-group mb-3">
+                    <rds-input [inputType]="'password'" [iconCursor]="'pointer'" [icon]="'eye'" [iconHeight]="'18px'"
+                        [iconWidth]="'18px'" [iconOpacity]="'0.4'" [label]="translate.instant('Confirm Password')"
+                        [labelPosition]="'top'" [placeholder]="translate.instant('Confirm Password')"
+                        #confirmpswd="ngModel" (keyup)="confirmPasswordValidation()"
+                        [(ngModel)]="tenantSettingsInfo.confirmPassword" [isRequired]="passwordValidation"
+                        name="cpassword" required>
+                    </rds-input>
+                    <div class="form-control-feedback"
+                        *ngIf="confirmpswd.errors&&(confirmpswd.dirty||confirmpswd.touched)&&passwordValidation">
+                        <span class="text-danger" *ngIf="confirmpswd.errors.required">{{"Confirm Password is
+                            required"|translate}}</span>
+                    </div>
+                    <span class="text-danger" *ngIf="isPasswordMismatch">{{"Password mismatch
+                        found"|translate}}</span>
+                </div>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12 sm-p-0" *ngIf="showEditData">
                 <div class="form-group mb-3">
-                    <rds-checkbox [disabled]="false" [label]="translate.instant('Set Random Password')" [withLabel]="true"
-                        (onChange)="getCheckboxValue($event,'ramdomPassword')"
+                    <rds-checkbox [disabled]="false" [label]="translate.instant('Set Random Password')"
+                        [withLabel]="true" (onChange)="getCheckboxValue($event,'ramdomPassword')"
                         [checked]="tenantSettingsInfo.setRandomPassword" [switch]="false" [inline]="false"
                         [id]="'setRandomPassword'"></rds-checkbox>
                 </div>
@@ -62,28 +71,30 @@
             <div class="col-md-12 sm-p-0" *ngIf="showEditData">
                 <div class="form-group mb-3">
                     <rds-checkbox [disabled]="false" [checked]="tenantSettingsInfo.sendActivationEmail"
-                        [label]="translate.instant('Send Activation Email')" (onChange)="getCheckboxValue($event,'sendEmail')"
-                        [withLabel]="true" [switch]="false" [inline]="false" [id]="'sendActivationEmail'">
+                        [label]="translate.instant('Send Activation Email')"
+                        (onChange)="getCheckboxValue($event,'sendEmail')" [withLabel]="true" [switch]="false"
+                        [inline]="false" [id]="'sendActivationEmail'">
                     </rds-checkbox>
                 </div>
             </div>
             <div class="col-md-12 sm-p-0">
                 <div class="form-group mb-3">
-                    <rds-checkbox [disabled]="false" [label]="translate.instant('Activate')" [checked]="tenantSettingsInfo.isActive"
-                        [(ngModel)]="tenantSettingsInfo.isActive" name="isActive" [withLabel]="true" [switch]="false"
-                        [inline]="false" [id]="'active'"></rds-checkbox>
+                    <rds-checkbox [disabled]="false" [label]="translate.instant('Activate')"
+                        [checked]="tenantSettingsInfo.isActive" [(ngModel)]="tenantSettingsInfo.isActive"
+                        name="isActive" [withLabel]="true" [switch]="false" [inline]="false" [id]="'active'">
+                    </rds-checkbox>
                 </div>
             </div>
         </div>
     </form>
 </div>
-<div class="footer-buttons my-2">
- 
-    <rds-button [label]="translate.instant('Cancel')" [outlineButton]="true" [colorVariant]="'primary'" [size]="'small'" (click)="onCancelSetting()"
-        data-bs-dismiss="offcanvas">
+<div class="p-4 footer-buttons">
+
+    <rds-button [label]="translate.instant('Cancel')" [isOutline]="true" [colorVariant]="'primary'" [size]="'small'"
+        (click)="onCancelSetting()" data-bs-dismiss="offcanvas">
     </rds-button>
     <rds-button [label]="translate.instant('Save')" [size]="'small'"
-        [disabled]="!tenantSettingsForm.valid||isPasswordMismatch||!isTenantInfoValid" class="ms-2"
+        [isDisabled]="!tenantSettingsForm.valid||isPasswordMismatch||!isTenantInfoValid" class="ms-2"
         [colorVariant]="'primary'" (click)="next(tenantSettingsForm)">
     </rds-button>
 

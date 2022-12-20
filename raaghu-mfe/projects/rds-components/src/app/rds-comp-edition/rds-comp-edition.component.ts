@@ -7,7 +7,7 @@ export interface EditionItem {
   features:any[];
 }
 @Component({
-  selector: 'app-rds-comp-edition',
+  selector: 'rds-comp-edition',
   templateUrl: './rds-comp-edition.component.html',
   styleUrls: ['./rds-comp-edition.component.scss']
 })

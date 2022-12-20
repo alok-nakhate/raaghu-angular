@@ -4,9 +4,15 @@ date: "2019-05-04"
 title: "Elements > App-Details"
 ---
 
-#### App-Details
+<!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<link rel="stylesheet" href="../../../../../../../raaghu/src/assets/css/style-elements.css">
+<link rel="stylesheet" href="../../../../../../../raaghu/src/assets/css/main.css">
 
-<p class="">A card is a small rectangular module with images and text. It is an entry point for users to learn more details</p>
+
+#### App Details
+
+<p class="">App Details helps an user to showcase deatils of the app integration for the webpage.</p>
 <section class="py-4">
     <h6>Default</h6>
     <div class="py-3">
@@ -25,7 +31,7 @@ title: "Elements > App-Details"
          <div class="contents p-5">
               <div class="row">
                  <div class="col-md-12">
-                     <img src="/images/app-details.png" class="img-fluid">
+                     <img src="/images/app-detail.png" class="img-fluid">
                  </div>            
            </div>
                        
@@ -36,7 +42,7 @@ title: "Elements > App-Details"
 <div class="row m-0">
 
 ```html
-   <rds-app-details [item]="item"></rds-app-details>
+  <rds-app-details [item]="item"></rds-app-details>
 ```
 </div>
 </div>
@@ -45,4 +51,25 @@ title: "Elements > App-Details"
       </div>
     </div>
   </section>
+
+  <!-- Skeleton / Specifications -->
+<section class="py-4">
+                        <h6>
+                           Skeleton / Specifications
+                        </h6>
+                        <div class="py-3">
+                              <!-- Tab panes -->
+                              <div class="card border p-5">
+                                 <div class="row">
+                                    <div class="col-md-12">
+                                       <img src="/images/app-details-skeleton.png" class="img-fluid">
+                                    </div>
+                                 </div>
+                              </div>
+                        </div>
+                     </section>
+
+
+  <!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
    

@@ -1,7 +1,7 @@
 ---
-slug: "/illustrations"
+slug: "/illustration"
 date: "2019-05-04"
-title: "Elements > Illustrations"
+title: "Elements > Illustration"
 ---
 
 <!-- CSS only -->
@@ -11,7 +11,7 @@ title: "Elements > Illustrations"
 
 #### Illustrations
 
-<p class="checkbox-def">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore sdavavfgsv</p>
+<p class="checkbox-def">Illustration is used when the no selections are made by user.</p>
 
 <section class="py-4">
     <h6>Default</h6>
@@ -31,7 +31,7 @@ title: "Elements > Illustrations"
          <div class="contents  p-5">
               <div class="row">
                  <div class="col-md-12">
-                    <img src="/images/dropdown-list-basic.png" class="img-fluid w-100">
+                    <img src="/images/illustration.png" class="img-fluid w-50">
                  </div>               
               </div>                       
   </div>
@@ -53,10 +53,6 @@ subLabel="Click on the button above to add">
       </div>
     </div>
   </section>
-
-
-
-
  
 <section class="py-4">
                         <h6>
@@ -66,11 +62,8 @@ subLabel="Click on the button above to add">
                               <!-- Tab panes -->
                               <div class="card border p-5">
                                  <div class="row">
-                                    <div class="col-md-6">
-                                       <img src="https://portal.raaghu.io/images/components/_dropdown-list/img-1.png" class="img-fluid">
-                                    </div>
-                                    <div class="col-md-6 ">
-                                       <img src="https://portal.raaghu.io/images/components/_dropdown-list/img-2.png" class="img-fluid">
+                                    <div class="col-md-12">
+                                       <img src="/images/illustration-skeleton.png" class="img-fluid ">
                                     </div>
                                  </div>
                               </div>

@@ -3,7 +3,7 @@ import { TableAction } from '../../models/table-action.model';
 import { TableHeader } from '../../models/table-header.model';
 
 @Component({
-  selector: 'app-rds-comp-billing',
+  selector: 'rds-comp-billing',
   templateUrl: './rds-comp-billing.component.html',
   styleUrls: ['./rds-comp-billing.component.scss']
 })

@@ -1,11 +1,11 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'rds-double-range',
   templateUrl: './rds-double-range.component.html',
   styleUrls: ['./rds-double-range.component.scss']
 })
-export class RdsDoubleRangeComponent implements OnInit {
+export class RdsDoubleRangeComponent implements AfterViewInit {
 
   @Input() role = 'Default';
   @Input() val1: number = 0;
@@ -36,18 +36,17 @@ export class RdsDoubleRangeComponent implements OnInit {
   class2 = '';
 
   constructor() { }
-
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     this.sliderTrack = document.querySelector('.slider-track') as HTMLDivElement
     this.sliderOne = document.getElementById('slider1') as HTMLInputElement
     this.sliderTwo = document.getElementById('slider2') as HTMLInputElement
-    this.fillColor();
+    this.fillColor()
   }
 
-  writeValue(obj: any): void {
-    this.val1 = obj;
-    this.val2 = obj;
-  }
+  // writeValue(obj: any): void {
+  //   this.val1 = obj;
+  //   this.val2 = obj;
+  // }
 
   rangeone() {
     this.val1 = parseInt(this.sliderOne.value);

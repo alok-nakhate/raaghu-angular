@@ -2,14 +2,32 @@
   <div class="toast-container position-absolute p-3" [ngClass]="positionClass" *ngSwitchCase="'basic'">
     <div class="toast" [ngClass]="backgroudClass" role="alert" aria-live="assertive" aria-atomic="true"
       [attr.id]="toastId" [attr.data-bs-autohide]="autohide" [attr.data-bs-delay]="delay">
-      <div class="toast-header" *ngIf="showHeader">
+      <div class="toast-header" *ngIf="showHeader" [ngClass]="backgroud">
         <strong class="me-auto">{{headerTitle}}</strong>
         <ng-content select="[header]"> </ng-content>
         <button type="button" class="btn-close" data-bs-dismiss="toast" (click)="close()" aria-label="Close"></button>
       </div>
-      <div class="toast-body">
-        {{message}}
-        <ng-content select="[body]"></ng-content>
+      <div class="toast-body" [ngClass]="bodycolor">
+        <div *ngIf="!showButton">
+          <div class="d-flex justify-content-between toast-text">
+            <div>
+            {{message}}
+            <ng-content select="[body]"></ng-content>
+            </div>
+            <div>
+              <button *ngIf="closebtn" type="button" class="btn-close toast-close" data-bs-dismiss="toast" (click)="close()" aria-label="Close"></button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="d-flex justify-content-evenly mt-4" *ngIf="showButton">
+          <div>
+            <button class="btn btn-primary px-4 btn-sm">TAKE ACTIONS</button>
+          </div>
+          <div>
+            <button class="px-5 btn-sm btn btn-outline-primary">CLOSE</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -31,6 +49,28 @@
         </div>
         <div class="ps-3 py-4">
           <button type="button" class="btn-close opacity-25" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+
+  <!-- <div class="toast-container position-absolute p-3" [ngClass]="positionClass" *ngSwitchCase="'withborderdisplay'">
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true"
+      [attr.id]="toastId" [attr.data-bs-autohide]="autohide" [attr.data-bs-delay]="delay">
+      <div class="toast-header" [ngClass]="backgroudClass" >
+        <strong class="me-auto">{{headerTitle}}</strong>
+        <ng-content select="[header]"> </ng-content>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" (click)="close()" aria-label="Close"></button>
+      </div>
+      <div class="toast-body bg-light">
+        <div class="d-flex justify-content-evenly mt-4">
+          <div>
+            <button class="btn btn-primary px-4"><small>TAKE ACTIONS </small> </button>
+          </div>
+          <div>
+            <button class="btn btn-primary px-5"> <small>CLOSE</small> </button>
+          </div>
         </div>
       </div>
     </div>

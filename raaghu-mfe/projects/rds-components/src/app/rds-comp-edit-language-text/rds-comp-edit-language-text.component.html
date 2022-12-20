@@ -27,11 +27,11 @@
     </div>
     <div class="row position-absolute bottom-0 w-100 start-0 py-2 px-0 m-0 bg-light">
       <div class="col-md-12 ">
-          <rds-button [label]="translate.instant('Close')" type="button" [colorVariant]="'primary'" data-bs-dismiss="offcanvas" [outlineButton]="true"
+          <rds-button [label]="translate.instant('Close')" type="button" [colorVariant]="'primary'" data-bs-dismiss="offcanvas" [isOutline]="true"
           [size]="'small'" (click)="back()">
         </rds-button>
         <rds-button [label]="translate.instant('Save')" type="button" [size]="'small'" class="px-2" [colorVariant]="'primary'"
-        (click)="updateLanguageText(LanguagetextForm)" data-bs-dismiss="offcanvas"[disabled]="!LanguagetextForm.valid"   [showLoadingSpinner]="buttonSpinner">
+        (click)="updateLanguageText(LanguagetextForm)" data-bs-dismiss="offcanvas"  [isDisabled]="!LanguagetextForm.valid"   [showLoadingSpinner]="buttonSpinner">
         </rds-button>
       </div>
   </div>

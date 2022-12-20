@@ -2,7 +2,7 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 
 
 @Component({
-  selector: 'app-rds-comp-pricing-table',
+  selector: 'rds-comp-pricing-table',
   templateUrl: './rds-comp-pricing-table.component.html',
   styleUrls: ['./rds-comp-pricing-table.component.scss'],
 })

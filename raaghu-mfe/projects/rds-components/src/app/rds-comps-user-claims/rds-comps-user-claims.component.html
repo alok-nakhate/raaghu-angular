@@ -4,7 +4,7 @@
       <div class="col-md-6">
         <div class="form-group mb-3">
 
-          <rds-input [TitleType]="'Top'" [inputType]="'text'" [Title]="translate.instant('Type')" [(ngModel)]="userData.type"
+          <rds-input [labelPosition]="'top'" [inputType]="'text'" [label]="translate.instant('Type')" [(ngModel)]="userData.type"
             name="tenancy_name" required [isRequired]=true [placeholder]="translate.instant('Type')">
           </rds-input>
         </div>
@@ -12,7 +12,7 @@
       <div class="col-md-6">
         <div class="form-group mb-3">
 
-          <rds-input [TitleType]="'Top'" [inputType]="'text'" [Title]="translate.instant('Value')" [(ngModel)]="userData.value"
+          <rds-input [labelPosition]="'top'" [inputType]="'text'" [label]="translate.instant('Value')" [(ngModel)]="userData.value"
             name="user_name" required [isRequired]=true [placeholder]="translate.instant('Value')">
           </rds-input>
         </div>
@@ -23,10 +23,10 @@
 <div class="footer-buttons my-3">
   <div class="row">
     <div class="col-md-6">
-      <rds-button [label]="translate.instant('Cancel')" class="m-2" [colorVariant]="'primary'" [outlineButton]="true" (click)="onCancel.emit()"
+      <rds-button [label]="translate.instant('Cancel')" class="m-2" [colorVariant]="'primary'" [isOutline]="true" (click)="onCancel.emit()"
         data-bs-dismiss="offcanvas">
       </rds-button>
-      <rds-button [label]="translate.instant('Next')" [disabled]="!userCreationClaimsForm.valid" class="save-btn"
+      <rds-button [label]="translate.instant('Next')" [isDisabled]="!userCreationClaimsForm.valid" class="save-btn"
         [colorVariant]="'primary'" (click)="next(userCreationClaimsForm)">
       </rds-button>
     </div>

@@ -2,8 +2,6 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AlertService, ComponentLoaderOptions } from '@libs/shared';
 import { Store } from '@ngrx/store';
 import { ArrayToTreeConverterService } from 'projects/libs/shared/src/lib/array-to-tree-converter.service';
-import { TreeNode } from 'projects/rds-components/src/models/tree-node.model';
-import { TableHeader } from 'projects/rds-components/src/models/table-header.model';
 import { TranslateService } from '@ngx-translate/core';
 import {
   transition,
@@ -13,8 +11,7 @@ import {
   animate,
 } from '@angular/animations';
 import { deleteEdition, getEditionInfo, getEditions, saveEdition, updateEdition } from 'projects/libs/state-management/src/lib/state/edition/edition.action';
-import { selectAllEditions } from 'projects/libs/state-management/src/lib/state/DownloadData/download-data.selector';
-import { selectEditionInfo } from 'projects/libs/state-management/src/lib/state/edition/edition.selector';
+import { selectAllEditions, selectEditionInfo } from 'projects/libs/state-management/src/lib/state/edition/edition.selector';
 
 @Component({
   selector: 'app-root',
@@ -65,107 +62,77 @@ export class AppComponent implements OnInit {
   }
   public rdsEditionMfeConfig: ComponentLoaderOptions;
   constructor(private store: Store,private translate:TranslateService, private _arrayToTreeConverterService: ArrayToTreeConverterService, private alertService: AlertService) { }
-  TableHeader: TableHeader[] = [
-    { displayName: 'Edition Name', key: 'editionname', dataType: 'text', dataLength: 30, sortable: true, required: true, filterable: true },
-    { displayName: 'Price', key: 'price', dataType: 'text', dataLength: 30, sortable: true, required: true },
-    { displayName: 'Trial Period', key: 'trialPeriod', dataType: 'text', dataLength: 30, sortable: true, required: true },
-    { displayName: 'Expiring Edition', key: 'expiringEdition', dataType: 'text', dataLength: 30, sortable: true, required: true },
-  ]
 
   EditionDatatable: any = [];
   featureList: any = [];
   freeEditions: any = [];
-  nodeColors = ['#6E4D9F', '#0D79AE', '#14A94B', '#FBA919'];
-  treeData: any = [
-    new TreeNode("Testtenantscopefeature", 'Test tenant scope feature', 1, [], true, 1),
-    new TreeNode("Chat", 'Chat', 1, [new TreeNode("ChatWithHost", 'Chat With Host', 2, [], false, 2), new TreeNode("ChatWithOtherTenant", 'Chat With Other Tenant', 2, [], true, 3)], true, 4)
-    , new TreeNode("MaximumUserCount", 'Maximum User Count', 1, [], true, 6)
-    , new TreeNode("TestCheckFeature", 'Test Check Feature', 1, [], true, 7)
-    , new TreeNode("TestCheckFeature2", 'Test Check Feature2', 1, [], true, 8)
-  ]
+  editionData: any = {}
 
   editionList: any = [];
   defaultEditionName: any[] = [];
 
   ngOnInit(): void {
     this.isAnimation = true;
-    // this.store.select(selectDefaultLanguage).subscribe((res: any) => {
-    //   if (res) {
-    //     this.translate.use(res);
-    //   }
-    // })
-    this.subscribeToAlerts();
+    // this.subscribeToAlerts();
     this.rdsEditionMfeConfig = {
-      name: 'RdsCompFeatures',
+      name: 'RdsCompFeaturesListNew',
       input: {
-        EditionsTableHeader: this.TableHeader,
-        EditionsTableData: this.EditionDatatable,
         recordsPerpage: 10,
-        nodeColors: this.nodeColors,
-        treeData: this.treeData,
         featureList: this.featureList,
         noDataTitle: 'Currently you do not have edition',
         editionList: this.editionList,
-        freeEditions: this.freeEditions,
-        tenantCount:0,
         isShimmer:true,
         editShimmer:true
       },
       output: {
-        onEditionSave: (data) => {
-          if (data) {
-            if (data.edition.id !== undefined) {
-              this.store.dispatch(updateEdition(data))
+        onEditionSave: (edition) => {
+          if (edition && edition.editionBasicInfo) {
+            if (edition.editionBasicInfo.id) {
+              this.store.dispatch(updateEdition(edition))
             } else {
+              const data: any = {
+                displayName : edition.editionBasicInfo.editionName ,
+                planId : edition.editionBasicInfo.editionPlan
+              }
               this.store.dispatch(saveEdition(data))
             }
-          }
-
-        },
-        updateEdition: (id) => {
-          if(id==0){
-            const rdsEditionMfeConfig = this.rdsEditionMfeConfig;
-            rdsEditionMfeConfig.input.editShimmer=false;
-            this.rdsEditionMfeConfig={ ...rdsEditionMfeConfig }
-          }else{
-            const rdsEditionMfeConfig = this.rdsEditionMfeConfig;
-            rdsEditionMfeConfig.input.editShimmer=true;
-            this.rdsEditionMfeConfig={ ...rdsEditionMfeConfig }
-          }
-          this.store.dispatch(getEditionInfo(id))
-        },
-        deleteEdition: (data) => {
-          this.store.dispatch(deleteEdition(data.id));
-        },
-        onMoveTenantAction: (editionId) => {
-          // this.store.dispatch(getTenantCount(editionId));
-        },
-        onMoveTenant: (data) => {
-          // this.store.dispatch(moveTenant(data));
-        }
-      }
     }
-    const mfeConfig = this.rdsEditionMfeConfig
-    mfeConfig.input.isShimmer =true
-    this.rdsEditionMfeConfig = mfeConfig;
+  }
+}
+    }
+    // const mfeConfig = this.rdsEditionMfeConfig
+    // mfeConfig.input.isShimmer =false
+    // this.rdsEditionMfeConfig = mfeConfig;
+  
     this.store.dispatch(getEditions());
     this.store.select(selectAllEditions).subscribe((res: any) => {
-      this.EditionDatatable = [];
-      if (res && res.editions && res.editions && res.status == "success") {
+      // this.EditionDatatable = [];
+      if (res) {
         this.isAnimation = false;
-        res.editions.forEach(element => {
-          const edition: any = {
-            editionname: element.displayName,
-            price: element.annualPrice,
-            trialPeriod: element.trialDayCount,
-            expiringEdition: element.expiringEditionDisplayName,
-            id: element.id,
-            name:element.displayName,          
-          }
-          this.EditionDatatable.push(edition);
-        });
+        this.editionData = {};
+        this.editionData['editionName'] = res.displayName;
+        this.editionData['editionPlan'] = res.planId;
+        // res.items.forEach(element => {
+        //   const edition: any = {
+        //     editionname: element.displayName,
+        //     price: element.annualPrice,
+        //     trialPeriod: element.trialDayCount,
+        //     expiringEdition: element.expiringEditionDisplayName,
+        //     id: element.id,
+        //     name:element.displayName,          
+        //   }
+        //   // this.EditionDatatable.push(edition);
+        // });
+        // res.items.forEach(elements =>{
+        //   let  data = {...this.editionData,
+        //     'EditionName':elements.displayName
+        //     }
+        //     this.Dataset.push(data);
+        // })
         const rdsEditionMfeConfig = this.rdsEditionMfeConfig;
-        rdsEditionMfeConfig.input.EditionsTableData = this.EditionDatatable;
+        rdsEditionMfeConfig.input.editionData ={...this.editionData};
+        rdsEditionMfeConfig.input.editionData =res.editionList;
+        rdsEditionMfeConfig.input.editionData =res.editions;
         rdsEditionMfeConfig.input.isShimmer=false
         this.rdsEditionMfeConfig = rdsEditionMfeConfig;
       }
@@ -174,31 +141,30 @@ export class AppComponent implements OnInit {
     })
     this.store.dispatch(getEditionInfo("asdf"))
     this.store.select(selectEditionInfo).subscribe((res: any) => {
-      if (res && res.editionInfo && res.editionInfo.featureValues && res.status == "success") {
-        this.featureList = this.convertArraytoTreedata(res.editionInfo.features)
-        const rdsEditionMfeConfig = this.rdsEditionMfeConfig;
-        rdsEditionMfeConfig.input.featureList = [...this.featureList];
-        rdsEditionMfeConfig.input.selectedFeatures = [...res.editionInfo.featureValues];
-        rdsEditionMfeConfig.input.selectedEdition = { ...res.editionInfo.edition };
-        rdsEditionMfeConfig.input.editShimmer=false;
-        this.rdsEditionMfeConfig = { ...rdsEditionMfeConfig };
-      }
+      // if (res && res.editionInfo && res.editionInfo.featureValues && res.status == "success") {
+      //   this.featureList = this.convertArraytoTreedata(res.editionInfo.features)
+      //   const rdsEditionMfeConfig = this.rdsEditionMfeConfig;
+      //   rdsEditionMfeConfig.input.featureList = [...this.featureList];
+      //   rdsEditionMfeConfig.input.selectedFeatures = [...res.editionInfo.featureValues];
+      //   rdsEditionMfeConfig.input.selectedEdition = { ...res.editionInfo.edition };
+      //   rdsEditionMfeConfig.input.editShimmer=false;
+      //   this.rdsEditionMfeConfig = { ...rdsEditionMfeConfig };
+      // }
 
-    }, (err: any) => {
     })
-    this.store.dispatch(getEditions())
-    this.store.select(selectAllEditions).subscribe((res: any) => {
-      if (res && res.editionComboboxItem) {
-        this.editionList = [];
-        this.freeEditions = [];
-        this.editionList = res.editionComboboxItem;
-        this.freeEditions = res.editionComboboxItem.filter((x: any) => x.isFree);
-        const mfeConfig = this.rdsEditionMfeConfig
-        mfeConfig.input.editionList = [... this.editionList];
-        mfeConfig.input.freeEditions = [...this.freeEditions]
-        this.rdsEditionMfeConfig = mfeConfig;
-      }
-    });
+    // this.store.dispatch(getEditions())
+    // this.store.select(selectAllEditions).subscribe((res: any) => {
+    //   if (res && res.editionComboboxItem) {
+    //     this.editionList = [];
+    //     this.freeEditions = [];
+    //     this.editionList = res.editionComboboxItem;
+    //     this.freeEditions = res.editionComboboxItem.filter((x: any) => x.isFree);
+    //     const mfeConfig = this.rdsEditionMfeConfig
+    //     mfeConfig.input.editionList = [... this.editionList];
+    //     mfeConfig.input.freeEditions = [...this.freeEditions]
+    //     this.rdsEditionMfeConfig = mfeConfig;
+    //   }
+    // });
     //this.store.dispatch(getDefaultEditionName())
     //this.store.select(selectDefaultNameComboboxItems).subscribe((res: any) => {
     //  if (res && res.defaultEditionNameItem && res.defaultEditionNameItem.length > 0) {
@@ -215,56 +181,56 @@ export class AppComponent implements OnInit {
     //     this.rdsEditionMfeConfig = mfeConfig;
     //   }
     // })
-  }
-  convertArraytoTreedata(data: any) {
-    const treedaTA = this._arrayToTreeConverterService.createTree(
-      data,
-      'parentName',
-      'name',
-      null,
-      'children',
-      [
-        {
-          target: 'label',
-          source: 'displayName',
-        },
-        {
-          target: 'expandedIcon',
-          value: 'fa fa-folder-open text-warning',
-        },
-        {
-          target: 'collapsedIcon',
-          value: 'fa fa-folder text-warning',
-        },
-        {
-          target: 'expanded',
-          value: true,
-        },
-        {
-          target: 'selectable',
-          targetFunction(item) {
-              return item.inputType.name === 'CHECKBOX';
-          },
-      },
-      ],
-      1
-    );
-    return treedaTA;
-  }
-  subscribeToAlerts() {
-    this.alertService.alertEvents.subscribe((alert) => {
-      this.currentAlerts = [];
-      const currentAlert: any = {
-        type: alert.type,
-        title: alert.title,
-        message: alert.message,
-      };
-      this.currentAlerts.push(currentAlert);
-      const rdsAlertMfeConfig = this.rdsAlertMfeConfig;
-      rdsAlertMfeConfig.input.currentAlerts = [...this.currentAlerts];
-      this.rdsAlertMfeConfig = rdsAlertMfeConfig;
-    });
+    //}
+  // convertArraytoTreedata(data: any) {
+  //   const treedaTA = this._arrayToTreeConverterService.createTree(
+  //     data,
+  //     'parentName',
+  //     'name',
+  //     null,
+  //     'children',
+  //     [
+  //       {
+  //         target: 'label',
+  //         source: 'displayName',
+  //       },
+  //       {
+  //         target: 'expandedIcon',
+  //         value: 'fa fa-folder-open text-warning',
+  //       },
+  //       {
+  //         target: 'collapsedIcon',
+  //         value: 'fa fa-folder text-warning',
+  //       },
+  //       {
+  //         target: 'expanded',
+  //         value: true,
+  //       },
+  //       {
+  //         target: 'selectable',
+  //         targetFunction(item) {
+  //             return item.inputType.name === 'CHECKBOX';
+  //         },
+  //     },
+  //     ],
+  //     1
+  //   );
+  //   return treedaTA;
+  // }
+  // subscribeToAlerts() {
+  //   this.alertService.alertEvents.subscribe((alert) => {
+  //     this.currentAlerts = [];
+  //     const currentAlert: any = {
+  //       type: alert.type,
+  //       title: alert.title,
+  //       message: alert.message,
+  //     };
+  //     this.currentAlerts.push(currentAlert);
+  //     const rdsAlertMfeConfig = this.rdsAlertMfeConfig;
+  //     rdsAlertMfeConfig.input.currentAlerts = [...this.currentAlerts];
+  //     this.rdsAlertMfeConfig = rdsAlertMfeConfig;
+  //   });
 
-  }
-
-}
+  // }
+        }
+      }

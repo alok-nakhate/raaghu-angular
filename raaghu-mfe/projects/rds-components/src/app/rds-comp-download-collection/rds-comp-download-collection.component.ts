@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ComponentLoaderOptions } from '@libs/shared';
+import { TranslateService } from '@ngx-translate/core';
 export class DownloadData{
   public DateofData: string;
   public NummberofDates: string;
@@ -7,14 +8,15 @@ export class DownloadData{
   }
 
 @Component({
-  selector: 'app-rds-comp-download-collection',
+  selector: 'rds-comp-download-collection',
   templateUrl: './rds-comp-download-collection.component.html',
   styleUrls: ['./rds-comp-download-collection.component.scss']
 })
 export class RdsCompDownloadCollectionComponent implements OnInit {
   @Input() pagination: boolean = true;
   
-  constructor() { }
+  
+  constructor(public translate: TranslateService) { }
 
   ngOnInit(): void {
     this.dataSource=this.DownloadTable;

@@ -1066,6 +1066,13 @@ html {
     .vertical-dotted-line {
       border-right-color: $verticle-border-color;
     }
+    .vertical-dotted-line-extraa {
+      border-left-color: $verticle-border-color;
+    }
+
+    .vertical-dotted-line-select-all {
+      border-right-color: $verticle-border-color;
+    }
 
     .horizontal-dotted-line {
       border-bottom-color: $horizontal-border-color;

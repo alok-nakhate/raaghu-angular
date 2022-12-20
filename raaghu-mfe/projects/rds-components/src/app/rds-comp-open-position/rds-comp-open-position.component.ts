@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-rds-comp-open-position',
+  selector: 'rds-comp-open-position',
   templateUrl: './rds-comp-open-position.component.html',
   styleUrls: ['./rds-comp-open-position.component.scss']
 })

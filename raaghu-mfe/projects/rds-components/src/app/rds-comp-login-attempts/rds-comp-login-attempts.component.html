@@ -1,8 +1,8 @@
 <form #loginAttempt="ngForm">
   <div ria-labelledby="nav-LinkAccount" class="h-100">
   <div class="card border-0 h-100">
-    <div class="card-header border-bottom">
-      <h5 class="card-title">{{"LOGIN ATTEMPTS"|translate}}</h5>
+    <div class="card-header border-bottom border-dark border-opacity-10">
+      <h5 class="card-title">{{translate.instant('Login Attempts')}}</h5>
     </div>
     <div class="card-body">
       <div class="">
@@ -13,30 +13,31 @@
 
         </div>
            <div class="row">
-             <div class="col-md-4 sm-p-0">
+             <div class="col-lg-5 col-md-12 col-sm-12 sm-p-0">
                <div class="form-group mb-3">
-                 <rds-select-list [(ngModel)]="result" [value]="result" [placeholder]="'Select Result'" ngDefaultControl
-                                  [label]="translate.instant('Result')"
-                                  [labelPosition]="'top'" name="edition" #result_name="ngModel" [(ngModel)]="Result" required
-                                  [itemList]="listItemsResult">
-                 </rds-select-list>
+                 <label for="Result" class="mb-2">{{"Result"|translate}}</label>
+                 <rds-dropdownlist [placeholder]="translate.instant('Select Result')" [borderDropdown]="true" required
+                class="text-dark" [id]="'result-list'" [(ngModel)]="result" [listItems]="listItemsResult"
+               [value]="result" (onSelect)="onResultListSelect($event)" ngDefaultControl name="result" #result_name="ngModel">
+              </rds-dropdownlist>
+
                </div>
              </div>
-             <div class="col-md-3 sm-p-0">
+            <div class="col-lg-3 col-md-12 col-sm-12 sm-p-0">
                <div class="form-group mb-3">
-                 <rds-datepicker name="date-picker" [label]="translate.instant('Start Date')" [(ngModel)]="startDate"
-                                 [value]="startDate">
+                 <rds-datepicker name="date-picker1" #start_date_picker2="ngModel"  style="cursor: pointer;" (change)="startDateModify($event)"  [label]="translate.instant('Start Date')" [(ngModel)]="startDate" value="start_date_picker2"
+                 ngDefaultControl >
                  </rds-datepicker>
                </div>
              </div>
-             <div class="col-md-3 sm-p-0">
+             <div class="col-lg-3 col-md-12 col-sm-12 sm-p-0">
                <div class="form-group mb-3">
-                 <rds-datepicker name="date-picker" [label]="translate.instant('End Date')" [(ngModel)]="endDate"
-                                 [value]="endDate">
+                 <rds-datepicker name="date-picker2" #end_date_picker2="ngModel" style="cursor: pointer;" (change)="endDateModify($event)" [label]="translate.instant('End Date')" [(ngModel)]="endDate" value="end_date_picker2"
+                 ngDefaultControl >
                  </rds-datepicker>
                </div>
              </div>
-             <div class="col-md-2  m-auto pt-3 sm-p-0">
+             <div class="col-lg-1 col-md-12 col-sm-12 m-auto pt-3 sm-p-0">
               <rds-icon name="refresh" icon="refresh" class=" btn btn-primary btn-md btn-icon"  (click)="Search(loginAttempt)" text-primary></rds-icon>
             </div>
            </div>
@@ -47,6 +48,13 @@
         <div class="row">
           <div class="col-sm-12 sm-p-0">
             <mfe-loader [config]="rdsLoginTableMfeConfig"></mfe-loader>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 sm-p-0 mt-3">
+            <rds-data-table [tableData]="operationLogs"  [pagination]="true" *ngIf="showInput"
+                [noDataTitle]="translate.instant('Currently you do not have operation log')" [showNodataSubtitle]="false"
+                [refresh]="true" [tableHeaders]="operationLogsHeaders"></rds-data-table>
           </div>
         </div>
       </div>

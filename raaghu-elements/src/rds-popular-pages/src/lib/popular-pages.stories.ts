@@ -22,7 +22,7 @@ const Template: Story<RdsPopularPagesComponent> = (args: RdsPopularPagesComponen
 });
 
 export const Default = Template.bind({});
- 
+Default.parameters = { controls: { include: ['customPopularPageItems'] } };
 Default.args = {
   customPopularPageItems:[{ title: 'Documentation',  subtitle: 'Learn how to integrate our tools with your app', icon: 'folder',route: '/home'},
   { title: 'API References',  subtitle: 'A Complete API references of our libraries', icon: 'code_computer' ,route: '/home'},

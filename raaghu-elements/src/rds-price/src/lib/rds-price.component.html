@@ -1,5 +1,35 @@
-    <div>
-      <span class="fw-bold fs-4">${{numberPrice}}</span>
-      <span class="text-muted m-2 text-decoration-line-through fs-5"> ${{actualPrice}}</span>
-      <span class="fs-6 text-primary">{{discount}}% off</span>
+
+
+<!-- <div>
+  <span class="fw-bold fs-4">${{numberPrice}}</span>
+  <span class="text-muted m-2 text-decoration-line-through fs-5" *ngIf="withDiscount"> ${{actualPrice}}</span>
+  <span class="fs-6 text-primary" *ngIf="withDiscount">{{discount}}% off</span>
+  <rds-icon class="px-2" [name]="'question'" [width]="'16px'"></rds-icon>
+</div> -->
+    <div [ngSwitch]="role">
+      <div *ngSwitchCase="'Basic'">
+        <span class="fw-bold fs-4">${{originalPrice}}</span>
+        <span class="text-muted m-2 text-decoration-line-through fs-5"> ${{actualPrice}}</span>
+        <span class="fs-6 text-primary">{{discount}}% off</span>
+         <rds-icon class="px-2" [name]="'question'" [width]="'16px'"></rds-icon>
+         <!-- <rds-icon class="px-2" [name]="'question'" [width]="'16px'"></rds-icon>
+         <span class="fs-6 text-primary" *ngIf="withDiscount">{{discount}}% off</span>
+         <span class="text-muted m-2 text-decoration-line-through fs-5"> ${{actualPrice}}</span>
+         <span class="fw-bold fs-4">${{numberPrice}}</span> -->
+      </div>
+
+
+      <div *ngSwitchCase="'withoutDiscount'">
+        <h4 class="fs-4">${{numberPricetwo}}</h4>
+      </div>
     </div>
+
+<!-- 
+<span class="fw-bold fs-4">${{numberPrice}}</span>
+
+<span class="fw-bold fs-4">${{originalPrice}}</span>
+
+<span class="text-muted m-2 text-decoration-line-through fs-5" *ngIf="withDiscount"> ${{actualPrice}}</span>
+<span class="fs-6 text-primary" *ngIf="withDiscount">{{discount}}% off</span>
+<rds-icon class="px-2" [name]="'question'" [width]="'16px'"></rds-icon> -->
+

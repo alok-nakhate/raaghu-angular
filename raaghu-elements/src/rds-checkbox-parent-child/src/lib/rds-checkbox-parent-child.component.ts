@@ -13,163 +13,68 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   }]
 })
 export class RdsCheckboxParentChildComponent implements OnInit, ControlValueAccessor {
-  private onTouched!: Function;
-  private onChanged!: Function;
   title = 'rds-checkbox-parent-child';
-  data: any;
-  onChange!: (value: string) => void;
-  isMasterSel: boolean;
-  categoryList: any;
-  checkedCategoryList: any;
-  @Input() checked!: boolean;
-  @Input() disabled!: boolean;
-  @Input() id?: string
-  @Input() label?: string;
+  onChange = (event: any) => {};
+  onTouched = () => {};
+  @Input() itemList: any;
   @Input() switch?: boolean;
   @Input() inline?: boolean;
-  @Input() withLabel?: boolean;
   @Input() isInputGroup?: boolean;
-  @Input() state: 'checkbox' | 'Indeterminate' | 'errorcheckbox' = 'checkbox';
+  @Input() state: 'checkbox' | 'errorcheckbox' = 'checkbox';
+  checked = false;
 
   @Output() onClick = new EventEmitter<{ evnt: any, item: string }>();
 
-  listItems!: any;
-  constructor() {
-    this.isMasterSel = false;
-    this.data = {};
-    this.data.isAllSelected = false;
-    this.data.isAllCollapsed = false;
-
-    this.data.ParentChildchecklist = [
-      {
-        id: 1,
-        label: 'Parent Checkbox 1',
-        isSelected: false,
-        isIntermediate: false,
-        isClosed: false,
-        childList: [
-          {
-            id: 1,
-            parent_id: 1,
-            label: 'Child Checkbox 1',
-            isSelected: false
-          },
-          {
-            id: 2,
-            parent_id: 1,
-            label: 'Child Checkbox 2',
-            isSelected: false
-          },
-          {
-            id: 3,
-            parent_id: 1,
-            label: 'Child Checkbox 3',
-            isSelected: false
-          },
-          {
-            id: 4,
-            parent_id: 1,
-            label: 'Child Checkbox 4',
-            isSelected: false
-          }
-        ]
-      },
-      {
-        id: 2,
-        label: 'Parent Checkbox 2',
-        isSelected: false,
-        isIntermediate: false,
-        isClosed: false,
-        childList: [
-          {
-            id: 1,
-            parent_id: 1,
-            label: 'Child Checkbox 1',
-            isSelected: false
-          },
-          {
-            id: 2,
-            parent_id: 1,
-            label: 'Child Checkbox 2',
-            isSelected: false
-          }
-        ]
-      },
-      //{
-      //  id: 3, 
-      //  label: 'Parent Checkbox 3', 
-      //  isSelected: false, 
-      //  isIntermediate: false,
-      //  isClosed: false,
-      //  childList: [
-      //    {
-      //      id: 1, 
-      //      parent_id: 1, 
-      //      label: 'Child Checkbox 1', 
-      //      isSelected: false
-      //    },
-      //    {
-      //      id: 2, 
-      //      parent_id: 1, 
-      //      label: 'Child Checkbox 2', 
-      //      isSelected: false
-      //    },
-      //    {
-      //      id: 3, 
-      //      parent_id: 1, 
-      //      label: 'Child Checkbox 3', 
-      //      isSelected: false
-      //    }
-      //  ]
-      //}
-    ];
-  }
-
+  constructor() {}
 
   ngOnInit(): void {
+  }
 
+  writeValue(obj: any) {
+    this.checked = obj;
+  }
+
+  registerOnChange(fn: any) {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: any) {
+    this.onTouched = fn;
   }
 
   public get classes(): string[] {
     var classes = ['form-check']
-    if (this.isInputGroup === true) {
-      classes = ['input-group-text px-5'];
+    if (this.isInputGroup) {
+      classes = ['input-group-text'];
     }
-    if (this.switch === true) {
-      classes.push('form-switch')
+    if (this.switch) {
+      classes.push('form-switch ps-5')
       return classes
     }
-    if (this.inline === true) {
+    if (this.inline) {
       classes.push('form-check-inline')
       return classes
     }
-    if (this.state === 'Indeterminate') {
-      classes.push('inder')
-      return classes
-    }
-    if (this.state === 'errorcheckbox') {
+    if (this.state == 'errorcheckbox') {
       classes.push('errorche')
       return classes
+    }
+    if (this.isInputGroup && this.switch && this.inline) {
+      classes = ['input-group-text form-switch ps-5 form-check-inline'];
     }
     return classes
   }
 
   getValueParent(event: any) {
-    this.onClick.emit({ evnt: event, item: event.ParentChildchecklist.target.value });
+    this.onClick.emit({ evnt: event, item: event.target.value });
     this.onChange(event.target.click)
     this.onTouched();
   }
 
   getValueChild(event: any) {
-    this.onClick.emit({ evnt: event, item: event.childList.target.value });
+    this.onClick.emit({ evnt: event, item: event.target.value });
     this.onChange(event.target.click)
     this.onTouched();
-  }
-
-  changeData(event: boolean): void {
-    this.checked = event
-    this.onTouched();
-    this.onChanged(this.checked);
   }
 
   parentCheck(parentObj: any, event: boolean) {
@@ -179,7 +84,7 @@ export class RdsCheckboxParentChildComponent implements OnInit, ControlValueAcce
     }
     parentObj.isSelected = event
     this.onTouched(); // <-- mark as touched
-    this.onChanged(event);
+    this.onChange(event);
   }
 
   //Click event on Child Checkbox checkbox  
@@ -209,17 +114,7 @@ export class RdsCheckboxParentChildComponent implements OnInit, ControlValueAcce
     }
     // childObj.isSelected = event
     this.onTouched(); // <-- mark as toucheds
-    this.onChanged(event);
-  }
-
-  writeValue(value: boolean): void {
-    this.checked = value;
-  }
-  registerOnChange(fn: any): void {
-    this.onChanged = fn; // <-- save the function
-  }
-  registerOnTouched(fn: any): void {
-    this.onTouched = fn; // <-- save the function
+    this.onChange(event);
   }
 
   //Just to show updated JSON object on view

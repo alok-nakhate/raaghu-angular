@@ -17,5 +17,15 @@ export class SharedService {
     this.getNavHead$.next(title);
   }
 
+  public getSidebarStatus$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
+  getSideBarStatus(): Observable<any> {
+    return this.getSidebarStatus$.asObservable();
+  }
+
+  setSideBarStatus(status: boolean) {
+    this.getSidebarStatus$.next(status);
+  }
+
   subjects: { [key: string]: Subject<any> } = {};
 }

@@ -19,7 +19,7 @@
           <span class="text-muted" [ngClass]="changeSize">Maximum {{maxfilesize}}MB</span>
         </div>
         <div class="form-group files position-relative">
-          <div class="d-flex h-75 justify-content-between">
+          <div class="d-flex h-100 justify-content-between file-uploader-multi">
             <div class="d-block me-5 ms-3 mt-3 font-bold">
               <div class="fw-bold">Drag and drop files</div>
               <div class="text-muted" [ngClass]="changeSize">(PNG, JPG, DOC, PDF, PPT)</div><br>
@@ -42,7 +42,7 @@
       <div *ngIf="closeFile">
         <ul class="list-style ps-0">
           <li *ngFor="let item of message">
-            <div *ngIf="item.iserror">
+            <!-- <div *ngIf="item.iserror"> -->
               <div class="alert alert-warning alert-dismissible fade show alert-un w-100 text-dark px-4 mt-2 d-flex justify-content-between" role="alert">
                 <div class="row d-flex align-items-center w-100 g-1">
                   <div class="col-9">
@@ -57,16 +57,16 @@
                     <span [ngClass]="changeSize">{{item.filename}}</span>
                   </div>
                   <div class="col-3 text-end">
-                    <span class="ps-1" [ngClass]="changeSize">{{item.filesize}} MB</span>
+                    <span class="ps-1 pe-4" [ngClass]="changeSize">{{item.filesize}} MB</span>
                     <button type="button" class="close file-close bg-transparent border-0 btn-close" data-bs-dismiss="alert" aria-label="Close"
                             (click)="removeFileFromList(index)">
                     </button>
                   </div>
                 </div>
               </div>
-            </div>
+            <!-- </div> -->
           </li>
-          <li *ngFor="let item of message">
+          <!-- <li *ngFor="let item of message">
             <div *ngIf="!item.iserror">
               <div class="alert alert-warning alert-dismissible fade show alert-un w-100 text-dark px-4 mt-2 d-flex justify-content-between" role="alert">
                 <div class="row d-flex align-items-center w-100 g-1">
@@ -94,7 +94,7 @@
                 </div>
               </div>
             </div>
-          </li>
+          </li> -->
         </ul>
       </div>
 

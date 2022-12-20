@@ -22,10 +22,18 @@ export default {
       options: ['square', 'round'],
       control: { type: 'radio' }
     },
+
     role: {
       options: ['basic', 'tagWithScroll'],
       control: { type: 'radio' }
     },
+    // borderColorVariant: {
+    //   options: ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark', 'default'],
+    //   control: { type: 'select' }
+    // }
+
+    // role: { table: { disable: true, }, },
+
   }
 } as Meta
 
@@ -34,18 +42,19 @@ const Template: Story<RdsTagsComponent> = (args: RdsTagsComponent) => ({
 });
 
 export const Default = Template.bind({});
-Default.parameters = { controls: { include: ['role', 'colorVariant', 'tagType'] } };
+Default.parameters = { controls: { include: ['role', 'colorVariant', 'tagType',''] } };
 Default.args = {
   role: 'basic',
   colorVariant: 'primary',
   tagType: 'square'
 }
 export const tagWithScroll = Template.bind({});
-tagWithScroll.parameters = { controls: { include: ['role', 'colorVariant', 'tagType'] } };
+tagWithScroll.parameters = { controls: { include: ['role', 'colorVariant', 'tagType',''] } };
 tagWithScroll.args = {
   role: 'tagWithScroll',
   colorVariant: 'primary',
   tagType: 'square'
+ 
 }
 
 

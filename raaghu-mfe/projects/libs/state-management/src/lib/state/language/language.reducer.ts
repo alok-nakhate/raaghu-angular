@@ -1,19 +1,19 @@
 import { createReducer, on } from "@ngrx/store";
-import { getCountryList, getCountryListFailure, getCountryListSuccess, getLanguageFailure, getLanguages, getLanguageSuccess, setDefaultLanguage, setDefaultLanguageForUI } from "./language.actions";
+import { getCultureList, getCultureListFailure, getCultureListSuccess, getLanguageFailure, getLanguageForEdit, getLanguageForEditFailure, getLanguageForEditSuccess, getLanguages, getLanguageSuccess } from "./language.actions";
 import { Countries, Language } from "./language.models";
 
 export interface LanguagesState {
     languages: any;
-    countries: any;
-    defaultLanguage: any;
+    cultureList: any;
+    languageInfo:any;
     error: string;
     status: 'pending' | 'loading' | 'error' | 'success';
 }
 
 export const languageInitialState: LanguagesState = {
     languages: null,
-    countries: null,
-    defaultLanguage: null,
+    cultureList: null,
+    languageInfo:null,
     error: null,
     status: 'pending',
 };
@@ -30,28 +30,33 @@ export const LanguageReducer = createReducer(
         error: null,
         status: 'success',
     })),
-    // Handle todos load failure
-    on(getLanguageFailure, (state, { error }) => ({
-        ...state,
-        error: error,
-        status: 'error',
-    })),
-    on(getCountryList, (state) => ({ ...state, status: 'loading' })),
+    
+    on(getLanguageForEdit, (state) => ({ ...state, status: 'loading' })),
     // Handle successfully loaded todos
-    on(getCountryListSuccess, (state, { countries }) => ({
+    on(getLanguageForEditSuccess, (state, { languageInfo }) => ({
         ...state,
-        countries: countries,
+        languageInfo: languageInfo,
         error: null,
         status: 'success',
     })),
-    on(getCountryListFailure, (state, { error }) => ({
+    // Handle todos load failure
+    on(getLanguageForEditFailure, (state, { error }) => ({
         ...state,
         error: error,
         status: 'error',
     })),
-    on(setDefaultLanguageForUI, (state, { name }) => ({
+    on(getCultureList, (state) => ({ ...state, status: 'loading' })),
+    // Handle successfully loaded todos
+    on(getCultureListSuccess, (state, { cultureList }) => ({
         ...state,
-        defaultLanguage: name,
+        cultureList: cultureList,
+        error: null,
+        status: 'success',
+    })),
+    on(getCultureListFailure, (state, { error }) => ({
+        ...state,
+        error: error,
+        status: 'error',
     }))
 )
 

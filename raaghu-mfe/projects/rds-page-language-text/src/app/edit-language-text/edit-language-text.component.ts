@@ -16,11 +16,12 @@ export class EditLanguageTextComponent implements OnInit, OnChanges {
   constructor(private store: Store) { }
   @Input() Languagetext: any = {
     baseValue: '',
-    sourceName: '',
+    resourceName: '',
     baseLanguageName: '',
     languageName: '',
     value: '',
-    key: ''
+    key: '',
+    cultureName:''
   }
   ngOnInit(): void {
     this.rdsEditLanguagetextMfeConfig = {

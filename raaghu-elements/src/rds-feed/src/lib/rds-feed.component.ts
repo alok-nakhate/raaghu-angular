@@ -20,6 +20,11 @@ export class RdsFeedComponent implements OnInit {
     }
   ]
 
+  @Input() withNoOfReviews: boolean = true;
+  @Input() colorVariant: 'review' | 'warning' | 'danger' | 'success' | 'info' | 'primary' | 'secondary' | 'dark' | 'light' = "review";
+  @Input() noOfReview: number | undefined = 123;
+  @Input() ratingPosition: 'left' | 'right' = 'left';
+
   @Output() onSelect = new EventEmitter<any>();
 
   constructor() { }
@@ -27,6 +32,12 @@ export class RdsFeedComponent implements OnInit {
   ngOnInit(): void {
     this.date = moment(this.date).fromNow()
   }
+
+  public get colorSelection(): string {
+    const color = `text-${this.colorVariant}`;
+    return color;
+  }
+
 
   onLikeDislike(e: any) {
     this.onSelect.emit(e)

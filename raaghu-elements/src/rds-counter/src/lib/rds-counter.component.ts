@@ -1,4 +1,4 @@
-import { Component, EventEmitter, forwardRef, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, forwardRef, Input, OnInit, Output, ViewEncapsulation, DoCheck } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
@@ -18,17 +18,18 @@ export class RdsCounterComponent implements OnInit {
   onTouched: () => void = () => { };
 
   @Input() counterValue: number = 0;
-  @Input() label='';
+  @Input() label = '';
   @Input() min = 0;
   @Input() max = 40;
-  @Input() width= 124;
+  @Input() width = 110;
   @Input() colorVariant?: string;
   @Input() position: 'start' | 'end' | 'top' | 'bottom' = 'start';
 
-  @Input() icon: string = 'plus';
-  @Input() iconStroke: boolean = true;
-  @Input() iconFill: boolean = false;
-  
+  icon: string = 'plus';
+  iconStroke: boolean = true;
+  iconFill: boolean = false;
+  labelOrder!: string; 
+
   @Output() counterChange = new EventEmitter<number>();
   invalidCount: boolean = false;
   id: string = '';
@@ -38,6 +39,10 @@ export class RdsCounterComponent implements OnInit {
   iconHeight: string = "20px";
 
   constructor() { }
+  
+  ngOnInit(): void {
+    this.width < 110 ? this.width = 110 : this.width = this.width;
+  }
 
   writeValue(obj: any): void {
     this.counterValue = obj;
@@ -62,8 +67,6 @@ export class RdsCounterComponent implements OnInit {
   }
 
 
-  ngOnInit(): void {
-  }
 
   public get classList(): string[] {
     var clsList: string[] = [];
@@ -100,32 +103,34 @@ export class RdsCounterComponent implements OnInit {
     this.counterChange.emit(this.counterValue);
   }
 
-  public get labelClasses(): string[] {
-
-    var classes = ['position-absolute']
-    if (this.position === 'start') {     
-      classes.push('start-0');     
+  public get divclasses(): string[] {
+    var classes = ['']
+    if (this.position == 'top') {
+      classes.push('top-0');
+      this.labelOrder = ' ';
     }
-    else if(this.position === 'end') {
-      classes.push('end-0')
+    else if (this.position == 'bottom') {
+      classes.push(' d-flex flex-column-reverse')
+      this.labelOrder = ' ';
     }
-    else if(this.position === 'bottom') {
-      classes.push('mt-5')
+    else if (this.position === 'start') {
+      classes.push('d-flex align-items-baseline gap-3 ')
+      this.labelOrder = ' ';
     }
-     else if(this.position === 'top') {
-      classes.push('top-0')
+    else if (this.position == 'end') {
+      classes.push(' d-flex align-items-baseline gap-3');
+      this.labelOrder = '2';
     }
-
     return classes;
   }
 
-  public get inputPosition(): string[]{
-    var inputClass=['input-group'];
-    if(this.position==='top'){
-      inputClass.push('mt-4');
+  public get inputPosition(): string[] {
+    var inputClass = ['input-group'];
+    if (this.position === 'top') {
+      inputClass.push('mt-2');
     }
-    else if(this.position==='bottom'){
-      inputClass.push('mb-4');
+    else if (this.position === 'bottom') {
+      inputClass.push('mb-2');
     }
     return inputClass;
   }

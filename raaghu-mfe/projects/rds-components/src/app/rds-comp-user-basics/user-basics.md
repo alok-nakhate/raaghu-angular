@@ -9,9 +9,9 @@ title: "Components > User-basics"
 
 #### User Basics
 
-<p class="">A card is a small rectangular module with images and text. It is an entry point for users to learn more details</p>
+<p>Provides a card having details of a user and password option</p>
 <section class="py-4">
-    <h6>Default</h6>
+<h6>User Basics</h6>
     <div class="py-3">
       <div class="cust-tabs">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -28,7 +28,7 @@ title: "Components > User-basics"
          <div class="contents  p-5">
               <div class="row">
               <div class="col-md-12">
-              <img src="/images/user-basics.png" class="img-fluid w-50">
+              <img src="/images/user-basics.png" class="img-fluid">
            </div>
            </div>             
   </div>
@@ -38,11 +38,53 @@ title: "Components > User-basics"
 <div class="row m-0">
 
 ```html
-<app-rds-comp-user-basics
+<rds-comp-user-basics
 [userData]="userData",
 editShimmer= false,
 buttonSpinner= true>
-</app-rds-comp-user-basics>
+</rds-comp-user-basics>
+```
+</div>
+</div>
+  </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-4">
+  <h6>User  Basics Profile Right</h6>
+    <div class="py-3">
+      <div class="cust-tabs">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="PreviewrRight-tab" data-bs-toggle="tab" data-bs-target="#PreviewrRight" type="button" role="tab" aria-controls="PreviewBasic" aria-selected="true">Preview </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="AngularRight-tab" data-bs-toggle="tab" data-bs-target="#AngularRight" type="button" role="tab" aria-controls="AngularBasic" aria-selected="false"><i class="bi bi-code-slash" style="font-size:1.0rem"></i>Angular</button>
+          </li>
+        </ul>
+      </div>
+      <div class="tab-content card border" id="myTabContent">
+        <div class="tab-pane fade show active" id="PreviewrRight" role="tabpanel" aria-labelledby="PreviewrRight-tab">
+         <div class="contents  p-5">
+              <div class="row">
+              <div class="col-md-12">
+              <img src="/images/user-basics-profile-right.png" class="img-fluid">
+           </div>
+           </div>             
+  </div>
+        </div>
+        <div class="tab-pane fade show" id="AngularRight" role="tabpanel" aria-labelledby="AngularRight-tab">
+          <div class="contents bg-code">
+<div class="row m-0">
+
+```html
+<rds-comp-user-basic-profile-right
+  [userData]="userData"
+  [editShimmer]="false"
+  [buttonSpinner]="true"
+></rds-comp-user-basic-profile-right>
 ```
 </div>
 </div>

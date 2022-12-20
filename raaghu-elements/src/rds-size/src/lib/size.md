@@ -12,7 +12,7 @@ title: "Elements > Size"
 
 #### Size
 
-<p class="">A card is a small rectangular module with images and text. It is an entry point for users to learn more details</p>
+<p class="">Size is a list of the sizes available for any product on the e-commerce website.</p>
 <section class="py-4">
     <h6>Default</h6>
     <div class="py-3">
@@ -31,7 +31,7 @@ title: "Elements > Size"
          <div class="contents  p-5">
               <div class="row">
                  <div class="col-md-12">
-                     <img src="/images/size.png" class="img-fuild">
+                     <img src="/images/size.png" class="img-fluid">
                  </div>                           
            </div>
                        
@@ -42,7 +42,46 @@ title: "Elements > Size"
 <div class="row m-0">
 
 ```html
-   <div class="col-md-12">
+  <rds-size [sizeType]="sizeType"></rds-size>
+```
+</div>
+</div>
+  </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<section class="py-4">
+    <h6>With Description</h6>
+    <div class="py-3">
+      <div class="cust-tabs">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="PreviewDesc-tab" data-bs-toggle="tab" data-bs-target="#PreviewDesc" type="button" role="tab" aria-controls="PreviewDesc" aria-selected="true">Preview </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="AngularDesc-tab" data-bs-toggle="tab" data-bs-target="#AngularDesc" type="button" role="tab" aria-controls="AngularDesc" aria-selected="false"><i class="bi bi-code-slash" style="font-size:1.0rem"></i>Angular</button>
+          </li>
+        </ul>
+      </div>
+      <div class="tab-content card border" id="myTabContent">
+        <div class="tab-pane fade show active" id="PreviewDesc" role="tabpanel" aria-labelledby="PreviewDesc-tab">
+         <div class="contents  p-5">
+              <div class="row">
+                 <div class="col-md-12">
+                     <img src="/images/size-with-description.png" class="img-fluid w-100">
+                 </div>                           
+           </div>
+                       
+  </div>
+        </div>
+        <div class="tab-pane fade show" id="AngularDesc" role="tabpanel" aria-labelledby="AngularDesc-tab">
+          <div class="contents bg-code">
+<div class="row m-0">
+
+```html
+<div class="col-md-12">
   <rds-size [sizeType]="sizeType"></rds-size>
 </div>
 ```
@@ -54,3 +93,24 @@ title: "Elements > Size"
     </div>
   </section>
    
+<!-- Skeleton / Specifications -->
+<section class="py-4">
+                        <h6>
+                           Skeleton / Specifications
+                        </h6>
+                        <div class="py-3">
+                              <!-- Tab panes -->
+                              <div class="card border p-5">
+                                 <div class="row">
+                                    <div class="col-md-9 col-12">
+                                       <img src="/images/skel-size.png" class="img-fluid">
+                                    </div>
+                                 </div>
+                              </div>
+                        </div>
+                     </section>
+
+
+
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>      

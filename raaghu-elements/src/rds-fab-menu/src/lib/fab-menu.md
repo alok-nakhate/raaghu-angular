@@ -1,5 +1,5 @@
 ---
-slug: "/Fab Menu"
+slug: "/fab-menu"
 date: "2019-05-04"
 title: "Elements > Fab-Menu"
 ---
@@ -11,7 +11,7 @@ title: "Elements > Fab-Menu"
 
 #### Fab Menu
 
-<p class="checkbox-def">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore sdavavfgsv</p>
+<p class="checkbox-def">Fab menu is a dropdown button containing a list of links.</p>
 
 <section class="py-4">
     <h6>Default</h6>
@@ -31,7 +31,7 @@ title: "Elements > Fab-Menu"
          <div class="contents p-5">
               <div class="row">
                 <div class="col-md-12">
-                   <img src="/images/fab-menu.png" class="img-fluid w-100">
+                   <img src="/images/fab-menu.png" class="img-fluid">
                 </div>              
               </div>                     
   </div>
@@ -60,7 +60,7 @@ size="default"
 
 
  
- <!-- Skeleton / Specifications -->
+<!-- Skeleton / Specifications -->
 <section class="py-4">
                         <h6>
                            Skeleton / Specifications
@@ -69,8 +69,8 @@ size="default"
                               <!-- Tab panes -->
                               <div class="card border p-5">
                                  <div class="row">
-                                    <div class="col-md-12">
-                                       <img src="fab-men.png" class="img-fluid">
+                                    <div class="col-md-9 col-12">
+                                       <img src="/images/skel-fab-menu.png" class="img-fluid">
                                     </div>
                                  </div>
                               </div>
@@ -80,4 +80,4 @@ size="default"
 
 
 <!-- JavaScript Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>   

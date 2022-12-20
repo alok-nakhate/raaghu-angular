@@ -6,9 +6,9 @@
       </rds-button>
     </div>
       <div class="card p-2 h-100 border-0 rounded-0 card-full-stretch">
-        <app-rds-data-table [tableData]="userList" [inlineEdit]="false" (onActionSelection)="onActionSelect($event)"
+        <rds-data-table [tableData]="userList" [inlineEdit]="false" (onActionSelection)="onActionSelect($event)"
           [pagination]="true" [recordsPerPage]="10" [actions]="actions" 
-          [tableHeaders]="userHeaders" noDataTitle="Currently you do not have user" ></app-rds-data-table>
+          [tableHeaders]="userHeaders" noDataTitle="Currently you do not have user" ></rds-data-table>
 
           </div>
   </div>
@@ -18,7 +18,7 @@
   </div>
   <rds-offcanvas [canvasTitle]="translate.instant(canvasTitle)" [offId]="'userOffcanvas'" [offcanvaswidth]="650"
   [placement]="'end'" *ngIf="viewCanvas" (onClose)="close()">
-    <rds-nav-tab [navtabsItems]="getNavTabItems()" (onClicktab)="getSelectedNavTab($event)" [activepage]="activePage"
+    <rds-nav-tab [navtabsItems]="getNavTabItems()" (onClicktab)="getSelectedNavTab($event)" [activeTab]="activePage"
       [horizontalAlignment]="'start'" [verticalAlignment]="false" [pills]="false" [tabs]="true" [fill]="false"
       [justified]="false">
       <div naveContent class="row tab-content py-4 px-3 navsm-p-0" id="nav-tabContent">
@@ -44,10 +44,10 @@
   
             <div class="footer-buttons my-2">
   
-              <rds-button [label]="translate.instant('Cancel')" (click)="close()" [outlineButton]="true" [colorVariant]="'primary'"
+              <rds-button [label]="translate.instant('Cancel')" (click)="close()" [isOutline]="true" [colorVariant]="'primary'"
                 [size]="'small'" data-bs-dismiss="offcanvas">
               </rds-button>
-              <rds-button [label]="translate.instant('Save')" [disabled]="!user||!user.userInfo" [size]="'small'"
+              <rds-button [label]="translate.instant('Save')" [isDisabled]="!user||!user.userInfo" [size]="'small'"
                 class="ms-2" [colorVariant]="'primary'" data-bs-dismiss="offcanvas" (click)="save()">
               </rds-button>
   
@@ -58,12 +58,12 @@
           aria-labelledby="nav-home-tab">
           <div class="tab-content">
          
-          <app-rds-comp-permission-tree [treeData]="orgTreeData" [selectedItems]="selectedOrganizations"
-              (getAllSelectedNodes)="getSelectedorganizationunits($event)"></app-rds-comp-permission-tree>
+          <!-- <app-rds-comp-permission-tree [treeData]="orgTreeData" [selectedItems]="selectedOrganizations"
+              (getAllSelectedNodes)="getSelectedorganizationunits($event)"></app-rds-comp-permission-tree> -->
           </div>
           <div class="footer-buttons my-2">
   
-            <rds-button [label]="translate.instant('Cancel')" (click)="close()"[outlineButton]="true" [colorVariant]="'primary'"
+            <rds-button [label]="translate.instant('Cancel')" (click)="close()" [isOutline]="true" [colorVariant]="'primary'"
               [size]="'small'" data-bs-dismiss="offcanvas">
             </rds-button>
             <rds-button [label]="translate.instant('Save')" class="ms-2" [size]="'small'" [colorVariant]="'primary'"
@@ -80,7 +80,7 @@
             (getAllSelectedNodes)="getSelectedorganizationunits($event)"></app-rds-comp-permission-tree> -->
           </div>
           <div class="footer-buttons my-2">
-         <rds-button [label]="translate.instant('Cancel')" (click)="close()" [outlineButton]="true" [colorVariant]="'primary'"
+         <rds-button [label]="translate.instant('Cancel')" (click)="close()" [isOutline]="true" [colorVariant]="'primary'"
               [size]="'small'" data-bs-dismiss="offcanvas">
             </rds-button>
             <rds-button [label]="translate.instant('Save')" class="ms-2" [colorVariant]="'primary'" [size]="'small'"
@@ -93,7 +93,7 @@
         <div class="tab-content">
         </div>
         <div class="footer-buttons my-2">
-          <rds-button [label]="translate.instant('Cancel')" (click)="close()" [outlineButton]="true" [colorVariant]="'primary'"
+          <rds-button [label]="translate.instant('Cancel')" (click)="close()" [isOutline]="true" [colorVariant]="'primary'"
             [size]="'small'" data-bs-dismiss="offcanvas">
           </rds-button>
           <rds-button [label]="translate.instant('Save')" class="ms-2" [colorVariant]="'primary'" [size]="'small'"

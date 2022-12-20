@@ -20,7 +20,7 @@ export interface SeccuritySetting {
 
 
 @Component({
-  selector: 'app-rds-security',
+  selector: 'rds-security',
   templateUrl: './rds-comp-security.component.html',
   styleUrls: ['./rds-comp-security.component.scss']
 })
@@ -38,70 +38,6 @@ export class RdsSecurityComponent implements OnInit {
 
   @Output() onClick = new EventEmitter<{ evnt: any, settings: any }>();
 
-
-  constructor(public translate: TranslateService) { }
-
-  ngOnInit(): void {
-
-    if (!this.dataset) {
-      this.dataset = {};
-      this.dataset['useDefaultPasswordComplexitySettings'] = false;
-      this.dataset['requireDigit'] = false;
-      this.dataset['requireLowercase'] = false;
-      this.dataset['requireAlphaNumeric'] = false;
-      this.dataset['requireUppercase'] = false;
-      this.dataset['requiredLength'] = 0;
-      this.dataset['userLockout'] = false;
-      this.dataset['maxFailedAccessAttemptsBeforeLockout'] = 0;
-      this.dataset['defaultAccountLockoutSeconds'] = 0;
-      this.dataset['twoFactorLogin'] = false;
-      this.dataset['loginPerUser'] = false;
-
-    }
-    if (this.Seccuritysetting) {
-      this.dataset = this.Seccuritysetting;
-    }
-    setTimeout(() => {
-      if (this.dataset && this.securityformdata) {
-        this.securityformdata.statusChanges.subscribe(res => {
-          if (res === 'VALID') {
-            this.securityData.emit(this.Seccuritysetting);
-          }
-        });
-      }
-
-    }, 100);
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (!this.dataset) {
-      this.dataset = {};
-      this.dataset['useDefaultPasswordComplexitySettings'] = false;
-      this.dataset['requireDigit'] = false;
-      this.dataset['requireLowercase'] = false;
-      this.dataset['requireAlphaNumeric'] = false;
-      this.dataset['requireUppercase'] = false;
-      this.dataset['requiredLength'] = 0;
-      this.dataset['userLockout'] = false;
-      this.dataset['maxFailedAccessAttemptsBeforeLockout'] = 0;
-      this.dataset['defaultAccountLockoutSeconds'] = 0;
-      this.dataset['twoFactorLogin'] = false;
-      this.dataset['allowOneConcurrentLoginPerUser'] = false;
-
-    }
-    setTimeout(() => {
-      if (this.dataset && this.securityformdata) {
-        this.securityformdata.statusChanges.subscribe(res => {
-          if (res === 'VALID') {
-            this.securityData.emit(this.Seccuritysetting);
-          }
-        });
-      }
-
-    }, 100);
-
-  }
-
   @Input()
   Seccuritysetting: any = {
     useDefaultPasswordComplexitySettings: false,
@@ -117,7 +53,73 @@ export class RdsSecurityComponent implements OnInit {
     loginPerUser: false,
   };
 
+  constructor(public translate: TranslateService) { }
 
+  ngOnInit(): void {
+
+    // if (!this.dataset) {
+    //   this.dataset = {};
+    //   this.dataset['useDefaultPasswordComplexitySettings'] = false;
+    //   this.dataset['requireDigit'] = false;
+    //   this.dataset['requireLowercase'] = false;
+    //   this.dataset['requireAlphaNumeric'] = false;
+    //   this.dataset['requireUppercase'] = false;
+    //   this.dataset['requiredLength'] = 0;
+    //   this.dataset['userLockout'] = false;
+    //   this.dataset['maxFailedAccessAttemptsBeforeLockout'] = 0;
+    //   this.dataset['defaultAccountLockoutSeconds'] = 0;
+    //   this.dataset['twoFactorLogin'] = false;
+    //   this.dataset['loginPerUser'] = false;
+
+    // }
+    // if (this.Seccuritysetting) {
+    //   this.dataset = this.Seccuritysetting;
+    // }
+    // setTimeout(() => {
+    //   if (this.dataset && this.securityformdata) {
+    //     this.securityformdata.statusChanges.subscribe(res => {
+    //       if (res === 'VALID') {
+    //         this.securityData.emit(this.Seccuritysetting);
+    //       }
+    //     });
+    //   }
+
+    // }, 100);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    // if (!this.dataset) {
+    //   this.dataset = {};
+    //   this.dataset['useDefaultPasswordComplexitySettings'] = false;
+    //   this.dataset['requireDigit'] = false;
+    //   this.dataset['requireLowercase'] = false;
+    //   this.dataset['requireAlphaNumeric'] = false;
+    //   this.dataset['requireUppercase'] = false;
+    //   this.dataset['requiredLength'] = 0;
+    //   this.dataset['userLockout'] = false;
+    //   this.dataset['maxFailedAccessAttemptsBeforeLockout'] = 0;
+    //   this.dataset['defaultAccountLockoutSeconds'] = 0;
+    //   this.dataset['twoFactorLogin'] = false;
+    //   this.dataset['allowOneConcurrentLoginPerUser'] = false;
+
+    // }
+    // setTimeout(() => {
+    //   if (this.dataset && this.securityformdata) {
+    //     this.securityformdata.statusChanges.subscribe(res => {
+    //       if (res === 'VALID') {
+    //         this.securityData.emit(this.Seccuritysetting);
+    //       }
+    //     });
+    //   }
+
+    // }, 100);
+
+  }
+
+ 
+  onChange():void{
+    this.securityData.emit(this.Seccuritysetting);
+  }
 
   checkUncheckAll() {
     this.checked = !this.checked;

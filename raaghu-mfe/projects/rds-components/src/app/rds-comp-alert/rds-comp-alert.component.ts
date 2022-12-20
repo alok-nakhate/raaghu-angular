@@ -4,6 +4,7 @@ export interface ToastEvent {
   type: EventTypes;
   title: string;
   message: string;
+  sticky:boolean;
 }
 export enum EventTypes {
   Success = 'success',
@@ -13,7 +14,7 @@ export enum EventTypes {
 }
 
 @Component({
-  selector: 'app-rds-comp-alert',
+  selector: 'rds-comp-alert',
   templateUrl: './rds-comp-alert.component.html',
   styleUrls: ['./rds-comp-alert.component.scss']
 })
@@ -21,6 +22,7 @@ export class RdsCompAlertComponent implements OnInit {
 
   @Input() currentAlerts: ToastEvent[] = [];
   @Output() onAlertHide = new EventEmitter<any>();
+  @Input() alertPosition: 'top' | 'bottom' = 'bottom';
 
 
   constructor(private cdr: ChangeDetectorRef, public translate: TranslateService) { }

@@ -75,7 +75,7 @@ export const RoleReducer = createReducer(
     on(getRolByEdit, (state) => ({ ...state, status: 'loading' })),
     on(getRolByEditSuccess, (state, { EditRoleSateI }) => ({
         ...state,
-        RoleEditI: EditRoleSateI,
+        EditRoleSateI: EditRoleSateI,
         error: null,
         status: 'success',
     })),

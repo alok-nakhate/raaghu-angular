@@ -9,10 +9,10 @@ title: "Components > Role-List"
 <link rel="stylesheet" href="../../../../../../../raaghu/src/assets/css/style-elements.css">
 <link rel="stylesheet" href="../../../../../../../raaghu/src/assets/css/main.css">
 
-#### Role-List
-
+#### Role List
+<p>Provides a card with tables and action to edit or delete</p>
  <section class="py-4">
-    <h6>Default</h6>
+     <h6>Default</h6>
     <div class="py-3">
       <div class="cust-tabs">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -40,11 +40,11 @@ title: "Components > Role-List"
 <div class="row m-0">
 
 ```html
-<app-rds-comp-role-list
+<rds-comp-role-list
   [roleHeaders]="roleHeaders"
   [listItems]="listItems"
   [roleList]="roleList"
-></app-rds-comp-role-list>
+></rds-comp-role-list>
 ```
 </div>
 </div>

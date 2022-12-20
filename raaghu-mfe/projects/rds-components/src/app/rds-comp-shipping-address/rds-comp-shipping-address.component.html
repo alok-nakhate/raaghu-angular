@@ -4,12 +4,12 @@
     </p>
     <div class="row">
         <div class="col-md-6 mb-3">
-            <rds-input [Title]="'First Name'" [TitleType]="'Top'" [isRequired]=true  required size="'default'" name="firstName" id="txtFirstname"
+            <rds-input [label]="'First Name'" [labelPosition]="'top'" [isRequired]=true  required [size]="'medium'" name="firstName" id="txtFirstname"
                 ngDefaultControl [(ngModel)]="firstName" required>
             </rds-input>
         </div>
         <div class="col-md-6 mb-3">
-            <rds-input [Title]="'Last Name'" [TitleType]="'Top'" [isRequired]=true  required size="'default'" name="lastName" id="txtLastname"
+            <rds-input [label]="'Last Name'" [labelPosition]="'top'" [isRequired]=true  required [size]="'medium'" name="lastName" id="txtLastname"
                 ngDefaultControl [(ngModel)]="lastName" required>
             </rds-input>
         </div>
@@ -17,26 +17,26 @@
 
     <div class="row">
         <div class="col-md-6 mb-3">
-            <rds-input [Title]="'Company'" [TitleType]="'Top'" size="'default'" name="company" id="txtCompany"
+            <rds-input [label]="'Company'" [labelPosition]="'top'" [size]="'medium'" name="company" id="txtCompany"
                 ngDefaultControl [(ngModel)]="company" required>
             </rds-input>
         </div>
         <div class="col-md-6 mb-3">
-            <rds-input [Title]="'Phone'" [TitleType]="'Top'" [isRequired]=true  required size="'default'" name="phone" id="txtPhone"
+            <rds-input [label]="'Phone'" [labelPosition]="'top'" [isRequired]=true  required [size]="'medium'" name="phone" id="txtPhone"
                 ngDefaultControl [(ngModel)]="phone" required>
             </rds-input>
         </div>
     </div>
 
     <div class="mb-3">
-        <rds-input [Title]="'Address'" [TitleType]="'Top'" [isRequired]=true  required size="'default'" name="address" id="txtAddress"
+        <rds-input [label]="'Address'" [labelPosition]="'top'" [isRequired]=true  required [size]="'medium'" name="address" id="txtAddress"
             ngDefaultControl [(ngModel)]="address" required>
         </rds-input>
     </div>
 
     <div class="row">
         <div class="col-md-6 mb-3">
-            <rds-input [Title]="'City'" [TitleType]="'Top'" [isRequired]=true  required size="'default'" name="company" id="txtCompany"
+            <rds-input [label]="'City'" [labelPosition]="'top'" [isRequired]=true  required size="medium" name="company" id="txtCompany"
                 ngDefaultControl [(ngModel)]="company" required>
             </rds-input>
         </div>
@@ -51,17 +51,17 @@
     </div>
     <div class="row">
         <div class="col-md-6 mb-3">
-            <rds-input [Title]="'State/Province'" [TitleType]="'Top'" [isRequired]=true  required size="'default'" name="state" id="txtState"
+            <rds-input [label]="'State/Province'" [labelPosition]="'top'" [isRequired]=true  required size="medium" name="state" id="txtState"
                 ngDefaultControl [(ngModel)]="state" required>
             </rds-input>
         </div>
         <div class="col-md-6 mb-3">
-            <rds-input [Title]="'Postal Code'" [TitleType]="'Top'" [isRequired]=true  required size="'default'" name="postalCode" id="txtPostalCode"
+            <rds-input [label]="'Postal Code'" [labelPosition]="'top'" [isRequired]=true  required [size]="'medium'" name="postalCode" id="txtPostalCode"
                 ngDefaultControl [(ngModel)]="postalCode" required>
             </rds-input>
         </div>
     </div>
-    <div class="my-4 pt-1 d-flex">
+    <!-- <div class="my-4 pt-1 d-flex">
         <div class="mr-3">
             <rds-checkbox [checked]="false" [disabled]="false" [switch]="false"
                 [inline]="false" [isInputGroup]="false" [id]="'checkboxDefault'"></rds-checkbox>
@@ -69,10 +69,10 @@
         <div class="description w-75">
             Billing address is the same as shipping address
         </div>
-    </div>
-    <div class="my-4 pt-4 row">
+    </div> -->
+    <div class="my-4 row">
         <div class="col-md-6 mb-3">
-            <rds-button [block]="true" [size]="'medium'" [outlineButton]="true" [colorVariant]="'primary'"
+            <rds-button [block]="true" [size]="'medium'" [isOutline]="true" [colorVariant]="'primary'"
             [label]="translate.instant('back')" (click)="back()">
         </rds-button>
         </div>

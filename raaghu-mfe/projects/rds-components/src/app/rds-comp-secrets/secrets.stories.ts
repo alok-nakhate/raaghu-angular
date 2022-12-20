@@ -6,6 +6,7 @@ import { NgxTranslateModule } from '@libs/shared';
 import { RdsCheckboxModule } from '@libs/rds-checkbox';
 import { RdsCompSecretsComponent } from './rds-comp-secrets.component';
 import { RdsDataTableComponent } from '../rds-comp-data-table/rds-comp-data-table.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -15,7 +16,7 @@ export default {
   decorators: [
     moduleMetadata({
       imports: [
-        FormsModule, ReactiveFormsModule,NgxTranslateModule,RdsInputModule,RdsCheckboxModule,RdsButtonModule,
+        FormsModule, ReactiveFormsModule,NgxTranslateModule,RdsInputModule,RdsCheckboxModule,RdsButtonModule, BrowserAnimationsModule
       ],
       declarations:[
         RdsDataTableComponent

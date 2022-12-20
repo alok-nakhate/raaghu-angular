@@ -25,7 +25,7 @@ export class RdsFileUploaderComponent implements OnInit, ControlValueAccessor {
   title = "rds-file-uploader";
   onChange!: (value: string[]) => void;
   onTouched!: () => void;
-  message: success[] = [];
+  message: any = [];
 
   value: any;
   @Input() size?: string;
@@ -45,7 +45,6 @@ export class RdsFileUploaderComponent implements OnInit, ControlValueAccessor {
   fileSize?: number;
 
   errorSizeInKb?: number;
-  @Input() sizeType: string = '';
 
   @Input() role: 'default' | 'fileUpload' = 'fileUpload';
 
@@ -55,7 +54,7 @@ export class RdsFileUploaderComponent implements OnInit, ControlValueAccessor {
 
   closeFile: boolean = false;
 
-  fileArray: any[] = [];
+  fileArray: any = [];
 
   @Input() extensions!: string;
 
@@ -66,6 +65,7 @@ export class RdsFileUploaderComponent implements OnInit, ControlValueAccessor {
   constructor() { }
 
   ngOnInit(): void {
+    this.message = [];
   }
 
   writeValue(obj: any): void {
@@ -82,9 +82,14 @@ export class RdsFileUploaderComponent implements OnInit, ControlValueAccessor {
 
   getValue(event: any) {
     this.closeFile = true;
-    console.log(event.target.files);
-    this.fileArray.push(event.target.files.name);
-    console.log(this.fileArray);
+    const fileArray: any = []
+    if (event.target && event.target.files) {
+      const files: any = [...event.target.files];
+      files.forEach(element => {
+        fileArray.push(element.name);
+      });
+    }
+    this.fileArray = fileArray;
   }
 
   public get classes(): string[] {
@@ -131,7 +136,10 @@ export class RdsFileUploaderComponent implements OnInit, ControlValueAccessor {
   }
 
   checkFileSize(event: any): void {
-    this.message = [];
+    if (this.message === '[]') {
+      this.message = [];
+
+    }
 
     var data = event.target.files;
 
@@ -164,13 +172,12 @@ export class RdsFileUploaderComponent implements OnInit, ControlValueAccessor {
   checkExtension(event: any): void {
     if (event.target.files && event.target.files[0]) {
       let file = event.target.files[0];
-      console.log(file);
       if (file.type == "application/pdf" || file.type == "image/png" || file.type == "image/jpg" || file.type == "image/jpeg") {
-        console.log("correct");
+        // console.log("correct");
         this.fileIncorrectMsg = false;
       }
       else {
-        console.log('wrong');
+        // console.log('wrong');
         this.fileIncorrectMsg = true;
         this.closeFile = false;
       }
@@ -179,7 +186,6 @@ export class RdsFileUploaderComponent implements OnInit, ControlValueAccessor {
 
   removeFileFromList(index: any) {
     this.fileArray.splice(index, 1);
-    console.log(this.fileArray.splice(index, 1));
   }
 
   clearFileUploaded(event: any) {

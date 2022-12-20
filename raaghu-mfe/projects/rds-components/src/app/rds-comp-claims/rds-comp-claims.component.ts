@@ -6,7 +6,7 @@ export class Claims {
  
 }
 @Component({
-  selector: 'app-rds-comp-claims',
+  selector: 'rds-comp-claims',
   templateUrl: './rds-comp-claims.component.html',
   styleUrls: ['./rds-comp-claims.component.scss']
 })
@@ -21,9 +21,24 @@ export class RdsCompClaimsComponent implements OnInit {
   @Output()
   onClaimResourceSave = new EventEmitter<{ClaimResource:any}>()
  @Input() ClaimData:Claims={
-   claim_ato_e: undefined,
-   claim_f_to_o: undefined,
-   claim_p_to_z: undefined
+   claim_ato_e: [
+    {
+      label: 'Apiopolis',
+      checked: false
+    },
+   ],
+   claim_f_to_o: [
+    {
+      label: 'Apiopolis',
+      checked: false
+    },
+   ],
+   claim_p_to_z: [
+    {
+      label: 'Apiopolis',
+      checked: false
+    },
+   ]
  }
 
 SelectAllclaims(event:any){

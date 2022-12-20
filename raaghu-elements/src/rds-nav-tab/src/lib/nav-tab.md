@@ -207,5 +207,24 @@ horizontalAlignment="start"
   </section>
 
 
+ <!-- Skeleton / Specifications -->
+<section class="py-4">
+                        <h6>
+                           Skeleton / Specifications
+                        </h6>
+                        <div class="py-3">
+                              <!-- Tab panes -->
+                              <div class="card border p-5">
+                                 <div class="row">
+                                    <div class="col-md-9 col-12">
+                                       <img src="/images/skel-navtabs.png" class="img-fluid">
+                                    </div>
+                                 </div>
+                              </div>
+                        </div>
+                     </section>
+
+
+
 <!-- JavaScript Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>       

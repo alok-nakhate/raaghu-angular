@@ -1,8 +1,8 @@
 <div class="tab-content">
   <div aria-labelledby="nav-Deligation" class="h-100">
     <div class="card border-0 h-100">
-      <div class="card-header border-bottom">
-        <h5 class="card-title">{{"USER DELEGATES"|translate}}</h5>
+      <div class="card-header border-bottom border-dark border-opacity-10">
+        <h5 class="card-title">{{translate.instant("USER DELEGATES")}}</h5>
       </div>
       <div class="card-body ">
         <div class="row" *ngIf="!deligateDivFlag">
@@ -17,9 +17,14 @@
           <div class="row" *ngIf="deligateDivFlag">
             <div class="col-md-12">
               <div class="form-group mb-3">
-                <rds-select-list [(ngModel)]="username" [label]="translate.instant('Username')" [value]="username"
-                  required labelPosition="top" ngDefaultControl name="usernameData" [itemList]="userList">
-                </rds-select-list>
+               <div>
+                <rds-label [label]="translate.instant('Username')" ></rds-label>
+               </div>
+                <rds-dropdownlist [placeholder]="translate.instant('Select User')" [borderDropdown]="true" required
+                class="text-dark" [id]="'user-list'" [(ngModel)]="username" [listItems]="userList"
+               [value]="username" (onSelect)="onUsernameSelect($event)" ngDefaultControl name="targetId">
+              </rds-dropdownlist>
+
               </div>
             </div>
             <div class="col-md-6">
@@ -40,10 +45,10 @@
         </form>
         <div class="row" *ngIf="!deligateDivFlag">
           <div class="col-sm-12">
-            <app-rds-data-table [tableData]="rdsDeligateTableData" [pagination]="pagination"
-              (deleteEvent)="deleteDeligateData($event)" [recordsPerPage]="recordsPerpage" [actions]="actions"
+            <rds-data-table [tableData]="rdsDeligateTableData" [isDeleteConfirmationRequired]="false" [pagination]="pagination"
+              (onActionSelection)="onActionSelect($event)" [recordsPerPage]="recordsPerpage" [actions]="actions"
               [tableHeaders]="rdsDeligateTableHeader" noDataTitle="Currently you do not have delegate new user">
-            </app-rds-data-table>
+            </rds-data-table>
           </div>
         </div>
       </div>
@@ -53,15 +58,16 @@
 <div class="footer-buttons my-2 shadow-none" *ngIf="deligateDivFlag">
   <div class="row">
     <div class="col-sm-12">
-      <rds-button [label]="translate.instant('Cancel')" [outlineButton]="true" [colorVariant]="'primary'" type="button"
-        [size]="'medium'" (click)="onCancel()">
+      <rds-button [label]="translate.instant('Cancel')" [isOutline]="true" [colorVariant]="'primary'" type="button"
+        [size]="'small'" (click)="onCancel()">
       </rds-button>
-      <rds-button [label]="translate.instant('Save')"  type="button" [size]="'medium'"
-        (click)="onSave(delegateForm)" class="ms-2" [colorVariant]="'primary'"  [showLoadingSpinner]="buttonSpinner">
+      <rds-button [label]="translate.instant('Save')"  type="button" [size]="'small'"
+        (click)="onSave(delegateForm)" class="ms-2" [colorVariant]="'primary'"  [showLoadingSpinner]="buttonSpinner&&submitted">
       </rds-button>
     </div>
   </div>
 </div>
+
 
 
 

@@ -1,5 +1,14 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { ComponentLoaderOptions } from '@libs/shared';
+import { Store } from '@ngrx/store';
+import { restoreToDefault, saveTextTemplateContent } from 'projects/libs/state-management/src/lib/state/text-template/text-template.actions';
+
+
+//import { satt } from 'projects/libs/state-management/src/lib/state/text-template/text-template.selector';
+import { getTemplateContent, getTemplateDefinition } from 'projects/libs/state-management/src/lib/state/user/user.actions';
+import { selectAllTT, selectTextContent } from 'projects/libs/state-management/src/lib/state/user/user.selector';
+
+
 import { TableHeader } from 'projects/rds-components/src/models/table-header.model';
 declare var bootstrap: any;
 
@@ -11,156 +20,155 @@ declare var bootstrap: any;
 })
 export class AppComponent implements OnInit {
   title = 'text-template';
-
+  currentAlerts: any = [];
+  @Output() onEdit = new EventEmitter<any>();
+  @Output() onRestore = new EventEmitter<any>();
   viewCanvas: boolean = false;
   canvasTitle: string = '';
+  templateList: any = [];
   offcanvasId: string = 'text_template_canvas';
-  selectedData: any={};
-  tableHeadersForTextTemplate:TableHeader[] = [
-    {
-      displayName: 'Template Name',
-      key: 'templateName',
-      dataType: 'text',
-      dataLength: 5,
-      required: false,
-      filterable: true,
-      sortable: true,
+  selectedData: any = {
+    templateName: '',
+    content: '',
+    cultureName:null
+  };
+  
+  public rdsAlertMfeConfig: ComponentLoaderOptions = {
+    name: 'RdsCompAlert',
+    input: {
+      currentAlerts: this.currentAlerts
     },
-    {
-      displayName: 'Inline Localized',
-      key: 'inlineLocalizedTemplate',
-      dataType: 'html',
-      required: false,
-    },
-    {
-      displayName: 'Layout Status',
-      key: 'layoutStatusTemplate',
-      dataType: 'html',
-      required: false,
-    },
-    {
-      displayName: 'Layout Details',
-      key: 'layoutDetails',
-      dataType: 'text',
-      dataLength: 5,
-      required: true,
-      sortable: true,
-    },
-  ];
-  tableDataForTextTemplate = [
-    {
-      id: 1,
-      templateName: 'Default Email Layout Template',
-      inlineLocalized: true,
-      layoutStatus: false,
-      layoutDetails: 'abp.EmailLayoutTemplate',
-    },
-    {
-      id: 2,
-      templateName: 'Simple Message Template',
-      inlineLocalized: true,
-      layoutStatus: true,
-      layoutDetails: 'abp.EmailLayoutTemplate',
-    },
-    {
-      id: 3,
-      templateName: 'Default Email Layout Template',
-      inlineLocalized: true,
-      layoutStatus: true,
-      layoutDetails: 'abp.PasswordResetTemplate',
-    },
-    {
-      id: 4,
-      templateName: 'Password Reset Template',
-      inlineLocalized: true,
-      layoutStatus: true,
-      layoutDetails: 'abp.EmailLayoutTemplate',
-    },
-    {
-      id: 5,
-      templateName: 'Simple Message Template',
-      inlineLocalized: true,
-      layoutStatus: false,
-      layoutDetails: 'abp.PasswordResetTemplate',
-    },
-    {
-      id: 6,
-      templateName: 'Email Confirmation Template',
-      inlineLocalized: false,
-      layoutStatus: false,
-      layoutDetails: 'abp.SecurityCodeTemplate',
-    },
-    {
-      id: 7,
-      templateName: 'Default Email Layout Template',
-      inlineLocalized: false,
-      layoutStatus: true,
-      layoutDetails: 'abp.EmailConfirmationTemplate',
-    },
-    {
-      id: 8,
-      templateName: 'Email Confirmation Template',
-      inlineLocalized: true,
-      layoutStatus: false,
-      layoutDetails: 'abp.EmailLayoutTemplate',
-    },
-    {
-      id: 9,
-      templateName: 'Password Reset Template',
-      inlineLocalized: false,
-      layoutStatus: true,
-      layoutDetails: 'abp.EmailConfirmationTemplate',
-    },
-    {
-      id: 10,
-      templateName: 'Simple Message Template',
-      inlineLocalized: true,
-      layoutStatus: true,
-      layoutDetails: 'abp.SecurityCodeTemplate',
-    },
-    {
-      id: 11,
-      templateName: 'Default Email Layout Template',
-      inlineLocalized: true,
-      layoutStatus: false,
-      layoutDetails: 'abp.EmailConfirmationTemplate',
-    },
-    {
-      id: 12,
-      templateName: 'Password Reset Template',
-      inlineLocalized: false,
-      layoutStatus: true,
-      layoutDetails: 'abp.EmailLayoutTemplate',
-    },
-    {
-      id: 13,
-      templateName: 'Simple Message Template',
-      inlineLocalized: true,
-      layoutStatus: false,
-      layoutDetails: 'abp.PasswordResetTemplate',
-    },
-    {
-      id: 14,
-      templateName: 'Default Email Layout Template',
-      inlineLocalized: false,
-      layoutStatus: false,
-      layoutDetails: 'abp.EmailLayoutTemplate',
-    },
-    {
-      id: 15,
-      templateName: 'Default Email Layout Template',
-      inlineLocalized: true,
-      layoutStatus: true,
-      layoutDetails: 'abp.EmailLayoutTemplate',
-    },
-    {
-      id: 16,
-      templateName: 'Simple Message Template',
-      inlineLocalized: true,
-      layoutStatus: false,
-      layoutDetails: 'abp.SecurityCodeTemplate',
-    },
-  ];
+    output: {
+      onAlertHide: (event: any) => {
+        this.currentAlerts = event;
+      }
+    }
+  }
+  tableHeadersForTextTemplate: TableHeader[] = [
+    { key: 'templateName', displayName: 'Template Name', dataType: 'text', filterable: true, sortable: true, required: false, },
+    { key: 'inlineLocalized', displayName: 'Inline Localized', dataType: 'html', filterable: true, sortable: true, required: false, },
+    { key: 'layoutStatus', displayName: 'Layout Status', dataType: 'html', filterable: true, sortable: true, required: false, },
+    { key: 'layoutDetails', displayName: 'Layout Details', dataType: 'html', filterable: true, sortable: true, required: false, },
+
+  ]
+  
+  constructor(private store: Store) { }
+  tableDataForTextTemplate = [];
+  // tableDataForTextTemplate = [
+  //   {
+  //     id: 1,
+  //     templateName: 'Default Email Layout Template',
+  //     inlineLocalized: true,
+  //     layoutStatus: false,
+  //     layoutDetails: 'abp.EmailLayoutTemplate',
+  //   },
+  //   {
+  //     id: 2,
+  //     templateName: 'Simple Message Template',
+  //     inlineLocalized: true,
+  //     layoutStatus: true,
+  //     layoutDetails: 'abp.EmailLayoutTemplate',
+  //   },
+  //   {
+  //     id: 3,
+  //     templateName: 'Default Email Layout Template',
+  //     inlineLocalized: true,
+  //     layoutStatus: true,
+  //     layoutDetails: 'abp.PasswordResetTemplate',
+  //   },
+  //   {
+  //     id: 4,
+  //     templateName: 'Password Reset Template',
+  //     inlineLocalized: true,
+  //     layoutStatus: true,
+  //     layoutDetails: 'abp.EmailLayoutTemplate',
+  //   },
+  //   {
+  //     id: 5,
+  //     templateName: 'Simple Message Template',
+  //     inlineLocalized: true,
+  //     layoutStatus: false,
+  //     layoutDetails: 'abp.PasswordResetTemplate',
+  //   },
+  //   {
+  //     id: 6,
+  //     templateName: 'Email Confirmation Template',
+  //     inlineLocalized: false,
+  //     layoutStatus: false,
+  //     layoutDetails: 'abp.SecurityCodeTemplate',
+  //   },
+  //   {
+  //     id: 7,
+  //     templateName: 'Default Email Layout Template',
+  //     inlineLocalized: false,
+  //     layoutStatus: true,
+  //     layoutDetails: 'abp.EmailConfirmationTemplate',
+  //   },
+  //   {
+  //     id: 8,
+  //     templateName: 'Email Confirmation Template',
+  //     inlineLocalized: true,
+  //     layoutStatus: false,
+  //     layoutDetails: 'abp.EmailLayoutTemplate',
+  //   },
+  //   {
+  //     id: 9,
+  //     templateName: 'Password Reset Template',
+  //     inlineLocalized: false,
+  //     layoutStatus: true,
+  //     layoutDetails: 'abp.EmailConfirmationTemplate',
+  //   },
+  //   {
+  //     id: 10,
+  //     templateName: 'Simple Message Template',
+  //     inlineLocalized: true,
+  //     layoutStatus: true,
+  //     layoutDetails: 'abp.SecurityCodeTemplate',
+  //   },
+  //   {
+  //     id: 11,
+  //     templateName: 'Default Email Layout Template',
+  //     inlineLocalized: true,
+  //     layoutStatus: false,
+  //     layoutDetails: 'abp.EmailConfirmationTemplate',
+  //   },
+  //   {
+  //     id: 12,
+  //     templateName: 'Password Reset Template',
+  //     inlineLocalized: false,
+  //     layoutStatus: true,
+  //     layoutDetails: 'abp.EmailLayoutTemplate',
+  //   },
+  //   {
+  //     id: 13,
+  //     templateName: 'Simple Message Template',
+  //     inlineLocalized: true,
+  //     layoutStatus: false,
+  //     layoutDetails: 'abp.PasswordResetTemplate',
+  //   },
+  //   {
+  //     id: 14,
+  //     templateName: 'Default Email Layout Template',
+  //     inlineLocalized: false,
+  //     layoutStatus: false,
+  //     layoutDetails: 'abp.EmailLayoutTemplate',
+  //   },
+  //   {
+  //     id: 15,
+  //     templateName: 'Default Email Layout Template',
+  //     inlineLocalized: true,
+  //     layoutStatus: true,
+  //     layoutDetails: 'abp.EmailLayoutTemplate',
+  //   },
+  //   {
+  //     id: 16,
+  //     templateName: 'Simple Message Template',
+  //     inlineLocalized: true,
+  //     layoutStatus: false,
+  //     layoutDetails: 'abp.SecurityCodeTemplate',
+  //   },
+  // ];
+
   rdsDataTableForTextTemplateMfeConfig: ComponentLoaderOptions = {
     name: 'RdsDataTable',
     input: {
@@ -174,31 +182,60 @@ export class AppComponent implements OnInit {
     },
     output: {
       onActionSelection: (event: any) => {
-        if(event.actionId==='edit'){
-          this.selectedData = event.selectedData;
+        if (event.actionId === 'edit') {
           this.openTextTemplate();
+
+          const data: any = {
+            templateName: event.selectedData.name,
+          }
+          this.store.dispatch(getTemplateContent(data));
         }
       },
-      
+
+
     },
   };
 
   ngOnInit(): void {
-    this.tableDataForTextTemplate.forEach((item) => {
-      if (item.inlineLocalized) {
-        item['inlineLocalizedTemplate'] = '<i class="bi bi-check-lg"></i>';
-      } else {
-        item['inlineLocalizedTemplate'] = '<i class="bi bi-x-lg"></i>';
-      }
-      if (item.layoutStatus) {
-        item['layoutStatusTemplate'] = '<i class="bi bi-check-lg"></i>';
-      } else {
-        item['layoutStatusTemplate'] = '<i class="bi bi-x-lg"></i>';
+    this.store.dispatch(getTemplateDefinition());
+    this.store.select(selectAllTT).subscribe((res: any) => {
+
+      if (res && res.allTextTemplate) {
+        res.allTextTemplate.allTextTemplate.items.forEach((element: any) => {
+          let statusTemplate;
+          // if (element.isActive) {
+          //   statusTemplate = `<div> <span class="badge badge-success">Active</span></div>`;
+          // } else {
+          //   statusTemplate = `<div><span class="badge badge-secondary">Inactive</span></div>`;
+          // }
+
+          const item: any = {
+            // id:element.id,
+            name: element.name,
+            templateName: element.displayName,
+            inlineLocalized: element.isInlineLocalized,
+            layoutStatus: element.isLayout,
+            layoutDetails: element.layout
+
+          }
+          this.templateList.push(item);
+        });
+        const mfeConfig = this.rdsDataTableForTextTemplateMfeConfig
+        mfeConfig.input.tableData = [... this.templateList];
+        this.rdsDataTableForTextTemplateMfeConfig = mfeConfig;
       }
     });
-    const mfeConfig = this.rdsDataTableForTextTemplateMfeConfig;
-    mfeConfig.input.tableData = [...this.tableDataForTextTemplate];
-    this.rdsDataTableForTextTemplateMfeConfig = mfeConfig;
+
+    this.store.select(selectTextContent).subscribe((res: any) => {
+      if (res && res.templateContent) {
+        this.selectedData={
+
+        }
+        const data=res.templateContent
+        this.selectedData.templateName = data.name;
+        this.selectedData.content = data.content;
+      }
+    })
   }
 
   openTextTemplate(): void {
@@ -213,9 +250,18 @@ export class AppComponent implements OnInit {
 
   close(): void {
     this.viewCanvas = false;
-   }
-  
-   save(): void {
-     
-   }
+  }
+
+  save(): void {
+    if (this.selectedData) {
+      this.selectedData.cultureName = null;
+      this.store.dispatch(saveTextTemplateContent(this.selectedData))
+      this.viewCanvas = false;
+    }
+  }
+  restore(event): void {
+    // this.onRestore.emit(event)
+    // console.log('restore', event)
+    this.store.dispatch(restoreToDefault(this.selectedData))
+  }
 }

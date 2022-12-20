@@ -4,8 +4,8 @@
       <div class="row align-items-center sm-d-reverse">
         <div class="col-md-6 sm-p">
           <div class="form-group mb-3">
-            <rds-input [inputType]="'text'" [Title]="translate.instant('Name')" [(ngModel)]="userData.name"
-              [TitleType]="'Top'" name="userData.name" required #name="ngModel" [placeholder]="translate.instant('Enter Name')"
+            <rds-input [inputType]="'text'" [label]="translate.instant('Name')" [(ngModel)]="userData.name"
+              [labelPosition]="'top'" name="userData.name" required #name="ngModel" [placeholder]="translate.instant('Enter Name')"
               [isRequired]="true">
             </rds-input>
             <div class="form-control-feedback" *ngIf="name.errors && (name.dirty || name.touched)">
@@ -14,8 +14,8 @@
           </div>
 
           <div class="form-group mb-3">
-            <rds-input [inputType]="'text'" [Title]="translate.instant('userName')" [(ngModel)]="userData.userName"
-              [TitleType]="'Top'" name="userData.userName" required #userName="ngModel" [placeholder]="translate.instant('Enter Name')"
+            <rds-input [inputType]="'text'" [label]="translate.instant('userName')" [(ngModel)]="userData.userName"
+              [labelPosition]="'top'" name="userData.userName" required #userName="ngModel" [placeholder]="translate.instant('Enter Name')"
               [isRequired]="true">
             </rds-input>
             <div class="form-control-feedback" *ngIf="userName.errors && (userName.dirty || userName.touched)">
@@ -24,7 +24,7 @@
           </div>
 
           <div class="form-group mb-3">
-            <rds-input [inputType]="'text'" [Title]="translate.instant('Surname')" [TitleType]="'Top'"
+            <rds-input [inputType]="'text'" [label]="translate.instant('Surname')" [labelPosition]="'top'"
               [(ngModel)]="userData.surname" name="userData.surname" required #surname="ngModel" [isRequired]="true"
               [placeholder]="translate.instant('Enter Surname')">
             </rds-input>
@@ -49,7 +49,7 @@
       <div class="row">
         <div class="col-md-6 sm-p">
           <div class="form-group mb-3">
-            <rds-input [inputType]="'email'" [TitleType]="'Top'" [Title]="translate.instant('Email Id')"
+            <rds-input [inputType]="'email'" [labelPosition]="'top'" [label]="translate.instant('Email Id')"
               [(ngModel)]="userData.email" [pattern]="emailPattern" name="userData.email" #email="ngModel" required
               [isRequired]="true" [placeholder]="translate.instant('Email Id')">
             </rds-input>
@@ -59,7 +59,7 @@
             </div>
           </div>
           <div class="form-group mb-3">
-            <rds-input [inputType]="'phoneNumber'" [Title]="translate.instant('Phone Number')" [TitleType]="'Top'"
+            <rds-input [inputType]="'phoneNumber'" [label]="translate.instant('Phone Number')" [labelPosition]="'top'"
               [(ngModel)]="userData.phoneNumber" name="userData.phoneNumber" required [isRequired]="true" #phone="ngModel"
               [pattern]="phonePattern" [placeholder]="translate.instant('Phone Number')">
             </rds-input>
@@ -72,7 +72,7 @@
         </div>
         <div class="col-md-6 sm-p">
           <div class="form-group mb-3">
-            <rds-input [inputType]="'password'" [TitleType]="'Top'" [Title]="translate.instant('Password')"
+            <rds-input [inputType]="'password'" [labelPosition]="'top'" [label]="translate.instant('Password')"
               [(ngModel)]="userData.password" name="userData.password" autocomplete="off" #password="ngModel" required
               [isRequired]="true" [placeholder]="'Password'">
             </rds-input>
@@ -100,12 +100,11 @@
     </form>
   </div>
   <div class="position-fixed bg-white py-3 bottom-0 w-100">
-    <rds-button [label]="translate.instant('Cancel')" [colorVariant]="'primary'" [outlineButton]="true" (click)="onCancelUser()"
+    <rds-button [label]="translate.instant('Cancel')" [colorVariant]="'primary'" [isOutline]="true" (click)="onCancelUser()"
       data-bs-dismiss="offcanvas" [size]="'small'">
     </rds-button>
-    <rds-button [label]="translate.instant('Next')" [disabled]="!userCreationForm.valid" [colorVariant]="'primary'"
+    <rds-button [label]="translate.instant('Next')" [isDisabled]="!userCreationForm.valid" [colorVariant]="'primary'"
       class="ms-2" (click)="next(userCreationForm)" [size]="'small'">
     </rds-button>
   </div>
 </div>
-<app-rds-comp-user-basics-shimmer *ngIf="editShimmer"></app-rds-comp-user-basics-shimmer>

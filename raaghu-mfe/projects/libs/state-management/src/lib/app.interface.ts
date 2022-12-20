@@ -9,7 +9,7 @@ import { downloadState } from './state/DownloadData/download-data.reducer';
 import { ValidateTenantState } from "./state/login/login.reducer";
 import { LanguagesState } from './state/language/language.reducer';
 import { EditionsState } from './state/edition/edition.reducer';
-import { EditionsComboboxState, TenantFeatureState, TenantInfoState, TenantState } from './state/tenant/tenant.reducer';
+import { TenantState } from './state/tenant/tenant.reducer';
 import { RolesState } from './state/role/role.reducer';
 import { UsersState } from './state/user/user.reducer';
 import { AuditLogsState } from './state/audit-logs/audit-logs.reducer';
@@ -17,13 +17,13 @@ import { IdentityResourcesState } from './state/identity-resources/identity-reso
 import { ClientState } from './state/clients/clients.reducer';
 import { ClaimTypesState } from './state/claim-types/claim-types.reducer';
 import { ApiResourcesState } from './state/api-resources/api-resources.reducer';
-import { TextTemplateState } from './state/text-template/text-template.reducer';
 import { ManageLinkedAccountsState } from './state/manage-linked-accounts/manage-linked-accounts.reducer';
 import { SettingsState } from './state/settings/settings.reducer';
 import { ProductState } from './state/products/product.reducer';
 import { ScopeState } from './state/api-scope/api-scope.reducer';
 import { ProfileState } from './state/profile-settings/profile-settings.reducers';
 import { SecurityState } from './state/security-logs/security-logs.reducer';
+import { TextTemplateState } from './state/text-template/text-template.reducer';
 
 export interface AppState {
     changeLogs: any;
@@ -42,9 +42,7 @@ export interface AppState {
   tenants: TenantState,
    auditLogs: AuditLogsState,
   textTemplate: TextTemplateState,
-  editionComboboxItem: EditionsComboboxState,
-  tenantInfo: TenantInfoState,
-  tenantFeature: TenantFeatureState,
+
   validateTenant: ValidateTenantState,
   identityResources: IdentityResourcesState,
   apiResources: ApiResourcesState,

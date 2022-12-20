@@ -1,80 +1,85 @@
 <form #personalInfo="ngForm">
-    <div class="row py-4">
-        <div class="col-md-3">
-            <div class="form-group mb-3">
-                <rds-input [inputType]="'text'" [Title]="'First name'" [TitleType]="'Top'"
-                    [(ngModel)]="personalData.firstName" name="f_name" required [placeholder]="'First name'"
-                    [isRequired]=true #first_name="ngModel">
-                </rds-input>
-                <div class="form-control-feedback"
-                    *ngIf="first_name.errors && (first_name.dirty || first_name.touched)">
-                    <span class="text-danger" *ngIf="first_name.errors.required">First name is
-                        required</span>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="form-group mb-3">
-                <rds-input [inputType]="'text'" [Title]="'Last name'" [TitleType]="'Top'"
-                    [(ngModel)]="personalData.lastName" name="l_name" required [placeholder]="'Last name'"
-                    [isRequired]=true #last_name="ngModel">
-                </rds-input>
-                <div class="form-control-feedback" *ngIf="last_name.errors && (last_name.dirty || last_name.touched)">
-                    <span class="text-danger" *ngIf="last_name.errors.required">Last name is
-                        required</span>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="form-group mb-3">
-                <rds-input [inputType]="'text'" [Title]="'Profile name'" [TitleType]="'Top'"
-                    [(ngModel)]="personalData.profileName" name="pro_name" required [placeholder]="'Profile name'"
-                    [isRequired]=true #profile_name="ngModel">
-                </rds-input>
-                <div class="form-control-feedback"
-                    *ngIf="profile_name.errors && (profile_name.dirty || profile_name.touched)">
-                    <span class="text-danger" *ngIf="profile_name.errors.required">Profile name is
-                        required</span>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="form-group mb-3">
-                <rds-input [Title]="'Email address'" name="e_address" [placeholder]="'Email address'" id="emailadd"
-                    #email_address="ngModel" [pattern]="emailPattern" ngDefaultControl
-                    [(ngModel)]="personalData.emailAddress" required [isRequired]=true [TitleType]="'Top'">
-
-                </rds-input>
-                <div class="form-control-feedback"
-                    *ngIf="email_address.errors&&(email_address.dirty||email_address.touched)">
-                    <span class="text-danger" *ngIf="email_address.errors.pattern">Please enter a valid email
-                        address</span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <hr class="bg-code">
-    <div class="row py-4">
-        <div class="col-md-4">
+    <div class="row">
+        <div class="col-md-2 mb-3">
             <rds-avatar [withProfilePic]="true" [profilePic]="personalData.profileImage"></rds-avatar>
-            <div class="mt-1">
-                <rds-label [bold]="true" [label]="'Your Photo'"></rds-label>
-            </div>
-            <div>
-                <rds-label [label]="'This will be displayed on your profile'"></rds-label>
-            </div>
         </div>
-        <div class="col-md-6">
-            <rds-file-uploader label="Upload Profile Photo" (onItemClick)="onProfileSelect($event)"
-                [multipleFiles]="false" maxfilesize="5" role="fileUpload">
-            </rds-file-uploader>
+        <div class="col-md-10">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group mb-3">
+                        <rds-input [inputType]="'text'" [label]="'First name'" [labelPosition]="'top'"
+                            [(ngModel)]="personalData.firstName" name="f_name" required [placeholder]="'First name'"
+                            [isRequired]=true #first_name="ngModel">
+                        </rds-input>
+                        <div class="form-control-feedback"
+                            *ngIf="first_name.errors && (first_name.dirty || first_name.touched)">
+                            <span class="text-danger" *ngIf="first_name.errors.required">First name is
+                                required</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mb-3">
+                        <rds-input [inputType]="'text'" [label]="'Last name'" [labelPosition]="'top'"
+                            [(ngModel)]="personalData.lastName" name="l_name" required [placeholder]="'Last name'"
+                            [isRequired]=true #last_name="ngModel">
+                        </rds-input>
+                        <div class="form-control-feedback" *ngIf="last_name.errors && (last_name.dirty || last_name.touched)">
+                            <span class="text-danger" *ngIf="last_name.errors.required">Last name is
+                                required</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mb-3">
+                        <rds-input [inputType]="'text'" [label]="'Profile name'" [labelPosition]="'top'"
+                            [(ngModel)]="personalData.profileName" name="pro_name" required [placeholder]="'Profile name'"
+                            [isRequired]=true #profile_name="ngModel">
+                        </rds-input>
+                        <div class="form-control-feedback"
+                            *ngIf="profile_name.errors && (profile_name.dirty || profile_name.touched)">
+                            <span class="text-danger" *ngIf="profile_name.errors.required">Profile name is
+                                required</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row pt-2">
+                <div class="col-md-4">
+                    <div class="form-group mb-3">
+                        <rds-input [inputType]="'text'" [label]="'Phone Number'" [labelPosition]="'top'"
+                            [(ngModel)]="personalData.firstName" name="f_name" required [placeholder]="'First name'"
+                            [isRequired]=true #first_name="ngModel">
+                        </rds-input>
+                        <div class="form-control-feedback"
+                            *ngIf="first_name.errors && (first_name.dirty || first_name.touched)">
+                            <span class="text-danger" *ngIf="first_name.errors.required">Phone Number is
+                                required</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group mb-3">
+                        <rds-input [label]="'Email address'" name="e_address" [placeholder]="'Email address'" id="emailadd"
+                            #email_address="ngModel" [pattern]="emailPattern" ngDefaultControl
+                            [(ngModel)]="personalData.emailAddress" required [isRequired]=true [labelPosition]="'top'">
+        
+                        </rds-input>
+                        <div class="form-control-feedback"
+                            *ngIf="email_address.errors&&(email_address.dirty||email_address.touched)">
+                            <span class="text-danger" *ngIf="email_address.errors.pattern">Please enter a valid email
+                                address</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <hr>
     <div class="row py-4">
         <div class="col-md-4">
             <div class="form-group mb-3">
-                <rds-select-list [(ngModel)]="personalData.jobRole" [label]="'Job Role'"
+                <label for="Job Role" class="mb-2">Job Role</label>
+                <rds-select-list [(ngModel)]="personalData.jobRole"
                     [value]="personalData.jobRole" ngDefaultControl labelPosition="top" name="role"
                     [itemList]="jobRoleList">
                 </rds-select-list>
@@ -82,7 +87,8 @@
         </div>
         <div class="col-md-4">
             <div class="form-group mb-3">
-                <rds-select-list [(ngModel)]="personalData.country" [label]="'Country'"
+                <label for="Country" class="mb-2">Country</label>
+                <rds-select-list [(ngModel)]="personalData.country"
                     [value]="personalData.country" ngDefaultControl labelPosition="top" name="country"
                     [itemList]="countryList">
                 </rds-select-list>
@@ -90,7 +96,8 @@
         </div>
         <div class="col-md-4">
             <div class="form-group mb-3">
-                <rds-select-list [(ngModel)]="personalData.timezone" [label]="'Timezone'"
+                <label for="Timezone" class="mb-2">Timezone</label>
+                <rds-select-list [(ngModel)]="personalData.timezone"
                     [value]="personalData.timezone" ngDefaultControl labelPosition="top" name="timezone"
                     [itemList]="timezones">
                 </rds-select-list>
@@ -98,36 +105,30 @@
         </div>
 
     </div>
-    <hr>
-    <div class="row py-4">
-        <div class="col-md-4">
-            <rds-label [label]="'Bio'" [bold]="true"></rds-label>
-            <div>
-                <rds-label [label]="'Write a short brief about you.'"></rds-label>
-            </div>
+    <div class="pb-4">
+        <div class="mb-2">
+            <rds-label [label]="'Bio'" [bold]="false" class="fw-medium fs-5"></rds-label>
         </div>
-        <div class="col-md-6">
+        <div>
             <rds-text-editor id="text-editor" [editorData]="personalData.bio"></rds-text-editor>
         </div>
     </div>
-    <hr>
-    <div class="row py-4">
-        <div class="col-md-4">
-            <rds-label [label]="'Portfolio projects and links'" [bold]="true"></rds-label>
+    <div class="py-4">
+        <div>
+            <rds-label [label]="'Portfolio projects and links'" [bold]="false" class="fw-medium fs-4"></rds-label>
             <div>
-                <rds-label [label]="'Share a few over look of your work.'"></rds-label>
+                <rds-label [label]="'Share a few over look of your work.'" class="fw-medium fs-6"></rds-label>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="pt-3">
             <rds-file-uploader label="Upload Files" (onItemClick)="onPortfolioSelect($event)" [multipleFiles]="true"
                 maxfilesize="5" role="fileUpload">
             </rds-file-uploader>
         </div>
     </div>
 </form>
-<hr>
-<div class="mt-5 text-end">
-    <rds-button [label]="'Cancel'" [colorVariant]="'primary'" [size]="'small'" class="" [outlineButton]="true">
+<div class="mt-5">
+    <rds-button [label]="'Cancel'" [colorVariant]="'primary'" [size]="'small'" class="" [isOutline]="true">
     </rds-button>
     <rds-button [label]="'Save'" [size]="'small'" [colorVariant]="'primary'" class="ms-2">
     </rds-button>

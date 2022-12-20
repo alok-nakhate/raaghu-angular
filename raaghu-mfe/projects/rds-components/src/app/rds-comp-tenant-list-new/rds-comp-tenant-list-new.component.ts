@@ -22,13 +22,12 @@ export class RdsCompTenantListNewComponent implements OnInit {
   actions: TableAction[] = [ 
     { id: 'edit', displayName: this.translate.instant('Edit') }, 
     { id: 'delete', displayName: this.translate.instant('Delete') }]
-  @Input() tenantSettingsInfo: any;
   @Input() tenantData: any;
   @Input() isShimmer: boolean = false;
   @Input() listItems = [
     { value: 'New Tenant', some: 'value', key: 'new', icon: 'plus', iconWidth: '20px', iconHeight: '20px' },
   ];
-  @Input() tenantFeatures: any = [];
+  // @Input() tenantFeatures: any = [];
   @Input() tenantFeatureValues: any = [];
   @Input() editShimmer: boolean = false
   @Output() onSaveTenant = new EventEmitter<any>();
@@ -36,16 +35,23 @@ export class RdsCompTenantListNewComponent implements OnInit {
   @Output() onReset = new EventEmitter<any>();
   @Output() deleteEvent = new EventEmitter<any>();
   @Output() onSaveFeatures = new EventEmitter<any>();
-  public tenant: any = {
-    tenantInfo: undefined,
-    tenantSettings: undefined,
-    featureList: [],
-  };
+  @Output() getHostFeatureEmitter = new EventEmitter<any>();
+  @Output() onSaveTenantHost = new EventEmitter<any>();
+    tenantInfo: undefined;
+   tenantFeaturesList : undefined;
+   tenantFeaturesHostList : undefined;
+  //   // featureList: [],
+  // };
   public navtabsItems: any = [];
 
   @Input() public tenantList: any = [];
   public tableData: any = [];
   @Input() public editionList: any = [];
+  @Input() public twoFactorList: any = [
+    {displayText : 'Optional', value : 'Optional'},
+    {displayText : 'Disabled', value : 'Disabled'},
+    {displayText : 'Forced', value : 'Forced'}
+  ];
   buttonSpinnerForNewUser : boolean = true;
   buttonSpinnerForSave : boolean = true;
 
@@ -64,10 +70,6 @@ export class RdsCompTenantListNewComponent implements OnInit {
   }
 
   @Input() tenantHeaders: TableHeader[] = [];
-  selectedFeatureList: any = [];
-  showEmail: boolean;
-  showEmailList: boolean = false;
-  showEditData: boolean = false;
   constructor(public translate: TranslateService, private alertService: AlertService) { }
 
   ngOnInit(): void {
@@ -90,79 +92,74 @@ export class RdsCompTenantListNewComponent implements OnInit {
     return 'Next';
   }
 
-  save(): void {
+  saveTenantData(): void {
     this.buttonSpinnerForSave = true;
     this.buttonSpinnerForNewUser = false;
-    if (!this.selectedFeatureList || this.selectedFeatureList.length === 0) {
-      return;
-    }
+    // if (!this.selectedFeatureList || this.selectedFeatureList.length === 0) {
+    //   return;
+    // }
     const data = {
       id: this.selectedId,
-      featureValues: this.selectedFeatureList,
+      featureValues: this.tenantFeaturesList,
+      tenantInfo : this.tenantInfo
     };
-    this.onSaveFeatures.emit(data);
-    this.activePage = 0;
+     this.activePage = 0;
     var offcanvas = document.getElementById('tenantOffcanvas');
     var bsOffcanvas = new bootstrap.Offcanvas(offcanvas);
     bsOffcanvas.hide();
-    this.viewCanvas = false;
+     this.viewCanvas = false;
+      // this.onSaveFeatures.emit(data)
+      this.onSaveTenant.emit(data);
+      this.activePage = 0;
+      var offcanvas = document.getElementById('tenantOffcanvas');
+      var bsOffcanvas = new bootstrap.Offcanvas(offcanvas);
+      bsOffcanvas.hide();
+      this.viewCanvas = false;
+    
   }
 
-  // iterateSelectedFeatures(arr: any, featureList): any {
-  //   arr.forEach((item: any) => {
-  //     if (item.selectedChildren && item.selectedChildren.length > 0) {
-  //       this.iterateSelectedFeatures(item.selectedChildren, featureList);
-  //     }
-  //     const element: any = {
-  //       name: item.data.name,
-  //       value: item.selected,
-  //     };
-  //     featureList.push(element);
-  //   });
-
-  //   return featureList;
-  // }
+  saveTenantHostFeature(): void {
+  
+      this.onSaveTenantHost.emit(this.tenantFeaturesHostList);
+     this.activePage = 0;
+    var offcanvas = document.getElementById('tenantOffcanvashost');
+    var bsOffcanvas = new bootstrap.Offcanvas(offcanvas);
+    bsOffcanvas.hide();
+     this.viewCanvas = false;
+      this.activePage = 0;
+      var offcanvas = document.getElementById('tenantOffcanvashost');
+      var bsOffcanvas = new bootstrap.Offcanvas(offcanvas);
+      bsOffcanvas.hide();
+      this.viewCanvas = false;
+    
+  }
 
   getTenantData(event: any): void {
     if (event.next) {
       this.activePage = 1;
+      // this.onSaveTenant.emit(this.tenant);
     }
-    this.tenant.tenantInfo = event.tenant;
+    this.tenantInfo = event.tenant;
     if (!event || !event.tenant) {
       this.isTenantInfoValid = false;
     } else {
       this.isTenantInfoValid = true;
     }
   }
-  getTenantSettings(event: any): void {
-
-    this.tenant.tenantSettings = event.settings;
-    if (event.next) {
-      this.onSaveTenant.emit(this.tenant);
-      this.activePage = 0;
-      var offcanvas = document.getElementById('tenantOffcanvas');
-      var bsOffcanvas = new bootstrap.Offcanvas(offcanvas);
-      bsOffcanvas.hide();
-      this.viewCanvas = false;
-    }
+  getTenantFeature(event : any) : void{
+    this.tenantFeaturesList = event
   }
-  getSelectedFeaturesList(event: any): void {
-    this.selectedFeatureList = event;
+  getTenantFeatureHost(event : any) : void{
+    this.tenantFeaturesHostList = event
   }
 
   newTenantHost(event: any): void {
     this.selectedId = '';
     this.viewCanvas = true;
-    
+    this.getHostFeatureEmitter.emit(true);
     if (event) {
       this.canvasTitle = 'Manage Host Admin Features';
-      this.tenantData = undefined;
-      this.tenantSettingsInfo = undefined;
-      this.tenant = {
-        tenantInfo: undefined,
-        tenantSettings: undefined,
-        featureList: [],
-      }; 
+      this.tenantFeaturesHostList = undefined
     }
     setTimeout(() => {
       var offcanvas = document.getElementById('tenantOffcanvashost');
@@ -173,32 +170,15 @@ export class RdsCompTenantListNewComponent implements OnInit {
     this.activePage = 0;
   }
 
-  newTenant(event, showEmail?: boolean): void {
+  newTenant(event): void {
     this.buttonSpinnerForNewUser = true;
     this.buttonSpinnerForSave = false;
     this.selectedId = '';
     this.viewCanvas = true;
-    this.showEmailList = showEmail ? true : false;
-    this.showEditData = showEmail ? true: false;
-    if (showEmail) {
-      this.tenant = {
-        tenantInfo: undefined,
-        tenantSettings: undefined,
-        featureList: [],
-      };
-      this.tenantData = undefined;
-      this.tenantSettingsInfo = undefined;
-      const eventdata: any = {
-        newtenant: true,
-        reset: true
-      }
-      this.onReset.emit(eventdata);
-      this.isTenantInfoValid = false;
-    }
     if (event) {
       this.canvasTitle = 'NEW TENANT';
       this.tenantData = undefined;
-      this.tenantSettingsInfo = undefined;
+      this.tenantFeaturesList = undefined
 
       this.navtabsItems = [
         {
@@ -238,13 +218,9 @@ export class RdsCompTenantListNewComponent implements OnInit {
 
   close(): void {
     this.viewCanvas = false;
-    this.tenant = {
-      tenantInfo: undefined,
-      tenantSettings: undefined,
-      featureList: [],
-    };
+       this.tenantInfo= undefined,
     this.tenantData = undefined;
-    this.tenantSettingsInfo = undefined;
+    this.tenantFeaturesList = undefined
     this.buttonSpinnerForSave = false;
     this.buttonSpinnerForNewUser = false;
   }

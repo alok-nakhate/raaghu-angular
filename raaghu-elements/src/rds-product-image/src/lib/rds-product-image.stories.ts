@@ -9,6 +9,9 @@ export default {
   decorators: [
     
   ],
+  argTypes: {
+    display_type: {table: {disable: true,},},
+  }
   
   
 } as Meta
@@ -17,17 +20,22 @@ const Template: Story<RdsProductImageComponent> = (args: RdsProductImageComponen
   props: args,
 });
 
-export const Default = Template.bind({})
+export const Default = Template.bind({});
+// Default.parameters = { controls: { include: ['display_type', 'itemList'] } };
+
 Default.args ={
   display_type: 'Basic',
   itemList:[
       "https://www.waiin.com/wp-content/uploads/2021/07/Framework-Expertise_01.png"
+  ],
+  images:[
+    "https://images.unsplash.com/photo-1433086966358-54859d0ed716?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8bmF0dXJlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
   ]
-    
 }
 
 
-export const Product_overview1 = Template.bind({})
+export const Product_overview1 = Template.bind({});
+Product_overview1.parameters = { controls: { include: ['display_type', 'itemList'] } };
 Product_overview1.args ={
   display_type: 'Product_overview1',
   itemList:[
@@ -38,7 +46,8 @@ Product_overview1.args ={
   ]
 }
 
-export const Product_overview2 = Template.bind({})
+export const Product_overview2 = Template.bind({});
+Product_overview2.parameters = { controls: { include: ['display_type', 'itemList'] } };
 Product_overview2.args ={
   display_type: 'Product_overview2',
   itemList:[

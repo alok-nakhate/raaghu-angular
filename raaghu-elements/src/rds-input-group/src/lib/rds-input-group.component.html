@@ -1,8 +1,11 @@
-<div class="input-group ">
+<!-- <div class="input-group ">
   <ng-content></ng-content>
+</div> -->
+<label *ngIf="label&&position==='top'" class="form-label">{{label}}</label>
+<div class="input-group mb-2 " [ngClass]="{'input-group-sm': size === 'small', 'input-group-lg': size === 'large'}">
+  <input type="text" class="form-control" [(ngModel)]="value" name="text-input" aria-label="Sizing example input"
+    aria-describedby="button-addon1" [attr.placeholder]="placeholder">
+  <button [class]="classes" class="btn" (click)="onClickEvent()" type="button"
+    id="button-addon1">{{buttonLabel}}</button>
 </div>
-<label>{{label}}</label>
-<div class="input-group mb-2 " [ngClass]="{'input-group-sm': size == 'sm', 'input-group-lg': size == 'lg'}">
-    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="button-addon1" placeholder="Placeholder text">
-    <button [class]="classes"  class="btn" type="button" id="button-addon1">Button</button>
-</div>
+<label *ngIf="label&&position==='bottom'">{{label}}</label>

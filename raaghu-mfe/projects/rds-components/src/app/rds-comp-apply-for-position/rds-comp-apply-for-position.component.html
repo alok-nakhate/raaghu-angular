@@ -1,31 +1,28 @@
-
 <div class="card border-0">
   <div class="card-body sm-px-0">
     <div class="row mb-2">
       <div class="col-md-12">
-        <h5><rds-label [label]="'Apply for a Position'" [bold]="true" class="h1"></rds-label></h5>
+        <h5>
+          <rds-label [label]="'Apply for a Position'" [bold]="true" class="h1"></rds-label>
+        </h5>
       </div>
     </div>
     <div class="row mb-5">
       <div class="col-md-12">
-        <rds-label class="text-muted" [label]="'Please complete the form below to apply for a position with us.'"></rds-label>
+        <rds-label class="text-muted" [label]="'Please complete the form below to apply for a position with us.'">
+        </rds-label>
       </div>
     </div>
     <form #applicantDetailsForm="ngForm">
       <div class="row">
         <div class="col-md-6 mb-3">
           <div class="from-group">
-            <rds-input size="default"
-                       [disabled]="false"
-                       [Title]="'Email ID'"
-                       [TitleType]="'Top'"
-                       [readonly]="false"
-                       inputType="text"
-                       [placeholder]="'name@domain.com'"
-                       required [pattern]="emailPattern" [isRequired]="false"
-                       [(ngModel)]="applicantData.applicantEmailId" #applicantEmailId="ngModel" name="applicantEmailId"></rds-input>
+            <rds-input size="medium" [disabled]="false" [label]="'Email ID'" [labelPosition]="'top'" [readonly]="false"
+              inputType="text" [placeholder]="'name@domain.com'" required [pattern]="emailPattern" [isRequired]="false"
+              [(ngModel)]="applicantData.applicantEmailId" #applicantEmailId="ngModel" name="applicantEmailId">
+            </rds-input>
             <div class="form-control-feedback"
-                 *ngIf="applicantEmailId.errors && (applicantEmailId.dirty || applicantEmailId.touched)">
+              *ngIf="applicantEmailId.errors && (applicantEmailId.dirty || applicantEmailId.touched)">
               <span class="text-danger" *ngIf="applicantEmailId.errors.required">
                 Email address is required
               </span>
@@ -37,19 +34,13 @@
         </div>
         <div class="col-md-6 mb-3">
           <div class="from-group">
-            <rds-input size="default"
-                       [disabled]="false"
-                       [Title]="'Full Name'"
-                       [TitleType]="'Top'"
-                       [readonly]="false"
-                       value=""
-                       inputType="text"
-                       [placeholder]="'John Doe'"
-                       required
-                       [(ngModel)]="applicantData.applicantFullName" #applicantFullName="ngModel" name="applicantFullName"></rds-input>
+            <rds-input size="medium" [disabled]="false" [label]="'Full Name'" [labelPosition]="'top'" [readonly]="false"
+              value="" inputType="text" [placeholder]="'John Doe'" required
+              [(ngModel)]="applicantData.applicantFullName" #applicantFullName="ngModel" name="applicantFullName">
+            </rds-input>
 
             <div class="form-control-feedback"
-                 *ngIf="applicantFullName.errors && (applicantFullName.dirty || applicantFullName.touched)">
+              *ngIf="applicantFullName.errors && (applicantFullName.dirty || applicantFullName.touched)">
               <span class="text-danger" *ngIf="applicantFullName.errors.required">
                 Full Name is required
               </span>
@@ -61,19 +52,14 @@
       <div class="row">
         <div class="col-md-6 mb-3">
           <div class="from-group">
-            <rds-input size="default"
-                       [disabled]="false"
-                       [Title]="'Contact Number'"
-                       [TitleType]="'Top'"
-                       [readonly]="false"
-                       value=""
-                       inputType="text"
-                       [placeholder]="'+91 9087654321'"
-                       required [pattern]="contactNumber"
-                       (keypress)="($event.charCode === 8 || $event.charCode === 0 || $event.charCode === 13) ? null : $event.charCode >= 48 && $event.charCode <= 57"
-                       [(ngModel)]="applicantData.applicantContactNo" #applicantContactNo="ngModel" name="applicantContactNo"></rds-input>
+            <rds-input size="medium" [disabled]="false" [label]="'Contact Number'" [labelPosition]="'top'"
+              [readonly]="false" value="" inputType="text" [placeholder]="'+91 9087654321'" required
+              [pattern]="contactNumber"
+              (keypress)="($event.charCode === 8 || $event.charCode === 0 || $event.charCode === 13) ? null : $event.charCode >= 48 && $event.charCode <= 57"
+              [(ngModel)]="applicantData.applicantContactNo" #applicantContactNo="ngModel" name="applicantContactNo">
+            </rds-input>
             <div class="form-control-feedback"
-                 *ngIf="applicantContactNo.errors && (applicantContactNo.dirty || applicantContactNo.touched)">
+              *ngIf="applicantContactNo.errors && (applicantContactNo.dirty || applicantContactNo.touched)">
               <span class="text-danger" *ngIf="applicantContactNo.errors.required">
                 Contact Number is required
               </span>
@@ -86,18 +72,12 @@
         </div>
         <div class="col-md-6 mb-3">
           <div class="from-group">
-            <rds-input size="default"
-                       [disabled]="false"
-                       [Title]="'Applying for Position'"
-                       [TitleType]="'Top'"
-                       [readonly]="false"
-                       value=""
-                       inputType="text"
-                       required [isRequired]="false"
-                       [placeholder]="'Designer'"
-                       [(ngModel)]="applicantData.applicantPosition" #applicantPosition="ngModel" name="applicantPosition"></rds-input>
+            <rds-input size="medium" [disabled]="false" [label]="'Applying for Position'" [labelPosition]="'top'"
+              [readonly]="false" value="" inputType="text" required [isRequired]="false" [placeholder]="'Designer'"
+              [(ngModel)]="applicantData.applicantPosition" #applicantPosition="ngModel" name="applicantPosition">
+            </rds-input>
             <div class="form-control-feedback"
-                 *ngIf="applicantPosition.errors && (applicantPosition.dirty || applicantPosition.touched)">
+              *ngIf="applicantPosition.errors && (applicantPosition.dirty || applicantPosition.touched)">
               <span class="text-danger" *ngIf="applicantPosition.errors.required">
                 Applying for Position is required
               </span>
@@ -110,19 +90,13 @@
         <div class="col-md-6 mb-3">
           <div class="from-group">
             <div class="row">
-              <rds-input size="default"
-                         [disabled]="false"
-                         [Title]="'When can you start?'"
-                         [TitleType]="'Top'"
-                         [readonly]="false"
-                         value=""
-                         inputType="text"
-                         [placeholder]="'Notice Period'"
-                         required [isRequired]="false"
-                         [(ngModel)]="applicantData.applicantStartDate" #applicantStartDate="ngModel" name="applicantStartDate"></rds-input>
+              <rds-input size="medium" [disabled]="false" [label]="'When can you start?'" [labelPosition]="'top'"
+                [readonly]="false" value="" inputType="text" [placeholder]="'Notice Period'" required
+                [isRequired]="false" [(ngModel)]="applicantData.applicantStartDate" #applicantStartDate="ngModel"
+                name="applicantStartDate"></rds-input>
 
               <div class="form-control-feedback"
-                   *ngIf="applicantStartDate.errors && (applicantStartDate.dirty || applicantStartDate.touched)">
+                *ngIf="applicantStartDate.errors && (applicantStartDate.dirty || applicantStartDate.touched)">
                 <span class="text-danger" *ngIf="applicantStartDate.errors.required">
                   Please mention notice period is required
                 </span>
@@ -130,41 +104,34 @@
 
             </div>
             <div class="row my-4">
-              <rds-file-uploader size="medium"
-                                 [label]="'Upload Resume'"
-                                 [multipleFiles]="false"
-                                 maxfilesize="5"
-                                 sizeType=""
-                                 role="fileUpload" 
-                                 [(ngModel)]="applicantData.applicantResume" #applicantResume="ngModel" name="applicantResume"></rds-file-uploader>
+              <rds-file-uploader size="medium" [label]="'Upload Resume'" [multipleFiles]="false" maxfilesize="5"
+                sizeType="" role="fileUpload" [(ngModel)]="applicantData.applicantResume" #applicantResume="ngModel"
+                name="applicantResume"></rds-file-uploader>
             </div>
           </div>
         </div>
         <div class="col-md-6 mb-3">
           <div class="from-group">
-            <rds-textarea [placeholderText]="'Cover Letter'"
-                          [label]="'Cover Letter'"
-                          rows="8" [isRequired]="false"
-                          [(ngModel)]="applicantData.applicantCoverLetter" #applicantCoverLetter="ngModel" name="applicantCoverLetter"></rds-textarea>
+            <rds-textarea [placeholderText]="'Cover Letter'" [label]="'Cover Letter'" rows="8" [isRequired]="false"
+              [(ngModel)]="applicantData.applicantCoverLetter" #applicantCoverLetter="ngModel"
+              name="applicantCoverLetter"></rds-textarea>
 
           </div>
         </div>
         <div class="row pe-0">
           <div class="col-md-6 mb-3 pe-0">
             <div class="from-group">
-              <rds-button class="d-grid mb-3" colorVariant="primary" [block]="false"
-                          [size]="'medium'" [submit]="true"
-                          [label]="'Apply Now'" (click)="openConfirmationPopup()" [disabled]="!applicantDetailsForm.valid"></rds-button>
+              <rds-button class="d-grid mb-3" colorVariant="primary" [block]="false" [size]="'medium'" [submit]="true"
+                [label]="'Apply Now'" (click)="openConfirmationPopup()" [isDisabled]="!applicantDetailsForm.valid">
+              </rds-button>
             </div>
           </div>
         </div>
       </div>
     </form>
     <div *ngIf="showConfirmationPopup">
-      <app-rds-comp-alert-popup [alertID]="'confirmationId'"
-                                [alertData]="alertData">
-      </app-rds-comp-alert-popup>
+      <rds-comp-alert-popup [alertID]="'confirmationId'" [alertData]="alertData">
+      </rds-comp-alert-popup>
     </div>
   </div>
 </div>
-

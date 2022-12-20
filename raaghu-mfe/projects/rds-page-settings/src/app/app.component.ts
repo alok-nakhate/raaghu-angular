@@ -1,11 +1,12 @@
+
 import { Component, EventEmitter, Injector, Input, OnInit, Output } from '@angular/core';
-import { ComponentLoaderOptions, EmailSettingsEditDto, HostBillingSettingsEditDto, HostSettingsEditDto, MfeBaseComponent, OtherSettingsEditDto, PasswordComplexitySetting, SecuritySettingsEditDto, SharedService, TenantManagementSettingsEditDto, TenantSettingsEditDto, UserLockOutSettingsEditDto } from '@libs/shared';
-import { getSettings, getSettingsTenantPageComboboxItems, selectAllSettings, selectDefaultLanguage, selectSettingsTenantPageComboboxItems, sendTestmail, updateSettings } from '@libs/state-management';
 import { Store } from '@ngrx/store';
-import { AlertService } from '@libs/shared';
+import { AlertService, ComponentLoaderOptions, SharedService } from '@libs/shared';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { transition, trigger, query, style, animate, } from '@angular/animations';
+import { getAccountCaptchaSettings, getAccountGeneralSettings, getAccountTwoFactorSettings, getEmailSettings, getExternalProviderSettings, getIdentityManagementSettings, getThemeSettings, saveAccountCaptchaSettings, saveAccountGeneralSettings, saveAccountTwoFactorSettings, saveEmailSettings, saveExternalProviderSettings, saveIdentityManagementSettings, saveThemeSettings } from 'projects/libs/state-management/src/lib/state/settings/settings.actions';
+import { selectCaptchaSettings, selectEmailSettings, selectexternalproviderSettings, selectgeneralSettings, selectIdentityManagementSettings, selectThemeSettings, selectTwoFactorSettings } from 'projects/libs/state-management/src/lib/state/settings/settings.selector';
 
 @Component({
   selector: 'app-root',
@@ -40,8 +41,26 @@ import { transition, trigger, query, style, animate, } from '@angular/animations
 })
 export class AppComponent implements OnInit {
   isAnimation: boolean = true;
+  accountApiCall:boolean=false;
+  errorShowed:boolean=false;
   currentAlerts: any = [];
   editShimmer: boolean = false;
+  public accountData: any = {}
+  public themeData: any = {}
+  public emailSettingData: any = {}
+  public identityData: any = {}
+  public settingData: any = {
+    emailSettingsData: undefined,
+    identityData: undefined,
+    themeData: undefined,
+    accountData: undefined
+
+  };
+  countError:number=0;
+  emailSettingsInfo: any = [];
+  accountInfo: any = [];
+  themeInfo: any = [];
+  externalProviders: any = [];
   public rdsAlertMfeConfig: ComponentLoaderOptions = {
     name: 'RdsCompAlert',
     input: {
@@ -55,72 +74,84 @@ export class AppComponent implements OnInit {
   }
 
   @Input() rdsSettingData: any = [];
+  AuthentiactionList: any = [
+    { value: 0, some: 'Optional', id: 0, icon: '', iconWidth: '', iconHeight: '', iconStroke: true, iconFill: false },
+    { value: 1, some: 'Disable', id: 1, icon: '', iconWidth: '', iconHeight: '', iconStroke: true, iconFill: false },
+    { value: 2, some: 'Forced', id: 2, icon: '', iconWidth: '', iconHeight: '', iconStroke: true, iconFill: false },
+
+  ];
   @Input() listItems1 = [
     { value: 'Save All', some: 'value', key: 'saveall', icon: 'plus', iconWidth: '20px', iconHeight: '20px' },
   ];
   @Output() onDataSave = new EventEmitter<any>();
-  // rdsCompTenantManageMfeConfig: ComponentLoaderOptions;
-  // rdsCompUserManagementsMfeConfig: ComponentLoaderOptions;
-  // rdsCompSecurityMfeConfig: ComponentLoaderOptions;
-  // rdsCompEmailMfeConfig: ComponentLoaderOptions;
-  // rdsCompInvoiceMfeConfig: ComponentLoaderOptions;
-  // rdsCompOtherSettingsMfeConfig: ComponentLoaderOptions;
 
-  public tenantmanagementData: any = {};
-  public usermanagementdata: any = {};
-  public securityData: any = {}
-  public emailData: any = {};
-  public invoiceInfoData: any = {};
-  public otherSettingData: any = {};
-  hostSetting: HostSettingsEditDto = new HostSettingsEditDto();
-  saveHostSetting: HostSettingsEditDto = new HostSettingsEditDto();
-
-  otherSettings: OtherSettingsEditDto = new OtherSettingsEditDto()
-  invoicedata: HostBillingSettingsEditDto = new HostBillingSettingsEditDto();
-  allsettings: any;
-
+  activePage: number = 0;
   navtabsItems: any = [
     {
-      label: 'Tenant Management',
-      tablink: '#tenant-management',
-      ariacontrols: 'tenant-management',
-    },
-    {
-      label: 'User Management',
-      tablink: '#user-management',
-      ariacontrols: 'user-management',
-    },
-    {
-      label: 'Security',
-      tablink: '#security',
-      ariacontrols: 'settings',
-    },
-    {
-      label: 'Email(SMTP)',
+      label: 'Email Settings',
       tablink: '#email',
       ariacontrols: 'email',
     },
     {
-      label: 'Invoice',
-      tablink: '#invoice',
-      ariacontrols: 'invoice',
+      label: 'Identity Management',
+      tablink: '#identity',
+      ariacontrols: 'identity',
     },
     {
-      label: 'Other-settings',
-      tablink: '#other-settings',
-      ariacontrols: 'other-settings',
+      label: 'Theme',
+      tablink: '#theme',
+      ariacontrols: 'theme',
     },
+    {
+      label: 'Account',
+      tablink: '#account',
+      ariacontrols: 'account',
+    }
   ];
 
+  //  public AuthentiactionList=[
+  //   { isFree: true, value: '1', displayText: 'Value 1', isSelected: false },
+  //  { isFree: false, value: '2', displayText: 'Value 2', isSelected: false },
+  //  ];
+
+  public VersionList = [
+    { value: 2, some: 2, id: 1 },
+    { value: 3, some: 3, id: 2 },
+  ];
+
+  StyleList: any = [
+    { value: 0, some: 'Style 1', id: 1, icon: '' },
+    { value: 1, some: 'Style 2', id: 2, icon: '' },
+    { value: 2, some: 'Style 3', id: 3, icon: '' },
+    { value: 3, some: 'Style 4', id: 3, icon: '' },
+    { value: 4, some: 'Style 5', id: 3, icon: '' },
+    { value: 5, some: 'Style 6', id: 3, icon: '' },
+  ];
+  WebList: any = [
+    { value: 0, some: 'Style 1', id: 1, icon: '' },
+    { value: 1, some: 'Style 2', id: 2, icon: '' },
+    { value: 2, some: 'Style 3', id: 3, icon: '' },
+    { value: 3, some: 'Style 4', id: 4, icon: '' },
+    { value: 4, some: 'Style 5', id: 5, icon: '' },
+    { value: 5, some: 'Style 6', id: 6, icon: '' },
+  ];
+  MenuList: any = [
+    { value: 0, some: 'Left', id: 1, icon: '' },
+    { value: 1, some: 'Top', id: 2, icon: '' },
+
+  ];
+  StatusList: any = [
+    { value: 0, some: 'Always opened', id: 1, icon: '' },
+    { value: 1, some: 'Open on hover', id: 2, icon: '' },
+
+  ];
+
+
+
   settingsTenantEditionList: any = [];
-  tenantmanagementDataEdit: boolean = false;
-  emailEdit: boolean = false;
-  secturityEdit: boolean = false;
-  userManagementEdit: boolean = false;
-  generalEdit: boolean = false;
-  billingEdit: boolean = false;
-  otherSettingEdit: boolean = false;
-  externalLoginProviderSettingsEdit: boolean = false;
+
+
+  identitymanagementInfo: any = [];
 
 
   constructor(private injector: Injector,
@@ -130,321 +161,239 @@ export class AppComponent implements OnInit {
     public translate: TranslateService) {
 
   }
-  rdsCompTenantManageMfeConfig: ComponentLoaderOptions = {
-    name: 'RdsCompTenantManagement',
-    input: {
-      settings: this.tenantmanagementData,
-      settingsTenantEditionList: this.settingsTenantEditionList,
-      editShimmer: true
-    },
 
-    output: {
-      tenantManagementData: (event) => {
-        this.saveHostSetting.tenantManagement.allowSelfRegistration = event.allowSelfRegistration
-        this.saveHostSetting.tenantManagement.defaultEditionId = event.defaultEditionId;
-        this.saveHostSetting.tenantManagement.isNewRegisteredTenantActiveByDefault = event.isNewRegisteredTenantActiveByDefault;
-        this.saveHostSetting.tenantManagement.useCaptchaOnRegistration = event.useCaptchaOnRegistration;
-        this.tenantmanagementDataEdit = true;
-      },
-    },
+  rdsCompSettingsNewMfeConfig: ComponentLoaderOptions = {
+    name: 'RdsCompSettingsNew'
+  };
 
-  };
-  rdsCompUserManagementsMfeConfig: ComponentLoaderOptions = {
-    name: 'RdsCompUserManagement',
-    input: {
-      settingss: this.usermanagementdata,
-      editShimmer: true
-    },
-    output: {
-      UserManagementData: (event) => {
-
-        this.saveHostSetting.userManagement.allowUsingGravatarProfilePicture = event.allowUsingGravatarProfilePicture;
-        this.saveHostSetting.userManagement.isCookieConsentEnabled = event.isCookieConsentEnabled;
-        this.saveHostSetting.userManagement.isEmailConfirmationRequiredForLogin = event.isEmailConfirmationRequiredForLogin
-        this.saveHostSetting.userManagement.isQuickThemeSelectEnabled = this.hostSetting.userManagement.isQuickThemeSelectEnabled
-        this.saveHostSetting.userManagement.sessionTimeOutSettings = this.hostSetting.userManagement.sessionTimeOutSettings
-        this.saveHostSetting.userManagement.useCaptchaOnLogin = event.useCaptchaOnLogin;
-        this.saveHostSetting.userManagement.smsVerificationEnabled = event.smsVerificationEnabled;
-        this.saveHostSetting.userManagement.userPasswordSettings = this.hostSetting.userManagement.userPasswordSettings
-        this.userManagementEdit = true;
-      }
-    }
-  };
-  rdsCompSecurityMfeConfig: ComponentLoaderOptions = {
-    name: 'RdsSecurity',
-    input: {
-      setting: this.securityData,
-      editShimmer: true
-    },
-    output: {
-      securityData: (event) => {
-        this.saveHostSetting.security.passwordComplexity = new PasswordComplexitySetting();
-        this.saveHostSetting.security.userLockOut = new UserLockOutSettingsEditDto();
-        this.saveHostSetting.security.passwordComplexity.requireDigit = event.requireDigit;
-        this.saveHostSetting.security.passwordComplexity.requiredLength = event.requiredLength;
-        this.saveHostSetting.security.passwordComplexity.requireLowercase = event.requireLowercase;
-        this.saveHostSetting.security.passwordComplexity.requireNonAlphanumeric = event.requireAlphaNumeric;
-        this.saveHostSetting.security.passwordComplexity.requireUppercase = event.requireUppercase;
-        this.saveHostSetting.security.userLockOut.defaultAccountLockoutSeconds = event.defaultAccountLockoutSeconds;
-        this.saveHostSetting.security.userLockOut.maxFailedAccessAttemptsBeforeLockout = event.maxFailedAccessAttemptsBeforeLockout;
-        this.saveHostSetting.security.userLockOut.isEnabled = event.isEnabled;
-        this.saveHostSetting.security.allowOneConcurrentLoginPerUser = this.hostSetting.security.allowOneConcurrentLoginPerUser;
-        this.saveHostSetting.security.useDefaultPasswordComplexitySettings = event.useDefaultPasswordComplexitySettings;
-        this.saveHostSetting.security.twoFactorLogin = this.hostSetting.security.twoFactorLogin;
-        this.secturityEdit = true;
-      }
-    }
-  };
-  rdsCompEmailMfeConfig: ComponentLoaderOptions = {
-    name: 'RdsCompEmail',
-    input: {
-      emailData: this.emailData,
-      editShimmer: true
-    },
-    output: {
-      EmailtData: (event) => {
-        this.saveHostSetting.email.defaultFromAddress = event.defaultFromAddress;
-        this.saveHostSetting.email.defaultFromDisplayName = event.defaultFromDisplayName;
-        this.saveHostSetting.email.smtpHost = event.smtpHost;
-        this.saveHostSetting.email.smtpPort = event.smtpPort;
-        this.saveHostSetting.email.smtpDomain = event.smtpDomain;
-        this.saveHostSetting.email.smtpUseDefaultCredentials = event.smtpUseDefaultCredentials;
-        this.saveHostSetting.email.smtpEnableSsl = event.smtpEnableSsl;
-        this.emailEdit = true;
-      },
-      SendTestEmailData: (event) => {
-        const data: any = {
-          emailAddress: event
-        }
-        this.store.dispatch(sendTestmail(data));
-      }
-    }
-  };
-  rdsCompInvoiceMfeConfig: ComponentLoaderOptions = {
-    name: 'RdsCompInvoice',
-    input: {
-      invoiceData: this.invoiceInfoData,
-      editShimmer: true
-    },
-    output: {
-      InvoiceData: (event) => {
-        this.invoicedata.address = event.address
-        this.invoicedata.legalName = event.legalName;
-        // this.saveHostSetting.billing.address=event.address;
-        this.billingEdit = true;
-      },
-    },
-  };
-  rdsCompOtherSettingsMfeConfig: ComponentLoaderOptions = {
-    name: 'RdsCompOtherSettings',
-    input: {
-      setting: this.otherSettingData,
-      editShimmer: true
-    },
-    output: {
-      OtherSettingData: (event) => {
-        this.otherSettings.isQuickThemeSelectEnabled = event.isQuickThemeSelectEnabled
-        // const othersetting: any={
-        //   isQuickThemeSelectEnabled:event.isQuickThemeSelectEnabled
-        // }
-        // this.otherSettings=othersetting
-        // this.saveHostSetting.otherSettings.isQuickThemeSelectEnabled=event.isQuickThemeSelectEnabled;
-        this.otherSettingEdit = true;
-      }
-    }
-  };
 
   ngOnInit(): void {
-    this.isAnimation = true;
-    this.store.select(selectDefaultLanguage).subscribe((res: any) => {
+    this.rdsCompSettingsNewMfeConfig = {
+      name: 'RdsCompSettingsNew',
+      input: {
+        externalProviders: this.externalProviders,
+        AuthentiactionList: this.AuthentiactionList,
+        VersionList: this.VersionList,
+        StyleList: this.StyleList,
+        WebList: this.WebList,
+        MenuList: this.MenuList,
+        StatusList: this.StatusList
+
+      },
+      output: {
+        onDataSaveEmail: (emailData: any) => {
+          const data: any = {
+            defaultFromAddress: emailData.defaultAddress,
+            defaultFromDisplayName: emailData.defaultDisplayName,
+            smtpEnableSsl: emailData.ssl,
+            smtpHost: emailData.host,
+            smtpPort: emailData.port,
+            smtpUseDefaultCredentials: emailData.defaultcredentials,
+            smtpDomain: emailData.smtpdomain,
+            smtpUserName: emailData.smtpusername,
+            smtpPassword: emailData.smtpPassword
+
+          }
+          this.store.dispatch(saveEmailSettings(data));
+        },
+        onDataSaveIdentity: (identitydata: any) => {
+          const data: any = {
+
+            password: {
+              requiredLength: identitydata.requiredlength,
+              requiredUniqueChars: identitydata.splChar,
+              requireNonAlphanumeric: identitydata.nonAlpha,
+              requireLowercase: identitydata.lowercaserequired,
+              requireUppercase: identitydata.uppercaserequired,
+              requireDigit: identitydata.numbers
+            },
+            lockout: {
+              allowedForNewUsers: identitydata.newusers,
+              lockoutDuration: identitydata.lockoutDuration,
+              maxFailedAccessAttempts: identitydata.MaxAttmpts
+            },
+            signIn: {
+              requireConfirmedEmail: identitydata.confirmEmail,
+              enablePhoneNumberConfirmation: identitydata.phoneNumber,
+              requireConfirmedPhoneNumber: identitydata.confirmPhoneNumber
+            },
+            user: {
+              isUserNameUpdateEnabled: identitydata.changeUserName,
+              isEmailUpdateEnabled: identitydata.changeEmail
+            }
+
+          }
+
+          this.store.dispatch(saveIdentityManagementSettings(data))
+        },
+        onDataSaveTheme: (themeData: any) => {
+          const data: any = {
+            style: themeData.styleId,
+            publicLayoutStyle: themeData.webStyleId,
+            menuPlacement: themeData.placementId,
+            menuStatus: themeData.statusId
+          }
+          this.store.dispatch(saveThemeSettings(data))
+        },
+        onDataSaveAccount: (accountData: any) => {
+          const data: any = {
+            usersCanChange: accountData.allowUser,
+            isRememberBrowserEnabled: accountData.browser,
+            twoFactorBehaviour: accountData.twofactorauthenticationId,
+
+          };
+          this.store.dispatch(saveAccountTwoFactorSettings(data));
+          const _data: any = {
+            isSelfRegistrationEnabled: accountData.registration,
+            enableLocalLogin: accountData.authentication
+          }
+          this.store.dispatch(saveAccountGeneralSettings(_data))
+          this.accountApiCall=true;
+          const captchaData: any = {
+            score: accountData.score,
+            siteKey: accountData.site,
+            siteSecret: accountData.secret,
+            useCaptchaOnLogin: accountData.imagacaptcha,
+            useCaptchaOnRegistration: accountData.securityauthentication,
+            verifyBaseUrl: accountData.baseUrl,
+            version: accountData.versionId
+
+          }
+          this.store.dispatch(saveAccountCaptchaSettings(captchaData))
+          if (accountData.externalProviders) {
+            this.store.dispatch(saveExternalProviderSettings(accountData.externalProviders))
+          }
+        }
+
+      }
+    };
+
+
+    this.store.dispatch(getAccountTwoFactorSettings());
+    this.store.select(selectTwoFactorSettings).subscribe((res: any) => {
+      if (res && res.twoFactorSettings) {
+        const twoFactorSettings: any = res.twoFactorSettings;
+        const twoFactor: any = this.AuthentiactionList.find((x: any) => x.value == twoFactorSettings.twoFactorBehaviour);
+        if (twoFactor) {
+          this.accountData['twofactorauthentication'] = twoFactor.some;
+        }
+        this.accountData['allowUser'] = twoFactorSettings.usersCanChange;
+        this.accountData['browser'] = twoFactorSettings.isRememberBrowserEnabled;
+        const rdsCompSettingsNewMfeConfig = this.rdsCompSettingsNewMfeConfig;
+        rdsCompSettingsNewMfeConfig.input.accountData = this.accountData;
+        this.rdsCompSettingsNewMfeConfig = rdsCompSettingsNewMfeConfig
+      }
+    })
+    this.store.dispatch(getAccountGeneralSettings());
+    this.store.select(selectgeneralSettings).subscribe((res: any) => {
       if (res) {
-        this.translate.use(res);
-        this.navtabsItems[0].label = this.translate.instant('Tenant Management');
-        this.navtabsItems[1].label = this.translate.instant('User Management');
-        this.navtabsItems[2].label = this.translate.instant('Security');
-        this.navtabsItems[3].label = this.translate.instant('Email(SMTP)');
-        this.navtabsItems[4].label = this.translate.instant('Invoice');
-        this.navtabsItems[5].label = this.translate.instant('Other-Settings');
+        const passwordSettings: any = res;
+        this.accountData['registration'] = passwordSettings.isSelfRegistrationEnabled;
+        this.accountData['authentication'] = passwordSettings.enableLocalLogin
+      }
+    })
+    this.store.dispatch(getAccountCaptchaSettings());
+    this.store.select(selectCaptchaSettings).subscribe((res: any) => {
+      if (res) {
+        const captchaSettings: any = res;
+        const captcha: any = this.VersionList.find((x: any) => x.value == captchaSettings.version);
+        if (captcha) {
+          this.accountData['version'] = captcha.some;
+        }
+        this.accountData['score'] = captchaSettings.score,
+          this.accountData['secret'] = captchaSettings.siteSecret,
+          this.accountData['site'] = captchaSettings.siteKey,
+          this.accountData['imagacaptcha'] = captchaSettings.useCaptchaOnLogin,
+          this.accountData['securityauthentication'] = captchaSettings.useCaptchaOnRegistration,
+          this.accountData['baseUrl'] = captchaSettings.verifyBaseUrl
+
+        const rdsCompSettingsNewMfeConfig = this.rdsCompSettingsNewMfeConfig;
+        rdsCompSettingsNewMfeConfig.input.accountData = this.accountData;
+        this.rdsCompSettingsNewMfeConfig = rdsCompSettingsNewMfeConfig
+      }
+    })
+    this.store.dispatch(getEmailSettings());
+    this.store.select(selectEmailSettings).subscribe((res: any) => {
+      if (res) {
+        // const emaildata: any = res.emailSettings;
+        this.emailSettingData['defaultDisplayName'] = res.defaultFromDisplayName;
+        this.emailSettingData['defaultAddress'] = res.defaultFromAddress;
+        this.emailSettingData['host'] = res.smtpHost;
+        this.emailSettingData['port'] = res.smtpPort
+        this.emailSettingData['ssl'] = res.smtpEnableSsl
+        this.emailSettingData['defaultcredentials'] = res.smtpUseDefaultCredentials
+
+        const rdsCompSettingsNewMfeConfig = this.rdsCompSettingsNewMfeConfig;
+        rdsCompSettingsNewMfeConfig.input.emailSettingsData = this.emailSettingData;
+        this.rdsCompSettingsNewMfeConfig = rdsCompSettingsNewMfeConfig
+
       }
     })
 
-    this.subscribeToAlerts();
-
-    this.store.dispatch(getSettingsTenantPageComboboxItems())
-    this.store.select(selectSettingsTenantPageComboboxItems).subscribe((res: any) => {
-      if (res && res.settingsComboboxItem) {
-        this.settingsTenantEditionList = [];
-        this.settingsTenantEditionList = res.settingsComboboxItem;
-        //this.settingsTenantEditionList = res.editionComboboxItem.filter((x: any) => x.isFree);
-        const mfeConfig = this.rdsCompTenantManageMfeConfig
-        mfeConfig.input.settingsTenantEditionList = [...this.settingsTenantEditionList];
-        mfeConfig.input.editShimmer = false;
-        this.rdsCompTenantManageMfeConfig = mfeConfig;
-      }
-    });
-    this.store.dispatch(getSettings());
-    this.store.select(selectAllSettings).subscribe((res: any) => {
-      this.isAnimation = false;
-      console.log(res);
+    this.store.dispatch(getIdentityManagementSettings());
+    this.store.select(selectIdentityManagementSettings).subscribe((res: any) => {
       if (res) {
-        this.hostSetting.general = res.settings.general;
-        this.hostSetting.externalLoginProviderSettings = res.settings.externalLoginProviderSettings;
-        if (res.settings.billing) {
-          this.hostSetting.billing = res.settings.billing;
-          this.invoiceInfoData.legalName = res.settings.billing.legalName;
-          this.invoiceInfoData.address = res.settings.billing.address;
-          const mfeConfig = this.rdsCompInvoiceMfeConfig
-          mfeConfig.input.InvoiceDataForm = { ... this.invoiceInfoData };
-          mfeConfig.input.editShimmer = false;
-          this.rdsCompInvoiceMfeConfig = mfeConfig;
-        }
-        if (res.settings.tenantManagement) {
-          this.hostSetting.tenantManagement = res.settings.tenantManagement
-          this.tenantmanagementData.isNewRegisteredTenantActiveByDefault = res.settings.tenantManagement.isNewRegisteredTenantActiveByDefault;
-          this.tenantmanagementData.defaultEditionId = res.settings.tenantManagement.defaultEditionId;
-          this.tenantmanagementData.useCaptchaOnRegistration = res.settings.tenantManagement.useCaptchaOnRegistration;
-          this.tenantmanagementData.allowSelfRegistration = res.settings.tenantManagement.allowSelfRegistration;
-          const mfeConfig = this.rdsCompTenantManageMfeConfig
-          mfeConfig.input.settings = { ... this.tenantmanagementData };
-          mfeConfig.input.editShimmer = false;
-          this.rdsCompTenantManageMfeConfig = mfeConfig;
-        }
+        this.identityData = {};
+        this.identityData['numbers'] = res.password.requireDigit;
+        this.identityData['lowercaserequired'] = res.password.requireLowercase;
+        this.identityData['nonAlpha'] = res.password.requireNonAlphanumeric;
+        this.identityData['uppercaserequired'] = res.password.requireUppercase;
+        this.identityData['requiredlength'] = res.password.requiredLength;
+        this.identityData['splChar'] = res.password.requiredUniqueChars;
+        this.identityData['phoneNumber'] = res.signIn.enablePhoneNumberConfirmation;
+        this.identityData['confirmEmail'] = res.signIn.requireConfirmedEmail;
+        this.identityData['confirmPhoneNumber'] = res.signIn.requireConfirmedPhoneNumber;
+        this.identityData['newusers'] = res.lockout.allowedForNewUsers;
+        this.identityData['lockoutDuration'] = res.lockout.lockoutDuration;
+        this.identityData['MaxAttmpts'] = res.lockout.maxFailedAccessAttempts;
+        this.identityData['changeEmail'] = res.user.isEmailUpdateEnabled;
+        this.identityData['changeUserName'] = res.user.isUserNameUpdateEnabled;
 
-        if (res.settings.otherSettings) {
-          this.hostSetting.otherSettings = res.settings.otherSettings;
-          this.otherSettingData.isQuickThemeSelectEnabled = res.settings.otherSettings.isQuickThemeSelectEnabled;
-          const mfeConfig = this.rdsCompOtherSettingsMfeConfig
-          mfeConfig.input.OtherSetting = { ... this.otherSettingData };
-          mfeConfig.input.editShimmer = false;
-          this.rdsCompOtherSettingsMfeConfig = mfeConfig;
-        }
-        if (res.settings.userManagement) {
-          this.hostSetting.userManagement = res.settings.userManagement;
-          this.usermanagementdata.isEmailConfirmationRequiredForLogin = res.settings.userManagement.isEmailConfirmationRequiredForLogin;
-          this.usermanagementdata.useCaptchaOnLogin = res.settings.userManagement.useCaptchaOnLogin;
-          this.usermanagementdata.isCookieConsentEnabled = res.settings.userManagement.isCookieConsentEnabled;
-          this.usermanagementdata.allowUsingGravatarProfilePicture = res.settings.userManagement.allowUsingGravatarProfilePicture;
-          this.usermanagementdata.smsVerificationEnabled = res.settings.userManagement.smsVerificationEnabled;
-          if (res.settings.userManagement.sessionTimeOutSettings) {
-            this.usermanagementdata.sessionTimeOutSettings = res.settings.userManagement.sessionTimeOutSettings.isEnabled;
-          }
-          const mfeConfig = this.rdsCompUserManagementsMfeConfig
-          mfeConfig.input.Usermanagementsettings = { ... this.usermanagementdata };
-          mfeConfig.input.editShimmer = false;
-          this.rdsCompUserManagementsMfeConfig = mfeConfig;
-        }
-        if (res.settings.security) {
-          this.hostSetting.security = res.settings.security;
-          this.securityData.useDefaultPasswordComplexitySettings = res.settings.security.useDefaultPasswordComplexitySettings;
-          this.securityData.allowOneConcurrentLoginPerUser = res.settings.security.allowOneConcurrentLoginPerUser;
-          if (res.settings.security.passwordComplexity) {
-            this.securityData.requireDigit = res.settings.security.passwordComplexity.requireDigit;
-            this.securityData.requireLowercase = res.settings.security.passwordComplexity.requireLowercase;
-            this.securityData.requireAlphaNumeric = res.settings.security.passwordComplexity.requireNonAlphanumeric;
-            this.securityData.requireUppercase = res.settings.security.passwordComplexity.requireUppercase;
-            this.securityData.requiredLength = res.settings.security.passwordComplexity.requiredLength;
-          }
-
-          if (res.settings.security.userLockOut) {
-            this.securityData.maxFailedAccessAttemptsBeforeLockout = res.settings.security.userLockOut.maxFailedAccessAttemptsBeforeLockout;
-            this.securityData.defaultAccountLockoutSeconds = res.settings.security.userLockOut.defaultAccountLockoutSeconds;
-            this.securityData.userLockout = res.settings.security.userLockOut.isEnabled
-          }
-          if (res.settings.security.twoFactorLogin.isEnabled) {
-            this.securityData.twoFactorLogin = res.settings.security.twoFactorLogin.isEnabled
-          }
-          const mfeConfig = this.rdsCompSecurityMfeConfig
-          mfeConfig.input.Seccuritysetting = { ... this.securityData };
-          mfeConfig.input.editShimmer = false;
-          this.rdsCompSecurityMfeConfig = mfeConfig;
-        }
-        if (res.settings.email) {
-          this.hostSetting.email = res.settings.email;
-          this.emailData.smtpEnableSsl = res.settings.email.smtpEnableSsl;
-          this.emailData.smtpUseDefaultCredentials = res.settings.email.smtpUseDefaultCredentials;
-          this.emailData.defaultFromAddress = res.settings.email.defaultFromAddress;
-          this.emailData.defaultFromDisplayName = res.settings.email.defaultFromDisplayName;
-          this.emailData.smtpHost = res.settings.email.smtpHost;
-          this.emailData.smtpPort = res.settings.email.smtpPort;
-          this.emailData.smtpDomain = res.settings.email.smtpDomain;
-          const mfeConfig = this.rdsCompEmailMfeConfig
-          mfeConfig.input.EmailData = { ... this.emailData };
-          mfeConfig.input.editShimmer = false;
-          this.rdsCompEmailMfeConfig = mfeConfig;
-        }
+        const rdsCompSettingsNewMfeConfig = this.rdsCompSettingsNewMfeConfig;
+        rdsCompSettingsNewMfeConfig.input.identiyData = this.identityData;
+        this.rdsCompSettingsNewMfeConfig = rdsCompSettingsNewMfeConfig
       }
-    });
+    })
+
+    this.store.dispatch(getThemeSettings());
+    this.store.select(selectThemeSettings).subscribe((res: any) => {
+      if (res && res.themeSettings) {
+        const themeSettings: any = res.themeSettings;
+        const themeStyle: any = this.StyleList.find((x: any) => x.value == themeSettings.style);
+        if (themeStyle) {
+          this.themeData['style'] = themeStyle.some;
+        }
+
+        const themeWebStyle: any = this.WebList.find((x: any) => x.value == themeSettings.publicLayoutStyle);
+        if (themeWebStyle) {
+          this.themeData['webstyle'] = themeWebStyle.some
+        }
+
+        const themePlacementStyle: any = this.MenuList.find((x: any) => x.value == themeSettings.menuPlacement);
+        if (themePlacementStyle) {
+          this.themeData['placement'] = themePlacementStyle.some
+        }
+
+        const themeStatus: any = this.StatusList.find((x: any) => x.value == themeSettings.menuStatus);
+        if (themeStatus) {
+          this.themeData['status'] = themeStatus.some
+        }
+        const rdsCompSettingsNewMfeConfig = this.rdsCompSettingsNewMfeConfig;
+        rdsCompSettingsNewMfeConfig.input.themeData = this.themeData;
+        this.rdsCompSettingsNewMfeConfig = rdsCompSettingsNewMfeConfig
+      }
+    })
+    this.store.dispatch(getExternalProviderSettings());
+    this.store.select(selectexternalproviderSettings).subscribe((res: any) => {
+      if (res) {
+        this.externalProviders = res.settings;
+        const rdsCompSettingsNewMfeConfig = this.rdsCompSettingsNewMfeConfig;
+        rdsCompSettingsNewMfeConfig.input.externalProviders = [...this.externalProviders];
+        
+      }
+    })
+    
   }
 
-
-  onSave(): void {
-    let hostSettingprivate: HostSettingsEditDto = new HostSettingsEditDto();
-    hostSettingprivate.tenantManagement = this.tenantmanagementDataEdit ? this.saveHostSetting.tenantManagement : this.hostSetting.tenantManagement;
-    hostSettingprivate.billing = this.billingEdit ? this.invoicedata : this.hostSetting.billing;
-    hostSettingprivate.email = this.emailEdit ? this.saveHostSetting.email : this.hostSetting.email;
-    hostSettingprivate.externalLoginProviderSettings = this.externalLoginProviderSettingsEdit ? this.saveHostSetting.externalLoginProviderSettings : this.hostSetting.externalLoginProviderSettings
-    hostSettingprivate.general = this.generalEdit ? this.saveHostSetting.general : this.hostSetting.general
-    hostSettingprivate.otherSettings = this.otherSettingEdit ? this.otherSettings : this.hostSetting.otherSettings
-    hostSettingprivate.security = this.secturityEdit ? this.saveHostSetting.security : this.hostSetting.security
-    hostSettingprivate.userManagement = this.userManagementEdit ? this.saveHostSetting.userManagement : this.hostSetting.userManagement
-    this.store.dispatch(updateSettings(hostSettingprivate));
-    //this.saveHostSetting = new HostSettingsEditDto();
-    //this.otherSettings = new OtherSettingsEditDto();
-    //this.invoicedata = new HostBillingSettingsEditDto();
-    //this.emailData = new EmailSettingsEditDto();
-    //this.hostSetting = new HostSettingsEditDto();
-    //this.securityData = new SecuritySettingsEditDto();
-    this.tenantmanagementDataEdit = false;
-    this.billingEdit = false;
-    this.emailEdit = false;
-    this.generalEdit = false;
-    this.externalLoginProviderSettingsEdit = false;
-    this.secturityEdit = false;
-    this.userManagementEdit = false;
-  }
-
-  subscribeToAlerts() {
-    this.alertService.alertEvents.subscribe((alert) => {
-      this.currentAlerts = [];
-      const currentAlert: any = {
-        type: alert.type,
-        title: alert.title,
-        message: alert.message,
-      };
-      this.currentAlerts.push(currentAlert);
-      const rdsAlertMfeConfig = this.rdsAlertMfeConfig;
-      rdsAlertMfeConfig.input.currentAlerts = [...this.currentAlerts];
-      this.rdsAlertMfeConfig = rdsAlertMfeConfig;
-    });
-
-  }
-
-  getNavtabItems(): any {
-    this.navtabsItems[0].label = this.translate.instant('Tenant Management');
-    this.navtabsItems[1].label = this.translate.instant('User Management');
-    this.navtabsItems[2].label = this.translate.instant('Security');
-    this.navtabsItems[3].label = this.translate.instant('Email(SMTP)');
-    this.navtabsItems[4].label = this.translate.instant('Invoice');
-    this.navtabsItems[5].label = this.translate.instant('Other-Settings');
-    return this.navtabsItems;
-  }
-
-  // fabmenu mobile
-  onSelectMenu(event: any) {
-    if (event.key === 'saveall') {
-      this.onSave();
-    }
-  }
-
-  public onClicktab(event): void {
-    if (event > 0) {
-      this.sharedService.setTopNavTitle(this.navtabsItems[event].label);
-    } else {
-      this.sharedService.setTopNavTitle('');
-    }
-  }
 
 }
-
-
-

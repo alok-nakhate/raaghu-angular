@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-rds-comp-timeline',
+  selector: 'rds-comp-timeline',
   templateUrl: './rds-comp-timeline.component.html',
   styleUrls: ['./rds-comp-timeline.component.scss'],
 })

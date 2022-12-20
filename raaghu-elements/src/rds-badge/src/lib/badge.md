@@ -44,14 +44,10 @@ title: "Elements > Badge"
 
 ```html
 <rds-badge
-  color="#16BE36"
-  BackgroundColor="#C5F8CF"
-  size="small"
-  label="new"
-  [pillBadges]="false"
-  [positioned]="false"
-  [iconBadge]="false"
-  (onClick)="onClick($event)"
+  size="medium"
+  label="badge"
+  badgeType="rectangle"
+  colorVariant="danger"
 ></rds-badge>
 ```
 
@@ -234,7 +230,7 @@ title: "Elements > Badge"
  <div class="card border p-5">
   <div class="row">
       <div class="col-md-12">
-        <img src="/images/badge-skeleto.png" class="img-fluid">
+        <img src="/images/badge-skeleton.png" class="img-fluid">
      </div>
    </div>
    </div>

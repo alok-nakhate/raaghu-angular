@@ -32,12 +32,12 @@ const Template: Story<RdsCompPasswordSettingsComponent> = (args: RdsCompPassword
 
 export const Default = Template.bind({});
 Default.args={
-    display_type: 'benefit_type3',
+    display_type: 'With_Label',
     colSize: 12,
     items: [
         {
           id: 1,
-          display_type: "benefit_type3",
+          display_type: "With_Label",
           status:'Active',
           icon: 'computer',
           iconHeight: "18px",
@@ -47,7 +47,7 @@ Default.args={
         },
         {
           id: 2,
-          display_type: "benefit_type3",
+          display_type: "With_Label",
           icon: 'computer',
           iconHeight: "18px",
           iconWidth: "18px",

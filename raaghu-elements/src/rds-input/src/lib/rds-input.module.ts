@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RdsInputComponent } from './rds-input.component';
 import { RdsIconModule } from '@libs/rds-icon';
+import { RdsLabelModule } from '@libs/rds-label';
 
 @NgModule({
   declarations: [
@@ -11,7 +12,8 @@ import { RdsIconModule } from '@libs/rds-icon';
   imports: [
     CommonModule,
     FormsModule,
-    RdsIconModule
+    RdsIconModule,
+    RdsLabelModule
   ],
   exports: [
     RdsInputComponent

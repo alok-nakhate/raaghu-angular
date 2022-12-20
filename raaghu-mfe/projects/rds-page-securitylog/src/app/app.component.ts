@@ -1,16 +1,59 @@
-import { Component, EventEmitter, Output, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { ComponentLoaderOptions } from '@libs/shared';
 import { TableHeader } from 'projects/rds-components/src/models/table-header.model';
+import { Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
+import { getSecuritylogs } from 'projects/libs/state-management/src/lib/state/security-logs/security-logs.actions';
+import { selectSecurityLogs } from 'projects/libs/state-management/src/lib/state/security-logs/security-logs.selector';
+import {
+  transition,
+  trigger,
+  query,
+  style,
+  animate,
+} from '@angular/animations';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   encapsulation: ViewEncapsulation.None,
+  animations: [
+    trigger('fadeAnimation', [
+      transition('* <=> *', [
+        query(':enter',
+          [
+            style({ opacity: 0 })
+          ],
+          { optional: true }
+        ),
+        query(':leave',
+          [
+            style({ opacity: 1 }),
+            animate('0.4s', style({ opacity: 0 }))
+          ],
+          { optional: true }
+        ),
+        query(':enter',
+          [
+            style({ opacity: 0 }),
+            animate('0.4s', style({ opacity: 1 }))
+          ],
+          { optional: true }
+        )
+      ])
+    ])
+  ]
 })
-export class AppComponent {
+export class AppComponent implements OnInit  {
   public rdssecurityLogTableMfeConfig: ComponentLoaderOptions;
-  public securityLogs: any = [];
-  @Output() deleteEvent = new EventEmitter<any>();
+ securityLogs: any = [];
+  securityLogsTableData: any = [];
+  isAnimation: boolean = true;
+
+
+  // @Output() deleteEvent = new EventEmitter<any>();
+   constructor( private store: Store) { }
+
   public securityLogsHeaders: TableHeader[] = [
     { key: 'time', displayName: 'Time', dataType: 'text', sortable: true, filterable: true },
     { key: 'action', displayName: 'Action', dataType: 'text', sortable: true, filterable: true },
@@ -19,50 +62,9 @@ export class AppComponent {
     { key: 'application', displayName: 'Application', dataType: 'html', sortable: true, filterable: true },
     { key: 'identity', displayName: 'Identity', dataType: 'text', sortable: true, filterable: true },
     { key: 'username', displayName: 'Users', dataType: 'text', sortable: true, filterable: true },
-
-
-
-
-
   ];
+
   ngOnInit(): void {
-    this.securityLogs = [
-      {
-        id: 1, username: 'admin', identity: 'Kol324i', action: 'GetActiveUserDelegations',
-        duration: '1351ms', ipAddress: '103.151.184.6', application: 'Software 1.0',
-        browser: '<div class="row"><div class="col-md-2 mt-2"><img src="assets/firefox.png" class="image"></div> <div class="col-md-8 title" ><b>Firefox</b><p class="subtitle">Windows NT 10</p></div></div>', time: '11/15/2021 2:44:52 PM'
-      },
-      {
-        id: 2, username: 'rr', identity: 'Kol324i', action: 'GetActiveUserDelegations',
-        duration: '1351ms', ipAddress: '103.151.184.6', application: 'Software 1.0',
-        browser: '<div class="row"><div class="col-md-2 mt-2"><img src="assets/firefox.png" class="image"></div> <div class="col-md-8 title" ><b>Firefox</b><p class="subtitle">Windows NT 10</p></div></div>', time: '11/15/2021 2:44:52 PM'
-      },
-      {
-        id: 3, username: 'lk', identity: 'Kol324i', action: 'GetActiveUserDelegations',
-        duration: '1351ms', ipAddress: '103.151.184.6', application: 'Software 1.0',
-        browser: '<div class="row"><div class="col-md-2 mt-2"><img src="assets/firefox.png" class="image"></div> <div class="col-md-8 title" ><b>Firefox</b><p class="subtitle">Windows NT 10</p></div></div>', time: '11/15/2021 2:44:52 PM'
-      },
-      {
-        id: 4, username: 'nj', identity: 'Kol324i', action: 'GetActiveUserDelegations',
-        duration: '1351ms', ipAddress: '103.151.184.6', application: 'Software 1.0',
-        browser: '<div class="row"><div class="col-md-2 mt-2"><img src="assets/firefox.png" class="image"></div> <div class="col-md-8 title" ><b>Firefox</b><p class="subtitle">Windows NT 10</p></div></div>', time: '11/15/2021 2:44:52 PM'
-      },
-      {
-        id: 5, username: 'admin', identity: 'Kol324i', action: 'GetActiveUserDelegations',
-        duration: '1351ms', ipAddress: '103.151.184.6', application: 'Software 1.0',
-        browser: '<div class="row"><div class="col-md-2 mt-2"><img src="assets/firefox.png" class="image"></div> <div class="col-md-8 title" ><b>Firefox</b><p class="subtitle">Windows NT 10</p></div></div>', time: '11/15/2021 2:44:52 PM'
-      },
-      {
-        id: 6, username: 'admin', identity: 'Kol324i', action: 'GetActiveUserDelegations',
-        duration: '1351ms', ipAddress: '103.151.184.6', application: 'Software 1.0',
-        browser: '<div class="row"><div class="col-md-2 mt-2"><img src="assets/firefox.png" class="image"></div> <div class="col-md-8 title" ><b>Firefox</b><p class="subtitle">Windows NT 10</p></div></div>', time: '11/15/2021 2:44:52 PM'
-      },
-      {
-        id: 7, username: 'admin', identity: 'Kol324i', action: 'GetActiveUserDelegations',
-        duration: '1351ms', ipAddress: '103.151.184.6', application: 'Software 1.0',
-        browser: '<div class="row"><div class="col-md-2 mt-2"><img src="assets/firefox.png" class="image"></div> <div class="col-md-8 title" ><b>Firefox</b><p class="subtitle">Windows NT 10</p></div></div>', time: '11/15/2021 2:44:52 PM'
-      }
-    ];
     this.rdssecurityLogTableMfeConfig = {
       name: 'RdsDataTable',
       input: {
@@ -72,23 +74,48 @@ export class AppComponent {
         tableData: this.securityLogs,
         recordsPerPage: 10,
         pagination: true,
-        actions: [{ id: 'delete', displayName: 'Delete' }],
         noDataTitle: 'Currently you do not have security log'
       },
       output: {
         onActionSelection: (event: any) => {
-          if (event.actionId === 'delete') {
-            const index = this.securityLogs.findIndex((x: any) => x.id === event.selectedData.id);
-            if (index !== -1) {
-              this.securityLogs.splice(index, 1);
-              const mfeConfig = this.securityLogs
-              mfeConfig.input.tableData = [... this.securityLogs];
-              this.securityLogs = mfeConfig;
-            }
-          }
+          // if (event.actionId === 'delete') {
+          //   const index = this.securityLogs.findIndex((x: any) => x.id === event.selectedData.id);
+          //   if (index !== -1) {
+          //     this.securityLogs.splice(index, 1);
+          //     const mfeConfig = this.securityLogs
+          //     mfeConfig.input.tableData = [... this.securityLogs];
+          //     this.securityLogs = mfeConfig;
+          //   }
+          // }
         }
       }
     };
+     this.store.dispatch(getSecuritylogs());
+     this.store.select(selectSecurityLogs).subscribe((res: any) => {
+      if (res && res.items) {
+         this.isAnimation = false;
+        res.items.forEach((element: any) => {
+         const item: any = {
+            id: element.id,
+            time: element.creationTime,
+            action: element.action,
+            ipAddress: element.clientIpAddress ,
+            browser: element.browserInfo,
+            application: element.applicationName,
+            identity: element.identity,
+            username: element.userName
+          }
+          this.securityLogs.push(item);
+        });
+        const mfeConfig = this.rdssecurityLogTableMfeConfig
+        mfeConfig.input.tableData = [... this.securityLogs];
+         mfeConfig.input.isShimmer = false;
+        this.rdssecurityLogTableMfeConfig = mfeConfig;
+
+
+      }
+    });
+
   }
   exportToExcel(navTab: string): void {
     this.downloadCSV(this.securityLogs, this.securityLogsHeaders, 'security_logs');
@@ -132,8 +159,5 @@ export class AppComponent {
     }
     return str;
   }
-  delete(event: any): void {
 
-    this.deleteEvent.emit(event);
-  }
 }

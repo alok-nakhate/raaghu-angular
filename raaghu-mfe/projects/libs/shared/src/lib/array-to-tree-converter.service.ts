@@ -5,28 +5,17 @@ import { filter as _filter, forEach as _forEach } from 'lodash-es';
     providedIn: 'root'
 })
 export class ArrayToTreeConverterService {
-    createTree(
-        array: any[],
-        parentIdProperty,
-        idProperty,
-        parentIdValue,
-        childrenProperty: string,
-        fieldMappings,
-        level
-    ): any {
+    
+    createTree(array: any[], parentIdProperty, idProperty, parentIdValue, childrenProperty: string, fieldMappings, level): any {
         let tree = [];
-
         let nodes = _filter(array, [parentIdProperty, parentIdValue]);
-
         _forEach(nodes, (node) => {
             let newNode = {
                 data: node,
                 level: level,
                 selected: false
             };
-
             this.mapFields(node, newNode, fieldMappings);
-
             newNode[childrenProperty] = this.createTree(
                 array,
                 parentIdProperty,
@@ -36,10 +25,8 @@ export class ArrayToTreeConverterService {
                 fieldMappings,
                 level + 1
             );
-
             tree.push(newNode);
         });
-
         return tree;
     }
 

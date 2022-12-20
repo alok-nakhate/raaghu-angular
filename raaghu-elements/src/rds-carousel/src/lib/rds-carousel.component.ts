@@ -13,9 +13,6 @@ export class RdsCarouselComponent implements OnInit {
   crossFade = false;
 
   @Input()
-  darkVariant = false;
-
-  @Input()
   indicators = false;
 
   @Input()
@@ -35,18 +32,18 @@ export class RdsCarouselComponent implements OnInit {
     }
   ];
 
-  @Input() carousalItem = [ {
-    icon:'https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__480.jpg',
-      name: 'Sam Smith',
-      roleName: 'Product Manager',
-      subTitle:'Nulla metus metus ullamcorper vel tincidunt set euismod nibh quisque volutpat condimentum veilt class patent taciti sociosqu and litara ad litora torquent per conubia nastra.'
+  @Input() carousalItem = [{
+    icon: 'https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__480.jpg',
+    name: 'Sam Smith',
+    roleName: 'Product Manager',
+    subTitle: 'Nulla metus metus ullamcorper vel tincidunt set euismod nibh quisque volutpat condimentum veilt class patent taciti sociosqu and litara ad litora torquent per conubia nastra.'
   },
   {
-    icon:'https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__480.jpg',
+    icon: 'https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__480.jpg',
     name: 'king John',
     roleName: 'Tech Lead',
-    subTitle:'this is the caption section were u can add the caption for the image',
-  
+    subTitle: 'this is the caption section were u can add the caption for the image',
+
   }];
 
   constructor() {
@@ -58,7 +55,7 @@ export class RdsCarouselComponent implements OnInit {
 
   public get classes(): string {
     const mode1 = this.crossFade ? ' carousel-fade' : '';
-    const mode2 = this.darkVariant ? ' carousel-dark' : '';
+    const mode2 = this.display_type === 'advanced' ? ' carousel-dark' : '';
     return 'carousel slide' + mode1 + mode2;
   }
 

@@ -17,9 +17,9 @@
                 </span>
             </div>
         </div>
-        <div footer class="pb-3 pt-3">
+        <div footer>
             <rds-button [tooltipPlacement]="'bottom'" [tooltipTitle]="'Upgrade'" [label]="'Upgrade'" type="button"
-                [size]="'small'" [roundedCorner]="false" [colorVariant]="'primary'">
+                [size]="'small'" [isRounded]="false" [colorVariant]="'primary'">
             </rds-button>
         </div>
     </rds-card>
@@ -40,9 +40,9 @@
         </rds-button>
     </div>
     <div class="col-lg-12 col-md-12">
-        <app-rds-data-table [tableData]="billingData" [pagination]="true" [recordsPerPage]="5"
+        <rds-data-table [tableData]="billingData" [pagination]="true" [recordsPerPage]="5"
             (onActionSelection)="onActionSelect($event)" [showNodataSubtitle]="false" [actions]="actions"
-            [tableHeaders]="billingHeaders" noDataTitle="Currently you do not have billingadata"></app-rds-data-table>
+            [tableHeaders]="billingHeaders" noDataTitle="Currently you do not have billingadata"></rds-data-table>
     </div>
 </div>
 
@@ -108,12 +108,12 @@
                 </div>
             </div>
         </div>
-        <app-rds-comp-card-detail-list [listItems]="cardList"></app-rds-comp-card-detail-list>
+        <rds-comp-card-detail-list [listItems]="cardList"></rds-comp-card-detail-list>
     </div>
 </div> -->
 <hr>
 <div class="col-md-12 mt-5">
-    <rds-button [label]="'Cancel'" [colorVariant]="'primary'" [outlineButton]="true" [size]="'small'" class="float-end ms-2">
+    <rds-button [label]="'Cancel'" [colorVariant]="'primary'" [isOutline]="true" [size]="'small'" class="float-end ms-2">
     </rds-button>
     <rds-button [label]="'Save'" [size]="'small'" [colorVariant]="'primary'" class="float-end">
     </rds-button>

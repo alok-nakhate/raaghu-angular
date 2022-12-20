@@ -23,11 +23,13 @@
 							"projects/libs/themes/src/styles/responsive.scss",
 							"projects/host/src/styles.css",
 							"projects/libs/themes/src/styles/default.scss",
-							"./node_modules/ngx-videogular/fonts/videogular.css"
+							"./node_modules/ngx-videogular/fonts/videogular.css",
+							"./node_modules/bootstrap/dist/css/bootstrap.min.css"
 						],
 						"scripts": [
 							"./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
-							"./node_modules/cookieconsent/build/cookieconsent.min.js"
+							"./node_modules/cookieconsent/build/cookieconsent.min.js",
+							"./node_modules/bootstrap/dist/js/bootstrap.min.js"
 						]
 					}
 				}
@@ -331,6 +333,7 @@
 							}
 						],
 						"styles": [
+							"./node_modules/bootstrap/dist/css/bootstrap.min.css",
 							"projects/libs/themes/src/styles/quillEditor.scss",
 							"projects/libs/themes/src/styles/default.scss",
 							"projects/libs/themes/src/styles/responsive.scss",
@@ -363,7 +366,8 @@
 						],
 						"scripts": [
 							"./node_modules/bootstrap/dist/js/bootstrap.min.js",
-							"./node_modules/cookieconsent/build/cookieconsent.min.js"
+							"./node_modules/cookieconsent/build/cookieconsent.min.js",
+							"./node_modules/bootstrap/dist/js/bootstrap.min.js"
 						],
 						"extraWebpackConfig": "projects/host/webpack.config.js",
 						"commonChunk": false

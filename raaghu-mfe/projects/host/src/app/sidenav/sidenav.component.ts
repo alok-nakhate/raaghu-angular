@@ -66,7 +66,15 @@ export class SidenavComponent extends MfeBaseComponent implements OnInit {
       { displayName: 'Result', key: 'result', dataType: 'text', dataLength: 30, required: true }],
     LoginDatatable: []
   }
-  profileData: any;
+  profileData: any = {
+    ProfileName: 'Wai Technologies',
+    emailAddress: 'contact@waiin.com',
+    userName: 'admin',
+    CurrentPassword: '',
+    NewPassword: '',
+    ConFNewPassword: '',
+    name: ''
+  }
   rdsDeligateTableData: any = [];
   usernameList: any = []
   sideMenuCollapsed: boolean = false;
@@ -80,6 +88,7 @@ export class SidenavComponent extends MfeBaseComponent implements OnInit {
     { label: 'Tenants', labelTranslationKey: 'Tenants', id: 'tenants', permissionName: 'Saas.Tenants', icon: 'tenant', path: '/pages/tenant', description: 'Manage your tenants', descriptionTranslationKey: 'Manage your tenants' },
     { label: 'Editions', labelTranslationKey: 'Editions', id: '', permissionName: 'Saas.Editions', icon: 'editions', path: '/pages/edition', description: 'Manage editions and features of the application', descriptionTranslationKey: 'Manage editions and features of the application' },
     // { label: 'Api Scopes', id: 'ApiScope', permissionName: '', icon: 'settings', path: '/pages/apiScope', description: 'Home > Identity Server > Api Scope' },
+    { label: 'Text Template', labelTranslationKey: 'Text Template', id: '', permissionName: '', icon: 'home', path: '/pages/text-template', description: 'Show and change application settings', descriptionTranslationKey: 'Show and change application settings' },
 
     {
       label: 'Administration', labelTranslationKey: 'Administration', id: 'admin', permissionName: '', icon: 'administration', path: '',
@@ -87,7 +96,7 @@ export class SidenavComponent extends MfeBaseComponent implements OnInit {
         { label: 'Organization Units', labelTranslationKey: 'Organization Units', id: '', permissionName: 'AbpIdentity.OrganizationUnits', icon: 'organization', path: '/pages/organization-unit', description: 'Use organization units to organize users and entities', descriptionTranslationKey: 'Use organization units to organize users and entities' },
         { label: 'Roles', labelTranslationKey: 'Roles', id: '', permissionName: 'AbpIdentity.Roles', icon: 'roles', path: '/pages/role', description: 'Use roles to group permissions', descriptionTranslationKey: 'Use roles to group permissions' },
         { label: 'Users', labelTranslationKey: 'Users', id: '', permissionName: 'AbpIdentity.Users', icon: 'users', path: '/pages/user', description: 'Manage users and permissions', descriptionTranslationKey: 'Manage users and permissions' },
-        { label: 'Clinet', labelTranslationKey: 'Client', id: '', permissionName: 'IdentityServer.Client', icon: 'users', path: '/pages/client', description: 'Manage clients and permissions', descriptionTranslationKey: 'Manage users and permissions' },
+        { label: 'Client', labelTranslationKey: 'Client', id: '', permissionName: 'IdentityServer.Client', icon: 'users', path: '/pages/client', description: 'Manage clients and permissions', descriptionTranslationKey: 'Manage users and permissions' },
         { label: 'Language', labelTranslationKey: 'Language', id: '', permissionName: 'LanguageManagement.Languages', icon: 'languages', path: '/pages/language', description: 'Manage user interface languages', descriptionTranslationKey: 'Statistics and reports' },
         { label: 'Language-Text', labelTranslationKey: 'Language-Text', id: '', permissionName: 'LanguageManagement.LanguagesTexts', icon: 'languages', path: '/pages/languagetext', description: 'Manage user interface languagesText', descriptionTranslationKey: 'Statistics and reports' },
         { label: 'Audit logs', labelTranslationKey: 'Audit logs', id: '', permissionName: 'AuditLogging.AuditLogs', icon: 'audit_logs', path: '/pages/audit-logs', descriptionTranslationKey: '' },
@@ -96,12 +105,15 @@ export class SidenavComponent extends MfeBaseComponent implements OnInit {
         { label: 'Visual Settings', labelTranslationKey: 'Visual Settings', id: '', permissionName: '', icon: 'visual_settings', path: '/pages/visualsettings', description: 'Change the look of UI', descriptionTranslationKey: 'Change the look of UI' },
         { label: 'Webhook Subscriptions', labelTranslationKey: 'Webhook Subscriptions', id: '', permissionName: 'Pages.Administration.WebhookSubscription', icon: 'webhook_subscription', path: '/pages/webhooksubscription', description: 'Webhook Subsubscription Info', descriptionTranslationKey: 'Statistics and reports' },
         { label: 'Dynamic Properties', labelTranslationKey: 'Dynamic Properties', id: 'Pages.Administration.DynamicProperties', permissionName: '', icon: 'dynamic_properties', path: '/pages/dynamic-property-management', descriptionTranslationKey: '' },
-        { label: 'Settings', labelTranslationKey: 'Settings', id: '', permissionName: 'Pages.Administration.Host.Settings', icon: 'setting', path: '/pages/settings', description: 'Show and change application settings', descriptionTranslationKey: 'Show and change application settings' },
-        { label: 'Settings', labelTranslationKey: 'Settings', id: '', permissionName: 'Pages.Administration.Tenant.Settings', icon: 'setting', path: '/pages/settings', description: 'Show and change application settings', descriptionTranslationKey: 'Show and change application settings' },
+        //{ label: 'Settings', labelTranslationKey: 'Settings', id: '', permissionName: '', icon: 'setting', path: '/pages/settings', description: 'Show and change application settings', descriptionTranslationKey: 'Show and change application settings' },
+
       ],
     },
+    { label: 'Security-logs', labelTranslationKey: 'Security-logs', id: 'Security-logs', permissionName: 'Saas.Security-logs', icon: 'tenant', path: '/pages/Security-logs', description: 'Manage your Security-logs', descriptionTranslationKey: 'Manage your Security-logs' },
+
     { label: 'UI Components', labelTranslationKey: 'UI Components', id: '', permissionName: '', icon: 'demo_ui', path: '/pages/demo-ui', description: '', descriptionTranslationKey: '' },
-    // { label: 'Cart', labelTranslationKey: 'Cart', id: 'cart', permissionName: '' ,icon: 'tenant', path: '/pages/cart', description: 'Manage your cart', descriptionTranslationKey: 'Manage your cart' },
+    { label: 'Security-logs', labelTranslationKey: 'Cart', id: 'cart', permissionName: '' ,icon: 'tenant', path: '/pages/Security-logs', description: 'Manage your cart', descriptionTranslationKey: 'Manage your cart' },
+    { label: 'Settings', labelTranslationKey: 'Settings', id: '', permissionName: '', icon: 'setting', path: '/pages/settings', description: 'Show and change application settings', descriptionTranslationKey: 'Show and change application settings' },
    // { label: 'Edition-New', labelTranslationKey: 'Edition-New', id: '', permissionName: '', icon: 'home', path: '/pages/editionnew', description: '', descriptionTranslationKey: '' },
   ];
 

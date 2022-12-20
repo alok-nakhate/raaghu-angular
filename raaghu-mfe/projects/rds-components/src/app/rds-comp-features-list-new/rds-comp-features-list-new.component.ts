@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges , Output ,EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges , Output ,EventEmitter,DoCheck } from '@angular/core';
 import { AlertPopupData } from '../rds-comp-alert-popup/rds-comp-alert-popup.component';
 
 declare var bootstrap: any;
@@ -20,6 +20,7 @@ export class RdsCompFeaturesListNewComponent implements OnInit {
   @Input() public PlanList: any = [];
   @Input() editionData: any;
   @Input() public EditionList: any = [];
+  @Input() editionDataInfo:any;
   @Output() onEditionSave = new EventEmitter<any>();
   public editionBasic: any = {
     editionData: undefined,
@@ -42,25 +43,25 @@ export class RdsCompFeaturesListNewComponent implements OnInit {
   Paddig?: number;
   @Input()
   borderwidth?: number;
-  @Input()
-  EditionData: EditionItem[] = [{
+  // @Input()
+  // EditionData: EditionItem[] = [{
 
-    EditionName: "Corporate",
-    EditionTitle: "Strong Application for large team",
-    Price: "45",
-    Plan: "Per month",
-    features: [
-      {
-        label:"Chat Support",
-      },
-      {
-          label:"Optimized hashtags",
-      },
-      {
-          label:"Unlimited Users",
-      },
-  ]
-  }];
+  //   EditionName: "Corporate",
+  //   EditionTitle: "Strong Application for large team",
+  //   Price: "45",
+  //   Plan: "Per month",
+  //   features: [
+  //     {
+  //       label:"Chat Support",
+  //     },
+  //     {
+  //         label:"Optimized hashtags",
+  //     },
+  //     {
+  //         label:"Unlimited Users",
+  //     },
+  // ]
+  // }];
   showConfirmationPopup: boolean = false;
   alertData: AlertPopupData = {
     iconUrl: "delete",
@@ -74,10 +75,10 @@ export class RdsCompFeaturesListNewComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.Dataset = this.EditionData;
+    // this.Dataset = this.EditionData;
   }
   ngOnChanges(changes: SimpleChanges): void {
-    this.Dataset = this.EditionData;
+    // this.Dataset = this.EditionData;
   }
   openCanvas() {
     this.viewCanvas = true;

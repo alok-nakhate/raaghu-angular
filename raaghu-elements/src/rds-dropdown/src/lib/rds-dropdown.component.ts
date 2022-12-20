@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Dropdown } from 'bootstrap'
 
 @Component({
   selector: 'rds-dropdown',
@@ -20,27 +21,24 @@ export class RdsDropdownComponent implements OnInit, ControlValueAccessor {
   value = ''
   onChange!: (value: string) => void;
   onTouched!: () => void
-
+  @Input() id: string = 'dropdownMenuButton1';
   @Input()
   colorVariant?: string;
-
+  @Input() show: boolean = false;
   @Input()
   size?: string;
   @Input()
   DropdownItems!: TemplateRef<any>;
   @Input()
-  darkDropdown = false;
-  @Input()
   listItems = [
-    { value: 'Export to excel', some: 'value', id: 1, href: '', icon: 'circle', iconWidth: '20px', iconHeight: '20px', iconStroke: true, iconFill: false },
+    { value: 'Export to excel', some: 'value', id: 1, href: '', icon: 'export', iconWidth: '20px', iconHeight: '20px', iconStroke: true, iconFill: false },
     { value: 'Import from excel', some: 'value', id: 2, href: '', icon: 'download_data', iconWidth: '20px', iconHeight: '20px', iconStroke: true, iconFill: false },
     { value: 'Click here download sample import file.', some: 'value', id: 3, href: '', icon: '', iconWidth: '', iconHeight: '', iconStroke: true, iconFill: false },
   ];
-  @Input()
-  dropdownAlignment: string[] = [''];
+
 
   @Input()
-  label: string="Default";
+  label: string = "Default";
 
   @Input()
   direction?: string;
@@ -48,7 +46,7 @@ export class RdsDropdownComponent implements OnInit, ControlValueAccessor {
 
 
 
-  @Input() role:'dropdown-button'| 'with_split'='dropdown-button' ;
+  @Input() role: 'dropdown-button' | 'with_split' = 'dropdown-button';
 
   @Output() onSelect = new EventEmitter<any>();
 
@@ -72,9 +70,9 @@ export class RdsDropdownComponent implements OnInit, ControlValueAccessor {
   }
 
   public get button1(): string {
-    var customClasses = ['btn btn-'+ `${this.colorVariant}`];
+    var customClasses = ['btn btn-' + `${this.colorVariant}`];
 
-    if (this.size === 'small') { 
+    if (this.size === 'small') {
       var selectSize = 'btn-sm';
       customClasses.push(selectSize);
     } else if (this.size === 'large') {
@@ -94,7 +92,7 @@ export class RdsDropdownComponent implements OnInit, ControlValueAccessor {
 
   public get splitdown(): any[] {
     var customClasses = [
-      'btn btn-'+ `${this.colorVariant}`, 'dropdown-toggle'+ 'dropdown-toggle-split'];          
+      'btn btn-' + `${this.colorVariant}`, 'dropdown-toggle' + 'dropdown-toggle-split'];
 
     if (this.size === 'small') {
       var selectSize = 'btn-sm';
@@ -117,13 +115,7 @@ export class RdsDropdownComponent implements OnInit, ControlValueAccessor {
   // Dropdown background theme
   public get menu(): string[] {
     var customMenu = ['dropdown-menu'];
-    // if(this.direction==="Drop-up"){
-    //   customMenu.push('position')
-    // }
 
-    var color = this.darkDropdown ? 'dropdown-menu-dark' : '';
-    customMenu.push(color);
-    customMenu = customMenu.concat(this.dropdownAlignment);
     return customMenu;
   }
 
@@ -152,27 +144,27 @@ export class RdsDropdownComponent implements OnInit, ControlValueAccessor {
 
   public get classes(): any[] {
 
-    var customClasses = ['btn btn-'+ `${this.colorVariant}`];
+    var customClasses = ['btn btn-' + `${this.colorVariant}`];
 
-    if(this.role==="dropdown-button"){
+    if (this.role === "dropdown-button") {
       customClasses.push('dropdown-toggle')
     }
-    else if(this.role==="with_split"){
+    else if (this.role === "with_split") {
       customClasses.push('dropdown-toggle dropdown-toggle-split')
 
     }
 
     if (this.size === 'small') {
-    //  var selectSize = 'btn-sm'
-     customClasses.push('btn-sm')
+      //  var selectSize = 'btn-sm'
+      customClasses.push('btn-sm')
     }
     else if (this.size === 'large') {
-    //  var selectSize = 'btn-lg'
-     customClasses.push('btn-lg')
+      //  var selectSize = 'btn-lg'
+      customClasses.push('btn-lg')
     }
     else if (this.size === 'default') {
-    //  var selectSize = 'btn-lg'
-     customClasses.push('')     
+      //  var selectSize = 'btn-lg'
+      customClasses.push('')
     }
     // if (this.color !== '') {
 
@@ -184,8 +176,13 @@ export class RdsDropdownComponent implements OnInit, ControlValueAccessor {
 
   onclick(event: any, item: any) {
     this.onSelect.emit(item.value);
-    console.log(item.value);
-
   }
 
+
+  open(): void {
+    this.show=!this.show
+    var element: any = document.getElementById(this.id);
+    var dropdown = new Dropdown(element);
+    dropdown.show();
+  }
 }

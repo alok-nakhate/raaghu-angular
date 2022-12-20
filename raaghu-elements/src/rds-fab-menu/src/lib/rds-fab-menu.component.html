@@ -1,8 +1,8 @@
-<button class="rounded-pill btn btn-primary btn-icon fab-btn" type="button" (click)="onClickshow()" [ngClass]="customClasses"
-  data-bs-toggle="dropdown" aria-expanded="false">
+<button class="rounded-pill btn btn-icon fab-btn" [attr.id]="id" type="button" (click)="open()" [ngClass]="customClasses"
+  data-bs-toggle="dropdown" [attr.aria-expanded]="show">
   <rds-icon [name]="menuicon" [width]="menuiconWidth" [height]="menuiconHeight "></rds-icon>
 </button>
-<div class="dropdown-menu fab-dropdown border-0 shadow mb-1 " [ngClass]="show" >
+<div class="dropdown-menu fab-dropdown border-0 shadow mb-1 " [attr.aria-labelledby]="id"  >
   <ng-container *ngFor="let item of listItems">
     <a class="dropdown-item fab-dropdown-item d-flex gap-3" (click)="onClick(item)">
       <rds-icon [name]="item.icon" class="" [width]="item.iconWidth" [height]="item.iconHeight"></rds-icon>

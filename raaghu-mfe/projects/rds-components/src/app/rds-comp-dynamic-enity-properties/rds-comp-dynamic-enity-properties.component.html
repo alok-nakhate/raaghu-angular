@@ -1,26 +1,12 @@
 <div class="row">
-  <app-rds-data-table
-    [tableData]="DynamicEntityPropertiesTableData"
-    [inlineEdit]="false"
-    [pagination]="true"
-    [recordsPerPage]="10"
-    [actions]="actions"
-    (onActionSelection)="onActionSelect($event)"
-    [tableHeaders]="DynamicEntityPropertiesTableHeader"
-    noDataTitle="Currently you do not have dynamic entities"
-  ></app-rds-data-table>
+  <rds-data-table [tableData]="DynamicEntityPropertiesTableData" [inlineEdit]="false" [pagination]="true"
+    [recordsPerPage]="10" [actions]="actions" (onActionSelection)="onActionSelect($event)"
+    [tableHeaders]="DynamicEntityPropertiesTableHeader" noDataTitle="Currently you do not have dynamic entities">
+  </rds-data-table>
 </div>
-<rds-offcanvas
-  [canvasTitle]="translate.instant(canvasTitle)"
-  [offId]="'AddEntity'"
-  [placement]="'end'"
-  [offcanvaswidth]="600"
-  (onClose)="closeCanvas()"
->
- <!-- <b>New Dynamic Entity Property</b> -->
-  <app-rds-comp-new-dynamic-entity-property
-    [entityNames]="entityNames" [reset]="reset"
-    [parameterList]="parameterList"
-    (createOrUpdateDynamicEntity)="createorupdatedynamicEntityproperty($event)"
-  ></app-rds-comp-new-dynamic-entity-property>
+<rds-offcanvas [canvasTitle]="translate.instant(canvasTitle)" [offId]="'AddEntity'" [placement]="'end'"
+  [offcanvaswidth]="600" (onClose)="closeCanvas()">
+  <!-- <b>New Dynamic Entity Property</b> -->
+  <rds-comp-new-dynamic-entity-property [entityNames]="entityNames" [reset]="reset" [parameterList]="parameterList"
+    (createOrUpdateDynamicEntity)="createorupdatedynamicEntityproperty($event)"></rds-comp-new-dynamic-entity-property>
 </rds-offcanvas>

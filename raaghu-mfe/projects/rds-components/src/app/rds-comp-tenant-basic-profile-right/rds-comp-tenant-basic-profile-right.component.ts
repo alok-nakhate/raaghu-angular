@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, DoCheck, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -7,7 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './rds-comp-tenant-basic-profile-right.component.html',
   styleUrls: ['./rds-comp-tenant-basic-profile-right.component.scss']
 })
-export class RdsCompTenantBasicProfileRightComponent implements OnInit, OnChanges {
+export class RdsCompTenantBasicProfileRightComponent implements OnInit, OnChanges{
 
   @Input() public editionList: any = [];
   public emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -15,10 +15,8 @@ export class RdsCompTenantBasicProfileRightComponent implements OnInit, OnChange
   @Output() onCancel = new EventEmitter<any>();
   @Input() tenantData: any;
   @ViewChild('tenantCreationForm') tenantInfoForm: NgForm;
-  @Input() showEmail: boolean = true;
   @Input() editShimmer: boolean = false;
   @Input() buttonSpinner: boolean =true;
-  showInput:boolean=false;
 
 
   constructor(public translate: TranslateService) { }
@@ -26,13 +24,13 @@ export class RdsCompTenantBasicProfileRightComponent implements OnInit, OnChange
   ngOnInit(): void {
     if (!this.tenantData) {
       this.tenantData = {};
-      this.tenantData['tenancyName'] = undefined;
-      this.tenantData['tenantName'] = '';
+      this.tenantData['name'] = '';
       this.tenantData['adminEmailAddress'] = '';
-      this.tenantData['edition'] = '';
-      this.tenantData['unlimitedSubscription'] = true;
+      this.tenantData['editionId'] = [];
+      this.tenantData['adminPassword'] = '' ;
+      this.tenantData['activationState'] = 1 ;
       this.tenantData['imageUrl'] = '../assets/edit-pic.png';
-      this.tenantData['subscriptionEndDate'] = null;
+      // this.tenantData['connectionStrings'] = '';
     }
     setTimeout(() => {
       if (this.tenantData && this.tenantInfoForm) {
@@ -52,13 +50,13 @@ export class RdsCompTenantBasicProfileRightComponent implements OnInit, OnChange
   ngOnChanges(changes: SimpleChanges): void {
     if (!this.tenantData) {
       this.tenantData = {};
-      this.tenantData['tenancyName'] = '';
-      this.tenantData['tenantName'] = '';
+      this.tenantData['name'] = '';
       this.tenantData['adminEmailAddress'] = '';
-      this.tenantData['edition'] = '';
-      this.tenantData['unlimitedSubscription'] = true;
+      this.tenantData['editionId'] = [];
+      this.tenantData['adminPassword'] = '' ;
+      this.tenantData['activationState'] = 1 ;
       this.tenantData['imageUrl'] = '../assets/edit-pic.png';
-      this.tenantData['subscriptionEndDate'] = null;
+      // this.tenantData['connectionStrings'] = '';
     }
 
   }
@@ -72,11 +70,13 @@ export class RdsCompTenantBasicProfileRightComponent implements OnInit, OnChange
       return;
     }
     this.tenantInfo.emit({ tenant: this.tenantData, next: true });
+    // tenantCreationForm.reset()
+
   }
   getCheckboxValue(event: any): void {
-    this.tenantData.unlimitedSubscription = event;
+    this.tenantData.activationState = event;
     if (event) {
-      this.tenantData.subscriptionEndDate = null;
+      this.tenantData.activationState = null;
     }
   }
   
@@ -88,15 +88,14 @@ export class RdsCompTenantBasicProfileRightComponent implements OnInit, OnChange
     }
     reader.readAsDataURL(FileImage);
   }
+  onEditionSelect(event: any): void {
+    this.tenantData.edition = event.item.value;
+  }
 
-  onCanceled(){
+  onCanceled(){ 
     this.buttonSpinner=false;
     this.onCancel.emit(true);
 
-  }
-  onClickShowInput()  {
-    this.showInput=!this.showInput;
- 
   }
 
 }

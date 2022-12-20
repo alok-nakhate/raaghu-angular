@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RdsButtonModule, RdsIconModule } from '@libs/rds-elements';
-import { SharedModule } from '@libs/shared';
+import { NgxTranslateModule, SharedModule } from '@libs/shared';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,7 +15,8 @@ import { AppComponent } from './app.component';
     AppRoutingModule,
     SharedModule,
     RdsButtonModule,
-    RdsIconModule
+    RdsIconModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

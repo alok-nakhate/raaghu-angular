@@ -4,7 +4,7 @@ import { AlertPopupData } from '../rds-comp-alert-popup/rds-comp-alert-popup.com
 import { TranslateService } from '@ngx-translate/core';
 declare var bootstrap: any;
 @Component({
-  selector: 'app-rds-organization-tree',
+  selector: 'rds-organization-tree',
   templateUrl: './rds-comp-organization-tree.component.html',
   styleUrls: ['./rds-comp-organization-tree.component.scss']
 })

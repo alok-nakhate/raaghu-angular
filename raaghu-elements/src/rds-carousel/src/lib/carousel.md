@@ -11,7 +11,7 @@ title: "Elements > Carousel"
 
 #### Carousel
 
-<p class="">A card is a small rectangular module with images and text. It is an entry point for users to learn more details</p>
+<p class="">A carousel is a slideshow that cycles through a collection of pictures, text, or unique markup.</p>
 <section class="py-4">
     <h6>Default</h6>
     <div class="py-3">
@@ -30,7 +30,7 @@ title: "Elements > Carousel"
          <div class="contents  p-5">
               <div class="row">
                  <div class="col-md-12">
-                     <img src="/images/carousel-basic.png" class="img-fluid">
+                     <img src="/images/carousel-basic.png" class="img-fluid w-50">
                  </div>                           
            </div>
                        
@@ -112,7 +112,7 @@ title: "Elements > Carousel"
  <div class="card border p-5">
   <div class="row">
       <div class="col-md-12">
-        <img src="/images/carousel-skeleto.png" class="img-fluid">
+        <img src="/images/carousel-skeleton.png" class="img-fluid">
      </div>
    </div>
    </div>

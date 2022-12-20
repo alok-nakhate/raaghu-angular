@@ -9,7 +9,7 @@ import { RdsCompFeaturesComponent } from './rds-comp-features.component';
 import { RdsCompRoleListComponent } from '../rds-comp-role-list/rds-comp-role-list.component';
 
 export default {
-  title: 'Components/Edition List',
+  title: 'Components/Features',
   component: RdsCompFeaturesComponent,
   decorators: [
     moduleMetadata({

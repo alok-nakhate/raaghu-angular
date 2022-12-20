@@ -11,15 +11,8 @@ export class RdsTeamMemberComponent implements OnInit {
 
   ngOnInit(): void {
   }
-   @Input() displayType: 'basic' | 'advanced' = 'basic' ; 
-  @Input() teamItem =[
-    {
-      title: 'Tina',
-      subTitle: 'Web Developer',
-      imgLink:'https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/no-profile-picture-icon.png?W=100',
-      description: 'Lorem ipsum dolor sit amet conr adipiscing elit'
-    } 
-  ]
-
+   @Input() displayType: 'Basic' | 'Advanced' = 'Basic' ; 
+  @Input() teamItem : any[] =[]
+  @Input() colorVariant: 'primary'| 'secondary'| 'danger'| 'success'| 'warning'|'info'| 'light'| 'dark' ='primary';
 
 }

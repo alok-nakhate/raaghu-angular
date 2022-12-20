@@ -3,14 +3,7 @@
     text-decoration: none;
 }
 .raaghu-logo{
-    width: 40%;
-}
-.page-not-found-bg{
-    background-image: url('https://cdn.pixabay.com/photo/2012/10/10/11/18/weightless-60632_960_720.jpg');
-    height: 90vh;
-    width: 100%;
-    background-position: center right;
-    background-repeat: no-repeat;
+    width: 25%;
 }
 
 @media only screen and (max-width: 600px){
@@ -26,6 +19,20 @@
     .sm-fs-6{
         font-size: 0.765625rem !important;
     }
+    .page { 
+        display: block !important;
+    }
+    .page-text{
+        top: 10% !important;
+    }
+    .bg-page {
+        bottom: 30% !important;
+    }
+    .countdown-col {
+        background-size: contain !important;
+        top: -140px !important;
+        background-repeat: no-repeat !important;
+    }
 }
 
 @media only screen 
@@ -35,4 +42,27 @@
     .page-not-found-bg{
         height: 55vh;
      }
+}
+
+
+// new page css
+.page { 
+    display: flex;
+    flex-wrap: wrap;
+}
+.countdown-col {
+    background-image: url('https://cdn.pixabay.com/photo/2012/10/10/11/18/weightless-60632_960_720.jpg');
+    background-size: cover;
+}
+.col {
+    flex: 1;
+    height: 100vh;
+    position: relative;
+}
+
+.bg-page{
+    background: #F9FAFC;
+}
+.page-text{
+    top: 40%;
 }

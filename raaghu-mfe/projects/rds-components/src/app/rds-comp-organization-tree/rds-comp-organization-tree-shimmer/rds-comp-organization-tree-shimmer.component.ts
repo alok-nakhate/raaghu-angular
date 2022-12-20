@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-rds-comp-organization-tree-shimmer',
+  selector: 'rds-comp-organization-tree-shimmer',
   templateUrl: './rds-comp-organization-tree-shimmer.component.html',
   styleUrls: ['./rds-comp-organization-tree-shimmer.component.scss']
 })

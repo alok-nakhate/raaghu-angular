@@ -10,7 +10,7 @@ export interface AlertPopupData {
  }
 
 @Component({
-  selector: 'app-rds-comp-alert-popup',
+  selector: 'rds-comp-alert-popup',
   templateUrl: './rds-comp-alert-popup.component.html',
   styleUrls: ['./rds-comp-alert-popup.component.scss']
 })

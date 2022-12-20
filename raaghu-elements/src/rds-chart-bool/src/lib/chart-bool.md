@@ -1,7 +1,7 @@
 ---
 slug: "/chart-bool"
 date: "2019-05-04"
-title: "Elements > Chart-bool"
+title: "Charts > Chart-bool"
 ---
 
 <!-- CSS only -->
@@ -11,7 +11,7 @@ title: "Elements > Chart-bool"
 
 #### Boolean Chart
 
-<p class="">A card is a small rectangular module with images and text. It is an entry point for users to learn more details</p>
+<p class="">Boolean chart is extention of pie chart that may be use to track the progress of a task.</p>
 <section class="py-4">
     <h6>Default</h6>
     <div class="py-3">

@@ -9,9 +9,9 @@ title: "Components > Billing-address"
 
 #### Billing Address
 
-<p class="">A card is a small rectangular module with images and text. It is an entry point for users to learn more details</p>
+<p>Extracts the necessary details needed for the bill of a customer</p>
 <section class="py-4">
-    <h6>Billing-address</h6>
+<h6>Default</h6>
     <div class="py-3">
       <div class="cust-tabs">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -39,7 +39,7 @@ title: "Components > Billing-address"
 <div class="row m-0">
 
 ```html
-<app-rds-comp-billing-address
+<rds-comp-billing-address
   [countryList]="countryList"
   EmailID="admin@aspnetzero.com"
   Contact="" 
@@ -52,7 +52,7 @@ title: "Components > Billing-address"
   country="Country";
   postalCode=123;
   buttonSpinner= true;
-></app-rds-comp-billing-address>   
+></rds-comp-billing-address>   
 ```
 </div>
 </div>

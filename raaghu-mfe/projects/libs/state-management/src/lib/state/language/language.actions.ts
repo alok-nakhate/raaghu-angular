@@ -15,21 +15,25 @@ export const getLanguageFailure = createAction(
     props<{ error: string }>()
 );
 
-export const getCountryList = createAction('[Language Page] Get Country List');
+export const getCultureList = createAction('[Language Page] Get Country List');
 
-export const getCountryListSuccess = createAction(
-    '[Language Page] Get Coutry List Success',
-    props<{ countries: any }>()
+export const getCultureListSuccess = createAction(
+    '[Language Page] Get culture List Success',
+    props<{ cultureList: any }>()
 );
 
-export const getCountryListFailure = createAction(
+export const getCultureListFailure = createAction(
     '[Language Page] Get Country List Failure',
     props<{ error: string }>()
 );
 
 export const saveLanguage = createAction(
     '[Language Page] Save Language',
-    (language: any) => ({ language })
+    (data: any) => (data)
+);
+export const updateLanguage = createAction(
+    '[Language Page] Update Language',
+    (data: any) => (data)
 );
 
 export const deleteLanguage = createAction(
@@ -37,21 +41,23 @@ export const deleteLanguage = createAction(
     (id: any) => ({ id })
 );
 
-export const saveLanguageSuccess = createAction(
-    '[Language Page] Save Language Success', props<{ language: PostLanguage }>()
-);
-
 export const setDefaultLanguage = createAction(
     '[Language Page] Set Default Language',
-    (name: any) => ({ name })
+    (data: any) => (data)
 );
 
-export const setDefaultLanguageForUI = createAction(
-    '[Language Page] Set Default Language For UI',
-    (name: string) => ({ name })
+
+export const getLanguageForEdit = createAction(
+    '[Language Page] Get Language For Edit',
+    (id: any) => (id)
 );
 
-// export const setDefaultLanguageForUISuccess = createAction(
-//     '[Language Page] Set Default Language For UI Success',
-//     (name: string) => ({ name })
-// );
+export const getLanguageForEditSuccess = createAction(
+    '[Language Page] Get Language For Edit Success',
+    props<{ languageInfo : any }>()
+);
+
+export const getLanguageForEditFailure = createAction(
+    '[Language Page] Get Language For Edit Success',
+    props<{ error : string }>()
+);

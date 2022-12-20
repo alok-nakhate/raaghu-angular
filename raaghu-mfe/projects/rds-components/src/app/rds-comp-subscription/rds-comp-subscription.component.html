@@ -1,49 +1,57 @@
 <div class="row">
   <div class="col-md-12">
-    <div class="py-2 px-4">
-      <label class="fw-medium mb-3">{{"Pick Best Plan"|translate}}</label>
-      <h6>
+    <div class="py-2">
+      <div class="px-4 border-bottom mb-2">
+        <label class="fw-medium mb-2 mt-1">{{"Pick Best Plan"|translate}}</label>
+      </div>
+      <h6 class="text-muted px-4">
         {{'Take your desired plan to get access to our content easily,'|translate}}
       </h6>
-      <h6>{{'we like to offer to our users.'|translate}}</h6>
+      <h6 class="text-muted px-4">{{'we like to offer to our users.'|translate}}</h6>
     </div>
   </div>
 </div>
 
-<div class="row mt-2">
-  <div class="col-md-12 text-center">
-    <div class="px-2 my-4" *ngFor="let item of Dataset">
-      <rds-card [colorVariant]="item.name">
-        <div class="p-2 bg-primary" header>
-          <span class="p-2 text-white">{{item.name}}</span>
-        </div>
-        <div body>
-          <div class="row">
-            <rds-icon [name]="item.iconurl" [height]="'120px'" [width]="'120px'" [colorVariant]="'primary'"
-            [fill]="false" style="stroke-width: 0.3;" class="pt-4 pb2"></rds-icon>
-            <div class="py-2">
-              <h2 class="p-2 pb-0">${{item.price}}</h2>
-              <p>{{item.duration}}</p>
-            </div>
-            <div class="d-flex justify-content-around">
-              <ul class="p-0 text-start">
-                <li class="list-group-item  px-2 py-1 border-0" *ngFor="let items of item.features">
-                  <rds-icon name="tick_circle" [fill]="false" width="12px" height="12px"></rds-icon>
-                  <small class="px-1">{{items}}</small>
-                </li>
-              </ul>
-            </div>
-            <div class="pt-3 pb-4">
-              <rds-button (click)="SubscriptionClick($event,item)" [tooltipPlacement]="'bottom'"
-                [tooltipTitle]="translate.instant('Upgrade')" [label]="translate.instant('Upgrade')"
-                type="button" [colorVariant]="'primary'" [outlineButton]="true"
-                [roundedButton]="false" [roundedCorner]="true" label="Upgrade">
-              </rds-button>
-            </div>
+
+<div class="d-flex justify-content-center text-center my-4">
+  <div class="px-2 position-relative mb-3" [ngStyle]="{'top': item.name === 'Premium' ? '-20px' : ''}" *ngFor="let item of Dataset">
+    <div class="ribbon" *ngIf="item.recommended">
+      <span class="ribbon2">
+        <rds-icon [colorVariant]="'light'" [name]="'star'" [fill]="true" [stroke]="false" [height]="'10px'" [width]="'10px'"></rds-icon>
+      </span>
+    </div>
+    <span class="bg-recommended text-white rounded px-3 py-1 position-relative top-0" *ngIf="item.recommended">RECOMMENDED
+    </span>
+    <rds-card>
+      <div class="p-2 subscription-header"  header>
+        <span class="p-2 text-white">{{item.name | uppercase}}</span>
+      </div>
+      <div body class="px-0">
+        <div class="row">
+          <rds-icon class="subscription-icon" [colorVariant]="item.name | lowercase" [name]="item.iconurl" [height]="'120px'" [width]="'120px'"
+            
+            [fill]="false" style="stroke-width: 0.3;" class="pt-4 pb-2 px-0"></rds-icon>
+          <div class="py-2">
+            <h2 class="p-2 pb-0">${{item.price}}</h2>
+            <p class="fs-5">{{item.duration}}</p>
           </div>
+          <div class="d-flex justify-content-around">
+            <ul class="p-0 text-start">
+              <li class="list-group-item  px-2 py-1 border-0" *ngFor="let items of item.features">
+                <rds-icon name="tick_circle" [fill]="false" width="14px" height="14px"></rds-icon>
+                <small class="ps-2 fw-medium">{{items}}</small>
+              </li>
+            </ul>
+          </div>
+          
         </div>
-      </rds-card>
-    </div>
+      </div>
+      <div footer>
+        <rds-button (click)="SubscriptionClick($event,item)" [tooltipPlacement]="'bottom'"
+          [tooltipTitle]="translate.instant('Upgrade')" [label]="translate.instant('Upgrade')" type="button"
+          [colorVariant]="'primary'" [isOutline]="true" [isFabIcon]="false" [isRounded]="true" label="Upgrade">
+        </rds-button>
+      </div>
+    </rds-card>
   </div>
 </div>
-

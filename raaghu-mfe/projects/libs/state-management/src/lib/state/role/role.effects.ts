@@ -6,7 +6,7 @@ import { AlertService } from "projects/libs/shared/src/lib/alert.service";
 import { ServiceProxy } from "projects/libs/shared/src/lib/service-proxies";
 import { from, of } from "rxjs";
 import { catchError, map, mergeMap, switchMap } from "rxjs/operators";
-import { deleteRole, getAllClaimTypes, getAllClaimTypesFailure, getAllClaimTypesSuccess, getClaimTypes, getClaimTypesFailure, getClaimTypesSuccess, getPermission, getPermissionSuccess, getRolByEdit, getRolByEditFailure, getRolByEditSuccess, getRoleFailure, getRoles, getRoleSuccess, saveClaims, savePermissions, saveRole } from "./role.actions";
+import { deleteRole, getAllClaimTypes, getAllClaimTypesFailure, getAllClaimTypesSuccess, getClaimTypes, getClaimTypesFailure, getClaimTypesSuccess, getPermission, getPermissionSuccess, getRolByEdit, getRolByEditFailure, getRolByEditSuccess, getRoleFailure, getRoles, getRoleSuccess, saveClaims, savePermissions, saveRole, updateRole } from "./role.actions";
 
 
 @Injectable()
@@ -21,7 +21,7 @@ export class RoleEffects {
       ofType(getRoles),
       switchMap(() =>
         // Call the getTodos method, convert it to an observable
-        from(this.roleService.all()).pipe(
+        from(this.roleService.rolesGET3(undefined,undefined,0,1000)).pipe(
           // Take the returned value and return a new success action containing the todos
           map((roles) => {
             return getRoleSuccess({ roles })
@@ -70,9 +70,9 @@ export class RoleEffects {
     this.actions$.pipe(
       ofType(saveClaims),
       switchMap(({data}) =>
-        this.roleService.claims(data.id, data.permissions).pipe(map((res: any) => {
-          this.store.dispatch(getRoles());
-          this.alertService.showAlert('Success',  'Role added successfully', 'success')
+        this.roleService.claims(data.id, data.claimData).pipe(map((res: any) => {
+          // this.store.dispatch(getRoles());
+          // this.alertService.showAlert('Success',  'Role added successfully', 'success')
         }),
           catchError((error: any) => of(
           ))
@@ -92,7 +92,7 @@ export class RoleEffects {
       ofType(getPermission),
       switchMap(({name}) =>
         // Call the getTodos method, convert it to an observable
-        from(this.roleService.permissionsGET("T",name)).pipe(
+        from(this.roleService.permissionsGET("R",name)).pipe(
           // Take the returned value and return a new success action containing the todos
           map((PermissionI) => {
             return getPermissionSuccess({ PermissionI })
@@ -108,9 +108,9 @@ export class RoleEffects {
     this.actions$.pipe(
       ofType(savePermissions),
       switchMap(({data}) =>
-        this.roleService.permissionsPUT("T",data.name, data.permissions).pipe(map((res: any) => {
-          this.store.dispatch(getRoles());
-          this.alertService.showAlert('Success',  'Role added successfully', 'success')
+        this.roleService.permissionsPUT("R",data.name, data.permissions).pipe(map((res: any) => {
+          // this.store.dispatch(getRoles());
+          // this.alertService.showAlert('Success',  'Role added successfully', 'success')
         }),
           catchError((error: any) => of(
           ))
@@ -139,6 +139,24 @@ export class RoleEffects {
       dispatch: false
     }
   );
+
+  updateRole$ = createEffect(() =>
+  this.actions$.pipe(
+    ofType(updateRole),
+    switchMap((data) =>
+      this.roleService.rolesPUT2(data.role.id, data.role).pipe(map((res: any) => {
+        this.store.dispatch(getRoles());
+        this.alertService.showAlert('Success',  'Role updated successfully', 'success')
+      }),
+        catchError((error: any) => of(
+        ))
+      )
+    )
+  ),
+  {
+    dispatch: false
+  }
+);
   
   deleteRole$ = createEffect(() =>
     this.actions$.pipe(
@@ -161,7 +179,7 @@ export class RoleEffects {
       ofType(getRolByEdit),
       switchMap(({ id }) =>
         // Call the getTodos method, convert it to an observable
-        from(this.roleEditservice.rolesPUT(id,undefined)).pipe(
+        from(this.roleEditservice.rolesGET2(id)).pipe(
           // Take the returned value and return a new success action containing the todos
           map((RoleEditI) => {
             return getRolByEditSuccess({ EditRoleSateI: RoleEditI })

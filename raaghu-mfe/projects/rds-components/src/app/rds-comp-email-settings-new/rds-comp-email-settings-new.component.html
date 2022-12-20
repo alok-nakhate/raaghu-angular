@@ -2,7 +2,7 @@
     <div class="row mt-2">
         <div class="col-md-6 sm-p-0">
             <div class="form-group mb-4">
-                <rds-input size="default" [Title]="'Default From Display Name'" [TitleType]="'Top'" inputType="text"
+                <rds-input size="medium" [label]="'Default From Display Name'" [labelPosition]="'top'" inputType="text"
                     name="defaultDisplayName" [isRequired]=true required [disabled]="false"  [readonly]="false"
                     [placeholder]="'Enter Name'" [(ngModel)]="emailSettingsData.defaultDisplayName"
                     #defaultDisplayName="ngModel" ngDefaultControl>
@@ -11,7 +11,7 @@
         </div>
         <div class="col-md-6 sm-p-0">
             <div class="form-group mb-4">
-                <rds-input size="default" [Title]="'Default From Address'" [TitleType]="'Top'" inputType="text"
+                <rds-input size="medium" [label]="'Default From Address'" [labelPosition]="'top'" inputType="text"
                     name="defaultAddress" [isRequired]=true required [disabled]="false" [readonly]="false"
                     [placeholder]="'Enter Name'" [(ngModel)]="emailSettingsData.defaultAddress"
                     #defaultAddress="ngModel" ngDefaultControl>
@@ -22,15 +22,15 @@
     <div class="row mt-2">
         <div class="col-md-6 sm-p-0">
             <div class="form-group mb-4">
-                <rds-input size="default" [Title]="'Host'" [TitleType]="'Top'" inputType="text" name="host"
+                <rds-input size="medium" [label]="'Host'" [labelPosition]="'top'" inputType="text" name="host"
                     [isRequired]=true required [disabled]="false"  [readonly]="false" [placeholder]="'Enter Name'"
                     [(ngModel)]="emailSettingsData.host" #host="ngModel" ngDefaultControl>
-                </rds-input>
+            </rds-input>
             </div>
         </div>
         <div class="col-md-6 sm-p-0">
             <div class="form-group mb-4">
-                <rds-input size="default" [Title]="'Port'" [TitleType]="'Top'" inputType="text" name="port"
+                <rds-input size="medium" [label]="'Port'" [labelPosition]="'top'" inputType="text" name="port"
                     [isRequired]=true required [disabled]="false"  [readonly]="false" [placeholder]="'Enter Name'"
                     [(ngModel)]="emailSettingsData.port" #port="ngModel" ngDefaultControl>
                 </rds-input>
@@ -51,4 +51,43 @@
                 #defaultcredentials="ngModel" [id]="'defaultcredentials'"></rds-checkbox>
         </div>
     </div>
+   <div *ngIf="!emailSettingsData.defaultcredentials" >
+    <div class="row mt-2">
+        <div class="col-md-6 sm-p-0" >
+            <div class="form-group mb-4"  >
+                <rds-input size="medium" [label]="'Domain'" [labelPosition]="'top'" inputType="text" name="smtpdomain"
+                    [isRequired]=true required [disabled]="false"  [readonly]="false" [placeholder]="'Enter Name'"
+                    [(ngModel)]="emailSettingsData.smtpdomain" #smtpdomain="ngModel" ngDefaultControl>
+            </rds-input>
+            </div>
+        </div>
+     </div>
+     <div class="row mt-2">
+        <div class="col-md-6 sm-p-0">
+            <div class="form-group mb-4">
+                <rds-input size="medium" [label]="'User name'" [labelPosition]="'top'" inputType="text" name="smtpusername"
+                    [isRequired]=true required [disabled]="false"  [readonly]="false" [placeholder]="'Enter Name'"
+                    [(ngModel)]="emailSettingsData.smtpusername" #smtpusername="ngModel" ngDefaultControl>
+            </rds-input>
+            </div>
+        </div>
+     </div>
+     <div class="row mt-2">
+        <div class="col-md-6 sm-p-0">
+            <div class="form-group mb-4">
+                <rds-input size="medium" [label]="'Password'" [labelPosition]="'top'" inputType="text" name="smtpPassword"
+                    [isRequired]=true required [disabled]="false"  [readonly]="false" [placeholder]="'Enter Name'"
+                    [(ngModel)]="emailSettingsData.smtpPassword" #smtpPassword="ngModel" ngDefaultControl>
+            </rds-input>
+            </div>
+        </div>
+    </div>
+     </div>
+     <div class="footer-buttons my-2 justify-content-end d-flex bottom-0 ">
+        <rds-button [label]="'Cancel'" [colorVariant]="'primary'" [size]="'small'" [isOutline]="true">
+        </rds-button>
+        <rds-button [label]="'Save'" (click)="onSaveEmail()" [size]="'small'" class="ms-2" [colorVariant]="'primary'">
+        </rds-button>
+    </div>
+   
 </form>

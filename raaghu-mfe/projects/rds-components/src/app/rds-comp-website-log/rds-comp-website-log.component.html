@@ -8,8 +8,7 @@
         <p style="margin-bottom: 0px;">{{item}}</p>
     </div>
 </div> -->
-
-<div *ngIf="dataSource && dataSource.length > 0; else emptyTemplate">
+<div *ngIf="websiteLogData && websiteLogData.length > 0; else emptyTemplate">
     <div class="px-3" *ngFor="let item of dataSource">
         <div class="d-flex align-items-center gap-3 border-bottom py-3">
             <div>
@@ -23,7 +22,7 @@
         </div>
     </div>
     <div class="pt-2">
-        <rds-pagination [reset]="resetPagination" (onPageChange)="onPagination($event)" [recordsPerPage]="recordsPerPage"
+        <rds-pagination  (onPageChange)="onPagination($event)" [recordsPerPage]="recordsPerPage"
             [totalRecords]="getTotalRecords()" [alignmentType]="alignmentType" [role]="role"></rds-pagination>
     </div>
 </div>

@@ -28,9 +28,9 @@ export const Default: Story<RdsCompAlertPopupComponent> = (args) => ({
     `    <rds-button [label]="'Delete'"
     [size]="'small'" class="px-2"  [colorVariant]="'primary'" data-bs-toggle="modal" data-bs-target="#deleteModal">
     </rds-button>
-     <app-rds-comp-alert-popup [alertID]="'deleteModal'" (onCancel)="close()"
+     <rds-comp-alert-popup [alertID]="'deleteModal'" (onCancel)="close()"
                                 (onDelete)="delete()" [alertData]="alertData">
-    </app-rds-comp-alert-popup>
+    </rds-comp-alert-popup>
     `,
 
 });

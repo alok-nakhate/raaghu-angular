@@ -1,9 +1,9 @@
 <form #webhookForm="ngForm">
   <div class="row">
     <div class="form-group col-sm-12 mb-3">
-      <rds-input size="default" name="endpoint" [Title]="translate.instant('Webhook Endpoint')"
-        [placeholder]="translate.instant('Webhook Endpoint')" [TitleType]="'Top'" [pattern]="urlPattern"
-        [value]="subscriptionData.WebhookEndpoint" #url="ngModel" inputType="url"
+      <rds-input size="medium" name="endpoint" [label]="translate.instant('Webhook Endpoint')"
+        [placeholder]="translate.instant('Webhook Endpoint')" [labelPosition]="'top'" [pattern]="urlPattern"
+        [value]="subscriptionData.WebhookEndpoint" #url="ngModel" inputType="text"
         [(ngModel)]="subscriptionData.WebhookEndpoint" [isRequired]=true  required ngDefaultControl>
       </rds-input>
       <div class="form-control-feedback" *ngIf="url.errors && (url.dirty || url.touched)">
@@ -30,8 +30,8 @@
   <div class="row g-2">
     <div class="col-md-5">
       <div class="form-group mb-3">
-        <rds-input size="default" [value]="additionalheader.additionalheaderKey" #header_key="ngModel"
-          [placeholder]="translate.instant('Header Key')" name="headerKey" inputType="text"
+        <rds-input size="medium" [value]="additionalheader.additionalheaderKey" #header_key="ngModel"
+          [placeholder]="translate.instant('Header Key')" name="headerKey" inputType="text" 
           [(ngModel)]="additionalheader.additionalheaderKey" required ngDefaultControl>
         </rds-input>
         <div class="form-control-feedback" *ngIf="header_key.errors && (header_key.dirty || header_key.touched)">
@@ -41,40 +41,40 @@
     </div>
     <div class="col-md-5">
       <div class="form-group mb-3">
-        <rds-input size="default" name="headerValue" required #header_value="ngModel"
+        <rds-input size="medium" name="headerValue" required #header_value="ngModel" 
           [value]="additionalheader.additionalheadervalue" [placeholder]="translate.instant('Header Value')"
           inputType="text" [(ngModel)]="additionalheader.additionalheadervalue" ngDefaultControl>
         </rds-input>
         <div class="form-control-feedback" *ngIf="header_value.errors && (header_value.dirty || header_value.touched)">
-          <span class="text-danger" *ngIf="header_value.errors.required">{{'Header value is required'|translate}}</span>
+          <span class="text-danger" *ngIf="header_value.errors.required">{{'Header Value is required'|translate}}</span>
         </div>
       </div>
     </div>
     <div class="col-md-2">
-      <rds-button [id]="'yes'" [size]="'medium'" [disabled]="headerForm.invalid" [colorVariant]="'primary'"
-        [label]="'add'" (click)="addWebhookHeaders(headerForm)">
-      </rds-button>
+        <rds-button [id]="'yes'" [size]="'medium'" [isDisabled]="headerForm.invalid" [colorVariant]="'primary'"
+        [label]="translate.instant('Add')" (click)="addWebhookHeaders(headerForm)">
+      </rds-button> 
     </div>
   </div>
 </form>
 
 <div class="row">
   <div class="col-md-12 mt-3">
-    <app-rds-data-table [tableData]="additionalheaders" noDataTitle="Currently you do not have webhook header"
+    <rds-data-table [tableData]="additionalheaders" noDataTitle="Currently you do not have webhook header"
       tableStyle="light" [width]="100" [actions]=" [{ id: 'edit', displayName: 'Edit' }]"
-      [tableHeaders]="HeaderTableHeader" [pagination]="true" [recordsPerPage]="10" (onActionSelection)="onActionSelect($event)"></app-rds-data-table>
+      [tableHeaders]="HeaderTableHeader" [pagination]="true" [recordsPerPage]="10" (onActionSelection)="onActionSelect($event)"></rds-data-table>
   </div>
 </div>
 
 <div class="footer-buttons my-2">
   <div class="row">
     <div class="col-md-12">
-      <rds-button [label]="translate.instant('Cancel')" type="button" class="me-2" [colorVariant]="'primary'" [outlineButton]="true"
+      <rds-button [label]="translate.instant('Cancel')" type="button" class="me-2" [colorVariant]="'primary'" [isOutline]="true"
         data-bs-dismiss="offcanvas" [size]="'small'" (click)="close(webhookForm)">
       </rds-button>
-      <rds-button [id]="'yes'" [size]="'medium'" [size]="'small'"
-        [disabled]="webhookForm.invalid||additionalheaders.length===0" [colorVariant]="'primary'"
-        [label]="translate.instant('Save')" (click)="AddWebhooSubscription(webhookForm)" data-bs-dismiss="offcanvas" [showLoadingSpinner]="buttonSpinner">
+      <rds-button [id]="'yes'" [size]="'medium'" [size]="'small'" 
+        [isDisabled]="webhookForm.invalid||additionalheaders.length===0" [colorVariant]="'primary'"
+        [label]="translate.instant('Save')" (click)="AddWebhooSubscription(webhookForm)">
       </rds-button>
     </div>
   </div>

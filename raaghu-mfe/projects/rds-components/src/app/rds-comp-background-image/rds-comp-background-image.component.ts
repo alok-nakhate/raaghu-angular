@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-rds-comp-background-image',
+  selector: 'rds-comp-background-image',
   templateUrl: './rds-comp-background-image.component.html',
   styleUrls: ['./rds-comp-background-image.component.scss']
 })

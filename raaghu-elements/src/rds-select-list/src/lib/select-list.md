@@ -10,7 +10,10 @@ title: "Elements > Select-list"
 <link rel="stylesheet" href="../../../../../../../raaghu/src/assets/css/main.css">
 
 
-#### Select-list
+#### Select List
+
+
+<p class="">Select list is a collapsable list containing different values that can be selected.</p>
 
  <section class="py-4">
     <h6>Default</h6>
@@ -65,7 +68,7 @@ title: "Elements > Select-list"
   </section>
 
    <section class="py-4">
-    <h6>Select List With Tooltip</h6>
+    <h6>Tooltip</h6>
     <div class="py-3">
       <div class="cust-tabs">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -81,7 +84,7 @@ title: "Elements > Select-list"
         <div class="tab-pane fade show active" id="PreviewBasic1" role="tabpanel" aria-labelledby="PreviewBasic-tab">
          <div class="contents bg-light p-5">
               <div class="row">
-               <img src="\images\select-list-tooltip.png" class="img-fluid w-50">
+               <img src="\images\select-list-tooltip.png" class="img-fluid w-100">
               </div>
                        
   </div>
@@ -106,6 +109,50 @@ title: "Elements > Select-list"
   <option value="2">Two</option>
   <option value="3">Three</option>
 </rds-select-list>
+```
+</div>
+</div>
+  </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- Label -->
+   <section class="py-4">
+    <h6>Label</h6>
+    <div class="py-3">
+      <div class="cust-tabs">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="PreviewLabel-tab" data-bs-toggle="tab" data-bs-target="#PreviewLabel" type="button" role="tab" aria-controls="PreviewLabel" aria-selected="true">Preview </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="AngularLabel-tab" data-bs-toggle="tab" data-bs-target="#AngularLabel" type="button" role="tab" aria-controls="AngularLabel" aria-selec0ted="false"><i class="bi bi-code-slash" style="font-size:1.0rem"></i>Angular</button>
+          </li>
+        </ul>
+      </div>
+      <div class="tab-content card border" id="myTabContent">
+        <div class="tab-pane fade show active" id="PreviewLabel" role="tabpanel" aria-labelledby="PreviewLabel-tab">
+         <div class="contents bg-light p-5">
+              <div class="row">
+               <img src="\images\select-list-label.png" class="img-fluid w-100">
+              </div>
+                       
+  </div>
+        </div>
+        <div class="tab-pane fade show" id="AngularLabel" role="tabpanel" aria-labelledby="AngularLabel-tab">
+          <div class="contents bg-code">
+<div class="row m-0">
+
+```html
+<rds-select-list
+  [size]="size"
+  [itemList]="itemList"
+  [labelPosition]="labelPosition"
+  [placeholder]="placeholder"
+  [label]="label"
+></rds-select-list>
 ```
 </div>
 </div>

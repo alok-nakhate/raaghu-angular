@@ -2,7 +2,7 @@
     <div class="row mt-2">
         <div class="col-md-6 mb-3">   
             <div class="form-group">
-                <rds-input size="default" [inputType]="'text'"  [Title]="'Edition Name'" [TitleType]="'Top'"
+                <rds-input [inputType]="'text'"  [label]="'Edition Name'" [labelPosition]="'top'"
                     [isRequired]=true [placeholder]="'Edition Name'" required name="editionName"
                     [(ngModel)]="editionData.editionName" #editionName="ngModel"
                     ngDefaultControl>
@@ -14,7 +14,7 @@
                 <label for="Plan" class="mb-2">Plan <span class="text-danger">*</span></label>
                 <rds-select-list
                     [isRequired]=true  ngDefaultControl
-                    name="edition" [itemList]="PlanList" required [placeholder]="'Select Plan'"
+                    name="edition" [itemList]="PlanList" [placeholder]="'Select Plan'"
                     [(ngModel)]="editionData.editionPlan" #editionPlan="ngModel">
                
 

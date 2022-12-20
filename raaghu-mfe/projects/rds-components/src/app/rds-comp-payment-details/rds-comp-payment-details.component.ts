@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-rds-comp-payment-details',
+  selector: 'rds-comp-payment-details',
   templateUrl: './rds-comp-payment-details.component.html',
   styleUrls: ['./rds-comp-payment-details.component.scss']
 })
@@ -15,7 +15,7 @@ export class RdsCompPaymentDetailsComponent implements OnInit {
   @Input() cardNumber:number;
   @Input() name:string;
   @Input() expirationDate:string;  
-  @Input() buttonSpinner: boolean = true;
+  @Input() buttonSpinner: boolean = false;
  
   paymentModeList = [];
 

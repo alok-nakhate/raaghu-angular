@@ -1,13 +1,10 @@
-<h3>
-  Api Scope Basics
-</h3>
 
 <form #scopeBasicsForm="ngForm">
   <div class="row pt-3">
     <div class="col-md-6 mb-3">
       <div class="form-group">
-        <rds-input [inputType]="'text'" [Title]="translate.instant('Name')" #scope_name="ngModel"
-          [(ngModel)]="scopeBasics.name" [TitleType]="'Top'" name="scopeName" [isRequired]=true required [placeholder]="translate.instant('Enter Name')">
+        <rds-input [inputType]="'text'" [label]="translate.instant('Name')" #scope_name="ngModel"
+          [(ngModel)]="scopeBasics.name" [labelPosition]="'top'" name="scopeName" [isRequired]=true required [placeholder]="translate.instant('Enter Name')">
         </rds-input>
         <div class="form-control-feedback" *ngIf="scope_name.errors && (scope_name.dirty || scope_name.touched)">
           <span class="text-danger" *ngIf="scope_name.errors.required">{{"Name is required"|translate}}</span>
@@ -16,14 +13,14 @@
     </div>
     <div class="col-md-6 mb-3">
       <div class="form-group">
-        <rds-input [inputType]="'text'" [Title]="translate.instant('Display Name')" #displayname="ngModel"
-          [(ngModel)]="scopeBasics.displayName" name="displayName" [TitleType]="'Top'" [isRequired]=true  required
+        <rds-input [inputType]="'text'" [label]="translate.instant('Display Name')" #displayname="ngModel"
+          [(ngModel)]="scopeBasics.displayName" name="displayName" [labelPosition]="'top'" [isRequired]=true  required
           [placeholder]="translate.instant('Enter Display Name')">
         </rds-input>
         <div class="form-control-feedback" *ngIf="displayname.errors && (displayname.dirty || displayname.touched)">
           <span class="text-danger" *ngIf="displayname.errors.required">{{"Display Name is required"|translate}}</span>
         </div>
-      </div> 
+      </div>
     </div>
     <div class="col-md-12 mb-3">
       <div class="form-group">

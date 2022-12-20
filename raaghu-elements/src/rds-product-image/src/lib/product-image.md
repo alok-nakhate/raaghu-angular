@@ -12,6 +12,7 @@ title: "Elements > Product-image"
 
 #### Product image
 
+<p class="">Use the product image to display the images of the products in the pre-designed templates.</p>
 <section class="py-4">
     <h6>Default</h6>
     <div class="py-3">
@@ -115,7 +116,7 @@ title: "Elements > Product-image"
          <div class="contents p-5">
               <div class="row">
                  <div class="col-md-12">
-                    <img src="" class="img-fluid w-50">
+                    <img src="\images\product-overview-2.png" class="img-fluid w-50">
                  </div>              
            </div>
                        
@@ -157,7 +158,7 @@ title: "Elements > Product-image"
          <div class="contents  p-5">
               <div class="row">
                  <div class="col-md-12">
-                    <img src="" class="img-fluid w-50">
+                    <img src="\images\product-overview-3.png" class="img-fluid w-50">
                  </div>              
            </div>
                        
@@ -181,4 +182,24 @@ title: "Elements > Product-image"
     </div>
   </section>
    
-   
+<!-- Skeleton / Specifications -->
+<section class="py-4">
+                        <h6>
+                           Skeleton / Specifications
+                        </h6>
+                        <div class="py-3">
+                              <!-- Tab panes -->
+                              <div class="card border p-5">
+                                 <div class="row">
+                                    <div class="col-md-9 col-12">
+                                       <img src="/images/skel-product_image.png" class="img-fluid">
+                                    </div>
+                                 </div>
+                              </div>
+                        </div>
+                     </section>
+
+
+
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>        

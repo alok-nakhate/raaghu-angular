@@ -1,8 +1,12 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { RdsButtonModule, RdsCheckboxModule, RdsInputModule, RdsNavTabModule, RdsOffcanvasModule, RdsSearchInputModule } from '@libs/rds-elements';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RdsBannerModule, RdsButtonModule, RdsCheckboxModule, RdsInputModule, RdsNavTabModule, RdsOffcanvasModule, RdsSearchInputModule } from '@libs/rds-elements';
+import { RdsIconModule } from '@libs/rds-icon';
 // import { RdsButtonModule, RdsCheckboxModule, RdsInputModule, RdsNavTabModule, RdsOffcanvasModule, RdsSearchInputModule } from '@libs/rds-elements';
-import { NgxTranslateModule, RolesServiceProxy, SharedModule } from '@libs/shared';
+import { NgxTranslateModule, SharedModule } from '@libs/shared';
 // import { GetRoleforEdit, PermissionReducer, RoleEffects, RoleReducer } from '@libs/state-management';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
@@ -22,7 +26,7 @@ import { AppComponent } from './app.component';
     AppComponent,
   ],
   imports: [
-    //BrowserModule,
+    BrowserModule,
     AppRoutingModule,
     SharedModule,
     RdsButtonModule,
@@ -32,9 +36,14 @@ import { AppComponent } from './app.component';
     RdsCheckboxModule,
     RdsSearchInputModule,
     NgxTranslateModule.forRoot(),
+    RdsBannerModule,
+    CommonModule,
+    RdsIconModule,
+    FormsModule,
+    BrowserAnimationsModule
   ],
 
-  providers: [ArrayToTreeConverterService,RolesServiceProxy],
+  providers: [ArrayToTreeConverterService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

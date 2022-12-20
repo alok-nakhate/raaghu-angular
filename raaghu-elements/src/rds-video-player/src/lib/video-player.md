@@ -10,9 +10,9 @@ title: "Elements > Video-player"
 <link rel="stylesheet" href="../../../../../../../raaghu/src/assets/css/main.css">
 
 
-#### Video-player
+#### Video Player
 
-<p class="checkbox-def">Avatar is known as a visual form representing a user oneself and one's identity wished.</p>
+<p class="checkbox-def">Video player lets user control and play multimedia files on the webpage.</p>
 
 <section class="py-4">
     <h6>Default</h6>
@@ -32,7 +32,7 @@ title: "Elements > Video-player"
          <div class="contents p-5">
             <div class="row">
               <div class="col-md-12">
-                <img src="/images/website-metric-3.png" class="img-fuild w-25">
+                <img src="/images/video-player.png" class="img-fuild w-100">
               </div>
             </div>
           </div>
@@ -42,7 +42,9 @@ title: "Elements > Video-player"
 <div class="row m-0">
 
 ```html
-<rds-website-metric [item]="item"></rds-website-metric>
+<rds-video-player
+  videoLink="http://static.videogular.com/assets/videos/videogular.mp4"
+></rds-video-player>
 ```
 
 </div>
@@ -50,4 +52,27 @@ title: "Elements > Video-player"
         </div>
       </div>
     </div>
-  </section>
+  </section
+  
+
+  <!-- Skeleton / Specifications -->
+<section class="py-4">
+                        <h6>
+                           Skeleton / Specifications
+                        </h6>
+                        <div class="py-3">
+                              <!-- Tab panes -->
+                              <div class="card border p-5">
+                                 <div class="row">
+                                    <div class="col-md-9 col-12">
+                                       <img src="/images/skel-video_player.png" class="img-fluid">
+                                    </div>
+                                 </div>
+                              </div>
+                        </div>
+                     </section>
+
+
+
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>   

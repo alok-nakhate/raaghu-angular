@@ -1,34 +1,34 @@
 <form #themeManagementForm="ngForm">
     <div class="row">
         <div class="col-md-6 mt-4">
-            <rds-select-list [label]="'Style'" required   [isRequired]=true ngDefaultControl LabelType="Top"
-                name="style" [itemList]="StyleList" [(ngModel)]="themeData.style"
-                #style="ngModel" [placeholder]="'Select'"
-               >
-           </rds-select-list>
+            <label for="Edition" class="mb-2">{{"Style"|translate}}<span class="text-danger">*</span></label>
+           <rds-dropdownlist [listItems]="StyleList" [placeholder]="'Select'" [size]="'small'"   name="style" [(ngModel)]="themeData.style"
+           [value]="themeData.style" [id]="StyleList" [multiSelect]="false" [borderDropdown]="true"(onSelect)="onSelectStyle($event)" ngDefaultControl ></rds-dropdownlist>
         </div>
         <div class="col-md-6 mt-4">
-            <rds-select-list [label]="'Public Website Style'" required [isRequired]=true ngDefaultControl LabelType="Top"
-                name="webstyle" [itemList]="WebList" [(ngModel)]="themeData.webstyle"
-                #style="ngModel" [placeholder]="'Select'"
-                >
-           </rds-select-list>
+            <label for="Edition" class="mb-2">{{"Public Website Style"|translate}}<span class="text-danger">*</span></label>
+           <rds-dropdownlist [listItems]="WebList" [placeholder]="'Select'" [size]="'small'"  name="style" [(ngModel)]="themeData.webstyle"
+           [value]="themeData.webstyle" [id]="WebList" [multiSelect]="false" [borderDropdown]="true" (onSelect)="onSelectWebStyle($event)" ngDefaultControl></rds-dropdownlist>
+           
         </div>
  </div>
  <div class="row ">
     <div class="col-md-6 mt-4">
-        <rds-select-list [label]="'Menu Placement'" required [isRequired]=true ngDefaultControl LabelType="Top"
-            name="placement" [itemList]="MenuList" [(ngModel)]="themeData.placement"
-            #style="ngModel" [placeholder]="'Select'"
-           >
-       </rds-select-list>
+        <label for="Edition" class="mb-2">{{"Menu Placement"|translate}}<span class="text-danger">*</span></label>
+       <rds-dropdownlist [listItems]="MenuList" [placeholder]="'Select'" [size]="'small'" name="style" [(ngModel)]="themeData.placement"
+       [value]="themeData.placement" [id]="MenuList" [multiSelect]="false" [borderDropdown]="true" (onSelect)="onSelectPlacementStyle($event)" ngDefaultControl></rds-dropdownlist>
     </div>
-    <div class="col-md-6 mt-4">
-        <rds-select-list [label]="'Menu Status'" required   [isRequired]=true ngDefaultControl LabelType="Top"
-            name="status" [itemList]="StatusList"  [(ngModel)]="themeData.status"
-            #style="ngModel"  [placeholder]="'Select'"
-         >
-       </rds-select-list>
+    <div class="col-md-6 mt-4"
+    *ngIf="themeData&&themeData.placement&&themeData.placement.toLocaleLowerCase()=='left'">
+        <label for="Edition" class="mb-2">{{"Menu Status"|translate}}<span class="text-danger">*</span></label>
+       <rds-dropdownlist [listItems]="StatusList" [placeholder]="'Select'" [size]="'small'"  name="style" [(ngModel)]="themeData.status"
+       [value]="themeData.status"  [id]="StatusList" [multiSelect]="false" [borderDropdown]="true" (onSelect)="onSelectStatus($event)" ngDefaultControl></rds-dropdownlist>
     </div>
+</div>
+<div class="footer-buttons my-2 justify-content-end d-flex bottom-0 ">
+    <rds-button [label]="'Cancel'" [colorVariant]="'primary'" [size]="'small'" [isOutline]="true">
+    </rds-button>
+    <rds-button [label]="'Save'" (click)="onSaveTheme()" [size]="'small'" class="ms-2" [colorVariant]="'primary'">
+    </rds-button>
 </div>
 </form>

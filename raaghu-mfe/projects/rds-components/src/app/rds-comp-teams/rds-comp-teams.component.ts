@@ -17,7 +17,7 @@ export class RdsCompTeamsComponent implements OnInit {
     {
       title: 'Tina',
       subTitle: 'Web Developer',
-      imgLink:'https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/no-profile-picture-icon.png?W=100',
+      imgLink:'../assets/no-profile-picture-icon.png',
       twitterIcon: 'twitter',
       linkdineIcon: 'linkedin',
       description: 'Lorem ipsum dolor sit amet conr adipiscing elit'

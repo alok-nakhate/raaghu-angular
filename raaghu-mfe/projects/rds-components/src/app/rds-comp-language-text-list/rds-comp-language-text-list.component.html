@@ -22,16 +22,7 @@
         </rds-select-list>
         </div>
       </div>
-      <div class="col-sm-3 ">
-        <div class="form-group mb-3">
-          <rds-select-list [(ngModel)]="source" [value]="source" ngDefaultControl name="source">
-            <option [value]="''" selected>Source</option>
-            <ng-container *ngFor="let item of listsource">
-              <option [value]="item.value">{{item.displayText}}</option>
-            </ng-container>
-          </rds-select-list>
-        </div>
-      </div>
+
       <div class="col-sm-3">
         <div class="form-group mb-3">
           <rds-select-list [(ngModel)]="targetValue" [value]="targetValue" ngDefaultControl name="targetValue">
@@ -42,14 +33,24 @@
           </rds-select-list>
         </div>
       </div>
+      <div class="col-sm-3 ">
+        <div class="form-group mb-3">
+          <rds-select-list [(ngModel)]="source" [value]="source" ngDefaultControl name="source">
+            <option [value]="''" selected>Resource</option>
+            <ng-container *ngFor="let item of listsource">
+              <option [value]="item.value">{{item.displayText}}</option>
+            </ng-container>
+          </rds-select-list>
+        </div>
+      </div>
     </div>
     <!-- </div> -->
     <div>
   
       <!-- <mfe-loader [config]="rdsLanguagetextTableMfeConfig"></mfe-loader> -->
-      <app-rds-data-table [tableData]="languagetextTableData" [inlineEdit]="false" [pagination]="true" [recordsPerPage]="10"
+      <rds-data-table [tableData]="languagetextTableData" [inlineEdit]="false" [pagination]="true" [recordsPerPage]="10"
 
-            [tableHeaders]="languagetextTableHeader" ></app-rds-data-table>
+            [tableHeaders]="languagetextTableHeader" ></rds-data-table>
     </div>
   </div>
   <rds-offcanvas [canvasTitle]="'EDIT LANGUAGE'" [offId]="'EditlanguageText'" [offcanvaswidth]="550" [placement]="'end'"

@@ -3,11 +3,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BsDatepickerConfig, BsDatepickerViewMode, DatepickerDateTooltipText } from 'ngx-bootstrap/datepicker';
 
-export class selectedRange {
-  constructor(
-    startDate: string,
-    endDate: string
-  ) { }
+export interface selectedRange {
+  startDate?: any,
+  endDate?: any
 }
 
 @Component({
@@ -28,6 +26,7 @@ export class RdsDatepickerComponent implements OnInit, ControlValueAccessor {
   @Input() datePickerType: 'advanced' | 'basic' = 'basic';
   //Basic Datepicker options
   @Input() datePickerConfig: Partial<BsDatepickerConfig> = { dateInputFormat: 'MM/DD/YYYY', showWeekNumbers: false, isAnimated: true, adaptivePosition: true };
+  @Input() id: string = Math.random().toString();
   @Input() value: any;
   @Input() placeholder: string = 'Date';
   @Input() datesDisabled: Date[] = [];
@@ -46,7 +45,6 @@ export class RdsDatepickerComponent implements OnInit, ControlValueAccessor {
   @Input() isRequired: boolean = false;
 
 
-  selectedDate!: Date;
   bsInlineValue!: Date;
   bsInlineRangeValue?: Date[];
   currentDate!: Date;
@@ -56,20 +54,17 @@ export class RdsDatepickerComponent implements OnInit, ControlValueAccessor {
   firstRange: any;
   lastRange: any;
   toggle: boolean = false;
-  public selectdate: selectedRange = [];
+  public selectdate: selectedRange[] = [];
   title = 'Today';
   dateRange?: Date[];
   public dates!: Date;
   newDate?: 'currentDate' | 'yesterdayDate' | 'lastSevendate' | 'lastFourteendate' | 'custom' = 'currentDate';
-
-  @Input() label :string= "";
+  @Input() label: string = "";
   @Input() format: string = 'MM-dd-YYYY';
-  selectedRange: any;
   @Output() change = new EventEmitter<any>();
-  @Input() TitleType: string = 'Top';
+  @Input() TitleType: 'Top' | 'Floating' | 'Bottom' = 'Top';
 
   constructor() {
-    this.selectedDate = new Date();
     this.bsInlineValue = new Date();
     this.currentDate = new Date();
     this.yesterdayDate = new Date();
@@ -103,6 +98,9 @@ export class RdsDatepickerComponent implements OnInit, ControlValueAccessor {
     this.currentDate = this.dates;
     this.newDate = 'currentDate';
     this.title = 'Today';
+    this.selectdate = [{
+      startDate: new Date(),
+    }]
     this.change.emit(this.currentDate);
   }
   checked(item: any) {
@@ -128,6 +126,9 @@ export class RdsDatepickerComponent implements OnInit, ControlValueAccessor {
     this.yesterdayDate.setDate(this.dates.getDate() - 1);
     this.newDate = 'yesterdayDate';
     this.title = 'Yesterday';
+    this.selectdate = [{
+      startDate: this.yesterdayDate,
+    }]
     this.change.emit(this.yesterdayDate);
   }
 

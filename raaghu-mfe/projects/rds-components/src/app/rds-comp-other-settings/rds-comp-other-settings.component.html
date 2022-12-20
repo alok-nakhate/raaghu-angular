@@ -1,15 +1,15 @@
-<ul class="ps-0 pt-5 list-unstyled" *ngIf="!editShimmer">
+<ul class="ps-0 pt-4 list-unstyled" *ngIf="!editShimmer">
     <div class="fw-medium mb-3">
     <rds-label [label]="translate.instant('Quick Theme Selection')"></rds-label>
 </div>
     <li>
         <div class="form-group mb-3">
             <rds-checkbox [label]="translate.instant('Is Quick Theme Select Enabled')" name="isQuickThemeSelectEnabled"
-                [checked]="dataset.isQuickThemeSelectEnabled" [disabled]="false" [switch]="false" [inline]="false"
+                [checked]="OtherSetting.isQuickThemeSelectEnabled" [disabled]="false" [switch]="false" [inline]="false"
                 [withLabel]="true" [isInputGroup]="false" (onChange)="selectAllFeature($event,'quickTheme')"
-                [(ngModel)]="dataset.isQuickThemeSelectEnabled" ngDefaultControl [id]="'isQuickThemeSelectEnabled'">
+                [(ngModel)]="OtherSetting.isQuickThemeSelectEnabled" ngDefaultControl [id]="'isQuickThemeSelectEnabled'">
             </rds-checkbox>
         </div>
     </li>
 </ul>
-<app-rds-comp-other-settings-shimmer *ngIf="editShimmer"></app-rds-comp-other-settings-shimmer>
+<rds-comp-other-settings-shimmer *ngIf="editShimmer"></rds-comp-other-settings-shimmer>

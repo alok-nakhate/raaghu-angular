@@ -38,19 +38,9 @@ const Template: Story<RdsBreadcrumbComponent> = (args: RdsBreadcrumbComponent) =
 });
 
 export const Default = Template.bind({});
+Default.parameters = { controls: { include: ['role', 'breadcrumbsItems'] } };
 Default.args = {
   role: 'basic',
-  breadcrumbsItems: [{ name: 'Home', route: '/home', icon: 'home', iconWidth: '15px', iconHeight: '15px', disabled: true },
-  { name: 'About', route: '/About', icon: 'information', iconWidth: '15px', iconHeight: '15px', disabled: true },
-  { name: 'Contact', route: '/Contact', icon: 'phone', iconWidth: '15px', iconHeight: '15px', disabled: false },
-  ]
-}
-
-
-
-export const withDivider = Template.bind({});
-withDivider.args = {
-  role: 'withDivider',
   breadcrumbsItems: [{ name: 'Home', route: '/home', icon: 'home', iconWidth: '15px', iconHeight: '15px', disabled: true },
   { name: 'About', route: '/About', icon: 'information', iconWidth: '15px', iconHeight: '15px', disabled: true },
   { name: 'Contact', route: '/Contact', icon: 'phone', iconWidth: '15px', iconHeight: '15px', disabled: false },

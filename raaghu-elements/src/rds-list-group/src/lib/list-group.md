@@ -11,7 +11,7 @@ title: "Elements > List-group"
 
 #### List Group
 
-<p class="checkbox-def">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore sdavavfgsv</p>
+<p class="checkbox-def">List group consists of a list of contents that can be modified to select multiple contents.</p>
 
 <section class="py-4">
     <h6>Default</h6>
@@ -31,7 +31,7 @@ title: "Elements > List-group"
          <div class="contents  p-5">
               <div class="row">
                <div class="col-md-12">
-                  <img src="/images/list-group-basic.png" class="img-fluid w-50">
+                  <img src="/images/list-group-basic.png" class="img-fluid w-100">
               </div>               
             </div>
           </div>
@@ -76,7 +76,7 @@ label=""
          <div class="contents bg-light p-5">
               <div class="row">
               <!-- <img src="https://raw.githubusercontent.com/Wai-Technologies/raaghu/main/raaghu-mfe/assets/Edit-Language-Text.png" alt="color"> -->
-              <img src="/images/listgroup-multiselect.png" class="img-thumbnail w-50">
+              <img src="/images/listgroup-multiselect.png" class="img-thumbnail w-100">
            </div>
                        
   </div>

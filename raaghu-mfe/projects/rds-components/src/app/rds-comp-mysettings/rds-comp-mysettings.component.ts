@@ -4,22 +4,23 @@ import { TranslateService } from '@ngx-translate/core';
 import { Profile } from '../../models/profile.model';
 
 @Component({
-  selector: 'app-rds-mysettings',
+  selector: 'rds-mysettings',
   templateUrl: './rds-comp-mysettings.component.html',
   styleUrls: ['./rds-comp-mysettings.component.scss']
 })
 export class RdsMysettingsComponent implements OnInit, OnChanges {
 
-  @Input() ProfileData: Profile = {
+  @Input() ProfileData: any = {
     ProfileName: 'Wai Technologies',
-    EmailAddress: 'contact@waiin.com',
-    UserName: 'admin',
+    emailAddress: 'contact@waiin.com',
+    userName: 'admin',
     CurrentPassword: '',
     NewPassword: '',
-    ConFNewPassword: ''
+    ConFNewPassword: '',
+    name: ''
   }
-  @Input() buttonSpinner : boolean =true;
-  @Output() onProfileClose= new EventEmitter<any>();
+  @Input() buttonSpinner: boolean = false;
+  @Output() onProfileClose = new EventEmitter<any>();
   @Output() onProfileSave = new EventEmitter<any>();
   firstcontent: boolean = false;
   invalidEmail: boolean = false;
@@ -28,8 +29,7 @@ export class RdsMysettingsComponent implements OnInit, OnChanges {
   navtabcontentClass: string = "d-none";
   isPasswordMismatch: boolean = false;
   public Profileform: FormGroup;
-
-  constructor(private formBuilder: FormBuilder,public translate:TranslateService) {
+  constructor(private formBuilder: FormBuilder, public translate: TranslateService) {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -83,16 +83,18 @@ export class RdsMysettingsComponent implements OnInit, OnChanges {
 
   saveProfile(changePasswordForm: NgForm) {
     changePasswordForm.form.markAllAsTouched();
-    this.buttonSpinner=true;
 
     if (!changePasswordForm.valid || this.isPasswordMismatch) {
       return;
     }
+    this.buttonSpinner = true;
     this.onProfileSave.emit({ currentPassword: this.ProfileData.CurrentPassword, newPassword: this.ProfileData.NewPassword });
-   
+    setTimeout(() => {
+      this.buttonSpinner = false;
+    }, 3000);
   }
-  onCancel():void{
+  onCancel(): void {
     this.onProfileClose.emit();
-    this.buttonSpinner=false;
+    this.buttonSpinner = false;
   }
 }

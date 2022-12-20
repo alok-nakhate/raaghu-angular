@@ -16,7 +16,7 @@ import { RdsSecurityComponent } from '../../../rds-components/src/app/rds-comp-s
 import { RdsCompInvoiceComponent } from '../../../rds-components/src/app/rds-comp-invoice/rds-comp-invoice.component';
 import { RdsCompOtherSettingsComponent } from '../../../rds-components/src/app/rds-comp-other-settings/rds-comp-other-settings.component';
 import { EffectsModule } from '@ngrx/effects';
-import { SettingEffects} from '@libs/state-management';
+
 
 
 export default {
@@ -54,7 +54,8 @@ export default {
         BrowserAnimationsModule,
         SharedModule,
         RdsFabMenuModule,
-        EffectsModule.forRoot([SettingEffects]),
+        RdsDropdownlistComponent,
+      
         RdsTextareaModule,
         RdsCounterModule
       ],
@@ -146,34 +147,25 @@ export const Default = Template.bind({});
 Default.args = {
   navtabsItems:  [
     {
-      label: 'Tenant Management',
-      tablink: '#tenant-management',
-      ariacontrols: 'tenant-management',
-    },
-    {
-      label: 'User Management',
-      tablink: '#user-management',
-      ariacontrols: 'user-management',
-    },
-    {
-      label: 'Security',
-      tablink: '#security',
-      ariacontrols: 'settings',
-    },
-    {
-      label: 'Email(SMTP)',
+      label: 'Email Settings',
       tablink: '#email',
       ariacontrols: 'email',
     },
     {
-      label: 'Invoice',
-      tablink: '#invoice',
-      ariacontrols: 'invoice',
+      label: 'Identity Management',
+      tablink: '#identity',
+      ariacontrols: 'identity',
     },
     {
-      label: 'Other-settings',
-      tablink: '#other-settings',
-      ariacontrols: 'other-settings',
+      label: 'Theme',
+      tablink: '#theme',
+      ariacontrols: 'theme',
     },
-  ]
+    {
+      label: 'Account',
+      tablink: '#account',
+      ariacontrols: 'account',
+    }
+   ]
+   
 }

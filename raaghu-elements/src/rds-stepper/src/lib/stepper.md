@@ -12,7 +12,7 @@ title: " Elements > Stepper"
 
 #### Stepper
 
-<p class="checkbox-def">Avatar is known as a visual form representing a user oneself and one's identity wished.</p>
+<p class="checkbox-def">Stepper is a process map having user defined milestones to inform user of the steps involved in the process.</p>
 
 <!-- Basic -->
 <section class="py-4">
@@ -43,7 +43,66 @@ title: " Elements > Stepper"
 <div class="row m-0">
 
 ```html
-<rds-text-editor id="" editorData="<p>Hello!</p>"></rds-text-editor>
+<div>
+  <rds-stepper
+    [stepperList]="stepperList"
+    [stepperType]="stepperType"
+    [readOnly]="readOnly"
+    [activePageNumber]="1"
+  ></rds-stepper>
+  <div naveContent class="tab-content" id="nav-tabContent">
+    <div
+      class="tab-pane fade show active p-2"
+      id="nav-home"
+      role="tabpanel"
+      aria-labelledby="nav-home-tab"
+    >
+      <div class="contents">
+        <p>
+          This is some placeholder content the Profile tab's associated content.
+          Clicking another tab will toggle the visibility of this one for the
+          next.
+          <br />
+          The tab JavaScript swaps classes to control the content visibility and
+          styling. You can use it with tabs, pills, and any other
+        </p>
+      </div>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="nav-profile"
+      role="tabpanel"
+      aria-labelledby="nav-profile-tab"
+    >
+      <div class="contents bg-white p-2">
+        This is some placeholder content the Home tab's associated content.
+        Clicking another tab will toggle the visibility of this one for the
+        next.
+        <br />
+        The tab JavaScript swaps classes to control the content visibility tab
+        JavaScript swaps classes to control the content visibility tab
+        JavaScript swaps classes to control the content visibilityand styling.
+        You can use it with tabs, pills, and any other .nav-powered navigation.
+      </div>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="nav-contact"
+      role="tabpanel"
+      aria-labelledby="nav-contact-tab"
+    >
+      <div class="contents bg-white p-2">Tab3 is showing with nav tab</div>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="nav-deabled"
+      role="tabpanel"
+      aria-labelledby="nav-contact-tab"
+    >
+      <div class="contents bg-white p-2">test</div>
+    </div>
+  </div>
+</div>
 ```
 
 </div>
@@ -85,7 +144,66 @@ title: " Elements > Stepper"
 <div class="row m-0">
 
 ```html
-<rds-text-editor id="" editorData="<p>Hello!</p>"></rds-text-editor>
+<div>
+  <rds-stepper
+    [stepperList]="stepperList"
+    [stepperType]="stepperType"
+    [readOnly]="readOnly"
+    [activePageNumber]="1"
+  ></rds-stepper>
+  <div naveContent class="tab-content" id="nav-tabContent">
+    <div
+      class="tab-pane fade show active p-2"
+      id="nav-home"
+      role="tabpanel"
+      aria-labelledby="nav-home-tab"
+    >
+      <div class="contents">
+        <p>
+          This is some placeholder content the Profile tab's associated content.
+          Clicking another tab will toggle the visibility of this one for the
+          next.
+          <br />
+          The tab JavaScript swaps classes to control the content visibility and
+          styling. You can use it with tabs, pills, and any other
+        </p>
+      </div>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="nav-profile"
+      role="tabpanel"
+      aria-labelledby="nav-profile-tab"
+    >
+      <div class="contents bg-white p-2">
+        This is some placeholder content the Home tab's associated content.
+        Clicking another tab will toggle the visibility of this one for the
+        next.
+        <br />
+        The tab JavaScript swaps classes to control the content visibility tab
+        JavaScript swaps classes to control the content visibility tab
+        JavaScript swaps classes to control the content visibilityand styling.
+        You can use it with tabs, pills, and any other .nav-powered navigation.
+      </div>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="nav-contact"
+      role="tabpanel"
+      aria-labelledby="nav-contact-tab"
+    >
+      <div class="contents bg-white p-2">Tab3 is showing with nav tab</div>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="nav-deabled"
+      role="tabpanel"
+      aria-labelledby="nav-contact-tab"
+    >
+      <div class="contents bg-white p-2">test</div>
+    </div>
+  </div>
+</div>
 ```
 
 </div>
@@ -116,7 +234,7 @@ title: " Elements > Stepper"
          <div class="contents p-5">
             <div class="row">
                <div class="col-md-12">
-                 <img src="/images/text-editor.png" class="img-fluid w-75">
+                 <img src="/images/stepper-panel.png" class="img-fluid w-75">
                 </div>
           </div>
         </div>
@@ -126,7 +244,66 @@ title: " Elements > Stepper"
 <div class="row m-0">
 
 ```html
-<rds-text-editor id="" editorData="<p>Hello!</p>"></rds-text-editor>
+<div>
+  <rds-stepper
+    [stepperList]="stepperList"
+    [stepperType]="stepperType"
+    [readOnly]="readOnly"
+    [activePageNumber]="1"
+  ></rds-stepper>
+  <div naveContent class="tab-content" id="nav-tabContent">
+    <div
+      class="tab-pane fade show active p-2"
+      id="nav-home"
+      role="tabpanel"
+      aria-labelledby="nav-home-tab"
+    >
+      <div class="contents">
+        <p>
+          This is some placeholder content the Profile tab's associated content.
+          Clicking another tab will toggle the visibility of this one for the
+          next.
+          <br />
+          The tab JavaScript swaps classes to control the content visibility and
+          styling. You can use it with tabs, pills, and any other
+        </p>
+      </div>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="nav-profile"
+      role="tabpanel"
+      aria-labelledby="nav-profile-tab"
+    >
+      <div class="contents bg-white p-2">
+        This is some placeholder content the Home tab's associated content.
+        Clicking another tab will toggle the visibility of this one for the
+        next.
+        <br />
+        The tab JavaScript swaps classes to control the content visibility tab
+        JavaScript swaps classes to control the content visibility tab
+        JavaScript swaps classes to control the content visibilityand styling.
+        You can use it with tabs, pills, and any other .nav-powered navigation.
+      </div>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="nav-contact"
+      role="tabpanel"
+      aria-labelledby="nav-contact-tab"
+    >
+      <div class="contents bg-white p-2">Tab3 is showing with nav tab</div>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="nav-deabled"
+      role="tabpanel"
+      aria-labelledby="nav-contact-tab"
+    >
+      <div class="contents bg-white p-2">test</div>
+    </div>
+  </div>
+</div>
 ```
 
 </div>
@@ -157,7 +334,7 @@ title: " Elements > Stepper"
          <div class="contents p-5">
             <div class="row">
                <div class="col-md-12">
-                 <img src="/images/text-editor.png" class="img-fluid w-75">
+                 <img src="/images/stepper-panel-arrow.png" class="img-fluid w-75">
                 </div>
           </div>
         </div>
@@ -167,7 +344,66 @@ title: " Elements > Stepper"
 <div class="row m-0">
 
 ```html
-<rds-text-editor id="" editorData="<p>Hello!</p>"></rds-text-editor>
+<div>
+  <rds-stepper
+    [stepperList]="stepperList"
+    [stepperType]="stepperType"
+    [readOnly]="readOnly"
+    [activePageNumber]="1"
+  ></rds-stepper>
+  <div naveContent class="tab-content" id="nav-tabContent">
+    <div
+      class="tab-pane fade show active p-2"
+      id="nav-home"
+      role="tabpanel"
+      aria-labelledby="nav-home-tab"
+    >
+      <div class="contents">
+        <p>
+          This is some placeholder content the Profile tab's associated content.
+          Clicking another tab will toggle the visibility of this one for the
+          next.
+          <br />
+          The tab JavaScript swaps classes to control the content visibility and
+          styling. You can use it with tabs, pills, and any other
+        </p>
+      </div>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="nav-profile"
+      role="tabpanel"
+      aria-labelledby="nav-profile-tab"
+    >
+      <div class="contents bg-white p-2">
+        This is some placeholder content the Home tab's associated content.
+        Clicking another tab will toggle the visibility of this one for the
+        next.
+        <br />
+        The tab JavaScript swaps classes to control the content visibility tab
+        JavaScript swaps classes to control the content visibility tab
+        JavaScript swaps classes to control the content visibilityand styling.
+        You can use it with tabs, pills, and any other .nav-powered navigation.
+      </div>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="nav-contact"
+      role="tabpanel"
+      aria-labelledby="nav-contact-tab"
+    >
+      <div class="contents bg-white p-2">Tab3 is showing with nav tab</div>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="nav-deabled"
+      role="tabpanel"
+      aria-labelledby="nav-contact-tab"
+    >
+      <div class="contents bg-white p-2">test</div>
+    </div>
+  </div>
+</div>
 ```
 
 </div>
@@ -198,7 +434,7 @@ title: " Elements > Stepper"
          <div class="contents p-5">
             <div class="row">
                <div class="col-md-12">
-                 <img src="/images/text-editor.png" class="img-fluid w-75">
+                 <img src="/images/stepper-with-border.png" class="img-fluid w-75">
                 </div>
           </div>
         </div>
@@ -208,7 +444,66 @@ title: " Elements > Stepper"
 <div class="row m-0">
 
 ```html
-<rds-text-editor id="" editorData="<p>Hello!</p>"></rds-text-editor>
+<div>
+  <rds-stepper
+    [stepperList]="stepperList"
+    [stepperType]="stepperType"
+    [readOnly]="readOnly"
+    [activePageNumber]="1"
+  ></rds-stepper>
+  <div naveContent class="tab-content" id="nav-tabContent">
+    <div
+      class="tab-pane fade show active p-2"
+      id="nav-home"
+      role="tabpanel"
+      aria-labelledby="nav-home-tab"
+    >
+      <div class="contents">
+        <p>
+          This is some placeholder content the Profile tab's associated content.
+          Clicking another tab will toggle the visibility of this one for the
+          next.
+          <br />
+          The tab JavaScript swaps classes to control the content visibility and
+          styling. You can use it with tabs, pills, and any other
+        </p>
+      </div>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="nav-profile"
+      role="tabpanel"
+      aria-labelledby="nav-profile-tab"
+    >
+      <div class="contents bg-white p-2">
+        This is some placeholder content the Home tab's associated content.
+        Clicking another tab will toggle the visibility of this one for the
+        next.
+        <br />
+        The tab JavaScript swaps classes to control the content visibility tab
+        JavaScript swaps classes to control the content visibility tab
+        JavaScript swaps classes to control the content visibilityand styling.
+        You can use it with tabs, pills, and any other .nav-powered navigation.
+      </div>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="nav-contact"
+      role="tabpanel"
+      aria-labelledby="nav-contact-tab"
+    >
+      <div class="contents bg-white p-2">Tab3 is showing with nav tab</div>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="nav-deabled"
+      role="tabpanel"
+      aria-labelledby="nav-contact-tab"
+    >
+      <div class="contents bg-white p-2">test</div>
+    </div>
+  </div>
+</div>
 ```
 
 </div>
@@ -239,7 +534,7 @@ title: " Elements > Stepper"
          <div class="contents p-5">
             <div class="row">
                <div class="col-md-12">
-                 <img src="/images/text-editor.png" class="imf-fluid w-75">
+                 <img src="/images/stepper-panel-simple.png" class="imf-fluid w-75">
                 </div>
           </div>
         </div>
@@ -249,7 +544,66 @@ title: " Elements > Stepper"
 <div class="row m-0">
 
 ```html
-<rds-text-editor id="" editorData="<p>Hello!</p>"></rds-text-editor>
+<div>
+  <rds-stepper
+    [stepperList]="stepperList"
+    [stepperType]="stepperType"
+    [readOnly]="readOnly"
+    [activePageNumber]="1"
+  ></rds-stepper>
+  <div naveContent class="tab-content" id="nav-tabContent">
+    <div
+      class="tab-pane fade show active p-2"
+      id="nav-home"
+      role="tabpanel"
+      aria-labelledby="nav-home-tab"
+    >
+      <div class="contents">
+        <p>
+          This is some placeholder content the Profile tab's associated content.
+          Clicking another tab will toggle the visibility of this one for the
+          next.
+          <br />
+          The tab JavaScript swaps classes to control the content visibility and
+          styling. You can use it with tabs, pills, and any other
+        </p>
+      </div>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="nav-profile"
+      role="tabpanel"
+      aria-labelledby="nav-profile-tab"
+    >
+      <div class="contents bg-white p-2">
+        This is some placeholder content the Home tab's associated content.
+        Clicking another tab will toggle the visibility of this one for the
+        next.
+        <br />
+        The tab JavaScript swaps classes to control the content visibility tab
+        JavaScript swaps classes to control the content visibility tab
+        JavaScript swaps classes to control the content visibilityand styling.
+        You can use it with tabs, pills, and any other .nav-powered navigation.
+      </div>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="nav-contact"
+      role="tabpanel"
+      aria-labelledby="nav-contact-tab"
+    >
+      <div class="contents bg-white p-2">Tab3 is showing with nav tab</div>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="nav-deabled"
+      role="tabpanel"
+      aria-labelledby="nav-contact-tab"
+    >
+      <div class="contents bg-white p-2">test</div>
+    </div>
+  </div>
+</div>
 ```
 
 </div>
@@ -263,7 +617,7 @@ title: " Elements > Stepper"
 
 <!-- Basic -->
 <section class="py-4">
-    <h6>Progress-Bar</h6>
+    <h6>Progress Bar</h6>
     <div class="py-3">
       <div class="cust-tabs">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -280,7 +634,7 @@ title: " Elements > Stepper"
          <div class="contents p-5">
             <div class="row">
                <div class="col-md-12">
-                 <img src="/images/text-editor.png" class="imf-fluid w-75">
+                 <img src="/images/stepper-progress-bar.png" class="imf-fluid w-75">
                 </div>
           </div>
         </div>
@@ -290,7 +644,66 @@ title: " Elements > Stepper"
 <div class="row m-0">
 
 ```html
-<rds-text-editor id="" editorData="<p>Hello!</p>"></rds-text-editor>
+<div>
+  <rds-stepper
+    [stepperList]="stepperList"
+    [stepperType]="stepperType"
+    [readOnly]="readOnly"
+    [activePageNumber]="1"
+  ></rds-stepper>
+  <div naveContent class="tab-content" id="nav-tabContent">
+    <div
+      class="tab-pane fade show active p-2"
+      id="nav-home"
+      role="tabpanel"
+      aria-labelledby="nav-home-tab"
+    >
+      <div class="contents">
+        <p>
+          This is some placeholder content the Profile tab's associated content.
+          Clicking another tab will toggle the visibility of this one for the
+          next.
+          <br />
+          The tab JavaScript swaps classes to control the content visibility and
+          styling. You can use it with tabs, pills, and any other
+        </p>
+      </div>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="nav-profile"
+      role="tabpanel"
+      aria-labelledby="nav-profile-tab"
+    >
+      <div class="contents bg-white p-2">
+        This is some placeholder content the Home tab's associated content.
+        Clicking another tab will toggle the visibility of this one for the
+        next.
+        <br />
+        The tab JavaScript swaps classes to control the content visibility tab
+        JavaScript swaps classes to control the content visibility tab
+        JavaScript swaps classes to control the content visibilityand styling.
+        You can use it with tabs, pills, and any other .nav-powered navigation.
+      </div>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="nav-contact"
+      role="tabpanel"
+      aria-labelledby="nav-contact-tab"
+    >
+      <div class="contents bg-white p-2">Tab3 is showing with nav tab</div>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="nav-deabled"
+      role="tabpanel"
+      aria-labelledby="nav-contact-tab"
+    >
+      <div class="contents bg-white p-2">test</div>
+    </div>
+  </div>
+</div>
 ```
 
 </div>
@@ -321,7 +734,7 @@ title: " Elements > Stepper"
          <div class="contents p-5">
             <div class="row">
                <div class="col-md-12">
-                 <img src="/images/text-editor.png" class="img-fluid w-75">
+                 <img src="/images/stepper-simple.png" class="img-fluid w-75">
                 </div>
           </div>
         </div>
@@ -331,7 +744,66 @@ title: " Elements > Stepper"
 <div class="row m-0">
 
 ```html
-<rds-text-editor id="" editorData="<p>Hello!</p>"></rds-text-editor>
+<div>
+  <rds-stepper
+    [stepperList]="stepperList"
+    [stepperType]="stepperType"
+    [readOnly]="readOnly"
+    [activePageNumber]="1"
+  ></rds-stepper>
+  <div naveContent class="tab-content" id="nav-tabContent">
+    <div
+      class="tab-pane fade show active p-2"
+      id="nav-home"
+      role="tabpanel"
+      aria-labelledby="nav-home-tab"
+    >
+      <div class="contents">
+        <p>
+          This is some placeholder content the Profile tab's associated content.
+          Clicking another tab will toggle the visibility of this one for the
+          next.
+          <br />
+          The tab JavaScript swaps classes to control the content visibility and
+          styling. You can use it with tabs, pills, and any other
+        </p>
+      </div>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="nav-profile"
+      role="tabpanel"
+      aria-labelledby="nav-profile-tab"
+    >
+      <div class="contents bg-white p-2">
+        This is some placeholder content the Home tab's associated content.
+        Clicking another tab will toggle the visibility of this one for the
+        next.
+        <br />
+        The tab JavaScript swaps classes to control the content visibility tab
+        JavaScript swaps classes to control the content visibility tab
+        JavaScript swaps classes to control the content visibilityand styling.
+        You can use it with tabs, pills, and any other .nav-powered navigation.
+      </div>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="nav-contact"
+      role="tabpanel"
+      aria-labelledby="nav-contact-tab"
+    >
+      <div class="contents bg-white p-2">Tab3 is showing with nav tab</div>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="nav-deabled"
+      role="tabpanel"
+      aria-labelledby="nav-contact-tab"
+    >
+      <div class="contents bg-white p-2">test</div>
+    </div>
+  </div>
+</div>
 ```
 
 </div>
@@ -362,7 +834,7 @@ title: " Elements > Stepper"
          <div class="contents p-5">
             <div class="row">
                <div class="col-md-12">
-                 <img src="/images/text-editor.png" class="img-fluid w-75">
+                 <img src="/images/stepper-multi-circle-1.png" class="img-fluid w-75">
                 </div>
           </div>
         </div>
@@ -372,7 +844,66 @@ title: " Elements > Stepper"
 <div class="row m-0">
 
 ```html
-<rds-text-editor id="" editorData="<p>Hello!</p>"></rds-text-editor>
+<div>
+  <rds-stepper
+    [stepperList]="stepperList"
+    [stepperType]="stepperType"
+    [readOnly]="readOnly"
+    [activePageNumber]="1"
+  ></rds-stepper>
+  <div naveContent class="tab-content" id="nav-tabContent">
+    <div
+      class="tab-pane fade show active p-2"
+      id="nav-home"
+      role="tabpanel"
+      aria-labelledby="nav-home-tab"
+    >
+      <div class="contents">
+        <p>
+          This is some placeholder content the Profile tab's associated content.
+          Clicking another tab will toggle the visibility of this one for the
+          next.
+          <br />
+          The tab JavaScript swaps classes to control the content visibility and
+          styling. You can use it with tabs, pills, and any other
+        </p>
+      </div>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="nav-profile"
+      role="tabpanel"
+      aria-labelledby="nav-profile-tab"
+    >
+      <div class="contents bg-white p-2">
+        This is some placeholder content the Home tab's associated content.
+        Clicking another tab will toggle the visibility of this one for the
+        next.
+        <br />
+        The tab JavaScript swaps classes to control the content visibility tab
+        JavaScript swaps classes to control the content visibility tab
+        JavaScript swaps classes to control the content visibilityand styling.
+        You can use it with tabs, pills, and any other .nav-powered navigation.
+      </div>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="nav-contact"
+      role="tabpanel"
+      aria-labelledby="nav-contact-tab"
+    >
+      <div class="contents bg-white p-2">Tab3 is showing with nav tab</div>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="nav-deabled"
+      role="tabpanel"
+      aria-labelledby="nav-contact-tab"
+    >
+      <div class="contents bg-white p-2">test</div>
+    </div>
+  </div>
+</div>
 ```
 
 </div>
@@ -403,7 +934,7 @@ title: " Elements > Stepper"
          <div class="contents p-5">
             <div class="row">
                <div class="col-md-12">
-                 <img src="/images/text-editor.png" class="img-fluid w-75">
+                 <img src="/images/stepper-multi-circle-2.png" class="img-fluid w-75">
                 </div>
           </div>
         </div>
@@ -413,7 +944,66 @@ title: " Elements > Stepper"
 <div class="row m-0">
 
 ```html
-<rds-text-editor id="" editorData="<p>Hello!</p>"></rds-text-editor>
+<div>
+  <rds-stepper
+    [stepperList]="stepperList"
+    [stepperType]="stepperType"
+    [readOnly]="readOnly"
+    [activePageNumber]="1"
+  ></rds-stepper>
+  <div naveContent class="tab-content" id="nav-tabContent">
+    <div
+      class="tab-pane fade show active p-2"
+      id="nav-home"
+      role="tabpanel"
+      aria-labelledby="nav-home-tab"
+    >
+      <div class="contents">
+        <p>
+          This is some placeholder content the Profile tab's associated content.
+          Clicking another tab will toggle the visibility of this one for the
+          next.
+          <br />
+          The tab JavaScript swaps classes to control the content visibility and
+          styling. You can use it with tabs, pills, and any other
+        </p>
+      </div>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="nav-profile"
+      role="tabpanel"
+      aria-labelledby="nav-profile-tab"
+    >
+      <div class="contents bg-white p-2">
+        This is some placeholder content the Home tab's associated content.
+        Clicking another tab will toggle the visibility of this one for the
+        next.
+        <br />
+        The tab JavaScript swaps classes to control the content visibility tab
+        JavaScript swaps classes to control the content visibility tab
+        JavaScript swaps classes to control the content visibilityand styling.
+        You can use it with tabs, pills, and any other .nav-powered navigation.
+      </div>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="nav-contact"
+      role="tabpanel"
+      aria-labelledby="nav-contact-tab"
+    >
+      <div class="contents bg-white p-2">Tab3 is showing with nav tab</div>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="nav-deabled"
+      role="tabpanel"
+      aria-labelledby="nav-contact-tab"
+    >
+      <div class="contents bg-white p-2">test</div>
+    </div>
+  </div>
+</div>
 ```
 
 </div>
@@ -443,7 +1033,7 @@ title: " Elements > Stepper"
          <div class="contents p-5">
             <div class="row">
                <div class="col-md-12">
-                 <img src="/images/text-editor.png" class="img-fluid w-75">
+                 <img src="/images/stepper-multi-circle-3.png" class="img-fluid w-75">
                 </div>
           </div>
         </div>
@@ -453,7 +1043,66 @@ title: " Elements > Stepper"
 <div class="row m-0">
 
 ```html
-<rds-text-editor id="" editorData="<p>Hello!</p>"></rds-text-editor>
+<div>
+  <rds-stepper
+    [stepperList]="stepperList"
+    [stepperType]="stepperType"
+    [readOnly]="readOnly"
+    [activePageNumber]="1"
+  ></rds-stepper>
+  <div naveContent class="tab-content" id="nav-tabContent">
+    <div
+      class="tab-pane fade show active p-2"
+      id="nav-home"
+      role="tabpanel"
+      aria-labelledby="nav-home-tab"
+    >
+      <div class="contents">
+        <p>
+          This is some placeholder content the Profile tab's associated content.
+          Clicking another tab will toggle the visibility of this one for the
+          next.
+          <br />
+          The tab JavaScript swaps classes to control the content visibility and
+          styling. You can use it with tabs, pills, and any other
+        </p>
+      </div>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="nav-profile"
+      role="tabpanel"
+      aria-labelledby="nav-profile-tab"
+    >
+      <div class="contents bg-white p-2">
+        This is some placeholder content the Home tab's associated content.
+        Clicking another tab will toggle the visibility of this one for the
+        next.
+        <br />
+        The tab JavaScript swaps classes to control the content visibility tab
+        JavaScript swaps classes to control the content visibility tab
+        JavaScript swaps classes to control the content visibilityand styling.
+        You can use it with tabs, pills, and any other .nav-powered navigation.
+      </div>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="nav-contact"
+      role="tabpanel"
+      aria-labelledby="nav-contact-tab"
+    >
+      <div class="contents bg-white p-2">Tab3 is showing with nav tab</div>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="nav-deabled"
+      role="tabpanel"
+      aria-labelledby="nav-contact-tab"
+    >
+      <div class="contents bg-white p-2">test</div>
+    </div>
+  </div>
+</div>
 ```
 
 </div>
@@ -462,3 +1111,25 @@ title: " Elements > Stepper"
       </div>
     </div>
   </section>
+
+ <!-- Skeleton / Specifications -->
+<section class="py-4">
+                        <h6>
+                           Skeleton / Specifications
+                        </h6>
+                        <div class="py-3">
+                              <!-- Tab panes -->
+                              <div class="card border p-5">
+                                 <div class="row">
+                                    <div class="col-md-9 col-12">
+                                       <img src="/images/skel-stepper.png" class="img-fluid">
+                                    </div>
+                                 </div>
+                              </div>
+                        </div>
+                     </section>
+
+
+
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>    

@@ -1,7 +1,7 @@
 ---
 slug: "/comp-alert"
 date: "2019-05-04"
-title: "Components > Alerts"
+title: "Components > Alert"
 ---
 
 <!-- CSS only -->
@@ -10,7 +10,8 @@ title: "Components > Alerts"
 <link rel="stylesheet" href="../../../../../../../raaghu/src/assets/css/main.css">
 
 
-#### Alerts
+#### Alert
+<p>Pops up a relevant information a user requires</p>
 
 <section class="py-4">
     <h6>Default</h6>
@@ -41,7 +42,7 @@ title: "Components > Alerts"
 <div class="row m-0">
 
 ```html
-<app-rds-comp-alert [currentAlerts]="currentAlerts"></app-rds-comp-alert>
+<rds-comp-alert [currentAlerts]="currentAlerts"></rds-comp-alert>
 ```
 </div>
 </div>
@@ -80,7 +81,7 @@ title: "Components > Alerts"
 <div class="row m-0">
 
 ```html
-<app-rds-comp-alert [currentAlerts]="currentAlerts"></app-rds-comp-alert>
+<rds-comp-alert [currentAlerts]="currentAlerts"></rds-comp-alert>
 ```
 </div>
 </div>
@@ -119,7 +120,7 @@ title: "Components > Alerts"
 <div class="row m-0">
 
 ```html
-<app-rds-comp-alert [currentAlerts]="currentAlerts"></app-rds-comp-alert>
+<rds-comp-alert [currentAlerts]="currentAlerts"></rds-comp-alert>
 ```
 </div>
 </div>
@@ -158,7 +159,7 @@ title: "Components > Alerts"
 <div class="row m-0">
 
 ```html
-<app-rds-comp-alert [currentAlerts]="currentAlerts"></app-rds-comp-alert>
+<rds-comp-alert [currentAlerts]="currentAlerts"></rds-comp-alert>
 ```
 </div>
 </div>
@@ -197,7 +198,7 @@ title: "Components > Alerts"
 <div class="row m-0">
 
 ```html
-<app-rds-comp-alert [currentAlerts]="currentAlerts"></app-rds-comp-alert>
+<rds-comp-alert [currentAlerts]="currentAlerts"></rds-comp-alert>
 ```
 </div>
 </div>

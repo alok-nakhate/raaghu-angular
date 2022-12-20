@@ -25,11 +25,11 @@ export class RdsChartPieComponent implements OnInit {
 
   static count = 0;
   //chartId = 'pieChart' + RdsChartPieComponent.count;
-  @Input() chartId:string='pieChart0';
+  @Input() chartId: string = 'pieChart0';
   canvas: any;
   context: any;
-  @Input() chartWidth:number = 400;
-  @Input() chartHeight:number = 500;
+  @Input() chartWidth: number = 400;
+  @Input() chartHeight: number = 500;
   @Input() chartLabels?: any
   @Input() chartDataSets?: ChartDataSetPie[] | any;
   @Input() chartOptions?: any;
@@ -40,46 +40,7 @@ export class RdsChartPieComponent implements OnInit {
   }
 
   ngOnInit(): void {
-	this.style = getComputedStyle(document.body);
-  if(this.style.getPropertyValue('--chartColor1')){
-    this.chartDataSets[0].backgroundColor[0] = this.style.getPropertyValue('--chartColor1');
-  }
-  if(this.style.getPropertyValue('--chartColor2')){
-    this.chartDataSets[0].backgroundColor[1] = this.style.getPropertyValue('--chartColor2');
-  }
-  if(this.style.getPropertyValue('--chartColor3')){
-    this.chartDataSets[0].backgroundColor[2] = this.style.getPropertyValue('--chartColor3');
-  }
-  if(this.style.getPropertyValue('--chartColor4')){
-    this.chartDataSets[0].backgroundColor[3] = this.style.getPropertyValue('--chartColor4');
-  }
-  if(this.style.getPropertyValue('--chartColor5')){
-    this.chartDataSets[0].backgroundColor[4] = this.style.getPropertyValue('--chartColor5');
-  }
-  if(this.style.getPropertyValue('--chartColor6')){
-    this.chartDataSets[0].backgroundColor[5] = this.style.getPropertyValue('--chartColor6');
-  }
-  if(this.style.getPropertyValue('--chartColor7')){
-    this.chartDataSets[0].backgroundColor[6] = this.style.getPropertyValue('--chartColor7');
-  }
-  if(this.style.getPropertyValue('--chartColor8')){
-    this.chartDataSets[0].backgroundColor[7] = this.style.getPropertyValue('--chartColor8');
-  }
-  if(this.style.getPropertyValue('--chartColor9')){
-    this.chartDataSets[0].backgroundColor[8] = this.style.getPropertyValue('--chartColor9');
-  }
-  if(this.style.getPropertyValue('--chartColor10')){
-    this.chartDataSets[0].backgroundColor[9] = this.style.getPropertyValue('--chartColor10');
-  }
-    // this.chartDataSets[0].backgroundColor[1] = this.style.getPropertyValue('--chartColor2');
-    // this.chartDataSets[0].backgroundColor[2] = this.style.getPropertyValue('--chartColor3');
-    // this.chartDataSets[0].backgroundColor[3] = this.style.getPropertyValue('--chartColor4');
-    // this.chartDataSets[0].backgroundColor[4] = this.style.getPropertyValue('--chartColor5');
-    // this.chartDataSets[0].backgroundColor[5] = this.style.getPropertyValue('--chartColor6');
-    // this.chartDataSets[0].backgroundColor[6] = this.style.getPropertyValue('--chartColor7');
-    // this.chartDataSets[0].backgroundColor[7] = this.style.getPropertyValue('--chartColor8');
-    // this.chartDataSets[0].backgroundColor[8] = this.style.getPropertyValue('--chartColor9');
-    // this.chartDataSets[0].backgroundColor[9] = this.style.getPropertyValue('--chartColor10');
+    this.style = getComputedStyle(document.body);
   }
 
 
@@ -99,7 +60,15 @@ export class RdsChartPieComponent implements OnInit {
     }
     this.canvas = document.getElementById(this.chartId);
     if (this.canvas !== null) {
-      // this.canvas.style.backgroundColor = this.canvasBackgroundColor;
+      this.chartDataSets.forEach((element: any) => {
+        element.backgroundColor.forEach((bg: any, index: number) => {
+          if (this.style) {
+            const color = this.style.getPropertyValue(element.backgroundColor[index]);
+            if (color) {
+              element.backgroundColor[index] = color;
+            }          }
+        });
+      });
       this.context = this.canvas.getContext('2d');
 
       const pieChart = new Chart(this.context, {
@@ -110,10 +79,10 @@ export class RdsChartPieComponent implements OnInit {
         },
         options: this.chartOptions
       });
-      if(pieChart !== null){
-        pieChart.canvas.style.height = this.chartHeight+'px'; 
-        pieChart.canvas.style.width = this.chartWidth+'px';
-      } 
+      if (pieChart !== null) {
+        pieChart.canvas.style.height = this.chartHeight + 'px';
+        pieChart.canvas.style.width = this.chartWidth + 'px';
+      }
     }
   }
 

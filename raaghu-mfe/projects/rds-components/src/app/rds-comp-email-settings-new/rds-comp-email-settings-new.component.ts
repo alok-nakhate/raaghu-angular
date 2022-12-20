@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angu
 import { NgForm } from '@angular/forms';
 
 @Component({
-  selector: 'app-rds-comp-email-settings-new',
+  selector: 'rds-comp-email-settings-new',
   templateUrl: './rds-comp-email-settings-new.component.html',
   styleUrls: ['./rds-comp-email-settings-new.component.scss']
 })
@@ -15,15 +15,16 @@ export class RdsCompEmailSettingsNewComponent implements OnInit {
   @Output() emailSettingsInfo = new EventEmitter<any>();
   constructor() { }
   ngAfterViewInit(): void {
-    if (this.emailSettingsData && this.emailSettingsForm) {
-      this.emailSettingsForm.statusChanges.subscribe(res => {
-        if (res === 'VALID') {
-          this.emailSettingsInfo.emit(this.emailSettingsData);
-        } else {
-          this.emailSettingsInfo.emit(undefined);
-        }
-      });
-    }  }
+    // if (this.emailSettingsData && this.emailSettingsForm) {
+    //   this.emailSettingsForm.statusChanges.subscribe(res => {
+    //     if (res === 'VALID') {
+    //       this.emailSettingsInfo.emit(this.emailSettingsData);
+    //     } else {
+    //       this.emailSettingsInfo.emit(undefined);
+    //     }
+    //   });
+    // }
+    }
   ngOnInit(): void {
     if (!this.emailSettingsData) {
       this.emailSettingsData = {};
@@ -32,7 +33,10 @@ export class RdsCompEmailSettingsNewComponent implements OnInit {
       this.emailSettingsData['host'] = '';
       this.emailSettingsData['port'] = '';
       this.emailSettingsData['ssl'] = false;
-      this.emailSettingsData['theme'] = false;
+      this.emailSettingsData['defaultcredentials'] = false;
+      this.emailSettingsData['smtpdomain']='';
+      this.emailSettingsData['smtpusername']='';
+      this.emailSettingsData['smtpPassword']='';
     
     }
   }
@@ -50,6 +54,9 @@ export class RdsCompEmailSettingsNewComponent implements OnInit {
     }
     this.emailSettingsData.emit(this.emailSettingsData);
     
+   }
+   onSaveEmail(): void {
+    this.emailSettingsInfo.emit(this.emailSettingsData)
    }
    
   }

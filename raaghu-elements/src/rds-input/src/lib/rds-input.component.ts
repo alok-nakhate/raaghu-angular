@@ -1,7 +1,6 @@
 import { AfterViewInit, Component, forwardRef, Input, OnInit, ViewEncapsulation } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-// import { Tooltip } from 'bootstrap'
-declare var bootstrap:any;
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Tooltip } from 'bootstrap'
 
 
 @Component({
@@ -21,52 +20,26 @@ export class RdsInputComponent implements AfterViewInit {
   onChange: (value: any) => void = () => { };
   onTouched: () => void = () => { };
 
-  @Input()
-  size?: string;
-
-  @Input()
-  disabled = false;
-
-  @Input() Title = '';
-  @Input() TitleType = '';
-
-  @Input()
-  readonly?: boolean;
-
-  @Input()
-  value = '';
-
-  @Input()
-  inputType = '';
-
-  @Input()
-  placeholder = 'Enter a value';
-
-  @Input()
-  inputName = 'Field_name';
-
-  @Input()
-  icon = '';
+  @Input() size: 'small' | 'medium' | 'large' = 'medium';
+  @Input() disabled = false;
+  @Input() label: string = '';
+  @Input() labelPosition: 'top' | 'bottom' | 'floating' = 'top';
+  @Input() readonly: boolean = false;
+  @Input() value = '';
+  @Input() inputType: string = 'text';
+  @Input() placeholder: string = 'Enter a value';
+  @Input() icon: string = '';
+  @Input() InputId:string='';
   @Input() iconCursor = '';
+  @Input() id:string='rds_inputId_';
   @Input() iconHeight: string = '16px';
   @Input() iconWidth: string = '16px';
   @Input() iconStroke: boolean = true;
   @Input() iconFill: boolean = false;
   @Input() iconOpacity: string = '0.4';
-  @Input()
-  isRequired:boolean = false;
+  @Input() isRequired: boolean = false;
   iconTitle = 'Show';
 
-  // @Input()
-  // ErrorMessage ='Add custom error message'
-
-  // @Input()
-  // validate = false
-
-  @Input()
-  floatinginputLabel?: string
-
-  floatingcontent = false;
 
 
   static count: number = 0;
@@ -75,22 +48,29 @@ export class RdsInputComponent implements AfterViewInit {
 
   @Input() tooltipPlacement: string = 'bottom';
 
-  id: string = 'inputText';
+  /* id: string = 'inputText'; */
 
   constructor() {
-    this.id = this.id + RdsInputComponent.count++
+   
   }
+  
+
 
   ngAfterViewInit(): void {
     if (this.tooltipPlacement && this.tooltipTitle) {
-      const tooltipElement: any = document.getElementById(this.id)
-      // update
-      if (tooltipElement) {
-        let bsTooltip = new bootstrap.Tooltip(tooltipElement)
-        tooltipElement.title = this.tooltipTitle
-        bsTooltip = new bootstrap.Tooltip(tooltipElement)
-
+      const tooltipTriggerList: any = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      if (this.tooltipTitle && tooltipTriggerList) {
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new Tooltip(tooltipTriggerEl));
       }
+    }
+  }
+
+  ngOnInit(){
+    if (this.InputId=='')
+    {this.id = this.id + RdsInputComponent.count++;
+    }
+    else {
+      this.id=this.id+ this.InputId;
     }
   }
 
@@ -112,29 +92,17 @@ export class RdsInputComponent implements AfterViewInit {
     this.onTouched();
   }
 
-  //   onKeyup(event: any){
-  //     this.onChange(event.target.value)
-  //  }
   onMouseup(event: any) {
     this.onChange(event.target.value)
   }
-  //  focus(){
-  //   this.onTouched()
-  //  }
 
   public get classes(): string[] {
     var classList = ['form-control'];
-    // if(this.validate === true){
-    //   classList.push('is-invalid')
-    // }
     if (this.size === 'small') {
       var selectSize = 'form-control-sm';
       classList.push(selectSize);
     } else if (this.size === 'large') {
       var selectSize = 'form-control-lg';
-      classList.push(selectSize);
-    } else {
-      var selectSize = '';
       classList.push(selectSize);
     }
 
@@ -147,8 +115,10 @@ export class RdsInputComponent implements AfterViewInit {
 
   public get floatclasses(): string[] {
     var classList = [''];
-    if (this.TitleType === 'Floating') {
+    if (this.labelPosition === 'floating') {
       classList.push('form-floating');
+    } else if (this.labelPosition === 'bottom'){
+      classList.push('d-flex flex-column-reverse mb-2');
     } else {
       classList.push('d-flex flex-column-reverse');
     }
@@ -157,11 +127,9 @@ export class RdsInputComponent implements AfterViewInit {
 
   public get labelClass(): string[] {
     var classList = [''];
-    if (this.TitleType === 'Floating') {
-      classList.push('d-none');
-    } else if (this.TitleType === 'Top') {
+    if (this.labelPosition === 'top') {
       classList.push('mb-2');
-    } else if (this.TitleType === 'Bottom') {
+    } else if (this.labelPosition === 'bottom') {
       classList.push('d-block mt-2');
     }
     else {
@@ -189,12 +157,7 @@ export class RdsInputComponent implements AfterViewInit {
 
   public get divclasses(): string[] {
     var classList = [''];
-    // if (this.TitleType === 'Left') {
-    //   classList.push('d-flex align-items-baseline flex-row-reverse justify-content-end gap-3');
-    // } else if (this.TitleType === 'Right') {
-    //   classList.push('d-flex align-items-baseline gap-3');
-    // } else 
-    if (this.TitleType === 'Bottom') {
+    if (this.labelPosition === 'bottom') {
       classList.push('d-block mt-2');
     } else {
       classList.push('d-flex flex-column-reverse');
@@ -202,24 +165,17 @@ export class RdsInputComponent implements AfterViewInit {
     return classList;
   }
 
-  public get formState(): string {
-    var state = 'd-none';
-    if (this.disabled === true) {
-      var state = '';
-      return state;
-    }
-    return state;
-  }
-
   showPassword(event: string) {
-    if (event == 'password'){
+    if (event == 'password') {
       this.inputType = 'text';
-      this.icon='eye_slash';
+      this.icon = 'eye_slash';
       this.iconTitle = 'Hide';
-    } else if (event == 'text'){
+    } else if (event == 'text') {
       this.inputType = 'password';
-      this.icon='eye';
+      this.icon = 'eye';
       this.iconTitle = 'Show';
     }
   }
+
+
 }

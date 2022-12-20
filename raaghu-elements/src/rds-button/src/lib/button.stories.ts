@@ -21,12 +21,13 @@ export default {
     },
     tooltipPlacement: {
       options: ['top', 'bottom', 'right', 'left'],
-      control: { type: 'radio' }
+      control: { type: 'select' }
     },
     size: {
       options: ['small', 'medium', 'large'],
       control: { type: 'select' }
-    }
+    },
+    buttonType: { table: { disable: true, }, },
   }
 } as Meta;
 
@@ -38,94 +39,111 @@ const tooltipTemplate: Story<RdsButtonComponent> = (args: RdsButtonComponent) =>
   props: args,
   template: `<div class="row m-5">
   <div class="col-md-12 text-center">
-<rds-button [label]="label" [colorVariant]="colorVariant" [size]="size" [tooltipTitle]="tooltipTitle" [tooltipPlacement]="tooltipPlacement"></rds-button>
+<rds-button  [label]="label" [colorVariant]="colorVariant" [size]="size" 
+[tooltipTitle]="tooltipTitle" [tooltipPlacement]="tooltipPlacement"></rds-button>
 </div>
 </div>`
 });
 
-
-
 export const Default = Template.bind({});
-Default.parameters = { controls: { include: ['colorVariant', 'label', 'size'] } };
+Default.parameters = { controls: { include: ['buttonId','colorVariant', 'label', 'size'] } };
 Default.args = {
+  buttonId:'',
   colorVariant: 'primary',
   label: 'button',
   size: 'medium',
+  //buttonType: 'labelOnly'
 };
 
 export const disable = Template.bind({});
-disable.parameters = { controls: { include: ['colorVariant', 'label', 'size', 'disabled'] } };
+disable.parameters = { controls: { include: ['buttonId','colorVariant', 'label', 'size', 'isDisabled'] } };
 disable.args = {
+  buttonId:'',
+  colorVariant:'primary',
   label: 'Disable',
-  disabled: true,
+  isDisabled: true,
   size: 'medium',
-
+  //buttonType: 'labelOnly'
 };
 
 export const outline = Template.bind({});
-outline.parameters = { controls: { include: ['colorVariant', 'label', 'size', 'outlineButton'] } };
+outline.parameters = { controls: { include: ['buttonId','colorVariant', 'label', 'size', 'isOutline'] } };
 outline.args = {
-  outlineButton: true,
+  buttonId:'',
+  isOutline: true,
   colorVariant: 'primary',
   label: 'outline',
   size: 'medium',
+  //buttonType: 'labelOnly'
 };
 
 
 export const rounded_Button_With_Icon = Template.bind({});
-rounded_Button_With_Icon.parameters = { controls: { include: ['roundedButton', 'colorVariant', 'label', 'size', 'icon', 'iconHeight', 'iconWidth', 'iconFill', 'iconStroke'] } };
+rounded_Button_With_Icon.parameters = { controls: { include: ['buttonId','isFabIcon', 'colorVariant', 'size', 'icon', 
+'iconHeight', 'iconWidth', 'isIconFill', 'isIconStroke', 'tooltipPlacement', 'tooltipTitle',] } };
 rounded_Button_With_Icon.args = {
+  buttonId:'',
   icon: 'plus',
   colorVariant: 'primary',
   size: 'medium',
   iconHeight: '18px',
   iconWidth: '18px',
-  iconFill: false,
-  iconStroke: true,
-  roundedButton: true
+  isIconFill: false,
+  isIconStroke: true,
+  isFabIcon: true,
+  //buttonType: 'iconOnly',
+  tooltipPlacement: 'right',
+  tooltipTitle: 'This is tooltip',
 };
 
 
 export const rounded_Corner_Button = Template.bind({});
-rounded_Corner_Button.parameters = { controls: { include: ['roundedCorner', 'colorVariant', 'label', 'size'] } };
+rounded_Corner_Button.parameters = { controls: { include: ['buttonId','isRounded', 'colorVariant', 'label', 'size'] } };
 rounded_Corner_Button.args = {
+  buttonId:'',
   label: 'Rounded Corner',
   colorVariant: 'primary',
   size: 'medium',
-  roundedCorner: true
+  isRounded: true,
+  //buttonType: 'labelOnly'
 };
 
 
 export const block_Button = Template.bind({});
-block_Button.parameters = { controls: { include: ['block', 'colorVariant', 'label', 'size'] } };
+block_Button.parameters = { controls: { include: ['buttonId','block', 'colorVariant', 'label', 'size'] } };
 block_Button.args = {
+  buttonId:'',
   colorVariant: 'primary',
   size: 'medium',
   block: true,
-  label: 'Block'
+  label: 'Block',
+  //buttonType: 'labelOnly'
 };
 
 export const with_Icon_And_Label = Template.bind({});
-with_Icon_And_Label.parameters = { controls: { include: ['colorVariant', 'label', 'size', 'icon', 'iconHeight', 'iconWidth', 'iconFill', 'iconStroke'] } };
+with_Icon_And_Label.parameters = { controls: { include: ['buttonId','colorVariant', 'label', 'size', 'icon', 'iconHeight', 'iconWidth', 'isIconFill', 'isIconStroke'] } };
 with_Icon_And_Label.args = {
+  buttonId:'',
   icon: 'plus',
   colorVariant: 'primary',
   label: 'button',
   size: 'medium',
   iconHeight: '18px',
   iconWidth: '18px',
-  iconFill: false,
-  iconStroke: true
-
+  isIconFill: false,
+  isIconStroke: true,
+  //buttonType: 'iconLabel'
 };
 export const tooltip = tooltipTemplate.bind({});
-tooltip.parameters = { controls: { include: ['colorVariant', 'label', 'size', 'tooltipPlacement', 'tooltipTitle'] } };
+tooltip.parameters = { controls: { include: ['buttonId','colorVariant', 'label', 'size', 'tooltipPlacement', 'tooltipTitle' ] } };
 tooltip.args = {
+  buttonId:'',
   colorVariant: 'primary',
   label: 'button',
   size: 'medium',
   tooltipPlacement: 'right',
-  tooltipTitle: 'This is tooltip'
+  tooltipTitle: 'This is tooltip',
+  //buttonType: 'labelOnly'
 };
 
 

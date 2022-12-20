@@ -1,0 +1,194 @@
+<form #clientAdvancedForm="ngForm">
+    <div class="row">
+        <!-- Tokens -->
+        <div class="border-bottom pb-2 my-2">
+            <rds-label [label]="translate.instant('Tokens')"></rds-label>
+        </div>
+        <div class="col-md-6 my-2">
+            <div class="form-group">
+                <rds-input [inputType]="'number'" [label]="translate.instant('Access Token Lifetime')"
+                    [labelPosition]="'top'" [(ngModel)]="clientAdvancedObj.accessTokenLifetime" name="accessTokenLifetime"
+                    [placeholder]="'Enter Access Token Lifetime'">
+                </rds-input>
+            </div>
+        </div>
+        <div class="col-md-6 my-2">
+            <div class="form-group">
+                <rds-input [inputType]="'number'" [label]="translate.instant('Access Token Type')" [labelPosition]="'top'"
+                    [(ngModel)]="clientAdvancedObj.accessTokenType" name="accessTokenType"
+                    [placeholder]="'Enter Access Token Type'">
+                </rds-input>
+            </div>
+        </div>
+        <div class="col-md-6 my-2">
+            <div class="form-group">
+                <rds-input [inputType]="'number'" [label]="translate.instant('Consent Lifetime')" [labelPosition]="'top'"
+                    [(ngModel)]="clientAdvancedObj.consentLifetime" name="consentLifetime"
+                    [placeholder]="'Enter Consent Lifetime'">
+                </rds-input>
+            </div>
+        </div>
+        <div class="col-md-6 my-2">
+            <div class="form-group">
+                <rds-input [inputType]="'text'" [label]="translate.instant('Pair wise Subject Salt')"
+                    [labelPosition]="'top'" [(ngModel)]="clientAdvancedObj.pairWiseSubjectSalt" name="pairWiseSubjectSalt"
+                    [placeholder]="'Enter Subject Salt'">
+                </rds-input>
+            </div>
+        </div>
+        <div class="col-md-6 my-2">
+            <div class="form-group">
+                <rds-input [inputType]="'number'" [label]="translate.instant('User SSO Lifetime')" [labelPosition]="'top'"
+                    [(ngModel)]="clientAdvancedObj.userSsoLifetime" name="userSsoLifetime"
+                    [placeholder]="'Enter SSO Lifetime'">
+                </rds-input>
+            </div>
+        </div>
+        <div class="col-md-6 my-2">
+            <div class="form-group">
+                <rds-input [inputType]="'number'" [label]="translate.instant('User Code Type')" [labelPosition]="'top'"
+                    [(ngModel)]="clientAdvancedObj.userCodeType" name="userCodeType"
+                    [placeholder]="'Enter User Code Type'">
+                </rds-input>
+            </div>
+        </div>
+        <div class="col-md-6 my-2">
+            <div class="form-group">
+                <rds-input [inputType]="'number'" [label]="translate.instant('Device Code Type')" [labelPosition]="'top'"
+                    [(ngModel)]="clientAdvancedObj.deviceCodeLifetime" name="deviceCodeLifetime"
+                    [placeholder]="'Enter Device Code Type'">
+                </rds-input>
+            </div>
+        </div>
+        <div class="col-md-12 mt-3">
+            <div class="form-group">
+                <rds-checkbox [disabled]="false" [label]="translate.instant('Require PKCE')"
+                    [checked]="clientAdvancedObj.requirePkce" [(ngModel)]="clientAdvancedObj.requirePkce"
+                    name="requirePkce" [withLabel]="true" [switch]="false" [inline]="false" [id]="'requirePxce'">
+                </rds-checkbox>
+            </div>
+        </div>
+        <div class="col-md-12 mt-3">
+            <div class="form-group">
+                <rds-checkbox [disabled]="false" [label]="translate.instant('Require Client Secret')"
+                    [checked]="clientAdvancedObj.requireClientSecret"
+                    [(ngModel)]="clientAdvancedObj.requireClientSecret" name="requireClientSecret" [withLabel]="true"
+                    [switch]="false" [inline]="false" [id]="'requirePxce'">
+                </rds-checkbox>
+            </div>
+        </div>
+
+        <!-- Cliams -->
+        <div class="border-bottom pb-2 my-2">
+            <rds-label [label]="translate.instant('Claims')"></rds-label>
+        </div>
+        <div class="col-md-12 mt-3">
+            <div class="form-group">
+                <rds-checkbox [disabled]="false" [label]="translate.instant('Always Send Client Claims')"
+                    [checked]="clientAdvancedObj.alwaysSendClientClaims"
+                    [(ngModel)]="clientAdvancedObj.alwaysSendClientClaims" name="alwaysSendClientClaims"
+                    [withLabel]="true" [switch]="false" [inline]="false" [id]="'requirePxce'">
+                </rds-checkbox>
+            </div>
+        </div>
+        <div class="my-3">
+            <mfe-loader [config]="rdsClaimsDataTableConfig"></mfe-loader>
+        </div>
+        <div class="col-md-6 my-2">
+            <div class="form-group">
+                <rds-input [inputType]="'text'" [label]="translate.instant('Type')" [labelPosition]="'top'"
+                    [(ngModel)]="claimsDataObj.type" name="cliamsType" [placeholder]="'Enter Claim Type'">
+                </rds-input>
+            </div>
+        </div>
+        <div class="col-md-6 my-2">
+            <div class="form-group">
+                <rds-input [inputType]="'text'" [label]="translate.instant('Value')" [labelPosition]="'top'"
+                    [(ngModel)]="claimsDataObj.value" name="cliamsValue" [placeholder]="'Enter Claim Value'">
+                </rds-input>
+            </div>
+        </div>
+
+        <div class="my-2">
+            <rds-button [label]="translate.instant('ADD')" [colorVariant]="'primary'"
+                (onClick)="addClaims(claimsDataObj.type, claimsDataObj.value)">
+            </rds-button>
+        </div>
+
+        <!-- Grand Types -->
+        <div class="border-bottom pb-2 my-2">
+            <rds-label [label]="translate.instant('Grand Types')"></rds-label>
+        </div>
+        <div class="my-3">
+            <mfe-loader [config]="rdsGrantTypesDataTableConfig"></mfe-loader>
+        </div>
+        <div class="col-md-6 my-2">
+            <div class="form-group">
+                <rds-dropdownlist class="mt-2" [placeholder]="'Select Type'" [size]="'large'"
+                     [listItems]="grantTypeData" (onSelect)="selectedGrantType($event)">
+                </rds-dropdownlist>
+            </div>
+        </div>
+        <div class="my-2">
+            <rds-button [label]="translate.instant('ADD')" [colorVariant]="'primary'" (onClick)="addGrantTypes()">
+            </rds-button>
+        </div>
+
+        <!-- Restrictions -->
+        <div class="border-bottom pb-2 my-2">
+            <rds-label [label]="translate.instant('Restrictions')"></rds-label>
+        </div>
+        <div class="col-md-12 mt-3">
+            <div class="form-group">
+                <rds-checkbox [disabled]="false" [label]="translate.instant('Enable local login')"
+                    [checked]="clientAdvancedObj.enableLocalLogin" [(ngModel)]="clientAdvancedObj.enableLocalLogin"
+                    name="enableLocalLogin" [withLabel]="true" [switch]="false" [inline]="false" [id]="'requirePxce'">
+                </rds-checkbox>
+            </div>
+        </div>
+        <div class="my-3">
+            <mfe-loader [config]="rdsRestrictionsDataTableConfig"></mfe-loader>
+        </div>
+        <div class="col-md-12 my-2">
+            <div class="form-group">
+                <rds-input [inputType]="'text'" [label]="translate.instant('Name')" [labelPosition]="'top'"
+                    [(ngModel)]="restrictionsDataObj.name" name="restrictionsDataName"
+                    [placeholder]="'Enter User Code Type'">
+                </rds-input>
+            </div>
+        </div>
+        <div class="my-2">
+            <rds-button [label]="translate.instant('ADD')" (onClick)="addRestrictions(restrictionsDataObj.name)"
+                [colorVariant]="'primary'">
+            </rds-button>
+        </div>
+
+        <!-- Properties -->
+        <div class="border-bottom pb-2 my-2">
+            <rds-label [label]="translate.instant('Properties')"></rds-label>
+        </div>
+        <div class="my-3">
+            <mfe-loader [config]="rdsPropertiesDataTableConfig"></mfe-loader>
+        </div>
+        <div class="col-md-6 my-2">
+            <div class="form-group">
+                <rds-input [inputType]="'text'" [label]="translate.instant('Key')" [labelPosition]="'top'"
+                    [(ngModel)]="propertiesDataObj.key" name="propertiesKey" [placeholder]="'Enter Property Key'">
+                </rds-input>
+            </div>
+        </div>
+        <div class="col-md-6 my-2">
+            <div class="form-group">
+                <rds-input [inputType]="'text'" [label]="translate.instant('Value')" [labelPosition]="'top'"
+                    [(ngModel)]="propertiesDataObj.value" name="propertiesValue"
+                    [placeholder]="'Enter Property Value'">
+                </rds-input>
+            </div>
+        </div>
+        <div class="my-2">
+            <rds-button [label]="translate.instant('ADD')" [colorVariant]="'primary'"
+                (onClick)="addProperties(propertiesDataObj.key, propertiesDataObj.value)">
+            </rds-button>
+        </div>
+    </div>
+</form>

@@ -1,16 +1,21 @@
 export class PermissionNode {
-    constructor(
+    public displayName: string;
+    public name: string;
+    public permissions: Permission[]
+}
 
-        public   description: string,
-        public displayName: string,
-        public isGrantedByDefault: boolean,
-        public level: number,
-        public name: string,
-        public parentName: string,
-        public children: PermissionNode[] = [],
-        public selected: boolean = false,
-   
-    ) {}
+export class Permission {
+    public name: string;
+    public displayName: string;
+    public parentName: string;
+    public isGranted: boolean;
+    public allowedProviders: string[];
+    public grantedProviders: Provider[];
+}
+
+export class Provider {
+    public providerName!: string;
+    public providerKey!: string;
 }
 export class TreeType {
     public IconLabel: boolean;

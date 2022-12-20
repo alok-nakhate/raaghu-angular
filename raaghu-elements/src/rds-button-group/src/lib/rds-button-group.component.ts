@@ -1,5 +1,18 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
+export interface ButtonGroupItem {
+  id?: any;
+  label?: string;
+  value?: any;
+  checked?: boolean;
+  colorVariant?: string;
+  icon?: string;
+  name?: any;
+  iconHeight?: any;
+  iconWidth?: any;
+  iconStroke?: boolean;
+  iconFill?: boolean;
+}
 @Component({
   selector: 'rds-button-group',
   templateUrl: './rds-button-group.component.html',
@@ -16,9 +29,6 @@ export class RdsButtonGroupComponent implements OnInit {
   vertical = false;
 
   @Input()
-  colorVariant: 'primary' | 'secondary' | 'danger' | 'success' | 'warning' | 'info' | 'light' | 'dark' = 'primary';
-
-  @Input()
   outline = false;
 
   @Input()
@@ -32,69 +42,38 @@ export class RdsButtonGroupComponent implements OnInit {
    * How large should the button be?
    */
   @Input()
-  buttonGroupItem: any[] = [
-    {
-      label: 'Left',
-      icon: '',
-      id: '0',
-      name: '',
-      iconHeight: '',
-      iconWidth: '',
-      iconStroke: true,
-      iconFill: false
-    },
-    {
-      label: 'Middle',
-      icon: '',
-      id: '1',
-      name: '',
-      iconHeight: '',
-      iconWidth: '',
-      iconStroke: true,
-      iconFill: false
-    },
-    {
-      label: 'Right',
-      icon: '',
-      id: '2',
-      name: '',
-      iconHeight: '',
-      iconWidth: '',
-      iconStroke: true,
-      iconFill: false
-    },
-  ];
+  buttonGroupItem: ButtonGroupItem[];
 
-  @Input() activeButton!: number;
+@Input() activeButton!: number;
 
-  // tslint:disable-next-line:no-output-on-prefix
-  @Output() onClick = new EventEmitter<any>();
+// tslint:disable-next-line:no-output-on-prefix
+@Output() onClick = new EventEmitter<any>();
 
-  constructor() { }
+constructor() { }
 
-  ngOnInit(): void {
-    // this.activeButton = 0;
-  }
+ngOnInit(): void {
+  // this.activeButton = 0;
+}
 
   public get classes(): string {
-    const mode = `${this.vertical ? 'btn-group-vertical' : 'btn-group'}`;
-    const mode2 = ` btn-group-${this.size === 'small' ? 'sm' : this.size === 'large' ? 'lg' : 'md'}`;
-    return mode + mode2;
-  }
+  const mode = `${this.vertical ? 'btn-group-vertical' : 'btn-group'}`;
+  const mode2 = ` btn-group-${this.size === 'small' ? 'sm' : this.size === 'large' ? 'lg' : 'md'}`;
+  return mode + mode2;
+}
 
   public itemClass(item: any): string {
-    const mode = `${this.outline ? 'btn btn-outline-' + item.colorVariant : 'btn btn-'+ item.colorVariant}`;
-    return mode;
-  }
+  const mode = `${this.outline ? 'btn btn-outline-' + item.colorVariant : 'btn btn-' + item.colorVariant}`;
+  return mode;
+}
 
-  onButtonClick(i: any): void {
-    this.activeButton = i;
-    if (this.role === 'radio') {
-      this.onClick.emit(this.selectedRadio);
-    } else {
-      this.onClick.emit(i);
+onButtonClick(i: any): void {
+  this.activeButton = i;
+  if(this.role === 'radio') {
+  this.onClick.emit(this.selectedRadio);
+} else {
+  this.onClick.emit(i);
 
-    }
+}
   }
 
 

@@ -3,6 +3,7 @@ import { ComponentLoaderOptions } from '@libs/shared';
 import { TranslateService } from '@ngx-translate/core';
 import { TableHeader } from '../../models/table-header.model';
 
+declare var bootstrap: any;
 @Component({
   selector: 'rds-comp-user-table',
   templateUrl: './rds-comp-user-table.component.html',
@@ -20,7 +21,12 @@ export class RdsCompUserTableComponent implements OnInit {
   listcountrycode: any[] = []
   Isenabled: boolean;
   username: string;
+  buttonSpinnerForUserTable: boolean = false;
   countrycode: string;
+  public viewCanvas: boolean = false;
+  activePage: number = 0;
+  canvasTitle: string = 'New User';
+  navtabsItems: any = [];
   constructor(public translate:TranslateService) { }
 
   ngOnInit(): void {
@@ -64,4 +70,20 @@ export class RdsCompUserTableComponent implements OnInit {
     this.username = Result.item.value
   }
 
+  openCanvas(): void {
+    this.buttonSpinnerForUserTable = true;
+    this.viewCanvas = true;
+    this.activePage = 0;
+    this.canvasTitle = 'Add User';
+    setTimeout(() => {
+      var offcanvas = document.getElementById('AddUser');
+      var bsOffcanvas = new bootstrap.Offcanvas(offcanvas);
+      bsOffcanvas.show();
+    }, 100);
+  }
+
+  closeCanvas(): void {
+    this.viewCanvas = false;
+    this.buttonSpinnerForUserTable = false;
+  }
 }

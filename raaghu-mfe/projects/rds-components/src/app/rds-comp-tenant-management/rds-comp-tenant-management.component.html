@@ -1,13 +1,13 @@
-<ul class="list-unstyled pt-5" *ngIf="!editShimmer">
+<ul class="list-unstyled pt-4" *ngIf="!editShimmer">
   <li>
     <div class="mb-3 fw-medium">
     <rds-label [label]="translate.instant('Form-Based Registration')"></rds-label>
   </div>
   </li>
   <li>
-    <div class="form-group mb-2">
+    <div class="form-group mb-3">
     <rds-checkbox [disabled]="false" [label]="translate.instant('Allow Tenants To Register To The System')+'.'"
-      [checked]="dataset.allowSelfRegistration" [(ngModel)]="dataset.allowSelfRegistration" name="default"
+      [checked]="settings.allowSelfRegistration" [(ngModel)]="settings.allowSelfRegistration" name="default"
       [withLabel]="true" [switch]="false" [inline]="false" [id]="'isDefault'"
       (onChange)="selectAllFeature($event,'useDefault')"></rds-checkbox>
     <h6 class="text-muted pt-2">{{translate.instant("If You Disable This, Tenants Will Only Be Added By Admin Using Tenant Management Page")}}.</h6>
@@ -19,10 +19,10 @@
     </div>
   </li>
   <li>
-    <div class="form-group mb-1 mt-2">
+    <div class="form-group mb-3 mt-2">
       <rds-checkbox [disabled]="false" [label]="translate.instant('Allow Tenants To Register To The System')+'.'"
-        [checked]="dataset.isNewRegisteredTenantActiveByDefault"
-        [(ngModel)]="dataset.isNewRegisteredTenantActiveByDefault" name="allowTenants" [withLabel]="true" [switch]="false"
+        [checked]="settings.isNewRegisteredTenantActiveByDefault"
+        [(ngModel)]="settings.isNewRegisteredTenantActiveByDefault" name="allowTenants" [withLabel]="true" [switch]="false"
         [inline]="false" [id]="'isRegister'" (onChange)="selectAllFeature($event,'allowTenants')"></rds-checkbox>
 
       <h6 class="text-muted pt-2">{{translate.instant("If You Disable This, New Tenants Will Not Be Active (And Can Not Login) Until Admin Manually Activates The Account")}}.</h6>
@@ -32,7 +32,7 @@
     <div class="form-group mb-2 mt-4">
       <rds-checkbox [disabled]="false"
         [label]="translate.instant('Use Security Image Question (Captcha) On Registration.')"
-        [checked]="dataset.useCaptchaOnRegistration" [(ngModel)]="dataset.useCaptchaOnRegistration"
+        [checked]="settings.useCaptchaOnRegistration" [(ngModel)]="settings.useCaptchaOnRegistration"
         name="useSecurityImage" [withLabel]="true" [switch]="false" [inline]="false" [id]="'isSecurityImage'"
         (onChange)="selectAllFeature($event,'securityImage')"></rds-checkbox>
     </div>
@@ -41,13 +41,28 @@
     <div class="row">
       <div class="col-md-5">
         <div class="form-group mb-2 mt-4">
-          <rds-select-list [(ngModel)]="dataset.defaultEditionId" [label]="translate.instant('Edition')" [value]="dataset.defaultEditionId"
+          <!-- <rds-select-list [(ngModel)]="dataset.defaultEditionId" [label]="translate.instant('Edition')" [value]="dataset.defaultEditionId"
             ngDefaultControl name="defaultEditionId" [labelPosition]="'top'" [itemList]="settingsTenantEditionList"
             (change)="getAllowTenants($event)">
-          </rds-select-list>
+          </rds-select-list> -->
+          <div class="mb-2">
+            <rds-label [label]="translate.instant('Edition')"></rds-label>
+          </div>
+          <rds-dropdownlist [placeholder]="translate.instant('Edition')" 
+          [borderDropdown]="true"
+          class="text-dark dropdown-border"
+          [id]="'edition-dropdown'"
+          [(ngModel)]="settings.defaultEditionId"  
+          [listItems]="settingsTenantEditionList" #inputNameData="ngModel" required
+          [multiSelect]="false"
+          [dropdownHeight]="'190'"
+          [selectAll]="false"
+          [entity]="false"
+          ngDefaultControl name="defaultEditionId" >
+          </rds-dropdownlist>
         </div>
       </div>
     </div>
   </li>
 </ul>
-<app-rds-comp-tenant-management-shimmer *ngIf="editShimmer"></app-rds-comp-tenant-management-shimmer>
+<rds-comp-tenant-management-shimmer *ngIf="editShimmer"></rds-comp-tenant-management-shimmer>

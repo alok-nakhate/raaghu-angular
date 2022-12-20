@@ -1,25 +1,34 @@
 <div *ngIf="!editShimmer">
     <div class="tab-content py-4">
-        <form #tenantCreationForm="ngForm">
+        <form #tenantFeatureForm="ngForm">
             <div class="row align-items-center">
                 <div class="col-md-12 border-bottom">
                     <rds-label [label]="'Identity'"></rds-label>
                 </div>
                 <div class="col-md-8 sm-p-0">
                     <div class="form-group mb-3 mt-3">
-                        <rds-select-list [(ngModel)]="tenantData.edition" [label]="translate.instant('Edition')"
-                            [value]="tenantData.edition" ngDefaultControl LabelType="Top" name="edition"
-                            [itemList]="editionList" [placeholder]="'Optional'">
+                        <rds-select-list [(ngModel)]="tenantFeatures[0].value" [label]="translate.instant('Edition')"
+                            [value]="tenantFeatures[0].value" ngDefaultControl LabelType="Top" name="edition" name="twoFactorList"
+                            [itemList]="twoFactorList" >
                         </rds-select-list>
                     </div>
                     <div class="form-group mb-3">
                         <rds-label [label]="'Maximum user count'"></rds-label>
                         <div class="mt-2">
-                            <rds-counter [counterValue]="0" label="" [width]="124" colorVariant="primary"
-                                (counterChange)="counterVal($event)" [(ngModel)]="sampleCounter" name="sampleCounter">
+                            <rds-counter [counterValue]="tenantFeatures[1].value" label="" [width]="124" colorVariant="primary"
+                                (counterChange)="counterVal($event)" [(ngModel)]="tenantFeatures[1].value" name="sampleCounter">
                             </rds-counter>
                         </div>
                     </div>
+                    <rds-checkbox [disabled]="false" [label]="translate.instant('Enable Ldap Login')"
+                    (onChange)="getCheckboxValue($event,'identity 1')" [withLabel]="true"
+                    [checked]="tenantFeatures[2].value" [switch]="false" [inline]="false"
+                    [id]="'identity'" ></rds-checkbox>
+
+                    <rds-checkbox [disabled]="false" [label]="translate.instant('Enable OAuth Login')"
+                    (onChange)="getCheckboxValue($event,'identity 2')" [withLabel]="true"
+                    [checked]="tenantFeatures[3].value" [switch]="false" [inline]="false"
+                    [id]="'identity'" ></rds-checkbox>
                 </div>
             </div>
             <div class="row">
@@ -28,11 +37,15 @@
                 </div>
                 <div class="col-md-6 sm-p-0 mt-4">
                     <div class="form-group mb-3">
-                        <rds-checkbox [disabled]="false" [label]="translate.instant('Enable Settings Management')"
-                            name="check-box" [withLabel]="true" [switch]="false" [inline]="false"
-                            [checked]="EnableSettingsManagement" [(ngModel)]="EnableSettingsManagement"
-                            name="EnableSettingsManagement" [withLabel]="true" [switch]="false" [inline]="false"
-                            [id]="'EnableSettingsManagement'"></rds-checkbox>
+                            <rds-checkbox [disabled]="false" [label]="translate.instant('Enable Settings Management')"
+                            (onChange)="getCheckboxValue($event,'settingManagment 1')" [withLabel]="true"
+                            [checked]="tenantFeatures[4].value" [switch]="false" [inline]="false"
+                            [id]="'settingManagment'" ></rds-checkbox>
+
+                            <rds-checkbox [disabled]="false" [label]="translate.instant('Allow tenants to change email settings.')"
+                            (onChange)="getCheckboxValue($event,'settingManagment 2')" [withLabel]="true"
+                            [checked]="tenantFeatures[5].value" [switch]="false" [inline]="false"
+                            [id]="'settingManagment'" ></rds-checkbox>
                     </div>
                 </div>
             </div>
@@ -43,10 +56,9 @@
                 <div class="col-md-6 sm-p-0 mt-4">
                     <div class="form-group mb-3">
                         <rds-checkbox [disabled]="false" [label]="translate.instant('Enable Language Management')"
-                            name="check-box" [withLabel]="true" [switch]="false" [inline]="false"
-                            [checked]="EnableLanguageManagement" [(ngModel)]="EnableLanguageManagement"
-                            name="EnableLanguageManagement" [withLabel]="true" [switch]="false" [inline]="false"
-                            [id]="'EnableLanguageManagement'"></rds-checkbox>
+                        (onChange)="getCheckboxValue($event,'languageManagement')" [withLabel]="true"
+                        [checked]="tenantFeatures[6].value" [switch]="false" [inline]="false"
+                        [id]="'languageManagement'" ></rds-checkbox>
                     </div>
                 </div>
             </div>
@@ -56,11 +68,10 @@
                 </div>
                 <div class="col-md-6 sm-p-0 mt-4">
                     <div class="form-group mb-3">
-                        <rds-checkbox [disabled]="false" [label]="translate.instant('Enable Text Template Management')"
-                            name="check-box" [withLabel]="true" [switch]="false" [inline]="false"
-                            [checked]="EnableTextTemplateManagement" [(ngModel)]="EnableTextTemplateManagement"
-                            name="EnableTextTemplateManagement" [withLabel]="true" [switch]="false" [inline]="false"
-                            [id]="'EnableTextTemplateManagement'"></rds-checkbox>
+                            <rds-checkbox [disabled]="false" [label]="translate.instant('Enable TextTemplate Management')"
+                            (onChange)="getCheckboxValue($event,'textTemplateManagement')" [withLabel]="true"
+                            [checked]="tenantFeatures[7].value" [switch]="false" [inline]="false"
+                            [id]="'textTemplateManagement'" ></rds-checkbox> 
                     </div>
                 </div>
             </div>
@@ -70,11 +81,10 @@
                 </div>
                 <div class="col-md-6 sm-p-0 mt-4">
                     <div class="form-group mb-3">
-                        <rds-checkbox [disabled]="false" [label]="translate.instant('Enable Theme Management')"
-                            name="check-box" [withLabel]="true" [switch]="false" [inline]="false"
-                            [checked]="EnableThemeManagement" [(ngModel)]="EnableThemeManagement"
-                            name="EnableThemeManagement" [withLabel]="true" [switch]="false" [inline]="false"
-                            [id]="'EnableThemeManagement'"></rds-checkbox>
+                            <rds-checkbox [disabled]="false" [label]="translate.instant('Enable Theme Management')"
+                            (onChange)="getCheckboxValue($event,'themeManagement')" [withLabel]="true"
+                            [checked]="tenantFeatures[8].value" [switch]="false" [inline]="false"
+                            [id]="'themeManagement'" ></rds-checkbox> 
                     </div>
                 </div>
             </div>
@@ -84,38 +94,22 @@
                 </div>
                 <div class="col-md-6 sm-p-0 mt-4">
                     <div class="form-group mb-3">
-                        <rds-checkbox [disabled]="false" [label]="translate.instant('Enable Audit Logging Page')"
-                            name="check-box" [withLabel]="true" [switch]="false" [inline]="false"
-                            [checked]="EnableAuditLoggingPage" [(ngModel)]="EnableAuditLoggingPage" name="EnableAuditLoggingPage"
-                            [withLabel]="true" [switch]="false" [inline]="false" [id]="'EnableAuditLoggingPage'">
-                        </rds-checkbox>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12 pb-2 mt-3 border-bottom text-muted">
-                    <rds-label [label]="'Accounts'"></rds-label>
-                </div>
-                <div class="col-md-6 sm-p-0 mt-4">
-                    <div class="form-group mb-3">
-                        <rds-checkbox [disabled]="false" [label]="translate.instant('Enable Audit Logging Page')"
-                            name="check-box" [withLabel]="true" [switch]="false" [inline]="false"
-                            [checked]="AuditLoggingPage" [(ngModel)]="AuditLoggingPage"
-                            name="AuditLoggingPage" [withLabel]="true" [switch]="false" [inline]="false"
-                            [id]="'AuditLoggingPage'"></rds-checkbox>
+                        <rds-checkbox [disabled]="false" [label]="translate.instant('Enable auditLoggingPage')"
+                            (onChange)="getCheckboxValue($event,'auditLoggingPage')" [withLabel]="true"
+                            [checked]="tenantFeatures[9].value" [switch]="false" [inline]="false"
+                            [id]="'auditLoggingPage'" ></rds-checkbox>
                     </div>
                 </div>
             </div>
         </form>
     </div>
     <div class="footer-buttons my-2 sm-p-0">
-        <rds-button [label]="translate.instant('Cancel')" [colorVariant]="'primary'" [size]="'small'"
-            (click)="onCanceled()" data-bs-dismiss="offcanvas">
+        <rds-button [label]="translate.instant('CANCEL')" [colorVariant]="'primary'" [size]="'small'"
+            (click)="onCanceled()" data-bs-dismiss="offcanvas" [isOutline]="true">
         </rds-button>
-        <rds-button [label]="translate.instant('CREATE')" [size]="'small'" [disabled]="tenantCreationForm.invalid"
-            class="ms-2" [colorVariant]="'primary'" (onClick)="save(tenantCreationForm)" data-bs-dismiss="offcanvas">
+        <rds-button [label]="translate.instant('SAVE feature')" [size]="'small'" [isDisabled]="tenantFeatureForm.invalid"
+            class="ms-2" [colorVariant]="'primary'" (onClick)="save(tenantFeatureForm)" data-bs-dismiss="offcanvas">
         </rds-button>
     </div>
 </div>
 
-<app-rds-comp-tenant-information-shimmer *ngIf="editShimmer"></app-rds-comp-tenant-information-shimmer>

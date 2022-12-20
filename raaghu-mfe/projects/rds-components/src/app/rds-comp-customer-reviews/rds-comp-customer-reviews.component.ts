@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-rds-comp-customer-reviews',
+  selector: 'rds-comp-customer-reviews',
   templateUrl: './rds-comp-customer-reviews.component.html',
   styleUrls: ['./rds-comp-customer-reviews.component.scss']
 })

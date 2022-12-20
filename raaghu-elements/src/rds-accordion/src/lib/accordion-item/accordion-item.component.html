@@ -1,24 +1,27 @@
-<div class="accordion-item"  [ngClass]="{'border-top': border === true}">
+<div class="accordion-item" [ngClass]="{'border-top': border === true}">
   <h2 class="accordion-header" [id]="'heading'+id">
-    <button type="button" class="accordion-button" [ngClass]="{'cartIcon': accordionIcon === true }" [class.collapsed]="!expanded" data-bs-toggle="collapse"
-      [attr.data-bs-target]="'#collapse'+id" [attr.aria-expanded]="expanded" [attr.aria-controls]="'collapse'+id">{{title}}</button>
+    <button type="button" class="accordion-button" [ngClass]="{'cartIcon': accordionIcon === true }"
+      [class.collapsed]="!expanded" data-bs-toggle="collapse" (click)="toggle('collapse'+id)"
+      [attr.aria-expanded]="expanded" [attr.aria-controls]="'collapse'+id">{{title}}</button>
   </h2>
   <ng-container *ngIf="!alwaysOpen; else otherTemplate">
-    <div [attr.id]="'collapse'+id" class="accordion-collapse collapse" [class.show]="expanded"  [attr.data-bs-parent]="'#' + accordionId" [attr.aria-labelledby]="'heading'+id">
-      <div class="accordion-body">
+    <div [attr.id]="'collapse'+id" class="accordion-collapse collapse" [class.show]="expanded"
+      [attr.data-bs-parent]="'#' + parentId" [attr.aria-labelledby]="'heading'+id">
+      <div class="accordion-body text-dark ">
         <ng-content  select="[accordianBody]"></ng-content>
       </div>
     </div>
   </ng-container>
-  <ng-container *ngIf="alwaysOpen; else otherTemplate">
+  <!-- <ng-container *ngIf="alwaysOpen; else otherTemplate">
     <div [attr.id]="'collapse'+id" class="accordion-collapse collapse" [class.show]="expanded" [attr.aria-labelledby]="'heading'+id">
       <div class="accordion-body">
         <ng-content ></ng-content>
       </div>
     </div>
-  </ng-container>
+  </ng-container> -->
   <ng-template #otherTemplate>
-    <div [attr.id]="'collapse'+id" class="accordion-collapse collapse" [class.show]="expanded">
+    <div [attr.id]="'collapse'+id" class="accordion-collapse collapse" [class.show]="expanded"
+      [attr.aria-labelledby]="'heading'+id">
       <div class="accordion-body">
         <ng-content></ng-content>
       </div>

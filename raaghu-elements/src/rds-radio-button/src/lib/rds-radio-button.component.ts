@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'rds-radio-button',
@@ -12,11 +12,11 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
     multi: true
   }]
 })
-export class RdsRadioButtonComponent implements OnInit {
+export class RdsRadioButtonComponent implements OnInit, ControlValueAccessor {
 
-  value = ''
-  onChange!: (value: string) => void;
-  onTouched!: () => void
+  value = '';
+  onChange = (event: string) => {};
+  onTouched = () => {};
   // @Input() disabled = false
   @Input() switch = false
   @Input() inline = false
@@ -29,17 +29,16 @@ export class RdsRadioButtonComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  writeValue(obj: any): void {
-    this.value = obj
-    //throw new Error('Method not implemented.');
+  writeValue(obj: any) {
+    this.value = obj;
   }
-  registerOnChange(fn: any): void {
-    this.onChange = fn
-    //throw new Error('Method not implemented.');
+
+  registerOnChange(fn: any) {
+    this.onChange = fn;
   }
-  registerOnTouched(fn: any): void {
-    this.onTouched = fn
-    //throw new Error('Method not implemented.');
+
+  registerOnTouched(fn: any) {
+    this.onTouched = fn;
   }
 
   public get classes(): string[] {
@@ -58,6 +57,22 @@ export class RdsRadioButtonComponent implements OnInit {
     return classes
   }
 
+  classes1() {
+    const isInputGroupMode = `${this.isInputGroup ? ' input-group-text mb-2 px-4 ' : ''}`;
+    const switchMode = `${this.switch ? ' form-switch px-4 ' : ''}`;
+    const inlineMode = `${this.inline ? ' form-check-inline ' : ''}`;
+    return 'form-check ' + isInputGroupMode + switchMode + inlineMode;
+
+  }
+
+  inlineGroup() {
+    if (this.inline && this.isInputGroup) {
+      return 'd-flex';
+    } else {
+      return '';
+    }
+
+  }
   getValue(event: any) {
     this.itemList.forEach(element => {
      if( element.name!==event.target.value){

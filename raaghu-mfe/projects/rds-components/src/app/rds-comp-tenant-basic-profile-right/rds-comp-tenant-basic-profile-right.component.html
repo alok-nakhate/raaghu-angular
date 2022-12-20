@@ -4,18 +4,18 @@
         <div class="row align-items-center">
           <div class="col-md-6 sm-p-0">
             <div class="form-group mb-3">
-              <rds-input [inputType]="'text'" [Title]="translate.instant('Name')" [TitleType]="'Top'"
-                [(ngModel)]="tenantData.tenancyName" name="tenancy_name" required
-                [placeholder]="translate.instant('Enter Tenant Name')" [isRequired]=true #tenancyName="ngModel">
+              <rds-input [inputType]="'text'" [label]="translate.instant('Name')" [labelPosition]="'top'"
+                [(ngModel)]="tenantData.name" name="name" required
+                [placeholder]="translate.instant('Enter Tenant Name')" [isRequired]=true #name="ngModel">
               </rds-input>
-              <div class="form-control-feedback" *ngIf="tenancyName.errors && (tenancyName.dirty || tenancyName.touched)">
-                <span class="text-danger" *ngIf="tenancyName.errors.required">{{"Tenant Name is required"|translate}}</span>
+              <div class="form-control-feedback" *ngIf="name.errors && (name.dirty || name.touched)">
+                <span class="text-danger" *ngIf="name.errors.required">{{"Tenant Name is required"|translate}}</span>
               </div>
             </div>
-            <div class="form-group mb-3">
-                <rds-select-list [(ngModel)]="tenantData.edition" [label]="translate.instant('Edition')" [isRequired]=true
-                  [value]="tenantData.edition" ngDefaultControl LabelType="Top" name="edition" [itemList]="editionList" [placeholder]="'Select Edition'">
-                </rds-select-list>
+            <div class="form-group mb-3"> 
+                 <rds-select-list [(ngModel)]="tenantData.editionId" [label]="translate.instant('Edition')" 
+                  [value]="tenantData.editionId"  ngDefaultControl LabelType="Top" name="tenantData.editionId" [itemList]="editionList" [placeholder]="'Select Edition'">
+                </rds-select-list> 
               </div>
           </div>
           <div class="col-md-3 text-center cursor-pointer sm-p-0">
@@ -28,33 +28,38 @@
         </div>
         
         <div class="row mt-4">
-          <div class="col-md-6 sm-p-0" *ngIf="showEmail">
+          <div class="col-md-6 sm-p-0">
             <div class="form-group mb-3">
-              <rds-input [inputType]="'email'" [Title]="translate.instant('Username')" [TitleType]="'Top'"
-                [(ngModel)]="tenantData.adminEmailAddress" [pattern]="emailPattern" name="email"
-                [placeholder]="translate.instant('Enter Username')" #adminEmailAddress="ngModel" [isRequired]=true required>
+              <rds-input [inputType]="'email'" [label]="translate.instant('Email')" [labelPosition]="'top'"
+                [(ngModel)]="tenantData.adminEmailAddress" [pattern]="emailPattern" name="adminEmailAddress"
+                [placeholder]="translate.instant('Enter Email')" #adminEmailAddress="ngModel" [isRequired]=true required>
               </rds-input>
               <div class="form-control-feedback"
                 *ngIf="adminEmailAddress.errors && (adminEmailAddress.dirty || adminEmailAddress.touched)">
-                <span class="text-danger" *ngIf="adminEmailAddress.errors.required">{{"Username is required"|translate}}</span>
+                <span class="text-danger" *ngIf="adminEmailAddress.errors.required">{{"Please enter valid admin email"|translate}}</span>
                 <span class="text-danger" *ngIf="adminEmailAddress.errors.pattern">{{"Please enter valid admin email"|translate}}</span>
               </div>
             </div>
           </div>
           <div class="col-md-6 sm-p-0">
             <div class="form-group mb-3">
-                <rds-input [inputType]="'password'" [Title]="translate.instant('Password')" [TitleType]="'Top'"
-                [(ngModel)]="tenantData.tenantName" name="tenant_name" required
-                [placeholder]="translate.instant('Enter Password')" [isRequired]=true #tenantName="ngModel">
+                <rds-input [inputType]="'Password'" [label]="translate.instant('Password')" [labelPosition]="'top'"
+                [(ngModel)]="tenantData.adminPassword" name="password" required
+                [placeholder]="translate.instant('Enter Password')" [isRequired]=true #adminPassword="ngModel">
               </rds-input>
              
-              <div class="form-control-feedback" *ngIf="tenancyName.errors && (tenancyName.dirty || tenancyName.touched)">
-                <span class="text-danger" *ngIf="tenancyName.errors.required">{{"Password is required"|translate}}</span>
+              <div class="form-control-feedback" *ngIf="adminPassword.errors && (adminPassword.dirty || adminPassword.touched)">
+                <span class="text-danger" *ngIf="adminPassword.errors.required">{{"Password is required"|translate}}</span>
               </div>
             </div>
           </div>
         </div>
-        <div class="row">
+        <!-- <div class="form-group mb-3">
+             <rds-checkbox [disabled]="false" [label]="translate.instant('Active')" [withLabel]="true"
+              [(ngModel)]="tenantData.activationState" name="tenantData.activationState" [checked]="tenantData.activationState" [switch]="false" [inline]="false"
+             [id]="'activationState'"></rds-checkbox>
+        </div> -->
+        <!-- <div class="row">
           <div class="col-md-12 sm-p-0">
             <div class="form-group mb-3">
               <rds-checkbox [disabled]="false" [label]="translate.instant('Shared Database')"
@@ -71,9 +76,9 @@
                 [inline]="false"></rds-checkbox>
             </div>
           </div>
-        </div>
+        </div> -->
 
-        <div class="row" >
+        <!-- <div class="row" >
             <div class="col-md-12 sm-p-0">
               <div class="form-group mb-3">
                 <rds-input [inputType]="'text'" *ngIf="showInput" [Title]="translate.instant('Database URL')" [TitleType]="'Top'"
@@ -83,17 +88,16 @@
               </rds-input>
               </div>
             </div>
-          </div>
+          </div> -->
       </form>
     </div>
     <div class="footer-buttons my-2 sm-p-0">
       <rds-button [label]="translate.instant('Cancel')" [colorVariant]="'primary'" [size]="'small'"
         (click)="onCanceled()" data-bs-dismiss="offcanvas">
       </rds-button>
-      <rds-button [label]="translate.instant('CREATE')"
-        [disabled]="!tenantCreationForm.valid"
+      <rds-button [label]="translate.instant('NEXT')"
+        [isDisabled]="!tenantCreationForm.valid"
         [size]="'small'" class="ms-2" [colorVariant]="'primary'" (click)="next(tenantCreationForm)" [showLoadingSpinner]="buttonSpinner">
       </rds-button>
     </div>
   </div>
-  <app-rds-comp-tenant-information-shimmer *ngIf="editShimmer"></app-rds-comp-tenant-information-shimmer>

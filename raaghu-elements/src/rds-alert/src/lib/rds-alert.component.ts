@@ -20,6 +20,7 @@ export class RdsAlertComponent implements OnInit {
   @Input() colorVariant: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark' = 'primary';
   @Input() position: 'top' | 'bottom' = 'top';
   @Input() delay: number = 0;
+  @Input() sticky: boolean = false;;
   @Output() onDismiss = new EventEmitter<Event>();
 
   constructor() { }
@@ -35,8 +36,14 @@ export class RdsAlertComponent implements OnInit {
     if (this.dismissible) {
       mode1 = ' alert-dismissible'
     }
-    const mode2 = `${this.position === 'top' ? ' position-fixed top-0 start-0 m-3' : ' position-fixed bottom-0 start-0 m-3'}`;
-    return mode + mode2 + mode1;
+
+    if (this.sticky){
+       const mode2 = `${this.position === 'top' ? ' position-absolute top-0 start-0 fullWidth ' : ' position-absolute bottom-0 start-0 fullWidth '}`;
+       return mode + mode2 + mode;
+      }
+      else {
+        return mode + mode1;
+      }
   }
 
 

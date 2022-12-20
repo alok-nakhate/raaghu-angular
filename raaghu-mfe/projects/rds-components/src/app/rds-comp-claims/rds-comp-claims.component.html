@@ -6,10 +6,10 @@
       [isInputGroup]="false"
       (onChange)="SelectAllclaims($event)"
       [id]="'SelectAllclaims'"></rds-checkbox>
-     <hr>
-<div class="fw-bold">
+     
+<div class="fw-bold mt-4">
      <rds-label [label]="'A-E'"></rds-label>
-    </div>
+    </div><hr>
 <rds-checkbox label="Select all"
       [disabled]="false"
       [switch]="false"
@@ -21,7 +21,7 @@
       (onChange)="SelectAllAtoEclaims($event)"
       [id]="'SelectAllAtoEclaims'"></rds-checkbox>
 <div class="row" >
-    <div class="col-md-4" *ngFor="let item of ClaimData.claim_ato_e">
+    <div class="col-md-4 mt-4" *ngFor="let item of ClaimData.claim_ato_e">
         <rds-checkbox [label]="item.label"
         [checked]="item.checked"
         [disabled]="false"
@@ -34,11 +34,11 @@
        [id]="'claim_ato_e'"></rds-checkbox>
     </div>
 </div>
-<hr>
 
-<div class="fw-bold">
+
+<div class="fw-bold mt-4">
     <rds-label [label]="'F-O'"></rds-label>
-</div>
+</div><hr>
 <rds-checkbox label="Select all"
       [disabled]="false"
       [switch]="false"
@@ -50,7 +50,7 @@
       (onChange)="SelectAllFtoOclaims($event)"
       [id]="'SelectAllFtoOclaims'"></rds-checkbox>
 <div class="row" >
-    <div class="col-md-4" *ngFor="let item of ClaimData.claim_f_to_o">
+    <div class="col-md-4 mt-4" *ngFor="let item of ClaimData.claim_f_to_o">
         <rds-checkbox [label]="item.label"
         [checked]="item.checked"
         [disabled]="false"
@@ -63,11 +63,11 @@
        [id]="'claim_f_to_o'"></rds-checkbox>
     </div>
 </div>
-<hr>
 
-<div class="fw-bold">
+
+<div class="fw-bold mt-4">
     <rds-label [label]="'P-Z'"></rds-label>
-</div>
+</div><hr>
 <rds-checkbox label="Select all"
       [disabled]="false"
       [switch]="false"
@@ -79,7 +79,7 @@
       (onChange)="SelectAllPtoZclaims($event)"
       [id]="'SelectAllPtoZclaims'"></rds-checkbox>
 <div class="row" >
-    <div class="col-md-4" *ngFor="let item of ClaimData.claim_p_to_z">
+    <div class="col-md-4 mt-4" *ngFor="let item of ClaimData.claim_p_to_z">
         <rds-checkbox [label]="item.label"
         [checked]="item.checked"
         [disabled]="false"
@@ -92,17 +92,12 @@
        [id]="'claim_p_to_z'"></rds-checkbox>
     </div>
 </div>
-<div class="footer">
-    <div class="d-flex">
-        <div class="m-2">
+
+<div class="action-buttons w-100 my-4 sm-p-0">
     <rds-button [label]="'Cancel'"
-    [colorVariant]="'primary'" data-bs-dismiss="offcanvas" [outlineButton]="true" [size]="'small'">
+    [colorVariant]="'primary'" data-bs-dismiss="offcanvas" [isOutline]="true" [size]="'small'">
   </rds-button>
-        </div>
-  <div class="m-2">
-        <rds-button  [id]="'yes'" [size]="'small'" [tooltipPlacement]="'top'"
-        [colorVariant]="'primary'"  [label]="'CREATE'" (click)="SaveClaimData()">
-    </rds-button>
+  <rds-button  [id]="'yes'" [size]="'small'" [tooltipPlacement]="'top'" class="ms-2"
+  [colorVariant]="'primary'"  [label]="'CREATE'" (click)="SaveClaimData()">
+</rds-button>
   </div>
-</div>
-</div>

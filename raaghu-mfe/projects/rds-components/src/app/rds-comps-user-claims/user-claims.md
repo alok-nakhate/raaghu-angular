@@ -1,5 +1,5 @@
 ---
-slug: "/comps-user-claims"
+slug: "/comp-user-claims"
 date: "2019-05-04"
 title: "Components > User-Claims"
 ---
@@ -9,8 +9,8 @@ title: "Components > User-Claims"
 <link rel="stylesheet" href="../../../../../../../raaghu/src/assets/css/style-elements.css">
 <link rel="stylesheet" href="../../../../../../../raaghu/src/assets/css/main.css">
 
-#### User-Claims
-
+#### User Claims
+<p>Gives a mandatory fields that need to be filled by a user</p>
  <section class="py-4">
     <h6>Default</h6>
     <div class="py-3">

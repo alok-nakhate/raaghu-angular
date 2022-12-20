@@ -1,6 +1,6 @@
 import { FormsModule } from '@angular/forms';
 import { Meta, moduleMetadata, Story } from '@storybook/angular';
-import { RdsBenefitModule, RdsIconModule, RdsInputComponent, RdsLabelModule } from '@libs/rds-elements';
+import { RdsBenefitModule, RdsCheckboxModule, RdsIconModule, RdsInputComponent, RdsLabelModule } from '@libs/rds-elements';
 import { RdsCompNewClaimTypeComponent } from './rds-comp-new-claim-type.component';
 import { CommonModule } from '@angular/common';
  
@@ -17,7 +17,8 @@ export default {
                 RdsIconModule,
                 CommonModule,
                 FormsModule,
-                RdsLabelModule
+                RdsLabelModule,
+                RdsCheckboxModule
             ],
             
         })

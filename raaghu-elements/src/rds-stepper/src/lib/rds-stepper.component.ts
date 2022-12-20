@@ -11,18 +11,14 @@ export class RdsStepperComponent implements OnInit, AfterViewInit {
   @Input() activePageNumber: number = 0;
   totalSteps: number = 3;
  
-  @Input() stepparList:any=[
-    {stepname: "step1",steptabname:"Profile", tablink: '#nav-home',ariacontrols: 'nav-home'},
-        {stepname: "step2",steptabname:"Positions", tablink: '#nav-profile',ariacontrols: 'nav-profile'},
-        {stepname: "step3",steptabname:"Setting", tablink: '#nav-contact',ariacontrols: 'nav-contact'}
- ];
+  @Input() stepperList:any=[];
 
- @Input() stepperDetailedList:any=[
-  {stepname: "step1",steptabname:"Profile", tablink: '#nav-home', ariacontrols: 'nav-home', description: 'Vitae sed mi luctus laoreet.'},
-  {stepname: "step2",steptabname:"Positions", tablink: '#nav-profile', ariacontrols: 'nav-profile', description: 'Cursus semper viverra.'},
-  {stepname: "step3",steptabname:"Setting", tablink: '#nav-contact', ariacontrols: 'nav-contact', description: 'Penatibus eu quis ante.'},
-  {stepname: "step4",steptabname:"disable", tablink: '#nav-deabled', ariacontrols: 'nav-deabled', description:  'seursus semper viverra.'}
-    ];
+//  @Input() stepperDetailedList:any=[
+//   {stepname: "step1",steptabname:"Profile", tablink: '#nav-home', ariacontrols: 'nav-home', description: 'Vitae sed mi luctus laoreet.'},
+//   {stepname: "step2",steptabname:"Positions", tablink: '#nav-profile', ariacontrols: 'nav-profile', description: 'Cursus semper viverra.'},
+//   {stepname: "step3",steptabname:"Setting", tablink: '#nav-contact', ariacontrols: 'nav-contact', description: 'Penatibus eu quis ante.'},
+//   {stepname: "step4",steptabname:"disable", tablink: '#nav-deabled', ariacontrols: 'nav-deabled', description:  'seursus semper viverra.'}
+//     ];
 
   @Input() stepperType: 'simple' | 'panel' | 'bullets' | 'panel-simple' | 'panel-arrow' | 'panel-border' | 'multi-circles-1' | 'multi-circles-2' 
   | 'bullet-text' | 'multi-circles-3' | 'progress-bar'='simple' ;
@@ -100,6 +96,6 @@ export class RdsStepperComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.totalSteps = this.stepparList.length;
+    // this.totalSteps = this.stepparList.length;
   }
 }

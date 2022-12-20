@@ -1,4 +1,4 @@
-<ul class="list-unstyled pt-5 " *ngIf="!editShimmer">
+<ul class="list-unstyled pt-4" *ngIf="!editShimmer">
   <li>
     <div class="form-group mb-3">
         <rds-checkbox [disabled]="false" [label]="translate.instant('Email Confirmation Required For Login.')" [checked]="Usermanagementsettings.isEmailConfirmationRequiredForLogin"
@@ -26,7 +26,7 @@
   </li>
   <li>
     <div class="form-group mb-3">
-      <div class="mb-1 fw-medium">
+      <div class="mb-1 mt-4 fw-medium">
       <rds-label [label]="translate.instant('Cookie Consent')"></rds-label>
     </div>
       <rds-checkbox [label]="translate.instant('Cookie Consent Enabled')" [checked]="Usermanagementsettings.isCookieConsentEnabled" [disabled]="false" [switch]="false"
@@ -37,7 +37,7 @@
   <li>
     <div class="form-group mb-3">
       
-      <div class="mb-1 fw-medium">
+      <div class="mb-1 mt-4 fw-medium">
         <rds-label [label]="translate.instant('Session Timeout Control')"></rds-label>
       </div>
       <rds-checkbox [label]="translate.instant('Cookie Consent Enabled')" [checked]="Usermanagementsettings.sessionTimeOutSettings" [disabled]="false"
@@ -49,7 +49,7 @@
   <li>
     <div class="form-group mb-3">
       
-      <div class="mb-1 fw-medium">
+      <div class="mb-1 mt-4 fw-medium">
         <rds-label [label]="translate.instant('Profile')"></rds-label>
       </div>
       <rds-checkbox [label]="translate.instant('Allow Users To Use Gravatar Profile Picture')" [checked]="Usermanagementsettings.allowUsingGravatarProfilePicture" [disabled]="false"
@@ -59,4 +59,4 @@
     </div>
   </li>
 </ul>
-<app-rds-comp-user-management-shimmer *ngIf="editShimmer"></app-rds-comp-user-management-shimmer>
+<rds-comp-user-management-shimmer *ngIf="editShimmer"></rds-comp-user-management-shimmer>

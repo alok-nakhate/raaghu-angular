@@ -2,7 +2,7 @@
     <form #contactForm="ngForm">
       <div class="col-md-12">
         <div class="form-group mt-4">
-          <rds-input [inputType]="'text'" [Title]="'Email ID'" [TitleType]="'Top'" [pattern]="emailPattern"
+          <rds-input [inputType]="'text'" [label]="'Email ID'" [labelPosition]="'top'" [pattern]="emailPattern"
             [(ngModel)]="info.emailID" name="email_ID" required [placeholder]="'name@domain.com'"
             [isRequired]=true #emailId="ngModel">
           </rds-input>
@@ -15,7 +15,7 @@
       </div>
       <div class="col-md-12">
         <div class="form-group mt-4">
-          <rds-input [inputType]="'text'" [Title]="'Full Name'" [TitleType]="'Top'"
+          <rds-input [inputType]="'text'" [label]="'Full Name'" [labelPosition]="'top'"
             [(ngModel)]="info.fullName" name="full_name" required [placeholder]="'full name'"
             [isRequired]=true #fullName="ngModel">
           </rds-input>
@@ -37,7 +37,7 @@
         </div>
       </div>
       <div class="col-md-12 mt-4 text-center">
-        <rds-button [label]="'Send Message'" [block]="true" [size]="'medium'" [disabled]="!contactForm.valid" (click)="sendMessage(contactForm)" colorVariant="primary" ></rds-button>
+        <rds-button [label]="'Send Message'" [block]="true" [size]="'medium'" [isDisabled]="!contactForm.valid" (click)="sendMessage(contactForm)" colorVariant="primary" ></rds-button>
       </div>
     </form>
   </div>

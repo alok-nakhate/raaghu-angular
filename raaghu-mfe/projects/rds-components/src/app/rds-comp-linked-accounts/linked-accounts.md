@@ -1,5 +1,5 @@
 ---
-slug: "/comp-linked accounts"
+slug: "/comp-linked-accounts"
 date: "2019-05-04"
 title: "Components > Linked Accounts"
 ---
@@ -9,7 +9,7 @@ title: "Components > Linked Accounts"
 
 #### Linked Accounts
 
-<p class="">A card is a small rectangular module with images and text. It is an entry point for users to learn more details</p>
+<p>A card useful to link accounts by adding credentials of a user</p>
 <section class="py-4">
     <h6>Default</h6>
     <div class="py-3">
@@ -39,13 +39,13 @@ title: "Components > Linked Accounts"
 <div class="row m-0">
 
 ```html
-<app-rds-linked-accounts>
+<rds-linked-accounts>
 [recordsPerpage]="",
 [pagination]="",
 [TenantName]="",
 [tenancyName]="",
 [linkedAccount]=""
-</app-rds-linked-accounts>
+</rds-linked-accounts>
 ```
 </div>
 </div>

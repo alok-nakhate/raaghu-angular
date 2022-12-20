@@ -1,32 +1,38 @@
 <div [ngSwitch]="role">
   <div *ngSwitchCase="'Basic'">
     <nav aria-label="Page navigation">
-      <ul class="pagination" [class]="classes">
-        <li class="page-item" (click)="setPage(pager.currentPage - 1)" [ngClass]="{disabled:pager.currentPage === 1}"><a
-            class="page-link b" href="javascript:void(0);">
-            <rds-icon name="chevron_left" width="15px" height="15px"></rds-icon> <span class="pagination-prev">Prev</span>
+      <ul class="pagination mb-0" [class]="classes">
+        <li class="page-item" (click)="setPage(pager.currentPage - 1)" [ngClass]="{disabled:pager.currentPage === 1}"
+          *ngIf="pager && pager.pages&& pager.pages.length>1"><a class="page-link b" href="javascript:void(0);">
+            <rds-icon name="chevron_left" width="15px" height="15px"></rds-icon> <span class="pagination-prev">
+              Prev</span>
           </a></li>
         <li class="page-item default-li" (click)="setPage(page)" *ngFor="let page of pager.pages"
           [ngClass]="{active:pager.currentPage === page}">
           <a class="page-link" href="javascript:void(0);">{{page}}</a>
         </li>
         <li class="page-item" (click)="setPage(pager.currentPage + 1)"
+          *ngIf="pager && pager.pages&& pager.pages.length>1"
           [ngClass]="{disabled:pager.currentPage === pager.totalPages}"><a class="page-link b"
-            href="javascript:void(0);"><span class="pagination-next">Next</span> <rds-icon name="chevron_right" width="15px" height="15px"></rds-icon></a></li>
+            href="javascript:void(0);"><span class="pagination-next">Next </span>
+            <rds-icon name="chevron_right" width="15px" height="15px"></rds-icon>
+          </a></li>
       </ul>
     </nav>
   </div>
   <!-- rounded option -->
   <div *ngSwitchCase="'Advanced'">
     <nav aria-label="page navigation">
-      <ul *ngIf="pager && pager.pages" class="pagination rounded" [class]="classes">
-        <li class="page-item" aria-hidden="true" [ngClass]="{disabled:pager.currentPage === 1}"><a class="page-link "
-            (click)="setPage(pager.currentPage - 1)" href="javascript:void(0);" aria-label="prev Page">
+      <ul *ngIf="pager && pager.pages" class="pagination rounded mb-0" [class]="classes">
+        <li class="page-item" aria-hidden="true" *ngIf="pager && pager.pages&& pager.pages.length>1"
+          [ngClass]="{disabled:pager.currentPage === 1}"><a class="page-link " (click)="setPage(pager.currentPage - 1)"
+            href="javascript:void(0);" aria-label="prev Page">
             <rds-icon name="chevron_left" width="15px" height="15px"></rds-icon>
           </a></li>
         <li class="page-item" [ngClass]="{active:pager.currentPage === page}" *ngFor="let page of pager.pages"
           (click)="setPage(page)"><a class="page-link" href="javascript:void(0);">{{page}}</a></li>
-        <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+        <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}"
+          *ngIf="pager && pager.pages&& pager.pages.length>1">
           <a class="page-link btn-arrows2" (click)="setPage(pager.currentPage + 1)" href="javascript:void(0);"
             aria-label="Next Page">
             <rds-icon name="chevron_right" width="15px" height="15px"></rds-icon>
@@ -36,9 +42,9 @@
           <a class="page-link btn-arrows1" (click)="setPage(pager.totalPages)" href="javascript:void(0);"
             aria-label="Last Page">&raquo;</a>
         </li> -->
-        <li class="page-item">
+        <li class="page-item" [class]="classes">
           <div class="btn-group dropdown page-counter">
-            <select class="form-select form-select-sm custom-select py-2" [(ngModel)]="recordsPerPage"
+            <select class="form-select form-select-{{getSize()}} custom-select cursor-pointer" [(ngModel)]="recordsPerPage"
               (change)="setItemsPerPage(pager.currentPage,$event)">
               <option value="All">All</option>
               <option value="5" selected>5</option>

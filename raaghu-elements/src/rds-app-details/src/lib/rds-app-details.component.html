@@ -25,32 +25,30 @@
   </div>
 </div> -->
 <div class="card">
-  <div class="p-3 " >
+  <div class="p-3 ">
     <span class="border p-2 rounded">
       <rds-icon [height]="item.iconHeight" [width]="item.iconWidth" [fill]="item.iconFill"
-          [stroke]="item.iconStroke" [name]="item.icon">
+                [stroke]="item.iconStroke" [name]="item.icon">
       </rds-icon>
     </span>
-      <rds-checkbox [checked]="item.selected" [disabled]="false" [switch]="true" [id]="item.icon"
-          [withLabel]="true" [state]="'checkbox'" class="float-end"></rds-checkbox>
+    <rds-checkbox [checked]="item.selected" [disabled]="false" [switch]="true" [id]="item.icon"
+                  [withLabel]="true" [state]="'checkbox'" class="float-end"></rds-checkbox>
   </div>
   <div class="card-body p-2">
-      <div>
-          <label class="fs-5 fw-bold ">
-              {{item.title}}
-          </label>
-      </div>
-      <div>
-          <label class="text-muted mt-1">
-              {{item.subtitle}}
-          </label>
-      </div>
+    <div>
+      <label class="fs-5 fw-bold ">
+        {{item.title}}
+      </label>
+    </div>
+    <div>
+      <label class="text-muted mt-1">
+        {{item.subtitle}}
+      </label>
+    </div>
   </div>
-  <div class="border-top">
-      <a [href]="item.route">
-          <label class="float-end p-2">
-              View integration
-          </label>
-      </a>
+  <div class="border-top pb-4">
+    <a [href]="item.route" class="float-end p-2 fs-6">
+      View integration
+    </a>
   </div>
 </div>

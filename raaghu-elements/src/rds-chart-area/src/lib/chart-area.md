@@ -1,7 +1,7 @@
 ---
 slug: "/chart-area"
 date: "2019-05-04"
-title: "Elements > Chart-area"
+title: "Charts > Chart-area"
 ---
 
 <!-- CSS only -->
@@ -11,6 +11,7 @@ title: "Elements > Chart-area"
 
 #### Area Chart
 
+<p class="">An area chart is used to represent change of one or more variables over the progression of the second variable i.e., typically time.</p>
 <section class="py-4">
     <h6>Default</h6>
     <div class="py-3">

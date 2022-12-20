@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-rds-comp-integration',
+  selector: 'rds-comp-integration',
   templateUrl: './rds-comp-integration.component.html',
   styleUrls: ['./rds-comp-integration.component.scss']
 })

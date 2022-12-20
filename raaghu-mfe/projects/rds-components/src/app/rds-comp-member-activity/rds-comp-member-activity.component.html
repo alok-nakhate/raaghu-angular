@@ -2,7 +2,7 @@
 
 <div class="col-md-6">
     <div class="row">
-    <div class="col-md-6 mb-3">
+    <div class="col-md-6 mb-3 mt-1">
         <rds-search-input Placeholder="Member" icon="bi bi-search" size="small" (onClick)="SearchMember($event)">
         </rds-search-input>
     </div>
@@ -20,6 +20,6 @@
 </div>
 <div class="col-md-12 mt-3">
     <!-- <mfe-loader [config]="rdsMemberActivityTableMfeConfig"></mfe-loader> -->
-    <app-rds-data-table [tableData]="memberActivityTableData" [inlineEdit]="false" [pagination]="true" [recordsPerPage]="10"
-            [tableHeaders]="memberActivityTableHeader"  ></app-rds-data-table>
+    <rds-data-table [tableData]="memberActivityTableData" [inlineEdit]="false" [pagination]="true" [recordsPerPage]="10"
+            [tableHeaders]="memberActivityTableHeader"  ></rds-data-table>
 </div>

@@ -3,7 +3,7 @@ import * as moment from 'moment';
 
 
 @Component({
-  selector: 'app-rds-comp-feeds',
+  selector: 'rds-comp-feeds',
   templateUrl: './rds-comp-feeds.component.html',
   styleUrls: ['./rds-comp-feeds.component.scss']
 })

@@ -9,10 +9,10 @@ title: "Components > Website-Log"
 <link rel="stylesheet" href="../../../../../../../raaghu/src/assets/css/style-elements.css">
 <link rel="stylesheet" href="../../../../../../../raaghu/src/assets/css/main.css">
 
-#### Website-Log
-
+#### Website Log
+<p>Provides a diagnostic operation of a running application</p>
  <section class="py-4">
-    <h6>Default</h6>
+ <h6>Default</h6>
     <div class="py-3">
       <div class="cust-tabs">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -39,13 +39,13 @@ title: "Components > Website-Log"
 <div class="row m-0">
 
 ```html
-<app-rds-comp-website-log
+<rds-comp-website-log
   [websiteLogData]="websiteLogData"
   role="Advanced"
   alignmentType="end"
   [resetPagination]="false"
   [recordsPerPage]="10"
-></app-rds-comp-website-log>
+></rds-comp-website-log>
 ```
 </div>
 </div>

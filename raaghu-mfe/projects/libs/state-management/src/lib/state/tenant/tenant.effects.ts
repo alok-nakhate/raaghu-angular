@@ -85,7 +85,7 @@ export class TenantEffects {
     this.actions$.pipe(
       ofType(updateTenant),
       mergeMap((data) =>
-        this.tenantService.tenantsPUT(data.id, data.tenant).pipe(map((res: any) => {
+        this.tenantService.tenantsPUT(data.id, data.body).pipe(map((res: any) => {
           this.store.dispatch(getTenants());
           this.alertService.showAlert('Success', 'Tenant updated successfully', 'success')
 
@@ -130,23 +130,23 @@ export class TenantEffects {
     )
   );
 
-  // updateTenantFeatureValues$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(updateTenantFeatureValues),
-  //     mergeMap((data) =>
-  //       this.tenantService.updateTenantFeatures(data.feature).pipe(map((res: any) => {
-  //         this.alertService.showAlert('Success', 'Tenant features updated successfully', 'success');
+  updateTenantFeatureValues$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(updateTenantFeatureValues),
+      mergeMap((data) =>
+        this.tenantService.featuresPUT("T",data.id ,data.feature ).pipe(map((res: any) => {
+          this.alertService.showAlert('Success', 'Tenant features updated successfully', 'success');
 
-  //         // this.store.dispatch(getTenants())
-  //       }),
-  //         catchError((error: any) => of(
-  //         ))
-  //       )
-  //     )
-  //   ),
-  //   {
-  //     dispatch: false
-  //   }
-  // );
+          // this.store.dispatch(getTenants())
+        }),
+          catchError((error: any) => of(
+          ))
+        )
+      )
+    ),
+    {
+      dispatch: false
+    }
+  );
 
 }

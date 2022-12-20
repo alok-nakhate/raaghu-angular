@@ -7,26 +7,21 @@
 </div>
 
 
-<div class="row grid-ui  mt-3 " *ngFor="let item of itemlist|keyvalue; let i=index">
-    <div class="col-md-1">
+<div class="d-flex mt-3 gap-4 align-items-baseline" *ngFor="let item of itemlist|keyvalue; let i=index">
+    <div class="d-flex align-items-center gap-3">
         <rds-label [label]="getLabel(i)" [multiline]="false" [bold]="false" [italic]="false" class="fs-4 "></rds-label>
-    </div>
-    <div class="col-md-1">
-        <rds-icon height="20" [fill]="true" [stroke]="true" width="20" name="star" colorVariant="review" >
+        <rds-icon height="20" [fill]="true" [stroke]="true" width="20" name="star" colorVariant="review">
         </rds-icon>
     </div>
-    
-    <div class=" col-md-8">
-        <div class=" mt-1">
-            <rds-progressbar height="15" colorVariant="warning" striped="default"
-                [progressWidth]="getReviewRate(item.value)" progressbar_MaxWidth="100" role="single"></rds-progressbar>
+    <div class="w-100">
+        <div class="mt-1">
+            <rds-progressbar [height]="15" [showLabels]="false" colorVariant="warning" striped="default"
+                [progressWidth]="getReviewRate(item.value)" [progressbar_MaxWidth]="100" role="single" style="width:68%;">
+            </rds-progressbar>
         </div>
     </div>
-   
-     <div class="col-md-2">
+    <div class="d-flex align-items-center">
         <rds-label [label]="getReviewRateString(item.value)" [multiline]="false" [bold]="false" [italic]="false"
-        class="fs-4"></rds-label><span class="fs-5 fw-bolder mt-1">%</span>
-     </div>
-   
-
+            class="fs-4"></rds-label><span class="fs-5 fw-bolder mt-1">%</span>
+    </div>
 </div>

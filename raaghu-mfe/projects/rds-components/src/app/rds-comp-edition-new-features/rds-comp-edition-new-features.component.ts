@@ -9,7 +9,7 @@ export interface EditionDat {
 
   }
 @Component({
-  selector: 'app-rds-comp-edition-new-features',
+  selector: 'rds-comp-edition-new-features',
   templateUrl: './rds-comp-edition-new-features.component.html',
   styleUrls: ['./rds-comp-edition-new-features.component.scss']
 })

@@ -1,10 +1,9 @@
-<div [ngClass]="divclasses">
-  <label [ngClass]="label==''?'d-none':'form-label'" [ngStyle]="{'order': labelLeft}"  for="value">{{label}}</label>
-  <ul class="list-group">
-    <li class="list-group-item" *ngFor="let item of listItem ;" [id]="item.id"
-      (click)="activeProject(item);selectedData(item)">
-      <input class="form-check-input me-1" type="checkbox" value="" *ngIf="multiSelect"
-        [checked]="item.isActive" /><a>{{item.label}} </a>
-    </li>
-  </ul>
-</div>
+<label *ngIf="label&&labelPosition==='top'" class="form-label" for="value">{{label}}</label>
+<ul class="list-group">
+  <li class="list-group-item" *ngFor="let item of listItem ;" [id]="item.id"
+    (click)="activeProject(item);selectedData(item)">
+    <input class="form-check-input me-1" type="checkbox" value="" *ngIf="multiSelect"
+      [checked]="item.isActive" /><a>{{item.label}} </a>
+  </li>
+</ul>
+<label *ngIf="label&&labelPosition==='bottom'" class="form-label mb-0 mt-2" for="value">{{label}}</label>

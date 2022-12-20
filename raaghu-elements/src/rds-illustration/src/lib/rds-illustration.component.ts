@@ -11,6 +11,8 @@ export class RdsIllustrationComponent implements OnInit {
 
   @Input() label!: string;
   @Input() subLabel!: string;
+  @Input() iconHeight: string = '168px';
+  @Input() iconWidth: string = '168px';
 
   constructor() { }
 

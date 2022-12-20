@@ -5,7 +5,7 @@ export class Questions {
   public description: string;
 }
 @Component({
-  selector: 'app-rds-comp-faq',
+  selector: 'rds-comp-faq',
   templateUrl: './rds-comp-faq.component.html',
   styleUrls: ['./rds-comp-faq.component.scss']
 })

@@ -4,8 +4,10 @@ import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { getAllApiResources } from 'projects/libs/state-management/src/lib/state/api-resources/api-resources.actions';
 import { selectAllApiResource } from 'projects/libs/state-management/src/lib/state/api-resources/api-resources.selector';
-import { getAllClients } from 'projects/libs/state-management/src/lib/state/clients/clients.actions';
-import { selectAllClients } from 'projects/libs/state-management/src/lib/state/clients/clients.selector';
+import { getAllClients, getPermissions, saveClient } from 'projects/libs/state-management/src/lib/state/clients/clients.actions';
+import { selectAllClients, selectAllPermissions } from 'projects/libs/state-management/src/lib/state/clients/clients.selector';
+import { getAllIdentityResources } from 'projects/libs/state-management/src/lib/state/identity-resources/identity-resources.actions';
+import { selectA } from 'projects/libs/state-management/src/lib/state/identity-resources/identity-resources.selector';
 import { TableHeader } from 'projects/rds-components/src/models/table-header.model';
 declare var bootstrap: any;
 
@@ -20,29 +22,27 @@ export class AppComponent {
   activePage: number = 0;
   clientUniqueId: any;
   offcanvasId: string = 'client_canvas';
+  isEdit = false;
   rdsClientMfeConfig: ComponentLoaderOptions;
   rdsClientSecretsMfeConfig: ComponentLoaderOptions;
   rdsClientBasicsMfeConfig: ComponentLoaderOptions;
   rdsClientResourcesMfeConfig: ComponentLoaderOptions;
+  rdsPermissionRoleMfeConfig: ComponentLoaderOptions;
+  rdsClientAdvancedMfeConfig: ComponentLoaderOptions;
+  permissionTreeData: any = [];
+  emitPermissionsData = { name: undefined, permissions: { permissions: [] } };
+  emitClientData: any = {};
 
-  clientTableHeaders: TableHeader[] = [{
-    displayName: 'Client ID', key: 'clientId', dataType: 'text', filterable: true, sortable: true
-  },
-  {
-    displayName: 'Name', key: 'clientName', dataType: 'text', filterable: true, sortable: true
-  },
-  { displayName: 'Description', key: 'description', dataType: 'text' }
+  clientTableHeaders: TableHeader[] = [
+    { displayName: 'Client ID', key: 'clientId', dataType: 'text', filterable: true, sortable: true },
+    { displayName: 'Name', key: 'clientName', dataType: 'text', filterable: true, sortable: true },
+    { displayName: 'Description', key: 'description', dataType: 'text' }
   ];
-  clientSecretTableHeaders: TableHeader[] = [{
-    displayName: 'Type', key: 'type', dataType: 'text', filterable: true, sortable: true, required: true
-  },
-  {
-    displayName: 'Value', key: 'value', dataType: 'number', filterable: true, sortable: true, required: true
-  },
-  {
-    displayName: 'Expiration', key: 'expiration', dataType: 'text', filterable: true, sortable: true, required: true
-  },
-  { displayName: 'Description', key: 'description', dataType: 'text', required: true }
+  clientSecretTableHeaders: TableHeader[] = [
+    { displayName: 'Type', key: 'type', dataType: 'text', filterable: true, sortable: true, required: true },
+    { displayName: 'Value', key: 'value', dataType: 'number', filterable: true, sortable: true, required: true },
+    { displayName: 'Expiration', key: 'expiration', dataType: 'text', filterable: true, sortable: true, required: true },
+    { displayName: 'Description', key: 'description', dataType: 'text', required: true }
   ];
   content!: TemplateRef<any>;
   clientList: any = [];
@@ -51,7 +51,7 @@ export class AppComponent {
   secrets: any;
   client: any = {};
   canvasTitle: string = 'New Client';
-  public navtabsItems: any = [
+  public navtabsItems: any[] = [
     {
       label: 'Basics',
       tablink: '#basics',
@@ -67,11 +67,24 @@ export class AppComponent {
       label: 'Resources',
       tablink: '#resources',
       ariacontrols: 'resources',
-    }];
+    },
+    {
+      label: 'Permissions',
+      tablink: '#permissions',
+      ariacontrols: 'permissions',
+    }
+    // {
+    //   label: 'Advanced',
+    //   tablink: '#advanced',
+    //   ariacontrols: 'advanced',
+    // }
+  ];
 
   constructor(private store: Store) { }
 
   ngOnInit(): void {
+
+    // Client Data Table
     this.rdsClientMfeConfig = {
       name: 'RdsDataTable',
       input: {
@@ -114,57 +127,8 @@ export class AppComponent {
         }
       }
     };
-    this.rdsClientSecretsMfeConfig = {
-      name: 'RdsDataTable',
-      input: {
-        tableData: this.clientSecretList,
-        tableHeaders: this.clientSecretTableHeaders,
-        recordsPerPage: 10,
-        width: '100%',
-        pagination: true,
-        actions: [{ id: 'delete', displayName: 'Delete' }],
-      },
-      output: {
-        onActionSelection: (event: any) => {
-          if (event.actionId === 'delete') {
-            const index: any = this.clientSecretList.findIndex((x: any) => x.id === event.selectedData.id);
-            if (index !== -1) {
-              this.clientSecretList.splice(index, 1);
-              const mfeConfig = this.rdsClientSecretsMfeConfig
-              mfeConfig.input.tableData = [... this.clientSecretList];
-              this.rdsClientSecretsMfeConfig = mfeConfig;
-            }
-          }
-          if(event.actionId === 'edit'){
-            this.secrets = event.selectedData;
-          }
-        }
-      }
-    };
-    this.rdsClientBasicsMfeConfig = {
-      name: 'RdsCompClientBasics',
-      input: {
-        clientBasics: {},
-      },
-      output: {
-        clientBasicInfo: (eventData: any) => {
-          this.getClientInfo(eventData)
-        }
-      }
-    };
-    this.rdsClientResourcesMfeConfig = {
-      name: 'RdsCompClientResources',
-      input: {
-        clientResources: this.client.resources,
-      },
-      output: {
-        selectedResources: (eventData: any) => {
-          this.getSelectedResources(eventData)
-        }
-      }     
-    };
 
-
+    // Get all clients
     this.store.dispatch(getAllClients());
     this.store.select(selectAllClients).subscribe((res) => {
       this.clientList = [];
@@ -177,12 +141,110 @@ export class AppComponent {
           }
           this.clientList.push(item);
         });
-      }
+      };
       const mfeConfig = this.rdsClientMfeConfig
       mfeConfig.input.tableData = [...this.clientList];
       mfeConfig.input.refresh = true;
       this.rdsClientMfeConfig = { ...mfeConfig };
-    })
+    });
+
+    // Advanced tab
+    this.rdsClientAdvancedMfeConfig = {
+      name: 'RdsCompClientAdvanced',
+      input: {},
+      output: {}
+    }
+
+    // Basics tab
+    this.rdsClientBasicsMfeConfig = {
+      name: 'RdsCompClientBasics',
+      input: {
+        clientBasics: {},
+      },
+      output: {
+        clientBasicInfo: (eventData: any) => {
+          // console.log('clientBasicInfo', eventData);
+          this.emitClientData = {...eventData};
+          // this.getClientInfo(eventData)
+        }
+      }
+    };
+
+    // Resources tab
+    this.rdsClientResourcesMfeConfig = {
+      name: 'RdsCompClientResources',
+      input: {
+        identityResourcesData: undefined,
+        apiResourcesData: undefined,
+      },
+      output: {
+
+      }
+    };
+
+    // Identity Resorces API
+    this.store.dispatch(getAllIdentityResources());
+    this.store.select(selectA).subscribe(res => {
+      if (res && res.items) {
+        const data: any[] = [];
+        res.items.forEach(element => {
+          const item: any = {
+            description: element.description,
+            displayName: element.displayName,
+            emphasize: element.emphasize,
+            enabled: element.enabled,
+            extraProperties: element.extraProperties,
+            id: element.id,
+            name: element.name,
+            properties: element.properties,
+            required: element.required,
+            showInDiscoveryDocument: element.showInDiscoveryDocument,
+            userClaims: element.userClaims
+          };
+          data.push(item);
+        });
+        this.rdsClientResourcesMfeConfig.input.identityResourcesData = [...data];
+      }
+    });
+
+    // Api Resorces API
+    this.store.dispatch(getAllApiResources()),
+      this.store.select(selectAllApiResource).subscribe(res => {
+        const data: any[] = [];
+        if (res && res.items) {
+          res.items.forEach(element => {
+            const item: any = {
+              allowedAccessTokenSigningAlgorithms: element.allowedAccessTokenSigningAlgorithms,
+              description: element.description,
+              displayName: element.displayName,
+              enabled: element.enabled,
+              extraProperties: element.extraProperties,
+              id: element.id,
+              name: element.name,
+              properties: element.properties,
+              scopes: element.scopes,
+              secrets: element.secrets,
+              showInDiscoveryDocument: element.showInDiscoveryDocument,
+              userClaims: element.userClaims
+            };
+            data.push(item);
+          });
+          this.rdsClientResourcesMfeConfig.input.apiResourcesData = [...data];
+        }
+      })
+
+    // Secret tab
+    this.rdsClientSecretsMfeConfig = {
+      name: 'RdsCompSecrets',
+      input: {},
+      output: {
+        secretDataInfo: (event: any) => {
+          // console.log('secret Data', event);
+          this.emitClientData.clientSecrets = [...event]
+          // this.emitClientData = {...event};
+        }
+      }
+    };
 
     this.store.dispatch(getAllApiResources());
     this.store.select(selectAllApiResource).subscribe((res) => {
@@ -193,7 +255,7 @@ export class AppComponent {
             displayName: element.displayName,
             name: element.name,
             left: element.description,
-            id:element.id
+            id: element.id
           }
           this.apiResources.push(item);
         });
@@ -203,7 +265,25 @@ export class AppComponent {
       mfeConfig.input.apiResources = [...this.apiResources];
       mfeConfig.input.refresh = true;
       this.rdsClientMfeConfig = { ...mfeConfig };
-    })
+    });
+
+    // Permission
+    this.rdsPermissionRoleMfeConfig = {
+      name: 'RdsCompPermissionTree',
+      input: {
+        treeData: this.permissionTreeData,
+        roleName: undefined,
+        isEdit: false
+      },
+      output: {
+        getAllselectedPermissions: (event: any) => {
+          this.emitPermissionsData.permissions.permissions = [];
+          this.emitPermissionsData.permissions.permissions = event;
+        }
+      }
+    }
+
+
   }
 
   newClient(event: any): void {
@@ -221,6 +301,18 @@ export class AppComponent {
       var bsOffcanvas = new bootstrap.Offcanvas(offcanvas);
       bsOffcanvas.show()
     }, 100);
+    // Permissions
+    this.store.dispatch(getPermissions('admin'));
+    this.store.select(selectAllPermissions).subscribe(res => {
+      if (res && res.groups) {
+        this.permissionTreeData = res.groups;
+        const mfeConfig = this.rdsPermissionRoleMfeConfig
+        mfeConfig.input.treeData = [... this.permissionTreeData];
+        mfeConfig.input.roleName = res.entityDisplayName;
+        mfeConfig.input.isEdit = false;
+        this.rdsPermissionRoleMfeConfig = { ...mfeConfig };
+      }
+    });
   };
 
   close(): void {
@@ -245,32 +337,12 @@ export class AppComponent {
     this.client.resources = event;
   }
 
-  save(): void {
-    if (!this.client.basicInfo) {
-      return;
-    }
+  save() {
+    console.log('Client Data: ', this.emitClientData);
+    
+    // this.store.dispatch(saveClient())
+  }
 
-    const clientInfo: any = this.client.basicInfo;
-    clientInfo.resources = this.client.resources;
-    clientInfo.secrets = this.clientSecretList.filter((x: any) => !x.isEdit);
-    const client: any = this.clientList.find((x: any) => x.id === this.clientUniqueId);
-    if (!client) {
-      clientInfo.id = this.clientList.length + 1;
-      this.clientList.push(clientInfo);
-    } else {
-      client.resources = this.client.resources;
-      client.clientName = this.client.basicInfo.clientName;
-      client.clientUrl = this.client.basicInfo.clientUrl;
-      client.logoUrl = this.client.basicInfo.logoUrl;
-      client.requiredConsent = this.client.basicInfo.requiredConsent;
-      client.clientId = this.client.basicInfo.clientId;
-      client.secrets = clientInfo.secrets;
-    }
-    const mfeConfig = this.rdsClientMfeConfig
-    mfeConfig.input.tableData = [... this.clientList];
-    this.rdsClientMfeConfig = mfeConfig;
-    this.close();
-  };
   getBtnName(): string {
     if (this.clientUniqueId) {
       return 'Update';
@@ -279,9 +351,20 @@ export class AppComponent {
   }
 
   getNavTabItems(): any {
-    this.navtabsItems[0].label = 'Basics';
-    this.navtabsItems[1].label = 'Secrets';
-    this.navtabsItems[2].label = 'Resources';
-    return this.navtabsItems;
+    if (this.isEdit) {
+      this.navtabsItems.push({ label: 'Advanced', tablink: '#advanced', ariacontrols: 'advanced' });
+      this.navtabsItems[0].label = 'Basics';
+      this.navtabsItems[1].label = 'Secrets';
+      this.navtabsItems[2].label = 'Resources';
+      this.navtabsItems[3].label = 'Permissions';
+      this.navtabsItems[4].label = 'Advanced';
+      return this.navtabsItems;
+    } else if (!this.isEdit) {
+      this.navtabsItems[0].label = 'Basics';
+      this.navtabsItems[1].label = 'Secrets';
+      this.navtabsItems[2].label = 'Resources';
+      this.navtabsItems[3].label = 'Permissions';
+      return this.navtabsItems;
+    }
   }
 }

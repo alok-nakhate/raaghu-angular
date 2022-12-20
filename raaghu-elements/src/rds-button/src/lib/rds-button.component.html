@@ -1,16 +1,17 @@
 <!-- Template for the micro front end component -->
 <!-- <button class="btn" [ngClass]="classes" (click)="click.emit()">{{ label || 'Button' }}</button> -->
 
-<button [type]="submitButton" [class]="classes" (click)="buttonClick($event)" data-bs-toggle="tooltip"
-  [attr.data-bs-placement]="tooltipPlacement" [attr.data-bs-title]="tooltipTitle" [attr.id]="id" [disabled]="showLoadingSpinner||disabled"
-  [class.spinner]="showLoadingSpinner" [ngClass]="blockWidth" [attr.aria-label]="label">
+<button [type]="submitButton" [class]="classes" (click)="buttonClick($event)" data-bs-toggle="tooltip" 
+  [attr.data-bs-placement]="tooltipPlacement" [attr.data-bs-title]="tooltipTitle" [attr.id]="id"
+  [disabled]="showLoadingSpinner||isDisabled"  [ngClass]="blockWidth" [class.spinner]="showLoadingSpinner"
+  [attr.aria-label]="label">
 
   <ng-content select="[left]"></ng-content>
-  <rds-icon *ngIf="buttonType!='labelOnly'" [name]="icon" [width]="iconWidth" [height]="iconHeight" [fill]="iconFill"
-    [stroke]="iconStroke"></rds-icon>
-  <span *ngIf="buttonType!='iconOnly'" class="ps-1 btn-text mx-1">{{label}}</span>
+  <span *ngIf="icon" [ngClass]="icon&&label ? 'me-2' :  ''" [class.invisible]="showLoadingSpinner">
+    <rds-icon *ngIf="icon" [name]="icon" [width]="iconWidth" [height]="iconHeight" [fill]="isIconFill"
+      [stroke]="isIconStroke"></rds-icon>
+  </span>
+  <span *ngIf="label"  [class.invisible]="showLoadingSpinner" class="btn-text">{{label}}</span>
   <ng-content></ng-content>
   <ng-content select="[right]"></ng-content>
-
-
 </button>

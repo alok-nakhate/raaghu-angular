@@ -14,3 +14,8 @@ export const selectClient = createSelector(
     selectClients,
     (state: ClientState) => state.client
 );
+
+export const selectAllPermissions = createSelector(
+    selectClients,
+    (state: ClientState) => state.PermissionI
+);

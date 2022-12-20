@@ -38,7 +38,7 @@ Default.args = {
     cardNumber: 246,
     name: 'abc',
     expirationDate: 567,
-    buttonSpinner: true,
+    buttonSpinner: false,
     paymentModeList :[
         {
           "id": 1,

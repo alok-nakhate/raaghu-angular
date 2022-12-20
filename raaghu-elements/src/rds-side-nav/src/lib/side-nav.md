@@ -10,7 +10,9 @@ title: "Elements > Side-nav"
 <link rel="stylesheet" href="../../../../../../../raaghu/src/assets/css/main.css">
 
 
-#### Side-nav
+#### Side Nav
+
+<p class="">Side nav is navigating tool containing different pages providing a clear navigation through complex website.</p>
 
  <section class="py-4">
     <h6>Default</h6>

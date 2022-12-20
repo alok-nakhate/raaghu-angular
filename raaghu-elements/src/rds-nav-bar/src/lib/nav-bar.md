@@ -9,9 +9,9 @@ title: "Elements > Nav-bar"
 
 
 
-#### Nav-bar
+#### Nav Bar
 
-<p class="">A card is a small rectangular module with images and text. It is an entry point for users to learn more details</p>
+<p class="">A nav bar is a visually appeling manner for displaying navigation header having support for branding and navigation.  </p>
 <section class="py-4">
     <h6>Default</h6>
     <div class="py-3">
@@ -61,10 +61,12 @@ title: "Elements > Nav-bar"
                               <div class="card border p-5">
                                  <div class="row">
                                     <div class="col-md-5">
-                                       <img src="/images/skel-navbar.png" class="img-fluid">
+                                       <img src="/images/skel-navbar1.png" class="img-fluid">
                                     </div> 
                                  </div>
                               </div>
                         </div>
                      </section>
   
+  <!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>    

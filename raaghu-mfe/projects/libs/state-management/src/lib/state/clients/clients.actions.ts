@@ -1,4 +1,4 @@
- import { createAction, props } from "@ngrx/store";
+import { createAction, props } from "@ngrx/store";
 
 export const getAllClients = createAction('[Clients Page] Get All Clients');
 
@@ -13,7 +13,7 @@ export const getAllClientsFailure = createAction(
 );
 
 export const getClient = createAction('[Clients Page] Get Client',
-(id:any) => ( id ));
+    (id: any) => (id));
 
 export const getClientSuccess = createAction(
     '[Clients Page] Get Client Success',
@@ -26,7 +26,7 @@ export const getClientFailure = createAction(
 );
 
 export const updateClient = createAction('[Clients Page] Update Client',
-(data:any) => (data));
+    (data: any) => (data));
 
 export const updateClientSuccess = createAction(
     '[Clients Page] Update Client Success',
@@ -39,8 +39,8 @@ export const updateClientFailure = createAction(
 
 export const saveClient = createAction(
     '[Clients Page] Save Client',
-    (data) => ( data )
-    );
+    (data) => (data)
+);
 
 export const saveClientSuccess = createAction(
     '[Clients Page] Save Client Success',
@@ -57,5 +57,29 @@ export const deleteClient = createAction(
 );
 export const deleteClientSucess = createAction(
     '[Clients Page] Delete Client Success',
+);
+
+export const getPermissions = createAction('[Clients Page] Get Permissions',(name: any) => ({ name }));
+
+export const getPermissionSuccess = createAction(
+    '[Clients Page] get Permission Success',
+    props<{ PermissionI: any }>()
+);
+
+export const getPermissionFailure = createAction(
+    '[Clients Page] get Permission Failure',
+    props<{ error: string }>()
+);
+
+export const savePermissions = createAction('[Clients Page] Save Permissions',
+(data) => ({ data }));
+
+export const savePermissionsSuccess = createAction(
+    '[Clients Page] Save Permissions Success',
+);
+
+export const savePermissionsFailure = createAction(
+    '[Clients Page] Save Permissions Failure',
+    props<{ error: string }>()
 );
 

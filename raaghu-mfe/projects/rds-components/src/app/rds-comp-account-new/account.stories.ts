@@ -51,13 +51,15 @@ const Template: Story<RdsCompAccountNewComponent> = (args: RdsCompAccountNewComp
 
 export const Default = Template.bind({});
 Default.args = {
-    AuthentiactionList: [
-        { isFree: true, value: '1', displayText: 'Value 1', isSelected: false },
-        { isFree: false, value: '2', displayText: 'Value 2', isSelected: false },
+    AuthentiactionList:[
+
+        { value: 'default', some: 'default', id: 'twofactorauthentication', icon: '', iconWidth: '', iconHeight: '', iconStroke: true, iconFill: false },
+        { value: 'isFree', some: 'isFree', id: 2, icon: '', iconWidth: '', iconHeight: '', iconStroke: true, iconFill: false },  
       ],
       VersionList: [
-        { isFree: true, value: '1', displayText: 'Value 1', isSelected: false },
-        { isFree: false, value: '2', displayText: 'Value 2', isSelected: false },
+        { value: 'isFree', some: 'isFree', id: 'VersionList', icon: '', iconWidth: '', iconHeight: '', iconStroke: true, iconFill: false },  
+        { value: 'default', some: 'default', id: 1, icon: '', iconWidth: '', iconHeight: '', iconStroke: true, iconFill: false },
+        { value: 'isFree', some: 'isFree', id: 2, icon: '', iconWidth: '', iconHeight: '', iconStroke: true, iconFill: false },  
       ],
 }
 

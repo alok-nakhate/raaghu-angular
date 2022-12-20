@@ -11,7 +11,7 @@ title: "Elements > Dropdownlist"
 
 #### Dropdown List
 
-<p class="checkbox-def">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore sdavavfgsv</p>
+<p class="checkbox-def">Dropdown list is a blocked dropdown containing the list of contents.</p>
 
 <section class="py-4">
     <h6>Default</h6>
@@ -71,13 +71,10 @@ size="default"
                               <!-- Tab panes -->
                               <div class="card border p-5">
                                  <div class="row">
-                                    <div class="col-md-6">
-                                       <img src="https://portal.raaghu.io/images/components/_dropdown-list/img-1.png" class="img-fluid">
+                                    <div class="col-md-12">
+                                       <img src="/images/dropdown-list-skeleton.png" class="img-fluid">
                                     </div>
-                                    <div class="col-md-6 ">
-                                       <img src="https://portal.raaghu.io/images/components/_dropdown-list/img-2.png" class="img-fluid">
-                                    </div>
-                                 </div>
+                                  </div>
                               </div>
                         </div>
                      </section>

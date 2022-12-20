@@ -3,7 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { TableHeader } from '../../models/table-header.model';
 
 @Component({
-  selector: 'app-rds-comp-website-log',
+  selector: 'rds-comp-website-log',
   templateUrl: './rds-comp-website-log.component.html',
   styleUrls: ['./rds-comp-website-log.component.scss']
 })
@@ -23,22 +23,22 @@ export class RdsCompWebsiteLogComponent implements OnInit {
   ngOnInit(): void {
     if (this.websiteLogData) {
       this.totalRecords = this.websiteLogData.length;
-      this.dataSource = this.websiteLogData;
+      // this.dataSource = this.websiteLogData;
     //  this.tempData = this.websiteLogData;
     }
   }
     ngDoCheck(): void {
       if (this.websiteLogData) {
         //this.tempData = JSON.parse(JSON.stringify(this.websiteLogData));
-        this.dataSource = this.websiteLogData;
-        this.totalRecords = this.websiteLogData.length;
+        // this.dataSource = this.websiteLogData;
+        // this.totalRecords = this.websiteLogData.length;
       }
     }
     ngOnChanges(changes: SimpleChanges): void {
       if (this.websiteLogData) {
         //this.tempData = this.websiteLogData;
-        this.dataSource = this.websiteLogData;
-        this.totalRecords = this.websiteLogData.length;
+        // this.dataSource = this.websiteLogData;
+        // this.totalRecords = this.websiteLogData.length;
       }
     }
     getTotalRecords() {
@@ -59,9 +59,9 @@ export class RdsCompWebsiteLogComponent implements OnInit {
           this.dataSource.push(data[i]);
         }
       }
-      setTimeout(() => {
-        this.resetPagination = false;
-      }, 1000);
+      // setTimeout(() => {
+      //   this.resetPagination = false;
+      // }, 1000);
     }
 
   

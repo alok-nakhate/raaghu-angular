@@ -1,7 +1,7 @@
 ---
 slug: "/chart-stacked"
 date: "2019-05-04"
-title: "Elements > Chart-stacked"
+title: "Charts > Chart-stacked"
 ---
 
 <!-- CSS only -->
@@ -11,7 +11,7 @@ title: "Elements > Chart-stacked"
 
 #### Stacked Chart
 
-<p class="">A card is a small rectangular module with images and text. It is an entry point for users to learn more details</p>
+<p class="">A stacked chart represents the changes and trends over the period of time.</p>
 
 <section class="py-4">
 <h6>Default</h6>

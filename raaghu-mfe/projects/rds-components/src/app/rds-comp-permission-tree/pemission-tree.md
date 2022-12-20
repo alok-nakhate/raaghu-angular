@@ -9,7 +9,7 @@ title: "Components > Permission-tree"
 
 #### Permission Tree
 
-<p class="">A card is a small rectangular module with images and text. It is an entry point for users to learn more details</p>
+<p>Provides a select box having different options that can be selected in single/multiple way</p>
 <section class="py-4">
     <h6>Default</h6>
     <div class="py-3">
@@ -39,11 +39,11 @@ title: "Components > Permission-tree"
 <div class="row m-0">
 
 ```html
-<app-rds-comp-permission-tree
+<rds-comp-permission-tree
 [selectedItems]="selectedItems"
 [treeData]="treeData"
 [multiselectTree]="false">
-</app-rds-comp-permission-tree>
+</rds-comp-permission-tree>
 ```
 </div>
 </div>

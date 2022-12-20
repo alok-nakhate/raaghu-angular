@@ -43,12 +43,12 @@
   </ul>
 </label> -->
 
-<div class="dropdown w-100" [class]="classes">
-  <span [ngClass]="button1" class="dropdown-toggle gap-2" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
-    size="small" aria-expanded="false">
+<div class="dropdown w-100">
+  <span [ngClass]="button1" class="dropdown-toggle gap-2 dropdownarrow py-2" [attr.data-bs-offset]="xOffset + ',' + yOffset"
+  (click)="open()" role="button" [attr.id]="id" data-bs-toggle="dropdown" size="small" [attr.aria-expanded]="show">
     <rds-icon *ngIf="icon" [name]="icon" [height]="iconHeight" [width]="iconWidth" [fill]="iconFill"
       [stroke]="iconStroke" class="pe-1"></rds-icon>
-    <span *ngIf="!entity || checkedCategoryList.length < 1">{{(value)? value:placeholder}}</span>
+    <span class="text-muted" *ngIf="!entity || checkedCategoryList.length < 1">{{(value)? value:placeholder}}</span>
     <span *ngIf="entity && checkedCategoryList.length > 0">
       <rds-badge *ngFor="let title of badgeList" (onClose)="initAllSelect($event, title)" class="mx-1" size="small"
         [colorVariant]="'primary'" [label]="title.value" [showClose]="true"></rds-badge>
@@ -56,10 +56,10 @@
   </span>
 
   <ng-template #other_content>Select Property</ng-template>
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+  <ul class="dropdown-menu" [attr.aria-labelledby]="id" [ngStyle]="{'max-height':dropdownHeight === '' || null || undefined ? '155px' : dropdownHeight + 'px'}">
     <li class="list-group-item p-0" *ngIf="selectAll && multiSelect">
       <span class="dropdown-item">
-        <input type="checkbox" class="form-check-input" [(ngModel)]="isMasterSel" name="list_name" value="h1"
+        <input type="checkbox" class="form-check-input me-2" [(ngModel)]="isMasterSel" name="list_name" value="h1"
           (change)="checkUncheckAll()" />
         <label class="form-check-label mx-2">Select All</label>
       </span>
@@ -67,10 +67,10 @@
 
     <li *ngFor="let item of listItems; index as i;" (click)="initAllSelect($event, item)">
       <a class="dropdown-item" [class.active]="value===item.some">
-        <div class="d-flex">
+        <div class="d-flex justify-content-between">
           <div>
-            <input class="form-check-input" type="checkbox" [(ngModel)]="item.isSelected" (change)="isAllSelected();"
-              *ngIf="multiSelect" />
+            <input class="form-check-input me-2" type="checkbox" [(ngModel)]="item.isSelected"
+              (change)="isAllSelected();" *ngIf="multiSelect" />
             <label class="form-check-label ">
               <div class="d-flex justify-content-between gap-2 mb-1 align-items-center">
                 <rds-icon [name]="item.icon" [height]="item.iconHeight" [fill]="item.iconFill"
@@ -79,7 +79,7 @@
               </div>
             </label>
           </div>
-          <div class="text-white">
+          <div>
             <rds-icon *ngIf="value===item.some" [name]="'check'" [height]="'15px'" [width]="'15px'"></rds-icon>
           </div>
         </div>

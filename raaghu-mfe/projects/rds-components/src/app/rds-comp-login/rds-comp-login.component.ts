@@ -24,13 +24,12 @@ export class RdsLoginComponent implements OnInit, OnChanges {
   @Input() TenantName: string;
   @Input() UserName: string = 'Email/Username';
   @Input() Password: string = 'Password';
-  @Input() userNameInputType: string = 'email';
-  @Input() userPasswordInputType: string = 'password';
   buttonLabel: string = 'Login';
   buttonLabelUp: string = 'Signup'
   @Input() buttonColorType: string = 'secondary';
   @Input() buttonColorTypeUp: string = 'light';
   checkboxTitle: string = 'Remember me';
+  Modallabel : string = 'Switch to the host';
   // @Output() onRememberMeToggle = new EventEmitter<Event>();
   @Output() onClick: EventEmitter<any> = new EventEmitter<any>();
   @Output() onLogin: EventEmitter<any> = new EventEmitter<any>();
@@ -41,8 +40,8 @@ export class RdsLoginComponent implements OnInit, OnChanges {
 
   @Input() switchTenant: boolean = false;
   emailPattern: any = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  @Input() buttonSpinner: boolean = true;
-  @Input() buttonSpinnerForChangeTenant: boolean = true;
+  @Input() buttonSpinner: boolean = false;
+  @Input() buttonSpinnerForChangeTenant: boolean = false;
   constructor(private formBuilder: FormBuilder, public translate: TranslateService) {
   }
 
@@ -61,6 +60,7 @@ export class RdsLoginComponent implements OnInit, OnChanges {
   }
 
   submit(loginForm: NgForm) {
+    this.buttonSpinner = true;
     this.onLogin.emit({
       userEmail: this.userNameData,
       userPassword: this.userPasswordData,
@@ -70,6 +70,7 @@ export class RdsLoginComponent implements OnInit, OnChanges {
 
   ChangeTenant(tenantForm: NgForm) {
     this.onSwitchTenant.emit(this.TenantNameData);
+    this.buttonSpinnerForChangeTenant = true;
   }
 
   onModalClose(tenantForm: NgForm): void {
@@ -80,8 +81,10 @@ export class RdsLoginComponent implements OnInit, OnChanges {
 
   switchTenanat(event: any) {
     this.switchTenant = event;
+    this.Modallabel = this.translate.instant('Switch to the tenant');
     if (!event) {
       this.TenantNameData = '';
+      this.Modallabel = this.translate.instant('Switch to the host');
     }
   }
   back() {

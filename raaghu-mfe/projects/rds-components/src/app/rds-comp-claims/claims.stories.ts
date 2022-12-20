@@ -32,9 +32,109 @@ export const Default = Template.bind({});
  
 Default.args= {
   ClaimData:{
-    claim_ato_e: 'undefined',
-    claim_f_to_o: 'undefined',
-    claim_p_to_z: 'undefined'
+    claim_ato_e: [
+      {
+        label: 'Availability',
+        checked: false
+      },
+      {
+        label: 'Apiopolis',
+        checked: false
+      },
+      {
+        label: 'Apigenix',
+        checked: false
+      },
+      {
+        label: 'Best Selector',
+        checked: false
+      },
+      {
+        label: 'Best Selector',
+        checked: false
+      },
+      {
+        label: 'Creative',
+        checked: false
+      },
+      {
+        label: 'ALT Genix Api',
+        checked: false
+      },
+      {
+        label: 'Dev Support Api',
+        checked: false
+      },
+    
+     ],
+     claim_f_to_o: [
+      {
+        label: 'Availability',
+        checked: false
+      },
+      {
+        label: 'Apiopolis',
+        checked: false
+      },
+      {
+        label: 'Apigenix',
+        checked: false
+      },
+      {
+        label: 'Best Selector',
+        checked: false
+      },
+      {
+        label: 'Best Selector',
+        checked: false
+      },
+      {
+        label: 'Creative',
+        checked: false
+      },
+      {
+        label: 'ALT Genix Api',
+        checked: false
+      },
+      {
+        label: 'Dev Support Api',
+        checked: false
+      },
+     ],
+     claim_p_to_z: [
+      {
+        label: 'Availability',
+        checked: false
+      },
+      {
+        label: 'Apiopolis',
+        checked: false
+      },
+      {
+        label: 'Apigenix',
+        checked: false
+      },
+      {
+        label: 'Best Selector',
+        checked: false
+      },
+      {
+        label: 'Best Selector',
+        checked: false
+      },
+      {
+        label: 'Creative',
+        checked: false
+      },
+      {
+        label: 'ALT Genix Api',
+        checked: false
+      },
+      {
+        label: 'Dev Support Api',
+        checked: false
+      },
+     ]
   }
  
 }

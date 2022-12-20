@@ -1,27 +1,26 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { AppState } from '../../app.interface';
+import { TenantState } from './tenant.reducer';
 
-export const selectTenants = (state: AppState) => state.tenants;
+export const selectTenant = (state: AppState) => state.tenants;
 // export const selectAllTenants = createSelector(
 //   selectTenants,
 //     (state: TenantState) => state.tenants
 // );
 
-export const tenantSelector = createFeatureSelector<AppState>('tenants');
-
 export const selectAllTenants = createSelector(
-  tenantSelector,
-  (state: AppState) => state.tenants
+  selectTenant,
+  (state: TenantState) => state.tenants
 );
 export const selectEditionComboboxItems = createSelector(
-  tenantSelector,
-  (state: AppState) => state.editionComboboxItem
+  selectTenant,
+  (state: TenantState) => state.editions
 );
 export const selectTenantInfo = createSelector(
-  tenantSelector,
-  (state: AppState) => state.tenantInfo
+  selectTenant,
+  (state: TenantState) => state.tenantInfo
 );
 export const selectTenantFeature = createSelector(
-  tenantSelector,
-  (state: AppState) => state.tenantFeature
+  selectTenant,
+  (state: TenantState) => state.features
 );

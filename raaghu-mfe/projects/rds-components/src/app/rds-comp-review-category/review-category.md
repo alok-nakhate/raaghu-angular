@@ -1,7 +1,7 @@
 ---
 slug: "/comp-review-category"
 date: "2019-05-04"
-title: "Components > Review-Categorys"
+title: "Components > Review-Category"
 ---
 
 <!-- CSS only -->
@@ -9,10 +9,10 @@ title: "Components > Review-Categorys"
 <link rel="stylesheet" href="../../../../../../../raaghu/src/assets/css/style-elements.css">
 <link rel="stylesheet" href="../../../../../../../raaghu/src/assets/css/main.css">
 
-#### Review-Categorys
-
+#### Review Category
+<p>Provides a card with the details of differnet user and their rating and remark regarding a product</p>
  <section class="py-4">
-    <h6>Default</h6>
+     <h6>Default</h6>
     <div class="py-3">
       <div class="cust-tabs">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -40,9 +40,9 @@ title: "Components > Review-Categorys"
 <div class="row m-0">
 
 ```html
-<app-rds-comp-review-category
+<rds-comp-review-category
   [itemList]="itemList"
-></app-rds-comp-review-category>
+></rds-comp-review-category>
 ```
 </div>
 </div>

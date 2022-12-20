@@ -9,7 +9,7 @@
   border-radius: 4px 4px 0px 0px;
 }
 
-.profile-image{
+.profile-image {
   width: 7rem;
   margin-top: 3.5rem;
   z-index: 9;
@@ -107,6 +107,7 @@
     width: 100% !important;
   }
 }
+
 // ipad and mobile
 @media (max-width: 768px) {
   .rounded-avatar-left .card {
@@ -121,41 +122,53 @@
     width: 100% !important;
   }
 }
+
 //subscription-page
 
-.subscription-bg-blue {
+.bg-standard {
   background-color: #005FA4;
 }
-.subscription-bg-purple {
+
+.bg-premium {
   background-color: #660064;
 }
-.subscription-bg-green {
+
+.bg-basic {
   background-color: #00A443;
 }
-.subscription-bg-orangered {
+
+.bg-professional {
   background-color: #F76161;
 }
-.subscription-bg-orange {
+
+.bg-recommended {
   background-color: #F58220;
 }
 
-
-.subscription-border-blue {
-  border: 1px solid #005FA4;
-}
-.subscription-border-purple {
-  border: 1px solid #660064;
-}
-.subscription-border-green {
-  border: 1px solid #00A443;
-}
-.subscription-border-orangered {
-  border: 1px solid #F76161;
-}
-.subscription-border-orange {
-  border: 1px solid #F58220;
+.border-standard {
+  border: 0.8px solid #005FA4 !important;
 }
 
-.card{
+.border-premium {
+  border: 0.8px solid #660064 !important;
+}
+
+.border-basic {
+  border: 0.8px solid #00A443 !important;
+}
+
+.border-professional {
+  border: 0.8px solid #F76161 !important;
+}
+
+.border-recommended {
+  border: 0.8px solid #F58220;
+}
+
+.card {
   height: 100%;
+}
+
+.headerClass{
+  border-radius: 5px 5px 0px 0px;
 }

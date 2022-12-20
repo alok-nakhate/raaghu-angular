@@ -1,7 +1,7 @@
 ---
 slug: "/comp-shopping-cart-product"
 date: "2019-05-04"
-title: "Componets > Shopping-Cart-Product"
+title: "Components > Shopping-Cart-Product"
 ---
 
 <!-- CSS only -->
@@ -9,10 +9,11 @@ title: "Componets > Shopping-Cart-Product"
 <link rel="stylesheet" href="../../../../../../../raaghu/src/assets/css/style-elements.css">
 <link rel="stylesheet" href="../../../../../../../raaghu/src/assets/css/main.css">
 
-#### Shopping-Cart-Product
+#### Shopping Cart Product
+<p>Provides a details of the products selected in cart with their quantity selected</p>
 
  <section class="py-4">
-    <h6>Default</h6>
+ <h6>Default</h6>
     <div class="py-3">
       <div class="cust-tabs">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -54,7 +55,7 @@ title: "Componets > Shopping-Cart-Product"
   </section>
 
    <section class="py-4">
-    <h6>Without-Quantity</h6>
+    <h6>Without Quantity</h6>
     <div class="py-3">
       <div class="cust-tabs">
         <ul class="nav nav-tabs" id="myTab" role="tablist">

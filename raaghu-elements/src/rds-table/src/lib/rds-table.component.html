@@ -1,27 +1,117 @@
-<div class="table-responsive">
+<!-- <div class="table-responsive">
   <table [ngClass]="bodyColorClasses" id="table">
     <thead *ngIf="showTableHeader">
       <tr>
-        <th *ngFor="let header of tableHeaders">{{header.displayName}}</th>
+        <th [ngClass]="headcolor"  *ngFor="let header of tableHeaders">{{header.displayName}}</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let item of tableData">
         <ng-container *ngFor="let header of tableHeaders">
+
           <ng-container *ngIf="header.dataType=='text'">
-            <td width="40%">{{item[header.key]}}</td>
+            <td>{{item[header.key]}}</td>
           </ng-container>
           <ng-container *ngIf="header.dataType=='icon'">
-            <td width="20%">
+            <td>
               <rds-icon [name]="item.icon" height="12px" width="12px"></rds-icon>
             </td>
           </ng-container>
           <ng-container *ngIf="header.dataType=='textNumber'">
-            <td width="20%">{{item[header.key]}}</td>
+            <td>{{item[header.key]}}</td>
+=======
+          <ng-container *ngIf="item[header.key]">
+            <ng-container *ngIf="item[header.key].type===undefined; else individualTypeTemplate">
+              <ng-container *ngIf="header.dataType=='html';else iconTemplate">
+                <td [innerHTML]="item[header.key]"></td>
+              </ng-container>
+              <ng-template #iconTemplate>
+                <ng-container *ngIf="header.dataType=='icon';else other">
+                  <td>
+                    <rds-icon [name]="item[header.key]" colorVariant="success" height="16px" width="16px"></rds-icon>
+                  </td>
+                </ng-container>
+                <ng-template #other>
+                  <td>{{item[header.key]}}</td>
+                </ng-template>
+
+              </ng-template>
+            </ng-container>
+            <ng-template #individualTypeTemplate>
+              <ng-container *ngIf="item[header.key].type=='html';else iconTemplate">
+                <td [innerHTML]="item[header.key].value"></td>
+              </ng-container>
+              <ng-template #iconTemplate>
+                <ng-container *ngIf="item[header.key].type=='icon';else other">
+                  <td>
+                    <rds-icon [name]="item[header.key].value" colorVariant="success" height="16px" width="16px">
+                    </rds-icon>
+                  </td>
+                </ng-container>
+                <ng-template #other>
+                  <td>{{item[header.key].value}}</td>
+                </ng-template>
+
+              </ng-template>
+            </ng-template>
           </ng-container>
-          <!--<ng-container *ngIf="header.dataType=='textNumber'">
-            <td >{{item[header.key]}}</td>
-          </ng-container>-->
+
+
+        </ng-container>
+      </tr>
+    </tbody>
+  </table>
+</div> -->
+
+<div class="table-responsive">
+  <table [ngClass]="bodyColorClasses" id="table">
+    <thead *ngIf="showTableHeader">
+      <tr>
+        <th [ngClass]="headcolor" *ngFor="let header of tableHeaders" [class]="header.class">{{header['displayName']}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of tableData">
+        <ng-container *ngFor="let header of tableHeaders">
+          <ng-container *ngIf="item[header.key]">
+            <ng-container *ngIf="item[header.key].type===undefined; else individualTypeTemplate">
+              <ng-container *ngIf="header.dataType=='html';else iconTemplate">
+                <td [class]="header.class" [innerHTML]="item[header.key]"></td>
+              </ng-container>
+              <ng-template #iconTemplate>
+                <ng-container *ngIf="header.dataType=='icon';else other">
+                  <td [class]="header.class">
+                    <rds-icon [name]="item[header.key]" colorVariant="success" height="16px" width="16px"></rds-icon>
+                  </td>
+                </ng-container>
+                <ng-template #other>
+                  <td [class]="header.class">{{item[header.key]}}</td>
+                </ng-template>
+
+              </ng-template>
+            </ng-container>
+            <ng-template #individualTypeTemplate>
+              <ng-container *ngIf="item[header.key].type=='text';else iconTemplate">
+                
+                <td [class]="header.class" [innerHTML]="item[header.key].value"></td>
+              </ng-container>
+              <ng-template #iconTemplate>
+                <ng-container *ngIf="item[header.key].type=='icon';else other">
+                  <td [class]="header.class">
+                    <rds-icon [name]="item[header.key].value" colorVariant="success" height="16px" width="16px">
+                    </rds-icon>
+                  </td>
+                </ng-container>
+                <ng-template #other>
+                  <td [class]="header.class">{{item[header.key].value}}</td>
+                </ng-template>
+
+              </ng-template>
+            </ng-template>
+
+          </ng-container>
+
+
         </ng-container>
       </tr>
     </tbody>

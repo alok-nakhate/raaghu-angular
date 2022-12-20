@@ -19,12 +19,12 @@ const Template: Story<RdsIllustrationComponent> = (args: RdsIllustrationComponen
     props: args,
 });
 
-export const Default = Template.bind({
-
-})
-
+export const Default = Template.bind({});
+Default.parameters = { controls: { include: ['label', 'subLabel', 'iconHeight', 'iconWidth'] } };
 Default.args = {
     label: 'Currently you do not have Webhook Subscriptions',
-    subLabel: 'Click on the button above to add'
+    subLabel: 'Click on the button above to add',
+    iconHeight: '168px',
+    iconWidth: '168px'
 }
 

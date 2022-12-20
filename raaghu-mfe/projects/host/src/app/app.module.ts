@@ -52,6 +52,10 @@ import { UserEffects } from 'projects/libs/state-management/src/lib/state/user/u
 import { UserReducer } from 'projects/libs/state-management/src/lib/state/user/user.reducer';
 import { LanguageEffects } from 'projects/libs/state-management/src/lib/state/language/language.effects';
 import { LanguageReducer } from 'projects/libs/state-management/src/lib/state/language/language.reducer';
+import { TenantReducer } from 'projects/libs/state-management/src/lib/state/tenant/tenant.reducer';
+import { TenantEffects } from 'projects/libs/state-management/src/lib/state/tenant/tenant.effects';
+import { SettingEffects } from 'projects/libs/state-management/src/lib/state/settings/settings.effects';
+import { settingReducer } from 'projects/libs/state-management/src/lib/state/settings/settings.reducer';
 export function getRemoteServiceBaseUrl(): any {
   let URL = demodata.remoteServiceBaseUrl;
   return URL;
@@ -98,18 +102,23 @@ export function getRemoteServiceBaseUrl(): any {
     StoreModule.forRoot({
       products: productReducer,
       languages:LanguageReducer,
+      settings : settingReducer,
+
+      tenants:TenantReducer,
+      // dynamicProperty: DynamicPropertyReducer,
+      // dynamicEntity: DynamicEntityReducer,
       profile: ProfileReducer,
       // Entities: GetAllDynamicProperty,
       // PropertiesEntitie: GetAllDynamicPropertyEntites,
       organizationUnit: OrganizationUnitReducer,
       roles: RoleReducer,
-      texTemplate:TextTemplateReducer,
+     texTemplate:TextTemplateReducer,
       // mla: MLAReducer,
       validateTenant: ValidateTenantReducer,
       identityResources: IdentityResourcesReducer,
       apiResources: ApiResourcesReducer,
       apiScope: ScopesReducer,
-      securityLog: SecurityLogsReducer,
+      securityLogs: SecurityLogsReducer,
       clients: ClientsReducer,
       languageText: LanguageTextReducer,
       // defaultLanguage: DefaultLanguageReducer,
@@ -135,6 +144,7 @@ export function getRemoteServiceBaseUrl(): any {
       OrganizationUnitEffects, 
       LanguageTextEffects, 
       RoleEffects,
+      TenantEffects,
       DownloadEffects,
       LoginEffects,
       ManageLinkedAccountsEffects,
@@ -142,9 +152,11 @@ export function getRemoteServiceBaseUrl(): any {
       OrganizationUnitEffects,
       LoginEffects,
       LanguageTextEffects,
+      TextTemplateEffects,
       DownloadEffects,
       UserEffects,
-      LanguageEffects
+      LanguageEffects,
+      SettingEffects
     ]),
     SharedModule,
     UserAuthModule,

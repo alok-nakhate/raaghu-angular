@@ -1,9 +1,28 @@
-
 <div class="position-relative py-5">
   <ng-container>
-    <span id="range1" class="sliderTooltipRangeOne " [attr.data-tooltip]="value"></span>
+    <span class="position-absolute "
+      [ngClass]="{'val1PositionDefault': role === 'Default', 
+                    'val1PositionType2 rounded px-2 py-1' : role === 'Range Type 1' || role === 'Range Type 2'}">{{min}}</span>
+    <span class="position-absolute "
+      [ngClass]="{ 
+                    'val2PositionDefault': role === 'Default', 
+                    'val2PositionType2 rounded px-2 py-1' : role === 'Range Type 1' || role === 'Range Type 2'}">{{max}}</span>
   </ng-container>
+
+  <ng-container *ngIf="role === 'Default'">
+    <span id="range1" [ngClass]="classes" [attr.data-tooltip]="value"></span>
+  </ng-container>
+
+  <ng-container *ngIf="role === 'Range Type 1'">
+    <span id="range1" [ngClass]="classes" [attr.data-tooltip]="value"></span>
+  </ng-container>
+
   <div class="slider-track"></div>
-  <input id=slider1 class="slider_1 " [ngStyle]="{'z-index': rangeZIndex1}" type="range" [min]="min" [max]="max" [value]="value" (input)="rangeone()"
-    [disabled]="valueDisabled1">
+  <input id=slider1 class="slider_1 " [ngStyle]="{'z-index': rangeZIndex1}" type="range" [min]="min" [max]="max"
+    [value]="value" (input)="rangeone()" [disabled]="valueDisabled1">
+
+  <ng-container *ngIf="role === 'Range Type 2'">
+    <span id="range1" [ngClass]="classes" [attr.data-tooltip]="value"></span>
+  </ng-container>
+
 </div>

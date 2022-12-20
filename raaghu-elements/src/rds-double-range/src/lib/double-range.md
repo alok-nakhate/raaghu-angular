@@ -10,9 +10,9 @@ title: "Elements > Double-range"
 
 #### Double Range
 
-<p class="">A card is a small rectangular module with images and text. It is an entry point for users to learn more details</p>
+<p class="">Double Range allows an user to specify a numerical value from the given range using the slider.</p>
 <section class="py-4">
-    <h6>Default</h6>
+    <h6>Double Range</h6>
     <div class="py-3">
       <div class="cust-tabs">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -40,13 +40,12 @@ title: "Elements > Double-range"
 <div class="row m-0">
 
 ```html
-  <rds-double-range
+<rds-double-range
+  role="Default"
   [val1]="0"
   [val2]="100"
   [min]="0"
   [max]="100"
-  (rangeValueOne)="rangeValueOne($event)"
-  (rangeValueTwo)="rangeValueTwo($event)"
 ></rds-double-range>
 ```
 </div>
@@ -56,4 +55,112 @@ title: "Elements > Double-range"
       </div>
     </div>
   </section>
+
+  <section class="py-4">
+    <h6>Double Range Type 1</h6>
+    <div class="py-3">
+      <div class="cust-tabs">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="PreviewType1-tab" data-bs-toggle="tab" data-bs-target="#PreviewType1" type="button" role="tab" aria-controls="PreviewType1" aria-selected="true">Preview </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="AngularType1-tab" data-bs-toggle="tab" data-bs-target="#AngularType1" type="button" role="tab" aria-controls="AngularType1" aria-selected="false"><i class="bi bi-code-slash" style="font-size:1.0rem"></i>Angular</button>
+          </li>
+        </ul>
+      </div>
+      <div class="tab-content card border" id="myTabContent">
+        <div class="tab-pane fade show active" id="PreviewType1" role="tabpanel" aria-labelledby="PreviewType1-tab">
+         <div class="contents p-5">
+              <div class="row">
+               <div class="col-md-12">
+                   <img src="/images/double-range-type1.png" class="img-fluid">
+               </div>                           
+           </div>
+                       
+  </div>
+        </div>
+        <div class="tab-pane fade show" id="AngularType1" role="tabpanel" aria-labelledby="AngularType1-tab">
+          <div class="contents bg-code">
+<div class="row m-0">
+
+```html
+<rds-double-range
+  role="Double Range Type 1"
+  [val1]="0"
+  [val2]="100"
+  [min]="0"
+  [max]="100"
+></rds-double-range>
+```
+</div>
+</div>
+  </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+<section class="py-4">
+    <h6>Double Range Type 2</h6>
+    <div class="py-3">
+      <div class="cust-tabs">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="PreviewType2-tab" data-bs-toggle="tab" data-bs-target="#PreviewType2" type="button" role="tab" aria-controls="PreviewType2" aria-selected="true">Preview </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="AngularType2-tab" data-bs-toggle="tab" data-bs-target="#AngularType2" type="button" role="tab" aria-controls="AngularType2" aria-selected="false"><i class="bi bi-code-slash" style="font-size:1.0rem"></i>Angular</button>
+          </li>
+        </ul>
+      </div>
+      <div class="tab-content card border" id="myTabContent">
+        <div class="tab-pane fade show active" id="PreviewType2" role="tabpanel" aria-labelledby="PreviewType2-tab">
+         <div class="contents p-5">
+              <div class="row">
+               <div class="col-md-12">
+                   <img src="/images/double-range-type2.png" class="img-fluid">
+               </div>                           
+           </div>
+                       
+  </div>
+        </div>
+        <div class="tab-pane fade show" id="AngularType2" role="tabpanel" aria-labelledby="AngularType2-tab">
+          <div class="contents bg-code">
+<div class="row m-0">
+
+```html
+ <rds-double-range
+  role="Double Range Type 2"
+  [val1]="0"
+  [val2]="100"
+  [min]="0"
+  [max]="100"
+></rds-double-range>
+```
+</div>
+</div>
+  </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<section class="py-4">
+                        <h6>
+                           Skeleton / Specifications
+                        </h6>
+                        <div class="py-3">
+                              <!-- Tab panes -->
+                              <div class="card border p-5">
+                                 <div class="row">
+                                    <div class="col-md-12">
+                                       <img src="/images/double-range-skeleton.png" class="img-fluid">
+                                    </div>
+                                 </div>
+                              </div>
+                        </div>
+                     </section>
+
    

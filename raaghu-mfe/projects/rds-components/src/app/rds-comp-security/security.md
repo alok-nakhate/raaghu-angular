@@ -10,9 +10,9 @@ title: "Components > Security"
 <link rel="stylesheet" href="../../../../../../../raaghu/src/assets/css/main.css">
 
 #### Security
-
+<p>Gives a user an access on how a password should be set and after how many failed password attempts an account should be locked with its duration of locking period</p>
  <section class="py-4">
-    <h6>Default</h6>
+     <h6>Default</h6>
     <div class="py-3">
       <div class="cust-tabs">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -40,7 +40,7 @@ title: "Components > Security"
 <div class="row m-0">
 
 ```html
-<app-rds-comp-security></app-rds-comp-security>
+<rds-comp-security></rds-comp-security>
 ```
 </div>
 </div>

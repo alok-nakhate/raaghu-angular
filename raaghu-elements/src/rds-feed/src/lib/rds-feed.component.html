@@ -1,35 +1,34 @@
-<div   *ngFor="let item of itemList" class="border-bottom py-4">
-
-
-<div class="d-flex" >
-    <div> 
-         <rds-avatar [withProfilePic]="true" [profilePic]="item.profilePic"  [size]="'large'"
-        [verticallyAlligned]="false"></rds-avatar>
+<div class="border border-1 ms-3">
+    <div *ngFor="let item of itemList" class="border-bottom py-4 ms-3 me-3">
+        <div class="d-flex">
+            <div>
+                <rds-avatar [withProfilePic]="true" [profilePic]="item.profilePic" [size]="'large'"
+                    [verticallyAlligned]="false"></rds-avatar>
+            </div>
+            <div class="ps-3" >
+                <b>
+                    <rds-label [label]="item.actor" class="text-left "> </rds-label>
+                </b>
+                <rds-icon [name]="item.feedIcon" height="15" class="ms-2"></rds-icon>
+                <small>
+                    <rds-label [label]="item.username" class="text-muted"> </rds-label>
+                </small>
+                <small><span class="dot text-muted ">&#8901;</span>
+                    <rds-label [label]="date" class="text-muted "></rds-label>
+                </small>
+                <div class="h-25 mt-1 d-flex" >
+                    <rds-rating [rating]="1" [colorVariant]="'warning'" [noOfReview]="123" [size]="'medium'"></rds-rating>
+                    <a [ngClass]="colorSelection" *ngIf="withNoOfReviews&&noOfReview!==undefined" class="d-block mt-1 me-2 ms-2">See
+                        all {{noOfReview}} review</a>
+                </div>
+                
+            </div>
+        </div>
+        <div class="h-25 mt-1 ms-4 me-4 ps-5">
+            <rds-label [label]="item.description" [italic]="true"> </rds-label>
+    
+        </div>
+        <div class="h-25 mt-4 ms-4 me-4 ps-5">
+            <rds-like-dislike [dislikeCount]="10" [likeCount]="35"></rds-like-dislike>
+        </div>
     </div>
-    <div class="ps-3">
-        <b>
-            <rds-label [label]="item.actor" class="text-left "> </rds-label>
-        </b>
-        <rds-icon [name]="item.feedIcon" height="15" class="ms-2"></rds-icon>
-        <small>
-            <rds-label [label]="item.username" class="text-muted"> </rds-label>
-        </small>
-        <small><span class="dot text-muted ">&#8901;</span><rds-label [label]="date" class="text-muted "></rds-label></small>
-        <div class="h-25 mt-1">
-            <rds-rating
-            [rating]="1"
-            [colorVariant]="'primary'"
-            [noOfReview]="123"
-            [size]="'medium'"
-          ></rds-rating>
-          </div>
-    </div>
-</div>
-<div class="h-25 mt-1">
-    <rds-label [label]="item.description" > </rds-label>
-
-</div>
-<div class="h-25 mt-3">
-    <rds-like-dislike [dislikeCount]="10" [likeCount]="35" ></rds-like-dislike>
-</div>
-</div>

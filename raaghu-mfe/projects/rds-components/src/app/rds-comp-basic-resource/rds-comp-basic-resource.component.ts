@@ -11,7 +11,7 @@ export class Resource {
   public showindiscovery:boolean
 }
 @Component({
-  selector: 'app-rds-comp-basic-resource',
+  selector: 'rds-comp-basic-resource',
   templateUrl: './rds-comp-basic-resource.component.html',
   styleUrls: ['./rds-comp-basic-resource.component.scss']
 })

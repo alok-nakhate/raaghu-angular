@@ -51,21 +51,24 @@ const Template: Story<RdsCompThemeNewComponent> = (args: RdsCompThemeNewComponen
 export const Default = Template.bind({});
 Default.args = {
     StyleList: [
-         { isFree: true, value: '1', displayText: 'Style 1', isSelected: false },
-         { isFree: false, value: '2', displayText: 'Style 2', isSelected: false },
-       ],
+        { value: 'Style 1', some: 'Style 1', id: 1, icon: '', iconWidth: '', iconHeight: '', iconStroke: true, iconFill: false },
+        { value: 'Style 2', some: 'Style 2', id: 2, icon: '', iconWidth: '', iconHeight: '', iconStroke: true, iconFill: false },
+        { value: 'Style 3', some: 'Style 3', id: 3, icon: '', iconWidth: '', iconHeight: '', iconStroke: true, iconFill: false },   
+      ],
     WebList: [
-        { isFree: true, value: '1', displayText: 'Public 1', isSelected: false },
-        { isFree: false, value: '2', displayText: 'Public 2', isSelected: false },
+        { value: 'Public 1', some: 'Public 1', id:1, icon: '', iconWidth: '', iconHeight: '', iconStroke: true, iconFill: false },
+        { value: 'Public 2', some: 'Public 2', id: 2, icon: '', iconWidth: '', iconHeight: '', iconStroke: true, iconFill: false },
+        { value: 'Public 3', some: 'Public 3', id: 3, icon: '', iconWidth: '', iconHeight: '', iconStroke: true, iconFill: false },  
       ],
     MenuList: [
-        { isFree: true, value: '1', displayText: 'Placement 1', isSelected: false },
-        { isFree: false, value: '2', displayText: 'Placement 2', isSelected: false },
+        { value: 'Placement 1', some: 'Placement 1', id:1, icon: '', iconWidth: '', iconHeight: '', iconStroke: true, iconFill: false },
+        { value: 'Placement 2', some: 'Placement 2', id: 2, icon: '', iconWidth: '', iconHeight: '', iconStroke: true, iconFill: false },
+        { value: 'Placement 3', some: 'Placement 3', id: 3, icon: '', iconWidth: '', iconHeight: '', iconStroke: true, iconFill: false },  
       ],
-    StatusList: [
-        { isFree: true, value: '1', displayText: 'Status 1', isSelected: false },
-        { isFree: false, value: '2', displayText: 'Status 2', isSelected: false },
+    StatusList:[
+        { value: 'Placement 1', some: 'Placement 1', id: 1, icon: '', iconWidth: '', iconHeight: '', iconStroke: true, iconFill: false },
+        { value: 'Placement 2', some: 'Placement 2', id: 2, icon: '', iconWidth: '', iconHeight: '', iconStroke: true, iconFill: false },
+        { value: 'Placement 3', some: 'Placement 3', id: 3, icon: '', iconWidth: '', iconHeight: '', iconStroke: true, iconFill: false },  
       ],
-}
 
-
+    }

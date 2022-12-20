@@ -1,37 +1,40 @@
-<div class="col-sm-12 me-4 mt-4">
-  <div style="margin: 20px;">
-    <div class="mb-3" style="float:right;">
-      <rds-button [label]="translate.instant('New User')" type="button" style="float: right" [size]="'small'" [colorVariant]="'primary'"
-        [attr.data-bs-toggle]="'offcanvas'" [attr.data-bs-target]="'#AddUser'" [attr.aria-controls]="'AddUser'"
-        [icon]="'plus'" iconHeight="12px" iconWidth="12px">
+<div class="row">
+  <div class="col-md-12 text-end pb-3 desktop-btn">
+    <rds-button [label]="translate.instant('New User')" type="button" [colorVariant]="'primary'"
+    [showLoadingSpinner]="buttonSpinnerForUserTable" [size]="'small'" (click)="openCanvas()" [attr.aria-controls]="'AddUser'" [icon]="'plus'" iconHeight="12px" iconWidth="12px" [size]="'small'">
+    </rds-button>
+  </div>
+<mfe-loader [config]="rdsUserTableMfeConfig"></mfe-loader>
+</div>
+
+<rds-offcanvas [canvasTitle]="translate.instant(canvasTitle)" [offId]="'AddUser'" [placement]="'end'" 
+ [offcanvaswidth]="340" *ngIf="viewCanvas" (onClose)="closeCanvas()" >
+    <div class="tab-pane fade" [ngClass]="{'show active': activePage === 0}" id="newedition" edition="tabpanel"
+      aria-labelledby="nav-home-tab">
+      <form #editionForm="ngForm">
+        <div class="row"> 
+           <div class="form-group mb-3">
+                <rds-input></rds-input>
+              </div>
+              <div class="form-group mb-3">
+                <rds-input></rds-input>
+              </div>
+              <div class="form-group mb-3">
+                <rds-checkbox (onChange)="onChangeIsenabled($event)" [label]="translate.instant('Is Enabled')" [checked]="Isenabled"
+                  [withLabel]="true" [switch]="false" [inline]="false" [id]="'Isenabled'"></rds-checkbox>
+              </div>
+            </div>
+      </form>
+    </div>
+  <div class="footer-buttons my-2">
+    <div class="col-md-12 ">
+      <rds-button [label]="translate.instant('Cancel')" [colorVariant]="'primary'" [isOutline]="true" [size]="'small'" (click)="closeCanvas()"
+        data-bs-dismiss="offcanvas">
       </rds-button>
+      <rds-button [colorVariant]="'primary'" [label]="translate.instant('Save')" type="button"  [size]="'small'" class="px-2"
+         data-bs-target="#AddUser" data-bs-dismiss="offcanvas">
+        </rds-button>
     </div>
-    <mfe-loader [config]="rdsUserTableMfeConfig"></mfe-loader>
   </div>
-</div>
-<div class="offcanvas offcanvas-end" tabindex="-1" id="AddUser" aria-labelledby="AddUser" style="width: 340px;">
-  <div class="offcanvas-body">
-    <b>{{"Add User"|translate}}</b>
-    <hr>
-    <div class="form-group mb-3">
-      <rds-input></rds-input>
+</rds-offcanvas>
 
-    </div>
-    <div class="form-group mb-3">
-      <rds-input></rds-input>
-    </div>
-    <div class="form-group mb-3">
-      <rds-checkbox (onChange)="onChangeIsenabled($event)" [label]="translate.instant('Is Enabled')" [checked]="Isenabled"
-        [withLabel]="true" [switch]="false" [inline]="false" [id]="'Isenabled'"></rds-checkbox>
-    </div>
-
-    <rds-button [label]="translate.instant('Cancle')" type="button" [size]="'small'" class="px-2">
-    </rds-button>
-    <rds-button [colorVariant]="'primary'" [label]="translate.instant('Save')" type="button"  [size]="'small'" class="px-2"
-     data-bs-target="#AddUser" data-bs-dismiss="offcanvas">
-    </rds-button>
-
-  </div>
-</div>
-
-<!-- </rds-offcanvas> -->

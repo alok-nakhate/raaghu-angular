@@ -1,9 +1,11 @@
-<rds-card class="rounded-avatar-basic notification-card">
+<rds-card [showFooter]="checkUnreadMessage()" class="rounded-avatar-basic notification">
   <div header>
-    <div class="card-header p-3 notification-header">
+    <div class="card-header p-3 ">
       <div class="card-title m-0">
+        <rds-icon name="notification_bell" [height]="'30px'"
+        [width]="'30px'"></rds-icon>
         <h5 class="mt-1 justify-content-between d-flex align-items-center ms-3">
-          {{"Notifications"|translate}}
+          {{translate.instant("Notifications")}}
         </h5>
         <span class="ms-2 mb-1 text-white">
           <rds-badge class="p-1 pt-0 pb-0" [size]="'small'" [label]="unreadCount" colorVariant="success">
@@ -12,17 +14,17 @@
       </div>
       <div class="card-tool">
         <!-- <a href="#" data-bs-toggle="modal" class="link-primary" data-bs-target="#ChangeTenant"> -->
-          <rds-icon name="notification" data-bs-toggle="modal" data-bs-target="#notification-settings" [height]="'18px'"
+          <rds-icon name="my_settings" data-bs-toggle="modal" (click)="showNotificationSettingsModal()" [height]="'18px'"
             [width]="'18px'" style="font-size: 20px"></rds-icon>
       </div>
     </div>
   </div>
-  <div body class="scroll-notification align-items-center w-100 m-0">
+  <div body class="scroll-notifications align-items-center w-100 m-0 p-0 pt-0  ">
     <div >
       <ng-container *ngIf="notifications && notifications.length > 0; else emptyTemplate">
-        <div *ngFor="let notification of notifications"
+        <div class="notification-border-bottom px-3 py-1" *ngFor="let notification of notifications"
           (click)="onNotificationSelect(notification,$event)">
-          <div class="d-flex py-2 px-3">
+          <div class="d-flex py-2">
             <div class="px-3 d-flex ps-0">
               <rds-icon class="notificatioInfo" [colorVariant]="getColor(notification,true)"
                 [name]="getIcon(notification)" width="22px" height="22px"></rds-icon>
@@ -35,11 +37,11 @@
                 }}</a>
               <div class="row">
                 <div class="col-md-6">
-                  <small class="text-muted">{{ notification.time }}</small>
+                  <small class="notification-sub-text">{{ notification.time }}</small>
                 </div>
-                <div class="col-md-6 text-end" *ngIf="notification.state==0">
-                  <span class="text-muted" (click)="setAsRead(notification); $event.stopPropagation()">
-                    <small> {{"Set as read"|translate}}  </small>
+                <div class="col-md-6 text-end" *ngIf="notification.state">
+                  <span class="notification-sub-text" (click)="setAsRead(notification); $event.stopPropagation()">
+                    <small> &sdot; {{translate.instant("Set as read")}} &nbsp; &nbsp; </small>
                   </span>
                 </div>
               </div>
@@ -50,15 +52,14 @@
       <ng-template #emptyTemplate>
         <div class="text-muted text-center">
           <rds-icon name="alert_bell_notification" [width]="'80px'" [height]="'80px'"></rds-icon>
-          <div class="fs-4 mt-4">{{"No new notifications"|translate}}</div>
+          <div class="fs-4 mt-4">{{translate.instant("No new notifications")}}</div>
         </div>
       </ng-template>
     </div>
-  </div>
-
-  <div footer *ngIf="checkUnreadMessage()">
-    <rds-button class="m-2 float-end" [tooltipPlacement]="'bottom'" [tooltipTitle]="translate.instant('Mark As Read')"
+  </div> 
+ <div footer  class="  pb-5">
+    <rds-button class=" float-end mt-3 mb-2 mx-2" [tooltipPlacement]="'bottom'" [tooltipTitle]="translate.instant('Mark As Read')"
       [label]="translate.instant('Mark As Read')" type="button" [size]="'small'" [colorVariant]="'primary'"
-      [outlineButton]="false" (click)="setAllReadOutput.emit(true)"></rds-button>
+      [isOutline]="false" (click)="setAllReadOutput.emit(true)"></rds-button>
   </div>
 </rds-card>

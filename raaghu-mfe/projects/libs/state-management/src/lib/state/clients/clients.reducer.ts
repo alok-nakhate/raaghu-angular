@@ -1,10 +1,11 @@
 import { createReducer, on } from "@ngrx/store";
-import { deleteClient, deleteClientSucess,getAllClients, getAllClientsFailure, getAllClientsSuccess, getClient, getClientFailure, getClientSuccess, saveClient, saveClientFailure, saveClientSuccess, updateClient, updateClientFailure, updateClientSuccess } from "./clients.actions";
+import { deleteClient, deleteClientSucess,getAllClients, getAllClientsFailure, getAllClientsSuccess, getClient, getClientFailure, getClientSuccess, getPermissionFailure, getPermissions, getPermissionSuccess, saveClient, saveClientFailure, saveClientSuccess, updateClient, updateClientFailure, updateClientSuccess } from "./clients.actions";
 
 
 export interface ClientState {
     allClient:any;
     client:any;
+    PermissionI: any;
     error: string;
     status: 'pending' | 'loading' | 'error' | 'success';
 }
@@ -13,6 +14,7 @@ export interface ClientState {
 export const ClientInitialState: ClientState = {
     allClient:null,
     client:null,
+    PermissionI: null,
     error: null,
     status: 'pending',
 };
@@ -47,6 +49,19 @@ export const ClientsReducer = createReducer(
         ...state,
         error: error,
         status: 'error',
+    })),
+
+    on(getPermissions, (state) => ({ ...state, status: 'loading' })),
+    on(getPermissionSuccess, (state, { PermissionI }) => ({
+        ...state,
+        PermissionI: PermissionI,
+        error: null,
+        status: 'success',
+    })),
+    on(getPermissionFailure, (state, { error }) => ({
+        ...state,
+        error: error,
+        status: 'success',
     })),
 
     on(saveClient, (state) => ({ ...state, status: 'loading' })),

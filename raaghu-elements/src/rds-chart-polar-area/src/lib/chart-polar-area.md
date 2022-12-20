@@ -1,7 +1,7 @@
 ---
 slug: "/chart-polar-area"
 date: "2019-05-04"
-title: "Elements > Chart-polar-area"
+title: "Charts > Chart-polar-area"
 ---
 
 <!-- CSS only -->
@@ -11,7 +11,7 @@ title: "Elements > Chart-polar-area"
 
 #### Polar Area Chart 
 
-<p class="">A card is a small rectangular module with images and text. It is an entry point for users to learn more details</p>
+<p class="">Polar chart is an extension of pie chart having varying radius of the segments representing the scales of value of content.</p>
 
 <section class="py-4">
     <h6>Default</h6>

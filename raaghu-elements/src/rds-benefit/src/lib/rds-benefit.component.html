@@ -2,13 +2,13 @@
   <ng-container [ngSwitch]="display_type">
     <!-- Default  -->
     <!-- <div class="row"> -->
-    <div class="pt-1" *ngSwitchCase="'Default'">
+    <div class="pt-1 mb-4" *ngSwitchCase="'Default'">
       <div class="border p-4 text-center bg-light rounded">
         <div>
           <rds-icon [name]="item.icon" [height]="item.iconHeight" [width]="item.iconWidth"></rds-icon>
         </div>
         <div class="mt-2">
-          <rds-label [label]="item.title" [bold]="true" [multiline]=""></rds-label>
+          <rds-label [label]="item.title" [bold]="true" [multiline]="false"></rds-label>
         </div>
         <div class="mt-1 text-muted">
           <rds-label [label]="item.description"></rds-label>
@@ -18,12 +18,12 @@
 
     <!-- Left Aligned -->
     <div class="pt-1" *ngSwitchCase="'Left Aligned'">
-      <div class="rounded" [ngClass]="textAlignment">
+      <div  class="border p-4 text-left bg-light rounded">
         <div>
           <img [src]="item.icon" alt="" height="40" width="40">
         </div>
         <div class="mt-3">
-          <rds-label [label]="item.title" [bold]="true" [multiline]=""></rds-label>
+          <rds-label [label]="item.title" [bold]="true" [multiline]="false"></rds-label>
         </div>
         <div class="mt-2">
           <rds-label [label]="item.description"></rds-label>
@@ -33,77 +33,75 @@
 
     <!-- Centre Aligned -->
     <div class="pt-1" *ngSwitchCase="'Centre Aligned'">
-      <div class="text-center rounded">
-        <div>
-          <span class="rounded-circle p-2 bg-secondary bg-opacity-10 d-inline-block">
-            <rds-icon [name]="item.icon" [height]="item.iconHeight" [width]="item.iconWidth"></rds-icon>
-          </span>
-        </div>
-        <div class="mt-3">
-          <rds-label [label]="item.title" [bold]="true" [multiline]=""></rds-label>
-        </div>
-        <div class="mt-2">
-          <rds-label [label]="item.description" class=""></rds-label>
-        </div>
-      </div>
-    </div>
-
-    <!-- With Label -->
-    <div class="pt-1" *ngSwitchCase="'With Label'">
-      <div class="d-flex">
-        <div class="d-flex align-items-center">
-          <img [src]="item.icon" alt="" height="40" width="40">
-        </div>
-        <div class="ms-3 mt-3">
+      <div class="border p-4 text-center bg-light rounded">
           <div>
-            <span class="pe-3"><rds-label [label]="item.title" [bold]="true"></rds-label></span>
-            <span *ngIf="item.status">
-              <rds-badge [label]="item.status"  colorVariant="info"></rds-badge>
+            <span class="rounded-circle p-2 bg-secondary bg-opacity-10 d-inline-block">
+              <rds-icon [name]="item.icon" [height]="item.iconHeight" [width]="item.iconWidth"></rds-icon>
             </span>
           </div>
-          <div class="pe-5">
-            <rds-label [label]="item.description"></rds-label>
+          <div class="mt-3">
+            <rds-label [label]="item.title" [bold]="true" [multiline]="false"></rds-label>
+          </div>
+          <div class="mt-2 px-5">
+            <rds-label [label]="item.description" class=""></rds-label>
           </div>
         </div>
       </div>
-    </div>
-    <!-- </div> -->
 
-     <!-- Without Label -->
-     <div class="pt-1" *ngSwitchCase="'Without Label'">
-      <div class="d-flex">
-        <div class="d-flex align-items-center">
-          <span class="rounded-circle p-2 bg-secondary bg-opacity-10">
-            <rds-icon [name]="item.icon" [height]="item.iconHeight" [width]="item.iconWidth"></rds-icon>
-          </span>
-        </div>
-        <div class="ms-3 mt-3">
-          <div>
-            <rds-label [label]="item.title" [bold]="true"></rds-label>
+      <!-- With Label -->
+      <div class="pt-1" *ngSwitchCase="'With Label'">
+        <div class="d-flex">
+          <div class="d-flex align-items-center">
+            <img [src]="item.icon" alt="" height="40" width="40">
           </div>
-          <div class="pe-5">
-            <rds-label [label]="item.description"></rds-label>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- </div> -->
-
-     <!-- Heading With Icon -->
-     <div class="pt-1" *ngSwitchCase="'Heading With Icon'">
-      <div class="d-flex">
-        <div class="d-flex align-items-center">
-          <span class="rounded-circle p-2 bg-secondary bg-opacity-10">
-            <rds-icon [name]="item.icon" [height]="item.iconHeight" [width]="item.iconWidth"></rds-icon>
-          </span>
-        </div>
-        <div class="ms-3 mt-2">
-          <div>
-            <rds-label [label]="item.title" [bold]="true"></rds-label>
+          <div class="ms-3 mt-3">
+            <div>
+              <rds-label [label]="item.title" [bold]="true"></rds-label>
+              <span class="m-5" *ngIf="item.status">
+                <rds-badge [label]="item.status" colorVariant="info"></rds-badge>
+              </span>
+            </div>
+            <div class="pe-5">
+              <rds-label [label]="item.description"></rds-label>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <!-- </div> -->
-  </ng-container>
+      <!-- </div> -->
+      <!-- Without Label -->
+      <div class="pt-1" *ngSwitchCase="'Without Label'">
+        <div class="d-flex">
+          <div class="d-flex align-items-center">
+            <span class="rounded-circle p-2 bg-secondary bg-opacity-10">
+              <rds-icon [name]="item.icon" [height]="item.iconHeight" [width]="item.iconWidth"></rds-icon>
+            </span>
+          </div>
+          <div class="ms-3">
+            <div>
+              <rds-label [label]="item.title" [bold]="true"></rds-label>
+            </div>
+            <div class="pe-5">
+              <rds-label [label]="item.description"></rds-label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- </div> -->
+      <!-- Heading With Icon -->
+      <div class="pt-1" *ngSwitchCase="'Heading With Icon'">
+        <div class="d-flex align-items-center">
+          <div class="d-flex align-items-center">
+            <span class="rounded-circle p-2 bg-secondary bg-opacity-10">
+              <rds-icon [name]="item.icon" [height]="item.iconHeight" [width]="item.iconWidth"></rds-icon>
+            </span>
+          </div>
+          <div class="ms-3">
+            <div>
+              <rds-label [label]="item.title" [bold]="true"></rds-label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- </div> -->
+</ng-container>
 </ng-container>

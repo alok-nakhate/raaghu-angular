@@ -12,12 +12,12 @@ title: "Elements > Modal"
 
 <link rel="stylesheet" href="../assets/css/main.css">
 
-#### Modal Popups
+#### Modal
   
 <p class="">It is a dialog box/popup window that is displayed on top of the current page</p>
 
 <section class="py-4">
-    <h6>Form Modal</h6>
+    <h6>Default</h6>
     <div class="py-3">
       <div class="cust-tabs">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -34,7 +34,7 @@ title: "Elements > Modal"
          <div class="contents  p-5">
               <div class="row">
                <div class="col-md-12">
-                  <img src="/images/modal-basic.png" class="img-fluid w-50">
+                  <img src="/images/modal-default.png" class="img-fluid w-100">
                </div>               
               </div>
                        
@@ -97,7 +97,7 @@ title: "Elements > Modal"
     </div>
   </section>
    
-
+<!-- Long Content Modal -->
 
 <section class="py-4">
     <h6>Long Content Modal</h6>
@@ -182,7 +182,7 @@ title: "Elements > Modal"
     </div>
   </section>
 
-
+<!-- Static Backdrop Modal -->
 
 <section class="py-4">
     <h6>Static Backdrop Modal</h6>
@@ -190,67 +190,58 @@ title: "Elements > Modal"
       <div class="cust-tabs">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
           <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="PreviewBasic-tab2" data-bs-toggle="tab" data-bs-target="#PreviewBasic2" type="button" role="tab" aria-controls="PreviewBasic2" aria-selected="true">Preview </button>
+            <button class="nav-link active" id="PreviewVertical-tab2" data-bs-toggle="tab" data-bs-target="#PreviewVertical" type="button" role="tab" aria-controls="PreviewVertical" aria-selected="true">Preview </button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link" id="AngularBasic-tab2" data-bs-toggle="tab" data-bs-target="#AngularBasic2" type="button" role="tab" aria-controls="AngularBasic" aria-selec0ted="false"><i class="bi bi-code-slash" style="font-size:1.0rem"></i>Angular</button>
+            <button class="nav-link" id="AngularVertical-tab2" data-bs-toggle="tab" data-bs-target="#AngularVertical" type="button" role="tab" aria-controls="AngularVertical" aria-selec0ted="false"><i class="bi bi-code-slash" style="font-size:1.0rem"></i>Angular</button>
           </li>
         </ul>
       </div>
       <div class="tab-content card border" id="myTabContent">
-        <div class="tab-pane fade show active" id="PreviewBasic2" role="tabpanel" aria-labelledby="PreviewBasic-tab2">
+        <div class="tab-pane fade show active" id="PreviewVertical" role="tabpanel" aria-labelledby="PreviewVertical-tab2">
          <div class="contents  p-5">
               <div class="row">
                <div class="col-md-12">
-                  <img src="/images/modal-basic.png" class="img-fuild w-50">
+                  <img src="/images/modal-vertically-aligned.png" class="img-fuild w-50">
                </div>               
               </div>
                        
   </div>
         </div>
-        <div class="tab-pane fade show" id="AngularBasic2" role="tabpanel" aria-labelledby="AngularBasic-tab2">
+        <div class="tab-pane fade show" id="AngularVertical" role="tabpanel" aria-labelledby="AngularVertical-tab2">
           <div class="contents bg-code">
 <div class="row m-0">
 
 ```html
- <button
+<button
   type="button"
-  (click)="onClick($event)"
   class="btn btn-primary"
   data-bs-toggle="modal"
-  data-bs-target="#storybookModal"
+  data-bs-target="#modalId"
 >
-  {{label}}
+  Show Centered Modal
 </button>
 <rds-modal
-  backdropstatic="static"
-  modalId="storybookModal"
-  [modalClasses]="modalClasses"
-  [modalheader]="modalheader"
-  [Modalbody]="Modalbody"
-  [Modalfooter]="Modalfooter"
+  [showModalHeader]="showModalHeader"
+  [verticallyCenterd]="verticallyCenterd"
+  [modalBackdrop]="'static'"
+  [showModalFooter]="showModalFooter"
 >
-  <div modalheader class="col-md-12" *ngIf="isModalHeader">
+  <div modalheader class="d-flex align-items-center">
+    <h5 class="modal-title" id="storybookModal">Title</h5>
     <button
       style="float:right"
       type="button"
       class="btn-close"
       data-bs-dismiss="modal"
       aria-label="Close"
-      (click)="onClose($event)"
     ></button>
-    <h5 class="modal-title" id="storybookModal">{{modalData.modalHeader}}</h5>
   </div>
-  <div Modalbody>
-    <p>{{modalData.modalContent}}</p>
+  <div modalbody>
+    <p>Modal Content</p>
   </div>
-  <div Modalfooter *ngIf="isModalFooter">
-    <button
-      type="button"
-      (click)="onClose($event)"
-      class="btn btn-secondary m-1"
-      data-bs-dismiss="modal"
-    >
+  <div modalfooter>
+    <button type="button" class="btn btn-secondary m-1" data-bs-dismiss="modal">
       Close
     </button>
     <button type="button" (click)="showAlert()" class="btn btn-primary">
@@ -258,6 +249,7 @@ title: "Elements > Modal"
     </button>
   </div>
 </rds-modal>
+ 
 ```
 </div>
 </div>
@@ -266,3 +258,5 @@ title: "Elements > Modal"
       </div>
     </div>
   </section>
+
+  

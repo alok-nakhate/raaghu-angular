@@ -1,9 +1,9 @@
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Meta, moduleMetadata, Story } from '@storybook/angular';
 import {
-  RdsAvatarModule, RdsBadgeModule, RdsButtonModule, RdsCardModule, RdsDatepickerModule, RdsDropdownlistModule,
-  RdsDropdownModule, RdsIconModule, RdsInputModule, RdsLabelModule, RdsModalModule,
-  RdsNavTabModule, RdsOffcanvasModule, RdsPaginationModule, RdsSelectListModule
+  RdsAvatarModule, RdsBadgeModule, RdsButtonModule, RdsCardModule, RdsCheckboxModule, RdsDatepickerModule, RdsDropdownlistModule,
+  RdsDropdownModule, RdsIconModule, RdsLabelModule, RdsModalModule,
+  RdsNavTabModule, RdsOffcanvasModule, RdsSelectListModule
 } from '@libs/rds-elements';
 import { RdsTopNavigationComponent } from './rds-comp-top-navigation.component';
 import { RouterModule } from '@angular/router';
@@ -39,7 +39,8 @@ export default {
         RdsNavTabModule, RdsDropdownModule, RdsAvatarModule, RouterModule.forRoot([]),
         NgxTranslateModule, RdsDropdownlistModule, RdsIconModule, RdsBadgeModule, RdsCardModule, RdsOffcanvasModule,
         RdsModalModule, RdsLabelModule, RdsSelectListModule, SharedModule, CommonModule,
-        RdsDatepickerModule
+        RdsDatepickerModule,RdsIconModule,
+        RdsCheckboxModule
       ],
       providers: [
         FormBuilder,

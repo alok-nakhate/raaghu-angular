@@ -6,70 +6,71 @@
           <div class="d-flex justify-content-start align-items-start flex-column gap-5 sm-gap-0">
             <div>
               <rds-label [label]="item.name" [multiline]="false" [bold]="true" [italic]="false"></rds-label>
-             <p class="mt-2 text-secondary">{{item.date | date:'MMM dd,y'}}</p>
+              <p class="mt-2">{{item.date | date:'MMM dd,y'}}</p>
             </div>
             <div>
-              <rds-like-dislike [likeCount]="0" [dislikeCount]="0" [min]="0" (onClick)="onClick($event)"></rds-like-dislike>
+              <rds-like-dislike [likeCount]="0" [dislikeCount]="0" (onClick)="onClick($event)">
+              </rds-like-dislike>
             </div>
           </div>
         </div>
         <div class="col-md-3">
-         <div class="mb-3">
-          <rds-rating  [rating]="5" Size="medium" [ratingPosition]="'right'" colorVariant="review">
-          </rds-rating>
-         </div>
+          <div class="mb-3">
+            <rds-rating [rating]="item.reviewRate" Size="medium" [ratingPosition]="'right'" colorVariant="review">
+            </rds-rating>
+          </div>
         </div>
         <div class="col-md-6">
           <rds-label [label]="item.reviewTitle" [multiline]="true" [bold]="true" [italic]="false" class="mb-1 ">
           </rds-label>
 
-          <rds-label [label]="item.reviewSubTitle" [multiline]="true" [bold]="false" [italic]="false" class="mt-2 text-secondary">
+          <rds-label [label]="item.reviewSubTitle" [multiline]="true" [bold]="false" [italic]="false"
+            class="mt-2 text-secondary">
           </rds-label>
 
-          <rds-label [label]="item.description" [multiline]="true" [bold]="false" [italic]="false" class="text-secondary"></rds-label>
+          <rds-label [label]="item.description" [multiline]="true" [bold]="false" [italic]="false"
+          ></rds-label>
         </div>
       </div>
     </div>
     <div *ngSwitchCase="'ReviewType_1'">
       <div class="py-2">
         <div class="d-flex">
-          <rds-avatar colorVariant="light" [withProfilePic]="true"
-            profilePic="https://th.bing.com/th/id/OIP.3IsXMskZyheEWqtE3Dr7JwHaGe?pid=ImgDet&rs=1" size="large"
+          <rds-avatar colorVariant="light" [withProfilePic]="true" [profilePic]="item.imageUrl" size="large"
             [verticallyAlligned]="false"></rds-avatar>
           <div class="mx-3">
             <rds-label [label]="item.name" [multiline]="false" [bold]="true" [italic]="false"></rds-label>
             <p>
-              <rds-rating [withNoOfReviews]="false" [rating]="1" colorVariant="review"
-                [noOfReview]="123" Size="small"></rds-rating>
+              <rds-rating [withNoOfReviews]="false" [rating]="item.reviewRate" colorVariant="review" [noOfReview]="123" Size="small">
+              </rds-rating>
             </p>
           </div>
         </div>
         <div>
-          <rds-label [label]="item.description" [multiline]="true" [bold]="false" [italic]="false" class="text-secondary"></rds-label>
+          <rds-label [label]="item.description" [multiline]="true" [bold]="false" [italic]="false"
+           ></rds-label>
         </div>
         <div class="mt-2">
-          <rds-like-dislike [likeCount]="0" [dislikeCount]="0" [min]="0" (onClick)="onClick($event)"></rds-like-dislike>
+          <rds-like-dislike [likeCount]="0" [dislikeCount]="0" (onClick)="onClick($event)"></rds-like-dislike>
         </div>
       </div>
-     
+
     </div>
     <div *ngSwitchCase="'ReviewType_2'">
       <div class="row sm-d-flex">
         <div class="col-md-3">
           <div>
-            <rds-avatar colorVariant="light" [withProfilePic]="true"
-              profilePic="https://th.bing.com/th/id/OIP.3IsXMskZyheEWqtE3Dr7JwHaGe?pid=ImgDet&rs=1" size="large"
+            <rds-avatar colorVariant="light" [withProfilePic]="true" [profilePic]="item.imageUrl" size="large"
               [verticallyAlligned]="false"></rds-avatar>
           </div>
           <div>
             <rds-label [label]="item.name" [multiline]="false" [bold]="true" [italic]="false" class="my-1"></rds-label>
           </div>
           <div>
-            <rds-rating [rating]="4" [noOfReview]="123" Size="small"
-              colorVariant="review"></rds-rating>
+            <rds-rating [rating]="item.reviewRate" [noOfReview]="123" Size="small" colorVariant="review"></rds-rating>
           </div>
           <div class="mt-3">
-            <rds-like-dislike [likeCount]="0" [dislikeCount]="0" [min]="0" (onClick)="onClick($event)">
+            <rds-like-dislike [likeCount]="0" [dislikeCount]="0"  (onClick)="onClick($event)">
             </rds-like-dislike>
           </div>
         </div>
@@ -77,10 +78,12 @@
           <rds-label [label]="item.reviewTitle" [multiline]="true" [bold]="true" [italic]="false" class="mb-1">
           </rds-label>
 
-          <rds-label [label]="item.reviewSubTitle" [multiline]="true" [bold]="false" [italic]="false" class="mt-2 text-secondary">
+          <rds-label [label]="item.reviewSubTitle" [multiline]="true" [bold]="false" [italic]="false"
+            class="mt-2 ">
           </rds-label>
 
-          <rds-label [label]="item.description" [multiline]="true" [bold]="false" [italic]="false" class="text-secondary"></rds-label>
+          <rds-label [label]="item.description" [multiline]="true" [bold]="false" [italic]="false"
+            ></rds-label>
         </div>
       </div>
     </div>

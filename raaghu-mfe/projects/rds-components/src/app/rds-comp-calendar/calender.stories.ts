@@ -3,37 +3,66 @@ import { Meta, moduleMetadata, Story } from '@storybook/angular';
 import { HttpClientModule } from '@angular/common/http';
 import { RdsCompCalendarComponent } from './rds-comp-calendar.component';
 import { NgxTranslateModule, SharedModule } from '@libs/shared';
-import { adapterFactory, CalendarDayModule, CalendarModule, CalendarMonthModule, CalendarWeekModule, DateAdapter } from '@libs/rds-elements';
+import {
+  adapterFactory,
+  CalendarDayModule,
+  CalendarModule,
+  CalendarMonthModule,
+  CalendarWeekModule,
+  DateAdapter,
+  RdsButtonModule,
+  RdsColorPickerModule,
+  RdsDatepickerModule,
+  RdsIconModule,
+  RdsInputModule,
+  RdsOffcanvasModule,
+  RdsSelectListModule,
+} from '@libs/rds-elements';
+import { CommonModule } from '@angular/common';
 
 export default {
   title: 'Components/Calender',
   component: RdsCompCalendarComponent,
   decorators: [
     moduleMetadata({
-       
       imports: [
-        FormsModule, ReactiveFormsModule, HttpClientModule,NgxTranslateModule,CalendarModule.forRoot({
-            provide: DateAdapter,
-            useFactory: adapterFactory
-          }),SharedModule,CalendarWeekModule,CalendarDayModule,CalendarMonthModule
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        CommonModule,
+        NgxTranslateModule,
+        CalendarModule.forRoot({
+          provide: DateAdapter,
+          useFactory: adapterFactory,
+        }),
+        SharedModule,
+        CalendarWeekModule,
+        CalendarDayModule,
+        CalendarMonthModule,
+        RdsButtonModule,
+        RdsIconModule,
+        RdsSelectListModule,
+        RdsOffcanvasModule,
+        RdsInputModule,
+        RdsDatepickerModule,
+        RdsColorPickerModule,
       ],
-      providers: [
-        FormBuilder
-      ],
-      
-    })
-  ]
+      providers: [FormBuilder],
+    }),
+  ],
 } as Meta;
 
-const Template: Story<RdsCompCalendarComponent> = (args: RdsCompCalendarComponent) => ({
-    props:{
-        ...args
-    }
+const Template: Story<RdsCompCalendarComponent> = (
+  args: RdsCompCalendarComponent
+) => ({
+  props: {
+    ...args,
+  },
 });
 
 export const Default = Template.bind({});
-Default.args={
-  colors:  {
+Default.args = {
+  colors: {
     red: {
       primary: '#ad2121',
       secondary: '#FAE3E3',
@@ -46,7 +75,5 @@ Default.args={
       primary: '#e3bc08',
       secondary: '#FDF1BA',
     },
-  }  
-}
-
-
+  },
+};

@@ -1,7 +1,7 @@
 ---
 slug: "/Like-Dislike"
 date: "2019-05-04"
-title: "Element > Like-Dislike"
+title: "Elements > Like-Dislike"
 ---
 <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -11,7 +11,7 @@ title: "Element > Like-Dislike"
 
 #### Like Dislike
 
-<p class="">A card is a small rectangular module with images and text. It is an entry point for users to learn more details</p>
+<p class="">Like Dislike measures the counts of likes and dislikes for a product.</p>
 <section class="py-4">
     <h6>Default</h6>
     <div class="py-3">

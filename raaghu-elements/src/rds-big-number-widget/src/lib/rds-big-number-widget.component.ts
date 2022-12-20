@@ -16,7 +16,7 @@ export class RdsBigNumberWidgetComponent implements OnInit {
   @Input() iconStroke: boolean = true;
   @Input() iconFill: boolean = false;
   @Input() iconWidth: string = '12px';
-  @Input() iconColor: 'warning' | 'review' | 'danger' | 'success' | 'info' | 'primary' | 'secondary' | 'dark' | 'light' | undefined = undefined;
+  @Input() iconColor = '';
   @Input() colorVariant: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'dark' | 'light' | undefined = undefined;;
   @Input() textAlign: 'text-start' | 'text-center' | 'text-end' = 'text-center';
   @Input() subTitleColorVariant: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'dark' | 'light' | undefined = 'light';

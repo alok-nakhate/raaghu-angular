@@ -1,9 +1,7 @@
 <div class="row">
   <div class="rds-counter position-relative">
-    <div class="d-flex justify-content-start align-items-center">
-      <label [ngClass]="labelClasses">
-        {{label}}
-      </label>
+    <div [ngClass]="divclasses">
+      <label [ngClass]="label==''?'d-none':''" [ngStyle]="{'order': labelOrder}"  for="value">{{label}}</label>
       <div [class]="inputPosition" [ngStyle]="{'width': width + 'px'}">
         <button [ngClass]="classList" class="btn-icon" (click)="decrement()" type="button" id="button-addon1">
           <!-- <em class="bi bi-dash-lg"></em> -->

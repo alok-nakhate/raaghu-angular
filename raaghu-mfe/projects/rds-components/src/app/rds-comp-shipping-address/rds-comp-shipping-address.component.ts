@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-rds-comp-shipping-address',
+  selector: 'rds-comp-shipping-address',
   templateUrl: './rds-comp-shipping-address.component.html',
   styleUrls: ['./rds-comp-shipping-address.component.scss']
 })

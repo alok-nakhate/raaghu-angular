@@ -1,34 +1,33 @@
 <div [ngSwitch]="role">
   <div *ngSwitchCase="'basic'">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item" [class.active]="activePage===i" *ngFor="let item of breadcrumbsItems; let i= index"
-          [class.disabled]="item.disabled">
-          <a (click)="onClick(item,i)">
-            <rds-icon [name]="item.icon" *ngIf="item.icon" class="pe-1" [fill]="item.iconFill"
-              [stroke]="item.iconStroke" [height]="item.iconHeight" [width]="item.iconWidth">
-            </rds-icon>
-            {{item.name}}
-          </a>
-        </li>
-      </ol>
-    </nav>
-  </div>
-  <div *ngSwitchCase="'withDivider'">
-    <nav
-      style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);"
-      aria-label="breadcrumb">
+    <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14'%3E%3Cpath d='M6,12.5a.5.5,0,0,1-.331-.875L10.917,7,5.669,2.375a.5.5,0,1,1,.661-.75L11.7,6.352l.03.026.005,0a.839.839,0,0,1-.036,1.265L6.331,12.375A.5.5,0,0,1,6,12.5Z' fill='%236c757d'/%3E%3C/svg%3E&#34; ); "
+         aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item" [class.active]="activePage===i" *ngFor="let item of breadcrumbsItems; let i=index"
-          [class.disabled]="item.disabled">
+            [class.disabled]="item.disabled">
           <a (click)="onClick(item,i)">
             <rds-icon [name]="item.icon" *ngIf="item.icon" class="pe-1" [fill]="item.iconFill"
-              [stroke]="item.iconStroke" [height]="item.iconHeight" [width]="item.iconWidth">
+                      [stroke]="item.iconStroke" [height]="item.iconHeight" [width]="item.iconWidth">
             </rds-icon>
             {{item.name}}
           </a>
         </li>
 
+      </ol>
+    </nav>
+  </div>
+  <div *ngSwitchCase="'withDivider'">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item" [class.active]="activePage===i" *ngFor="let item of breadcrumbsItems; let i= index"
+            [class.disabled]="item.disabled">
+          <a (click)="onClick(item,i)">
+            <rds-icon [name]="item.icon" *ngIf="item.icon" class="pe-1" [fill]="item.iconFill"
+                      [stroke]="item.iconStroke" [height]="item.iconHeight" [width]="item.iconWidth">
+            </rds-icon>
+            {{item.name}}
+          </a>
+        </li>
       </ol>
     </nav>
   </div>

@@ -1,19 +1,19 @@
 <div class="dark">
   <div class="row">
-    <div class="col-md-6">
-      <rds-widget [isRefreshRequired]="true"
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xl-6 col-xxl-6">
+      <rds-widget [isRefreshRequired]="true" [isBorder]="false"
         [headerTitle]="translate.instant('Monthly Summary')" (onRefresh)="LoadMonthlySummary()" cardheight = 'card-stretch'>
         <div body>
           <rds-chart-line [chartLabels]="monthlySummaryLabels" [chartWidth]="monthlySummarychartWidth" [chartHeight]="monthlySummarychartHeight"
-            [chartDataSets]="monthlySummaryDataSets" [chartOptions]="monthlySummarychartOptions"></rds-chart-line>
+            [chartDataSets]="monthlySummaryDataSets" [isGradient]="true" [chartOptions]="monthlySummarychartOptions"></rds-chart-line>
         </div>
       </rds-widget>
     </div>
-    <div class="col-md-6">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xl-6 col-xxl-6">
       <div class="row">
         <div class="col-md-6">
           <div>
-            <rds-widget [isRefreshRequired]="false" [headerTitle]="translate.instant('Sales')" cardheight = 'card-stretch-half'
+            <rds-widget [isRefreshRequired]="false" [isBorder]="false" [headerTitle]="translate.instant('Sales')" cardheight = 'card-stretch-half'
               (onRefresh)="LoadSalesData()">  
               <div body>
                 <rds-big-number-widget [bigNumber]="'$' +SalesPrice"  [subText]="'+$' +SalesProfit"
@@ -23,7 +23,7 @@
             </rds-widget>
           </div>
           <div>
-            <rds-widget [isRefreshRequired]="false" [headerTitle]="translate.instant('Revenue')" [colorVariant]="'primary'" cardheight = 'card-stretch-half'>
+            <rds-widget [isRefreshRequired]="false" [isBorder]="false" [headerTitle]="translate.instant('Revenue')" [colorVariant]="'gradient-primary'" cardheight = 'card-stretch-half'>
               <div body>
                 <rds-big-number-widget  [iconFill]="true" [iconStroke]="true" [bigNumber]="'$' +RevenuePrice" [textAlign]="'text-start'" subTitleColorVariant="warning" [colorVariant]="'primary'"
                   [subText]="'-$' +RevenueProfit" [icon]="'triangle_down'" [iconHeight]="'12px'" [iconWidth]="'12px'" 
@@ -33,7 +33,7 @@
           </div>
         </div>
         <div class="col-md-6">
-          <rds-widget [isRefreshRequired]="true"
+          <rds-widget [isRefreshRequired]="true" [isBorder]="false"
             [headerTitle]="translate.instant('Profit Share')" cardheight = 'card-stretch' (onRefresh)="LoadProfitShare()">
             <div body>
               <rds-big-number-widget [bigNumber]="'$' +ProfitSharePrice" [textAlign]="'text-start'"></rds-big-number-widget>
@@ -51,18 +51,18 @@
   </div>
 
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xl-6 col-xxl-6">
       <div class="row">
         <div class="col-md-6">
           <div>
-            <rds-widget [isRefreshRequired]="false" cardheight = 'card-stretch-three'
+            <rds-widget [isRefreshRequired]="false" [isBorder]="false" cardheight = 'card-stretch-three'
               [headerTitle]="translate.instant('Call Overview')">
               <div body>
                 <div class="d-flex align-items-center"> 
                   <div class="">
                     <rds-chart-bool chartId="ConnectedCallschart" [centerIconName]="'headset'" [chartDataSets]="ConnectedCallschartDatasets" 
                       [chartLabels]="ConnectedCallschartLabels" [chartWidth]="100" [chartHeight]="100"
-                      [chartOptions]="ConnectedCallschartOptions" chartType="doughnut"></rds-chart-bool>
+                      [chartOptions]="ConnectedCallschartOptions"></rds-chart-bool>
                   </div>
                   <div class="ms-2">
                     <h5 class="custom-title">{{ConnectedCallsData[0]}}%</h5>
@@ -84,7 +84,7 @@
             </rds-widget>
           </div>
           <div>
-            <rds-widget [isRefreshRequired]="false" [headerTitle]="translate.instant('Sales')" cardheight = 'card-stretch-one'>
+            <rds-widget [isRefreshRequired]="false" [isBorder]="false" [headerTitle]="translate.instant('Sales')" cardheight = 'card-stretch-one'>
               <div body>
                 <rds-big-number-widget [iconFill]="true" [iconStroke]="true" [bigNumber]="'$' +SalesPrice" subTitleColorVariant="success" [subText]="'-$' +SalesProfit" 
                   [icon]="'triangle_up'"  [iconHeight]="'12px'" [iconWidth]="'12px'" [textAlign]="'text-start'"></rds-big-number-widget>
@@ -93,11 +93,11 @@
           </div>
         </div>
         <div class="col-md-6">
-          <rds-widget [isRefreshRequired]="true" cardheight = 'card-stretch' [headerTitle]="translate.instant('Daily Sales Growth')" (onRefresh)="LoadDailySalesGrowth()">
+          <rds-widget [isRefreshRequired]="true" [isBorder]="false" cardheight = 'card-stretch' [headerTitle]="translate.instant('Daily Sales Growth')" (onRefresh)="LoadDailySalesGrowth()">
             <div body>
               <rds-big-number-widget [iconFill]="true" [iconStroke]="true" [bigNumber]="'$' +DailySalesGrowth" [subText]="'-$' +SalesGrowthLoss"
                 [icon]="'triangle_down'"  [iconHeight]="'12px'" [iconWidth]="'12px'" [textAlign]="'text-start'" subTitleColorVariant="danger"></rds-big-number-widget>
-              <rds-chart-bar-horizontal [chartLabels]="barHrChartLabels" [chartWidth]="barHrChartWidth" [chartHeight]="barHrchartHeight"
+              <rds-chart-bar-horizontal [isGradient]="true" [chartLabels]="barHrChartLabels" [chartWidth]="barHrChartWidth" [chartHeight]="barHrchartHeight"
                 [chartDataSets]="barHrChartDatasets" [chartOptions]="barHrChartOptions">
               </rds-chart-bar-horizontal>
             </div>
@@ -105,13 +105,12 @@
         </div>
       </div>
     </div>
-    <div class="col-md-6 member-activity-col">
-      <rds-widget [isRefreshRequired]="true" cardheight = 'card-stretch' [headerTitle]="translate.instant('Member Activity')" (onRefresh)="LoadMemberActivityTable()">
-        <div body>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xl-6 col-xxl-6 member-activity-col">
+      <rds-widget [isRefreshRequired]="true" [isBorder]="false" cardheight = 'card-stretch' [headerTitle]="translate.instant('Member Activity')" (onRefresh)="LoadMemberActivityTable()">
           <!-- <mfe-loader [config]="rdsMemberActivityTableMfeConfig"></mfe-loader> -->
-          <app-rds-data-table [tableData]="memberActivityTableData" [inlineEdit]="false" [pagination]="true" [recordsPerPage]="10"
-            [tableHeaders]="memberActivityTableHeader"  ></app-rds-data-table>
-        </div>
+          <rds-data-table [tableData]="memberActivityTableData" [inlineEdit]="false" [pagination]="true" [recordsPerPage]="10"
+            [tableHeaders]="memberActivityTableHeader"  ></rds-data-table>
+       
       </rds-widget>
     </div>
   </div>

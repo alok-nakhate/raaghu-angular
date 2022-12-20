@@ -23,6 +23,7 @@ const Template: Story<RdsAppDetailsComponent> = (args: RdsAppDetailsComponent) =
 });
 
 export const Default = Template.bind({});
+Default.parameters = { controls: { include: ['item'] } };
 Default.args = {
   item:{ 
      title: 'Zapier', 

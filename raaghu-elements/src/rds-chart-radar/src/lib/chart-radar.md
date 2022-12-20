@@ -1,7 +1,7 @@
 ---
 slug: "/chart-radar"
 date: "2019-05-04"
-title: "Elements > Chart-radar"
+title: "Charts > Chart-radar"
 ---
 
 <!-- CSS only -->
@@ -11,7 +11,7 @@ title: "Elements > Chart-radar"
 
 #### Radar Chart 
 
-<p class="">A card is a small rectangular module with images and text. It is an entry point for users to learn more details</p>
+<p class="">Radar chart shows the variation of the two or more datasets with respect to multiple variables.</p>
 
 <section class="py-4">
     <h6>Default</h6>

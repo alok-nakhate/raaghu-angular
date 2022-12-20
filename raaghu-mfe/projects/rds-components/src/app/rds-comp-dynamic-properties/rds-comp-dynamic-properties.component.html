@@ -1,36 +1,36 @@
 <div class="row">
-  <app-rds-data-table [tableData]="DynamicPropertiesTableData" [inlineEdit]="false" [pagination]="true"
+  <rds-data-table [tableData]="DynamicPropertiesTableData" [inlineEdit]="false" [pagination]="true"
     [recordsPerPage]="10" [actions]="actions" [tableHeaders]="DynamicPropertiesTableHeader"
     (onActionSelection)="onActionSelect($event)" [noDataTitle]="'Currently you do not have dynamic properties'"
-    [isShimmer]="isShimmer"></app-rds-data-table>
+    [isShimmer]="isShimmer"></rds-data-table>
 </div>
-<ng-container *ngIf="viewCanvas">
+<ng-container>
   <rds-offcanvas [canvasTitle]="translate.instant(canvasTitle)" [offId]="'AddDynamic'" [placement]="'end'"
     [offcanvaswidth]="600" (onClose)="closeCanvas()">
     <div>
       <rds-nav-tab [navtabsItems]="getNavTabItems()" (onClicktab)="getSelectedNavTab($event)"
         [horizontalAlignment]="'start'" [verticalAlignment]="false" [pills]="false" [tabs]="true" [fill]="false"
-        [justified]="false" [activepage]="activePage">
+        [justified]="false" [activeTab]="activePage">
       </rds-nav-tab>
 
-      <div class="tab-content px-2 py-4">
+      <div class="tab-content px-2 py-2">
         <!-- Dynamic Nav Tabs -->
-        <div naveContent class="row tab-content px-3 py-3 navsm-p-0" id="nav-tabContent">
+        <div naveContent class="row tab-content px-3 navsm-p-0" id="nav-tabContent">
           <!-- Information tab -->
           <div class="tab-pane fade px-0" [ngClass]="{'show active': activePage === 0}" id="information" role="tabpanel"
             aria-labelledby="nav-home-tab">
-            <app-rds-comp-information [inputTypeList]="inputTypeList" [dynamicPropertiesData]="DynamicProperyData"
+            <rds-comp-information [inputTypeList]="inputTypeList" [dynamicPropertiesData]="DynamicProperyData"
               [resetFormSubject]="resetFormSubject.asObservable()" [editShimmer]="editShimmer"
-              (dynamicPropertiesInfo)="getDynamicPropertyInfo($event)"></app-rds-comp-information>
+              (dynamicPropertiesInfo)="getDynamicPropertyInfo($event)"></rds-comp-information>
           </div>
           <!-- Permission tab -->
           <div class="tab-pane fade px-0" [ngClass]="{'show active': activePage === 1}" id="permission" role="tabpanel"
             aria-labelledby="nav-home-tab">
             <div class="row">
-              <app-rds-comp-permission-tree [selectedItems]="selectedPermissionList"
+              <!-- <app-rds-comp-permission-tree [selectedItems]="selectedPermissionList"
                 (onSelectnode)="getSelectedPermissionList($event)" [treeData]="permissionsList"
                 [multiselectTree]="false">
-              </app-rds-comp-permission-tree>
+              </app-rds-comp-permission-tree> -->
             </div>
           </div>
 
@@ -40,10 +40,10 @@
       <div class="footer-buttons">
         <div class="row">
           <div class="col-md-12">
-            <rds-button [label]="translate.instant('Cancel')" type="button" [colorVariant]="'primary'" [outlineButton]="true"
-              [size]="'small'" data-bs-dismiss="offcanvas" data-bs-target="#AddDynamic" (click)="closeCanvas()">
+            <rds-button [label]="translate.instant('Cancel')" type="button" [colorVariant]="'primary'"
+              [isOutline]="true" [size]="'small'" data-bs-dismiss="offcanvas" (click)="closeCanvas()">
             </rds-button>
-            <rds-button [disabled]="!DynamicProperyInfo" [label]="translate.instant('Save')" type="button"
+            <rds-button [isDisabled]="!DynamicProperyInfo?.dynamicProperties?.propertyName" [label]="translate.instant('Save')" type="button"
               [size]="'small'" class="px-2" [colorVariant]="'primary'" (click)="addDynamic($event)">
             </rds-button>
           </div>

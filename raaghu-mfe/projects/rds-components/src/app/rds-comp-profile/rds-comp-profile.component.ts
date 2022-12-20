@@ -1,16 +1,19 @@
 import { Component, EventEmitter, Injector, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
-import { DownloadData, LinkedAccount, UserDeligates, LoginAttempts, Profile, success, Account, Deligates, Login } from '../../models/profile.model';
+import { DownloadData, LinkedAccount, UserDeligates, LoginAttempts, success, Account, Deligates, Login } from '../../models/profile.model';
 import { Router } from '@angular/router';
 import { ComponentLoaderOptions, MfeBaseComponent } from '@libs/shared';
 import { TableHeader } from '../../models/table-header.model';
 import { TranslateService } from '@ngx-translate/core';
+import { finalize } from 'rxjs/internal/operators/finalize';
+import { HttpClient, HttpEventType, HttpHeaders } from '@angular/common/http';
+import { AlertPopupData } from '../rds-comp-alert-popup/rds-comp-alert-popup.component';
 declare var $: any;
 declare var bootstrap: any;
 
 @Component({
-  selector: 'app-rds-comp-profile',
+  selector: 'rds-comp-profile',
   templateUrl: './rds-comp-profile.component.html',
   styleUrls: ['./rds-comp-profile.component.scss'],
   providers: [DatePipe]
@@ -32,10 +35,23 @@ export class RdsCompProfileComponent extends MfeBaseComponent implements OnInit 
   @Input() languageItems = [];
   @Input() selectedLanguage: any = { language: '', icon: '' };
   @Input() defaultLanguage: string = '';
+  selectedData: any;
+  deleteConfirmationData: AlertPopupData = {
+    iconUrl: "delete",
+    colorVariant: "danger",
+    alertConfirmation: "Are you sure ?",
+    messageAlert: "The record will be deleted permanently",
+    CancelButtonLabel: "Cancel",
+    DeleteButtonLabel: "Delete"
+  }
+  showConfirmationPopup: boolean = false;
+
   delegateTabopened: boolean = false;
   manageLinkedAccountsTabOpened: boolean = false;
 
   @Output() onLanguageSelection = new EventEmitter<any>();
+  @Output() onDeleteDeligate = new EventEmitter<any>();
+
   activePage: number;
   public rdsAlertMfeConfig: ComponentLoaderOptions;
   alertData: any = {
@@ -46,6 +62,72 @@ export class RdsCompProfileComponent extends MfeBaseComponent implements OnInit 
     CancelButtonLabel: "Cancel",
     DeleteButtonLabel: "OK"
   }
+  uploadProgress: number;
+  uploadSub: any;
+  profilePicture: string;
+  @Input() Profileurl: string;
+  @Input() MenuItems: any[] = [];
+  @Input() DownloadTable: DownloadData[] = []
+  @Input() linkedAccountHeaders: any = [];
+  @Input() linkedAccountData: any = [];
+  @Input() LoginAttempts: any = {};
+  @Input() backgroundColor: string;
+  @Input() id: string = 'ProfileCanvas';
+  @Output() onLogout = new EventEmitter<{ islogout: any }>()
+  @Output() onImageupload = new EventEmitter<any>();
+  @Output() ondeleteLinkaccount = new EventEmitter<any>();
+  @Output() onLinkToUser = new EventEmitter<any>();
+  @Output() onLoginAttempts = new EventEmitter<any>();
+  @Output() onDownloadLink = new EventEmitter<any>();
+  @Output() onProfileData = new EventEmitter<any>();
+  @Input() showLoadingSpinner: boolean = false;
+  @Input() tenancy: string = 'Host Admin';
+  public Profileform = new FormGroup({})
+  offCanvasWidth = 304;
+  profileMenu = 1000 + "px";
+  profileMenuContent: any;
+  @Input() isAnyProfileMenuSelected?: boolean = false;
+
+  @Input() ProfileData: any = {
+    ProfileName: 'Wai Technologies',
+    emailAddress: 'contact@waiin.com',
+    userName: 'admin',
+    CurrentPassword: '',
+    NewPassword: '',
+    ConFNewPassword: '',
+    name: ''
+  }
+  tabisVisible: boolean = false;
+
+  @Output() onProfileSave = new EventEmitter<any>();
+  @Output() onProfilePicUpdate = new EventEmitter<any>();
+
+
+  @Input() viewCanvas: boolean = false;
+
+  DefaulttabFlag: boolean = false;
+  fileArray: any[] = [];
+  fileSize?: number;
+  maxfilesize: any = 5;
+  result: string = '';
+  message: success[] = [];
+  islogout: boolean = false;
+  navtabcontentClass: string = "d-none";
+  firstcontent: boolean = false;
+  cancelbutton: boolean = true;
+  public classlists = [];
+  @Input()
+  listItemsResult: any[] = []
+  @Input()
+  Usernamefilter: any[] = []
+  DatasetDeligate: any = [];
+  @Input() showDelegationButtonSpinner: boolean = true;
+  url: any;
+
+  @Input()
+  requiredFileType: string;
+
+  fileName = '';
   ngOnInit(): void {
     this.on('tenancyData').subscribe(res => {
       this.emitEvent('tenancyDataAgain', res);
@@ -63,74 +145,27 @@ export class RdsCompProfileComponent extends MfeBaseComponent implements OnInit 
 
       }
     }
+    this.getProfilePicture();
+
   }
   constructor(private injector: Injector,
     public translate: TranslateService,
-    private router: Router) {
+    private router: Router,
+    private http: HttpClient) {
     super(injector);
   }
   ngOnChanges(changes: SimpleChanges): void {
 
   }
-  @Input() Profileurl: string;
-  @Input() MenuItems: any[] = [];
-  @Input() DownloadTable: DownloadData[] = []
-  @Input() linkedAccountHeaders: any = [];
-  @Input() linkedAccountData: any = [];
-  @Input() LoginAttempts: any = {};
-  @Input() backgroundColor: string;
-  @Input()id: string = 'ProfileCanvas';
-  @Output() onLogout = new EventEmitter<{ islogout: any }>()
-  @Output() onImageupload = new EventEmitter<any>();
-  @Output() ondeleteLinkaccount = new EventEmitter<any>();
-  @Output() onLinkToUser = new EventEmitter<any>();
-  @Output() onLoginAttempts = new EventEmitter<any>();
-  @Output() onDownloadLink = new EventEmitter<any>();
-  public Profileform = new FormGroup({})
-  offCanvasWidth = 304;
-  profileMenu = 1000 + "px";
-  profileMenuContent: any;
-  @Input() isAnyProfileMenuSelected?: boolean = false;
 
-  @Input() ProfileData: Profile = {
-    ProfileName: 'Wai Technologies',
-    EmailAddress: 'contact@waiin.com',
-    UserName: 'admin',
-    CurrentPassword: '',
-    NewPassword: '',
-    ConFNewPassword: ''
-  }
-  tabisVisible: boolean = false;
 
-  @Output() onProfileSave = new EventEmitter<any>();
+public getProfilePicture():void{
+  
+}
 
-  @Input() viewCanvas: boolean = false;
-
-  DefaulttabFlag: boolean = false;
-  fileArray: any[] = [];
-  fileSize?: number;
-  maxfilesize: any = 5;
-  result: string = '';
-  message: success[] = [];
-  islogout: boolean = false;
-  navtabcontentClass: string = "d-none";
-  firstcontent: boolean = false;
-
-  cancelbutton: boolean = true;
-  public classlists = [];
-  @Input()
-  listItemsResult: any[] = []
-  @Input()
-  Usernamefilter: any[] = []
-  DatasetDeligate: any = [];
   onclickMenu(item: any) {
 
     if (this.MenuItems[item]?.showoffcanvas == false) {
-      // this.offCanvasWidth = 1000;
-      // this.tabisVisible = false;
-      // this.firstcontent = false
-      // this.cancelbutton = true;
-      // this.isAnyProfileMenuSelected = false;
       this.onClickCloseTabContent();
       this.onDownloadLink.emit(item)
       $('#DownloadDatamodal').modal('show');
@@ -221,22 +256,64 @@ export class RdsCompProfileComponent extends MfeBaseComponent implements OnInit 
       }
     }
   }
-  checkExtension(event: any): void {
+  // checkExtension(event: any): void {
+  //   if (event.target.files && event.target.files[0]) {
+  //     let file = event.target.files[0];
+
+  //     if (file.type == "application/pdf" || file.type == "image/png" || file.type == "image/jpg" || file.type == "image/jpeg") {
+
+  //     }
+  //     else {
+
+
+  //     }
+
+  //   }
+  // }
+
+  onSelectFile(event) {
     if (event.target.files && event.target.files[0]) {
-      let file = event.target.files[0];
 
-      if (file.type == "application/pdf" || file.type == "image/png" || file.type == "image/jpg" || file.type == "image/jpeg") {
+      const file: File = event.target.files[0];
 
-      }
-      else {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('fileType', file.type);
+      formData.append('fileName', 'ProfilePicture');
+      formData.append('fileToken', this.guid());
+  
+      const upload$ = this.http.post("https://anzdemoapi.raaghu.io/Profile/UploadProfilePicture", formData);
+      this.uploadSub = upload$.subscribe((result: any) => {
+        this.updateProfilePicture(result.result.fileToken);
+       this.onProfileData.emit(result);
+       console.log(result)
 
-
-      }
+      });
 
     }
   }
 
+  updateProfilePicture(fileToken: string): void {
+  
+}
+
+
+  reset(): void {
+    throw new Error('Method not implemented.');
+  }
+
+  guid(): string {
+    function s4() {
+      return Math.floor((1 + Math.random()) * 0x10000)
+        .toString(16)
+        .substring(1);
+    }
+
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+  }
+
   logout() {
+    this.showLoadingSpinner = true;
     this.islogout = true;
     this.emitEvent('logout', {
       islogout: true
@@ -311,6 +388,30 @@ export class RdsCompProfileComponent extends MfeBaseComponent implements OnInit 
       res.subText = this.translate.instant(res.subtextTranslationKey)
     });
     return this.MenuItems;
+  }
+
+  deleteDelegate(event): void {
+    this.selectedData = event;
+    this.showConfirmationPopup = true;
+    setTimeout(() => {
+      var element: any = document.getElementById('deleteDelegationModal');
+      var modal = new bootstrap.Modal(element);
+      modal.show();
+    }, 100);
+  }
+
+  delete(): void {
+    this.onDeleteDeligate.emit(this.selectedData);
+
+  }
+  closeModal(): void {
+    var element: any = document.getElementById('deleteDelegationModal');
+    if (element) {
+      var modal = new bootstrap.Modal(element);
+      modal.hide();
+    }
+    this.selectedData = undefined;
+    this.showConfirmationPopup = false;
   }
 
 }

@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 declare var bootstrap: any;
 @Component({
-  selector: 'app-rds-comp-tenant-settings',
+  selector: 'rds-comp-tenant-settings',
   templateUrl: './rds-comp-tenant-settings.component.html',
   styleUrls: ['./rds-comp-tenant-settings.component.scss']
 })

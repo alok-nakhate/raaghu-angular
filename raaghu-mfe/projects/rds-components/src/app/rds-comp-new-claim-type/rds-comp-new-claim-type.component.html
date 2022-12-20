@@ -1,39 +1,47 @@
 <form #ClaimTypeForm="ngForm">
   <div>
     <div class="form-group col-sm-12 mb-3">
-      <rds-input size="default" value="" [TitleType]="'Top'" [Title]="'Name'" inputType="text"
-        [(ngModel)]="ClaimTypeData.Name" [disabled]="false" [readonly]="false" name="Name" required [isRequired]=true>
+      <rds-input value="" [labelPosition]="'top'" [label]="'Name'" inputType="text"
+        [(ngModel)]="ClaimTypeData.name" [disabled]="false" [readonly]="false" name="name" required [isRequired]=true>
       </rds-input>
     </div>
   </div>
   <div class="row">
+    <div class="form-group col-sm-12 mb-3 pe-3">
+      <rds-checkbox [disabled]="false" [label]="'Required'" [checked]="ClaimTypeData.required"
+        [(ngModel)]="ClaimTypeData.required" name="required" [withLabel]="true" [switch]="false" [inline]="false"
+        [id]="'required'"></rds-checkbox>
+    </div>
     <div class="form-group col-sm-6 mb-3 pe-3">
-      <rds-input size="default" value="" [TitleType]="'Top'" [Title]="'Regex'" name="Regex " required inputType="text"
-        [(ngModel)]="ClaimTypeData.Regex" [disabled]="false" [readonly]="false" [isRequired]=true>
+      <rds-input value="" [labelPosition]="'top'" [label]="'Regex'" name="regex " required inputType="text"
+        [(ngModel)]="ClaimTypeData.regex" [disabled]="false" [readonly]="false" [isRequired]=true>
       </rds-input>
     </div>
     <div class="form-group col-sm-6 mb-3">
-      <rds-input size="default" value="" [TitleType]="'Top'" [Title]="'Value Type'" inputType="text"
-        [(ngModel)]="ClaimTypeData.ValueType" [disabled]="false" [readonly]="false" name="ValueType">
-      </rds-input>
+      <div class="mb-2">
+        <rds-label [label]="'Value Type'"></rds-label>
+      </div>
+      <rds-dropdownlist class="mt-2" [placeholder]="'Value Type'" [size]="'large'"
+       [listItems]="valueTypeItems" (onSelect)="selectedValueType($event)">
+      </rds-dropdownlist>
     </div>
   </div>
   <div class="form-group col-sm-12 mb-3">
-    <rds-input size="default" value="" [Title]="'Regex Description'" [TitleType]="'Top'" inputType="text"
-      [(ngModel)]="ClaimTypeData.regexdescription" [disabled]="false" [readonly]="false" name="regexdescription">
+    <rds-input value="" [label]="'Regex Description'" [labelPosition]="'top'" inputType="text"
+      [(ngModel)]="ClaimTypeData.regexDescription" [disabled]="false" [readonly]="false" name="regexDescription">
     </rds-input>
   </div>
   <div class="form-group col-sm-12 mb-3">
-    <rds-input size="default" value="" [TitleType]="'Top'" [Title]="'Description'" inputType="text"
-      [(ngModel)]="ClaimTypeData.Description" [disabled]="false" [readonly]="false" name="Description">
+    <rds-input value="" [labelPosition]="'top'" [label]="'Description'" inputType="text"
+      [(ngModel)]="ClaimTypeData.description" [disabled]="false" [readonly]="false" name="description">
     </rds-input>
   </div>
   <div class="col-md-12">
-    <rds-button [label]="'Cancel'" type="button" class="me-2" [outlineButton]="true" [colorVariant]="'primary'" data-bs-dismiss="offcanvas"
-      [size]="'small'" (click)="clearclaimtypeData()">
+    <rds-button [label]="'Cancel'" type="button" class="me-2" [isOutline]="true" [colorVariant]="'primary'"
+      data-bs-dismiss="offcanvas" [size]="'small'" (click)="clearclaimtypeData()">
     </rds-button>
     <rds-button [id]="'yes'" [size]="'small'" [tooltipPlacement]="'top'" [colorVariant]="'primary'"
-      [disabled]="!ClaimTypeForm.valid" [label]="'Save'" (click)="AddCliamtypeData()">
+      data-bs-dismiss="offcanvas" [isDisabled]="!ClaimTypeForm.valid" [label]="'Save'" (click)="AddCliamtypeData()">
     </rds-button>
   </div>
 </form>

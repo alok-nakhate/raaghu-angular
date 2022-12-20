@@ -13,12 +13,8 @@ export default {
     }),
   ],
   argTypes: {
-    colorVariant: {
-      options: ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'],
-      control: { type: 'select' }
-    },
     borderColor: {
-      options: ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'],
+      options: ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark', 'basic' , 'standard', 'premium', 'professional'],
       control: { type: 'select' }
     },
   },
@@ -26,56 +22,67 @@ export default {
 
 const Template: Story<RdsCardComponent> = (args: RdsCardComponent) => ({
   props: args,
-  template: `<rds-card [showHeader]="showHeader" [showBody]="showBody" [showFooter]="showFooter" [colorVariant]="colorVariant" [borderColor]="borderColor">
+  template: `<rds-card [topBottomPadding]="topBottomPadding" [sidePadding]="sidePadding"
+     [showHeader]="showHeader" [showBody]="showBody" [showFooter]="showFooter" [borderColor]="borderColor">
      <div header class="pt-3 px-3">
         <h5>Header Title</h5>
      </div>
     <div body>  
       <p>Some quick example text to build on the card title and make up the bulk of the card\'s content</p>
-      <div footer>
+    </div>
+    <div footer>
         <a href="#" class="btn btn-primary">Go somewhere</a>
       </div>
-    </div>
    </rds-card>`
 });
 export const Default = Template.bind({});
-Default.parameters = { controls: { include: ['colorVariant', 'showHeader', 'showBody', 'showFooter', 'borderColor'] } };
+Default.parameters = { controls: { include: ['showHeader', 'showBody', 'showFooter', 'borderColor', 'custClass',
+'topBottomPadding', 'sidePadding'] } };
+Default.parameters = { controls: { include: ['colorVariant', 'showHeader', 'showBody', 'showFooter', 'borderColor' ] } };
 
 Default.args = {
   showHeader: true,
   showBody: true,
   showFooter: true,
-  colorVariant: undefined,
-  borderColor: undefined
+  borderColor: undefined,
+  topBottomPadding: true,
+  sidePadding: true,
+  // colorVariant: undefined,
 };
 
 const cardWithImageTemplate: Story<RdsCardComponent> = (args: RdsCardComponent) => ({
   props: args,
-  template: `<rds-card [showHeader]="showHeader" [showBody]="showBody" [showFooter]="showFooter" [colorVariant]="colorVariant" [borderColor]="borderColor">
+  template: `<rds-card [topBottomPadding]="topBottomPadding" [sidePadding]="sidePadding"
+    [showHeader]="showHeader" [showBody]="showBody" [showFooter]="showFooter" [borderColor]="borderColor" [colorVariant]="colorVariant">
   <div header>
     <img src="https://picsum.photos/seed/picsum/1200/600" class="card-img-top" alt="">
   </div>
    <div body>  
     <h5>Header Title</h5>
     <p>Some quick example text to build on the card title and make up the bulk of the card\'s content</p>
-    <div footer>
+  </div>
+  <div footer>
     <a href="#" class="btn btn-primary">Go somewhere</a>
     </div>
-  </div>
    </rds-card>`
 });
 export const cardWithImage = cardWithImageTemplate.bind({});
+Default.parameters = { controls: { include: ['showHeader', 'colorVariant', 'showBody', 'showFooter', 'borderColor', 'custClass',
+'topBottomPadding', 'sidePadding'] } };
 cardWithImage.args = {
   showHeader: true,
   showBody: true,
   showFooter: true,
-  colorVariant: undefined,
-  borderColor: undefined
+  borderColor: undefined,
+  topBottomPadding: true,
+  sidePadding: true,
+  // colorVariant: undefined,
 };
 
 const avatarTemplate: Story<RdsCardComponent> = (args: RdsCardComponent) => ({
   props: args,
-  template: `<rds-card [showHeader]="showHeader" [showBody]="showBody" [showFooter]="showFooter" [colorVariant]="colorVariant" [borderColor]="borderColor">
+  template: `<rds-card [topBottomPadding]="topBottomPadding" [sidePadding]="sidePadding"
+   [showHeader]="showHeader" [showBody]="showBody" [showFooter]="showFooter" [colorVariant]="colorVariant" [borderColor]="borderColor">
   <div header>
   <div class="banner-image1 position-relative">
       <div>
@@ -92,25 +99,29 @@ const avatarTemplate: Story<RdsCardComponent> = (args: RdsCardComponent) => ({
    <div body class="pt-3">  
     <h5>Header Title</h5>
     <p>Some quick example text to build on the card title and make up the bulk of the card\'s content</p>
-
-    <div footer>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-    </div>
+   </div>
+   <div footer>
+   <a href="#" class="btn btn-primary">Go somewhere</a>
    </div>
   </rds-card>`
 });
 export const avatar = avatarTemplate.bind({});
+Default.parameters = { controls: { include: ['showHeader', 'colorVariant', 'showBody', 'showFooter', 'borderColor', 'custClass',
+'topBottomPadding', 'sidePadding'] } };
 avatar.args = {
   showHeader: true,
   showBody: true,
   showFooter: true,
-  colorVariant: undefined,
-  borderColor: undefined
+  borderColor: undefined,
+  topBottomPadding: true,
+  sidePadding: true,
+  // colorVariant: undefined,
 };
 
 const centeredAvatarTemplate: Story<RdsCardComponent> = (args: RdsCardComponent) => ({
   props: args,
-  template: `<rds-card [showHeader]="showHeader" [showBody]="showBody" [showFooter]="showFooter"  [colorVariant]="colorVariant" [borderColor]="borderColor">
+  template: `<rds-card [topBottomPadding]="topBottomPadding" [sidePadding]="sidePadding"
+    [showHeader]="showHeader" [showBody]="showBody" [showFooter]="showFooter"  [colorVariant]="colorVariant" [borderColor]="borderColor">
   <div header class="">
   <div class="banner-image1 position-relative">
       <div>
@@ -127,20 +138,23 @@ const centeredAvatarTemplate: Story<RdsCardComponent> = (args: RdsCardComponent)
    <div body>  
     <h5>Header Title</h5>
     <p>Some quick example text to build on the card title and make up the bulk of the card\'s content</p>
-    <div footer>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
-    </div>
    </div>
-  
+   <div footer>
+   <a href="#" class="btn btn-primary">Go somewhere</a>
+ </div>
   </rds-card>`
 });
 
 // const teletext = "some text"
 export const withCenteredAvatar = centeredAvatarTemplate.bind({});
+Default.parameters = { controls: { include: ['showHeader', 'colorVariant', 'showBody', 'showFooter', 'borderColor', 'custClass',
+'topBottomPadding', 'sidePadding'] } };
 withCenteredAvatar.args = {
   showHeader: true,
   showBody: true,
   showFooter: true,
-  colorVariant: undefined,
-  borderColor: undefined
+  borderColor: undefined,
+  topBottomPadding: true,
+  sidePadding: true,
+  // colorVariant: undefined,
 };

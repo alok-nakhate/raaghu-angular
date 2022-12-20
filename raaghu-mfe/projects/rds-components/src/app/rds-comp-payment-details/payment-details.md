@@ -9,7 +9,7 @@ title: "Components > Payment-details"
 
 #### Payment Details
 
-<p class="">A card is a small rectangular module with images and text. It is an entry point for users to learn more details</p>
+<p>Provides user a card on the details regarding different methods of transaction</p>
 <section class="py-4">
     <h6>Default</h6>
     <div class="py-3">
@@ -39,13 +39,13 @@ title: "Components > Payment-details"
 <div class="row m-0">
 
 ```html
-<app-rds-comp-payment-details
+<rds-comp-payment-details
 cvc="123"
 cardNumber="246"
 name="abc"
 expirationDate="567"
 buttonSpinner="true">
-</app-rds-comp-payment-details>
+</rds-comp-payment-details>
 ```
 </div>
 </div>

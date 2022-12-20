@@ -1372,7 +1372,7 @@ bs-days-calendar-view .bs-datepicker-head button.current:last-child {
     }
     .custom-today-class {     
       z-index: 1;
-      color: #fff;
+      // color: #fff;
       width: 30px;
       padding:0 5px;
     }
@@ -1417,8 +1417,8 @@ transform: scaleY(1);
 .footerDatepicker {
 position: absolute;
 z-index: 1081;
-top: 170px;
-left: 218px;
+top: 167px;
+left: 293px;
 border: 1px solid #D0D7DD;
 align-self: center;
 padding: 4px;
@@ -1450,19 +1450,21 @@ border-bottom-right-radius: 4px;
   }
   .bs-datepicker {
     position: relative;
-    left: 0px;
+    left: 18px;
     top: 305px;
   }
   .footerDatepicker {
-    top: 379px;
+    top: 342px;
     left: -1px;
     width: 290px;
+    background: white;
   }
   bs-daterangepicker-container {
     transform: none !important;
+    z-index: 99;
   }
   .date-picker {
-    z-index: 999999;
+    z-index: 9;
     position: relative;
     display: inline-block;
     left: -20px;

@@ -11,7 +11,7 @@ title: "Elements > Label"
 
 #### Label
 
-<p class="">A card is a small rectangular module with images and text. It is an entry point for users to learn more details</p>
+<p class="">Label can be used to define the state of an object(ex. process or user) in a webpage.</p>
 <section class="py-4">
     <h6>Default</h6>
     <div class="py-3">

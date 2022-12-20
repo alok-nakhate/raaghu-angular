@@ -11,13 +11,14 @@
       <div class="row m-1" *ngIf="selectedData">
         <div class="col-md-12">
           <div class="form-group mb-3"> 
-            <rds-label [label]="'Name:'">{{ selectedData.layoutDetails }}</rds-label>
+            <!-- <rds-label [label]="'Name:'"> Hello{{ selectedData.templateName }}</rds-label> -->
+            <span>Name : {{ selectedData.templateName }}</span>
             </div>
         </div>
         <div class="col-md-12 mt-3">
           <div class="form-group">
             <rds-textarea #description="ngModel" [placeholderText]="'Enter Content Here'" [label]="'Template Content'"
-              [value]="selectedData.templateContent" [(ngModel)]="selectedData.templateContent" name="desc" required>
+               [(ngModel)]="selectedData.content" name="content" required>
             </rds-textarea>
           </div>
         </div>
@@ -32,8 +33,9 @@
         </rds-button>
       </div>
       <div>
-        <a class="p-2">Restore To Default</a>
+        <rds-button class="p-2" (click)="restore($event)">Restore To Default</rds-button>
       </div>
     </div>
   </rds-offcanvas>
 </ng-container>
+

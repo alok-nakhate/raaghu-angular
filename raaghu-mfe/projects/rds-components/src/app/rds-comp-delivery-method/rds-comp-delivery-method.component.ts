@@ -3,7 +3,7 @@ import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-rds-comp-delivery-method',
+  selector: 'rds-comp-delivery-method',
   templateUrl: './rds-comp-delivery-method.component.html',
   styleUrls: ['./rds-comp-delivery-method.component.scss']
 })

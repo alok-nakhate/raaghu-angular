@@ -15,7 +15,7 @@ title: "Elements > Toasts"
 
 
 <section class="py-4">
-    <h6>Position</h6>
+    <h6>Default</h6>
     <div class="py-3">
       <div class="cust-tabs">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -32,7 +32,7 @@ title: "Elements > Toasts"
           <div class="contents p-5">
              <div class="row">
                 <div class="col-md-12">
-                  <img src="images/toast.png" class="w-50">
+                  <img src="images/toast.png" class="img-fluid">
                 </div>                 
               </div>
             </div>
@@ -42,22 +42,12 @@ title: "Elements > Toasts"
 <div class="row  m-0 p-4">
 
 ```html
-<div
-  aria-live="polite"
-  aria-atomic="true"
-  style="position: relative; min-height: 200px;"
->
-  <rds-toast
-    [withImage]="false"
-    [withHeader]="false"
-    background="bg-info"
-    [customColor]="false"
-    custcolor=""
-    headerTitle="Bootstrap"
-    time="11 Seconds ago"
-    textColor=""
-  ></rds-toast>
-</div>
+<rds-toasts
+  message="This is a sample toast"
+  colorVariant="light"
+  headerTitle="Toast"
+  [show]="true"
+></rds-toasts>
 ```
 
 </div>
@@ -68,7 +58,7 @@ title: "Elements > Toasts"
   </section>
 
   <section class="py-4">
-    <h6>Toast</h6>
+    <h6>Toast With Autohide</h6>
     <div class="py-3">
       <div class="cust-tabs">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -85,7 +75,7 @@ title: "Elements > Toasts"
           <div class="contents p-5">
               <div class="row">
                  <div class="col-md-12">
-                     <img src="images/toast.png" class="img-fluid w-50">
+                     <img src="images/toast.png" class="img-fluid">
                  </div>                
                 </div>
              </div>
@@ -96,16 +86,11 @@ title: "Elements > Toasts"
 
 ```html
 <rds-toasts
-  message="Hello, world! This is a toast message."
-  [withImage]="false"
-  [withHeader]="false"
-  background=""
-  [customColor]="false"
-  custcolor=""
-  headerTitle="Bootstrap"
-  time="11 Seconds ago"
-  textColor=""
-  position="Bottom-Right"
+  message="This is a sample toast"
+  [autohide]="true"
+  colorVariant="light"
+  headerTitle="Toast"
+  [show]="true"
 ></rds-toasts>
 ```
 
@@ -118,53 +103,39 @@ title: "Elements > Toasts"
 
 
   <section class="py-4">
-    <h6>With Call To Action</h6>
+    <h6>Toast With Delay</h6>
     <div class="py-3">
       <div class="cust-tabs">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
           <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="PreviewAction-tab" data-bs-toggle="tab" data-bs-target="#PreviewAction" type="button" role="tab" aria-controls="PreviewAction" aria-selected="true">Preview </button>
+            <button class="nav-link active" id="PreviewAction2-tab" data-bs-toggle="tab" data-bs-target="#PreviewAction2" type="button" role="tab" aria-controls="PreviewAction2" aria-selected="true">Preview </button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link" id="AngularAction-tab" data-bs-toggle="tab" data-bs-target="#AngularAction" type="button" role="tab" aria-controls="AngularAction" aria-selected="false"><i class="bi bi-code-slash" style="font-size:1.0rem"></i>Angular</button>
+            <button class="nav-link" id="AngularAction2-tab" data-bs-toggle="tab" data-bs-target="#AngularAction2" type="button" role="tab" aria-controls="AngularAction2" aria-selected="false"><i class="bi bi-code-slash" style="font-size:1.0rem"></i>Angular</button>
           </li>
         </ul>
       </div>
       <div class="tab-content card border" id="myTabContent">
-        <div class="tab-pane fade show active" id="PreviewAction" role="tabpanel" aria-labelledby="PreviewAction-tab">
+        <div class="tab-pane fade show active" id="PreviewAction2" role="tabpanel" aria-labelledby="PreviewAction2-tab">
           <div class="contents bg-light p-5">
             <div class="row">
-             <img src="images/toast.png" class="w-50">
+             <img src="images/toast.png" class="img-fluid w-50">
                </div>
            </div>
         </div>
-        <div class="tab-pane fade show" id="AngularAction" role="tabpanel" aria-labelledby="AngularAction-tab">
+        <div class="tab-pane fade show" id="AngularAction2" role="tabpanel" aria-labelledby="AngularAction2-tab">
           <div class="contents bg-code">
 <div class="row  m-0 p-4">
 
 ```html
-<rds-toast
-  [withImage]="false"
-  [withHeader]="false"
-  background="undefined"
-  [customColor]="false"
-  custcolor=""
-  headerTitle="Bootstrap"
-  time="11 Seconds ago"
-  textColor=""
->
-  <div class="mt-2 p-2 border-top">
-    <button type="button" class="btn btn-primary btn-sm">Take action</button>
-    &nbsp;
-    <button
-      type="button"
-      class="btn btn-secondary btn-sm"
-      data-bs-dismiss="toast"
-    >
-      Close
-    </button>
-  </div>
-</rds-toast>
+<rds-toasts
+  message="This is a sample toast"
+  [delay]="7000"
+  [autohide]="true"
+  colorVariant="light"
+  headerTitle="Toast"
+  [show]="true"
+></rds-toasts>
 ```
 
 </div>
@@ -174,8 +145,92 @@ title: "Elements > Toasts"
     </div>
   </section>
 
+ <section class="py-4">
+    <h6>Toast With Position</h6>
+    <div class="py-3">
+      <div class="cust-tabs">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="PreviewAction3-tab" data-bs-toggle="tab" data-bs-target="#PreviewAction3" type="button" role="tab" aria-controls="PreviewAction3" aria-selected="true">Preview </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="AngularAction3-tab" data-bs-toggle="tab" data-bs-target="#AngularAction3" type="button" role="tab" aria-controls="AngularAction3" aria-selected="false"><i class="bi bi-code-slash" style="font-size:1.0rem"></i>Angular</button>
+          </li>
+        </ul>
+      </div>
+      <div class="tab-content card border" id="myTabContent">
+        <div class="tab-pane fade show active" id="PreviewAction3" role="tabpanel" aria-labelledby="PreviewAction3-tab">
+          <div class="contents bg-light p-5">
+            <div class="row">
+             <img src="images/toast.png" class="w-50">
+               </div>
+           </div>
+        </div>
+        <div class="tab-pane fade show" id="AngularAction3" role="tabpanel" aria-labelledby="AngularAction3-tab">
+          <div class="contents bg-code">
+<div class="row  m-0 p-4">
 
-  <section class="py-4">
+```html
+<rds-toasts
+  message="This is a sample toast"
+  colorVariant="light"
+  headerTitle="Toast"
+  position="Top-Left"
+  [show]="true"
+></rds-toasts>
+```
+
+</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+ <section class="py-4">
+    <h6>Toast Without Header</h6>
+    <div class="py-3">
+      <div class="cust-tabs">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="PreviewAction4-tab" data-bs-toggle="tab" data-bs-target="#PreviewAction4" type="button" role="tab" aria-controls="PreviewAction4" aria-selected="true">Preview </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="AngularAction4-tab" data-bs-toggle="tab" data-bs-target="#AngularAction4" type="button" role="tab" aria-controls="AngularAction4" aria-selected="false"><i class="bi bi-code-slash" style="font-size:1.0rem"></i>Angular</button>
+          </li>
+        </ul>
+      </div>
+      <div class="tab-content card border" id="myTabContent">
+        <div class="tab-pane fade show active" id="PreviewAction4" role="tabpanel" aria-labelledby="PreviewAction4-tab">
+          <div class="contents bg-light p-5">
+            <div class="row">
+             <img src="images/toast-without-header.png" class="w-50">
+               </div>
+           </div>
+        </div>
+        <div class="tab-pane fade show" id="AngularAction4" role="tabpanel" aria-labelledby="AngularAction4-tab">
+          <div class="contents bg-code">
+<div class="row  m-0 p-4">
+
+```html
+<rds-toasts
+  message="This is a sample toast"
+  colorVariant="light"
+  [showHeader]="false"
+  headerTitle="Toast"
+  [show]="true"
+></rds-toasts>
+```
+
+</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+ <!-- Skeleton / Specifications -->
+<section class="py-4">
                         <h6>
                            Skeleton / Specifications
                         </h6>
@@ -183,13 +238,15 @@ title: "Elements > Toasts"
                               <!-- Tab panes -->
                               <div class="card border p-5">
                                  <div class="row">
-                                    <div class="col-md-12">
-                                       <img src="https://portal.raaghu.io/images/components/_toast-message/img-1.png" class="img-fluid"> 
-                                    </div> 
+                                    <div class="col-md-9 col-12">
+                                       <img src="/images/skel-toast.png" class="img-fluid">
+                                    </div>
                                  </div>
                               </div>
                         </div>
                      </section>
 
+
+
 <!-- JavaScript Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script> 

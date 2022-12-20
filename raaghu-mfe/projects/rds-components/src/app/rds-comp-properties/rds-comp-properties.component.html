@@ -1,34 +1,82 @@
-<div class="">
-    <!-- <mfe-loader [config]="rdsresourceTableMfeConfig"></mfe-loader> -->
-    <app-rds-data-table [tableData]="PropertyTableData" [inlineEdit]="false" [pagination]="true" [recordsPerPage]="10"
-            [tableHeaders]="PropertyTableHeader"></app-rds-data-table>
-    <div class="mt-4 row pb-5 mb-4">
-        <div class="col-md-5 mb-3">
-            <rds-input size="default" value="" TitleType="'Top'" [Title]="'Key'" inputType="text" [(ngModel)]="PropertiesData.key"
-                [disabled]="false" [readonly]="false">
-            </rds-input>
+<div class="tab-content">
+  <div aria-labelledby="nav-Deligation" class="h-100">
+    <div class="card border-0 h-100">
+      <div class="card-body m-1">
+        <div class="row">
+          <rds-data-table
+            [tableData]="PropertyTableData"
+            [inlineEdit]="false"
+            [pagination]="true"
+            [recordsPerPage]="10"
+            [tableHeaders]="PropertyTableHeader"
+          ></rds-data-table>
         </div>
-        <div class="col-md-5 mb-3">
-            <rds-input size="default" value="" TitleType="'Top'" [Title]="'Value'" inputType="text" [(ngModel)]="PropertiesData.value"
-                [disabled]="false" [readonly]="false">
+        <div class="mt-4 row pb-5">
+          <div class="col-md-5 mb-3">
+            <rds-input
+              size="medium"
+              value=""
+              [labelPosition]="'top'"
+              [label]="'Key'"
+              inputType="text"
+              [(ngModel)]="PropertiesData.key"
+              [disabled]="false"
+              [readonly]="false"
+            >
             </rds-input>
-        </div>
-        <div class="col-md-2 pt-3 mt-1">
-            <rds-button [id]="'yes'" [size]="'medium'" [tooltipPlacement]="'top'" [colorVariant]="'primary'"
-                [label]="'add'" (click)="addProperties()">
+          </div>
+          <div class="col-md-5 mb-3">
+            <rds-input
+              size="medium"
+              value=""
+              [labelPosition]="'top'"
+              [label]="'Value'"
+              inputType="text"
+              [(ngModel)]="PropertiesData.value"
+              [disabled]="false"
+              [readonly]="false"
+            >
+            </rds-input>
+          </div>
+          <div class="col-md-2 pt-4 mt-1">
+            <rds-button
+              [id]="'yes'"
+              [size]="'medium'"
+              [tooltipPlacement]="'top'"
+              [colorVariant]="'primary'"
+              [label]="'add'"
+              (click)="addProperties()"
+            >
             </rds-button>
-        </div>    
+          </div>
+        </div>
+        
+          <div class="row">
+            <div class="col-sm-12 ml-1">
+              <rds-button
+                class="me-2"
+                [label]="'Cancel'"
+                [isOutline]="true"
+                [colorVariant]="'primary'"
+                data-bs-dismiss="offcanvas"
+                [size]="'small'"
+              >
+              </rds-button>
+              <rds-button
+                [id]="'yes'"
+                [size]="'small'"
+                [tooltipPlacement]="'top'"
+                [colorVariant]="'primary'"
+                [label]="'CREATE'"
+                (click)="SavePropertyData()"
+              >
+              </rds-button>
+            </div>
+          </div>
+        
+      </div>
     </div>
-        <div class="d-flex position-fixed bottom-0 py-2 bg-white w-100">
-            <div class="m-2">
-                <rds-button [label]="'Cancel'" [outlineButton]="true" [colorVariant]="'primary'"  data-bs-dismiss="offcanvas"
-                    [size]="'small'">
-                </rds-button>
-            </div>
-            <div class="m-2">
-                <rds-button [id]="'yes'" [size]="'small'" [tooltipPlacement]="'top'" [colorVariant]="'primary'"
-                    [label]="'CREATE'" (click)="SavePropertyData()">
-                </rds-button>
-            </div>
-        </div> 
+  </div>
 </div>
+
+

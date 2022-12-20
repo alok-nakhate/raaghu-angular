@@ -6,19 +6,19 @@
     <div class="row mt-4">
         <div class="col-md-6 sm-p-0">
             <div class="form-group mb-4">
-                <!-- <rds-input size="default" [Title]="'Required Length (Min)'" [TitleType]="'Top'" inputType="text"
+                <rds-input size="medium" [label]="'Required Length (Min)'" [labelPosition]="'top'" inputType="text"
                      [isRequired]=true required [disabled]="false"  [readonly]="false"
-                    [placeholder]="'Enter Length'" [(ngModel)]="identityData.requiredlength"
+                    [placeholder]="'Enter Length'" name="requiredlength" [(ngModel)]="identityData.requiredlength"
                     ngDefaultControl>
-                </rds-input> -->
+                </rds-input>
             </div>
         </div>
         <div class="col-md-6 sm-p-0">
             <div class="form-group mb-4">
-                <rds-input size="default" [Title]="'Required Special Characters (Min)'" [TitleType]="'Top'"
+                <rds-input size="medium" [label]="'Required Special Characters (Min)'" [labelPosition]="'top'"
                     inputType="text" name="defaultAddress" [isRequired]=true required [disabled]="false"
-                    [readonly]="false" [placeholder]="'Enter Number'" [(ngModel)]="identityData.defaultAddress"
-                    #defaultAddress="ngModel" ngDefaultControl>
+                    [readonly]="false" [placeholder]="'Enter Number'" [(ngModel)]="identityData.splChar"
+                    #splChar="ngModel" ngDefaultControl>
                 </rds-input>
             </div>
         </div>
@@ -33,15 +33,15 @@
     <div class="row">
         <div class="col-md-12 mt-3">
             <rds-checkbox [disabled]="false" [label]="'Required Upper Case'" name="uppercaserequired" [withLabel]="true"
-                [switch]="false" [inline]="false" [(ngModel)]="identityData.uppercase"
-                #uppercase="ngModel" [id]="'uppercase'"></rds-checkbox>
+                [switch]="false" [inline]="false" [(ngModel)]="identityData.uppercaserequired"
+                #uppercaserequired="ngModel" [id]="'uppercase'"></rds-checkbox>
         </div>
     </div>
     <div class="row">
         <div class="col-md-12 mt-3">
             <rds-checkbox [disabled]="false" [label]="'Required Lower Case'" name="lowercaserequired" [withLabel]="true"
-                [switch]="false" [inline]="false" [(ngModel)]="identityData.lowercase"
-                #lowercase="ngModel" [id]="'ssl'"></rds-checkbox>
+                [switch]="false" [inline]="false" [(ngModel)]="identityData.lowercaserequired"
+                #lowercaserequired="ngModel" [id]="'ssl'"></rds-checkbox>
         </div>
     </div>
     <div class="row">
@@ -65,7 +65,7 @@
         <div class="row mt-4">
             <div class="col-md-6 sm-p-0">
                 <div class="form-group mb-4">
-                    <rds-input size="default" [Title]="'Lockout Duration (Seconds)'" [TitleType]="'Top'" inputType="text"
+                    <rds-input size="medium" [label]="'Lockout Duration (Seconds)'" [labelPosition]="'top'" inputType="text"
                         name="lockoutDuration" [isRequired]=true required [disabled]="false"  [readonly]="false"
                         [placeholder]="'Enter Length'" [(ngModel)]="identityData.lockoutDuration"
                         #lockoutDuration="ngModel" ngDefaultControl>
@@ -74,7 +74,7 @@
             </div>
             <div class="col-md-6 sm-p-0">
                 <div class="form-group mb-4">
-                    <rds-input size="default" [Title]="'Max Failed Access Attempts'" [TitleType]="'Top'"
+                    <rds-input size="medium" [label]="'Max Failed Access Attempts'" [labelPosition]="'top'"
                         inputType="text" name="maxAttmpts" [isRequired]=true required [disabled]="false"
                         [readonly]="false" [placeholder]="'Enter Name'" [(ngModel)]="identityData.MaxAttmpts"
                         #maxAttmpts="ngModel" ngDefaultControl>
@@ -88,16 +88,47 @@
             </div>
             <div class="row">
                 <div class="col-md-12 mt-4">
-                    <rds-checkbox [disabled]="false" [label]="'Required Upper Case'" name="uppercase" [withLabel]="true"
-                        [switch]="false" [inline]="false" [(ngModel)]="identityData.uppercase"
-                        #uppercase="ngModel" [id]="'ssl'"></rds-checkbox>
+                    <rds-checkbox [disabled]="false" [label]="'Require confirmed email'" name="confirmEmail" [withLabel]="true"
+                        [switch]="false" [inline]="false" [(ngModel)]="identityData.confirmEmail"
+                        #confirmEmail="ngModel" [id]="'ssl'"></rds-checkbox>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12 mt-3">
-                    <rds-checkbox [disabled]="false" [label]="'Required Lower Case'" name="lowercase" [withLabel]="true"
-                        [switch]="false" [inline]="false" [(ngModel)]="identityData.lowercase"
-                        #lowercase="ngModel" [id]="'ssl'"></rds-checkbox>
+                    <rds-checkbox [disabled]="false" [label]="'Allow users to confirm their phone number'" name="phoneNumber" [withLabel]="true"
+                        [switch]="false" [inline]="false" [(ngModel)]="identityData.phoneNumber"
+                        #phoneNumber="ngModel" [id]="'phone'"></rds-checkbox>
                 </div>
             </div> 
+            <div class="row">
+                <div class="col-md-12 mt-3">
+                    <rds-checkbox [disabled]="false" [label]="'Require confirmed phone number'" name="confirmPhoneNumber" [withLabel]="true"
+                        [switch]="false" [inline]="false" [(ngModel)]="identityData.confirmPhoneNumber"
+                        #confirmPhoneNumber="ngModel" [id]="'phoneNumber'"></rds-checkbox>
+                </div>
+            </div> 
+           <!--User Settings-->
+           <div class="border-bottom text-muted mt-3 fw-bold">
+            <rds-label [label]="'User Settings'"></rds-label>
+            </div>
+           <div class="row">
+            <div class="col-md-12 mt-3">
+                <rds-checkbox [disabled]="false" [label]="'Allow users to change their email addresses '" name="changeEmail" [withLabel]="true"
+                    [switch]="false" [inline]="false" [(ngModel)]="identityData.changeEmail"
+                    #changeEmail="ngModel" [id]="'email'"></rds-checkbox>
+            </div>
+        </div> 
+        <div class="row">
+            <div class="col-md-12 mt-3">
+                <rds-checkbox [disabled]="false" [label]="'Allow users to change their usernames'" name="changeUserName" [withLabel]="true"
+                    [switch]="false" [inline]="false" [(ngModel)]="identityData.changeUserName"
+                    #changeUserName="ngModel" [id]="'username'"></rds-checkbox>
+            </div>
+        </div> 
+        <div class="footer-buttons my-2 justify-content-end d-flex bottom-0 ">
+            <rds-button [label]="'Cancel'" [colorVariant]="'primary'" [size]="'small'" [isOutline]="true">
+            </rds-button>
+            <rds-button [label]="'Save'" (click)="onSaveIdentity()" [size]="'small'" class="ms-2" [colorVariant]="'primary'">
+            </rds-button>
+        </div>
 </form>

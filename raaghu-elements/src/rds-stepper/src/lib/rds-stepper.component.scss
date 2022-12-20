@@ -318,9 +318,9 @@ li:first-of-type .panel-border-item::after{
     background-color: #336CFF;
 }
 .multi-circle-active > .multi-circle > .inner-circle{
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    border-radius: 100%;
     background-color: #336CFF;
     align-self: center;
     margin: auto;
@@ -381,7 +381,7 @@ li:first-of-type .panel-border-item::after{
 }
 .bullet-text-complete svg{
     display: inline;
-    top: -6px;
+    top: -3px;
 }
 .multi-circle-complete svg{
     display: inline;

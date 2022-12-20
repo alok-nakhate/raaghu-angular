@@ -2,21 +2,22 @@
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <!-- <label>Client ID</label> -->
-                <rds-input [inputType]="'text'" [Title]="translate.instant('Client ID')" #client_id="ngModel" [TitleType]="'Top'"  [isRequired]=true [(ngModel)]="clientBasics.clientId" name="clientId"
-                    required [placeholder]="'Enter ID'">
+                <rds-input [inputType]="'text'" [label]="translate.instant('Client ID')" #client_id="ngModel"
+                    [labelPosition]="'top'" [isRequired]=true [(ngModel)]="clientBasics.clientId" name="clientId" required
+                    [placeholder]="'Enter ID'">
                 </rds-input>
                 <div class="form-control-feedback" *ngIf="client_id.errors && (client_id.dirty || client_id.touched)">
-                    <span class="text-danger" *ngIf="client_id.errors.required">{{"Client ID is required" | translate}}</span>
+                    <span class="text-danger" *ngIf="client_id.errors.required">{{"Client ID is required" |
+                        translate}}</span>
                     <span class="text-danger" *ngIf="client_id.errors.pattern">Accept Numbers only</span>
                 </div>
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
-                <!-- <label>Client Name</label> -->
-                <rds-input [inputType]="'text'" [Title]="translate.instant('Client name')" #client_name="ngModel" [TitleType]="'Top'" [(ngModel)]="clientBasics.clientName"
-                    name="clientName" [isRequired]=true  required [placeholder]="'Enter Client Name'">
+                <rds-input [inputType]="'text'" [label]="translate.instant('Client name')" #client_name="ngModel"
+                    [labelPosition]="'top'" [(ngModel)]="clientBasics.clientName" name="clientName" [isRequired]=true
+                    required [placeholder]="'Enter Client Name'">
                 </rds-input>
                 <div class="form-control-feedback"
                     *ngIf="client_name.errors && (client_name.dirty || client_name.touched)">
@@ -26,57 +27,185 @@
         </div>
         <div class="col-md-12 mt-3">
             <div class="form-group">
-                 <label class="mb-2">Description</label>
-                <rds-textarea #description="ngModel" title="Description" [placeholderText]="'Enter Description'"
+                <label class="mb-2">Description</label>
+                <rds-textarea #description="ngModel" label="Description" [placeholderText]="'Enter Description'"
                     [value]="clientBasics.description" [(ngModel)]="clientBasics.description" name="desc">
                 </rds-textarea>
-                
+
             </div>
         </div>
         <div class="col-md-6 mt-3">
             <div class="form-group">
-                <!-- <label>Client URL</label> -->
-                <rds-input [inputType]="'text'" [Title]="translate.instant('Client Uri')" #client_url="ngModel" [TitleType]="'Top'" [(ngModel)]="clientBasics.clientUri"
-                    name="clientUrl"  [isRequired]=true [placeholder]="'Enter URL'">
+                <rds-input [inputType]="'text'" [label]="translate.instant('Client Uri')" #client_url="ngModel"
+                    [labelPosition]="'top'" [(ngModel)]="clientBasics.clientUri" name="clientUrl" [isRequired]=true
+                    [placeholder]="'Enter URL'">
                 </rds-input>
             </div>
         </div>
         <div class="col-md-6 mt-3">
             <div class="form-group">
-                <!-- <label>Logo URL</label> -->
-                 <rds-input [inputType]="'text'" [Title]="translate.instant('Logo Uri')" #logo_url="ngModel" [TitleType]="'Top'" [(ngModel)]="clientBasics.logoUri" name="logoUrl"
-                 [placeholder]="'Enter URL'">
+                <rds-input [inputType]="'text'" [label]="translate.instant('CallBack URL')" #callback_url="ngModel"
+                    [labelPosition]="'top'" [(ngModel)]="clientBasics.callBackUrl" name="callBackUrl" required
+                    [placeholder]="'Enter URL'">
                 </rds-input>
-                           
+
             </div>
         </div>
+        <div class="col-md-6 mt-3">
+            <div class="form-group">
+                <rds-input [inputType]="'text'" [label]="translate.instant('Logo Uri')" #logo_url="ngModel"
+                    [labelPosition]="'top'" [(ngModel)]="clientBasics.logoUri" name="logoUrl" [placeholder]="'Enter URL'">
+                </rds-input>
+
+            </div>
+        </div>
+
+        <div class="col-md-6 mt-3">
+            <div class="form-group">
+                <rds-input [inputType]="'text'" [label]="translate.instant('Logout URL')" #logout_url="ngModel"
+                    [labelPosition]="'top'" [(ngModel)]="clientBasics.logoutUrl" name="logoUrl" [placeholder]="'Enter URL'">
+                </rds-input>
+
+            </div>
+        </div>
+
+        <ng-container *ngIf="isEdit">
+            <div class="col-md-6 mt-3">
+                <div class="form-group">
+                    <rds-input [inputType]="'text'" [label]="translate.instant('Front Channel Logout URL')"
+                        #logout_url="ngModel" [labelPosition]="'top'" [(ngModel)]="clientBasics.frontChannelLogoutUri"
+                        name="frontChannelLogoutUri" [placeholder]="'Enter URL'">
+                    </rds-input>
+                </div>
+            </div>
+            <div class="col-md-6 mt-3">
+                <div class="form-group">
+                    <rds-input [inputType]="'text'" [label]="translate.instant('Back Channel Logout URL')"
+                        #logout_url="ngModel" [labelPosition]="'top'" [(ngModel)]="clientBasics.backChannelLogoutUri"
+                        name="backChannelLogoutUri" [placeholder]="'Enter URL'">
+                    </rds-input>
+                </div>
+            </div>
+    
+            <div class="col-md-6 mt-3">
+                <div class="form-group">
+                    <rds-checkbox [disabled]="false" [label]="translate.instant('Front Channel Logout Session Required')"
+                        [checked]="clientBasics.frontChannelLogoutSessionRequired"
+                        [(ngModel)]="clientBasics.frontChannelLogoutSessionRequired"
+                        name="frontChannelLogoutSessionRequired" [withLabel]="true" [switch]="false" [inline]="false"
+                        [id]="'frontChannelLogoutSessionRequired'"></rds-checkbox>
+                </div>
+            </div>
+    
+            <div class="col-md-6 mt-3">
+                <div class="form-group">
+                    <rds-checkbox [disabled]="false" [label]="translate.instant('Back Channel Logout Session Required')"
+                        [checked]="clientBasics.backChannelLogoutSessionRequired"
+                        [(ngModel)]="clientBasics.backChannelLogoutSessionRequired" name="backChannelLogoutSessionRequired"
+                        [withLabel]="true" [switch]="false" [inline]="false"
+                        [id]="'backChannelLogoutSessionRequired'"></rds-checkbox>
+                </div>
+            </div>
+    
+            <div class="col-md-6 mt-3">
+                <div class="form-group">
+                    <rds-input [inputType]="'text'" [label]="translate.instant('Allowed identity token signing algorithms')"
+                        #logout_url="ngModel" [labelPosition]="'top'"
+                        [(ngModel)]="clientBasics.allowedIdentityTokenSigningAlgorithms"
+                        name="allowedIdentityTokenSigningAlgorithms" [placeholder]="'Enter URL'">
+                    </rds-input>
+                </div>
+            </div>
+        </ng-container>
         
-        <div class="col-md-6 mt-3">
-            <div class="form-group">
-                <!-- <label>Logo URL</label> -->
-                 <rds-input [inputType]="'text'" [Title]="translate.instant('CallBack URL')" #callback_url="ngModel" [TitleType]="'Top'" [(ngModel)]="clientBasics.callBackUrl" name="callBackUrl"
-                    required [placeholder]="'Enter URL'">
-                </rds-input>
-                          
-            </div>
-        </div>
-        <div class="col-md-6 mt-3">
-            <div class="form-group">
-                <!-- <label>Logo URL</label> -->
-                 <rds-input [inputType]="'text'" [Title]="translate.instant('Logout URL')" #logout_url="ngModel" [TitleType]="'Top'" [(ngModel)]="clientBasics.logoutUrl" name="logoUrl"
-                 [placeholder]="'Enter URL'">
-                </rds-input>
-                            
-            </div>
-        </div>
         <div class="col-md-12 mt-3">
             <div class="form-group">
-                <!-- <label>Required Consent*</label> -->
-                <rds-checkbox [disabled]="false" [label]="'Required Consent'"
-                [checked]="clientBasics.requireConsent" [(ngModel)]="clientBasics.requireConsent"
-                name="check-box" [withLabel]="true" [switch]="false"
-                [inline]="false" [id]="'requiredConsent'"></rds-checkbox>
+                <rds-checkbox [disabled]="false" [label]="'Required Consent'" [checked]="clientBasics.requireConsent"
+                    [(ngModel)]="clientBasics.requireConsent" name="requireConsent" [withLabel]="true" [switch]="false"
+                    [inline]="false" [id]="'requiredConsent'"></rds-checkbox>
             </div>
         </div>
+
+        <ng-container *ngIf="isEdit">
+            <div class="col-md-12 mt-3">
+                <div class="form-group">
+                    <rds-checkbox [disabled]="false" [label]="'Required Request Object'"
+                        [checked]="clientBasics.requireRequestObject" [(ngModel)]="clientBasics.requireRequestObject"
+                        name="requireRequestObject" [withLabel]="true" [switch]="false" [inline]="false"
+                        [id]="'requiredConsent'"></rds-checkbox>
+                </div>
+            </div>
+    
+            <div class="col-md-12 mt-3">
+                <div class="form-group">
+                    <rds-checkbox [disabled]="false" [label]="'Allow Remember Consent'"
+                        [checked]="clientBasics.allowRememberConsent" [(ngModel)]="clientBasics.allowRememberConsent"
+                        name="allowRememberConsent" [withLabel]="true" [switch]="false" [inline]="false"
+                        [id]="'allowRememberConsent'"></rds-checkbox>
+                </div>
+            </div>
+    
+            <div class="col-md-12 mt-3">
+                <div class="form-group">
+                    <rds-checkbox [disabled]="false" [label]="'Enabled'" [checked]="clientBasics.enabled"
+                        [(ngModel)]="clientBasics.enabled" name="enabled" [withLabel]="true" [switch]="false"
+                        [inline]="false" [id]="'requiredConsent'"></rds-checkbox>
+                </div>
+            </div>
+    
+            <div class="col-md-12 mt-3">
+                <div class="form-group">
+                    <rds-checkbox [disabled]="false" [label]="'Allow Offline Access'"
+                        [checked]="clientBasics.allowOfflineAccess" [(ngModel)]="clientBasics.allowOfflineAccess"
+                        name="allowOfflineAccess" [withLabel]="true" [switch]="false" [inline]="false"
+                        [id]="'allowOfflineAccess'"></rds-checkbox>
+                </div>
+            </div>
+    
+            <!-- Call Back url table -->
+            <div class="col-md-12 mt-3">
+                <div class="form-group">
+                    <rds-input [inputType]="'text'" [label]="translate.instant('Callback URL')" #logout_url="ngModel"
+                        [labelPosition]="'top'" [(ngModel)]="callBackUrl" name="callBackUrl" [placeholder]="'Enter URL'">
+                    </rds-input>
+                </div>
+            </div>
+            <div class="my-2">
+                <rds-button [label]="translate.instant('ADD')" [colorVariant]="'primary'"
+                    (onClick)="addCallBackUrl(callBackUrl)"></rds-button>
+            </div>
+            <rds-label [label]="'Added URL'"></rds-label>
+            <mfe-loader [config]="rdsCallBackUrlTable"></mfe-loader>
+    
+            <!-- Signout Table -->
+            <div class="col-md-12 mt-3">
+                <div class="form-group">
+                    <rds-input [inputType]="'text'" [label]="translate.instant('Signout')" [labelPosition]="'top'"
+                        [(ngModel)]="signoutUrl" name="signoutUrl" [placeholder]="'Enter URL'">
+                    </rds-input>
+                </div>
+            </div>
+            <div class="my-2">
+                <rds-button [label]="translate.instant('ADD')" [colorVariant]="'primary'"
+                    (onClick)="addSignoutUrl(signoutUrl)"></rds-button>
+            </div>
+            <rds-label [label]="'Added URL'"></rds-label>
+            <mfe-loader [config]="rdsSignoutTableConfig"></mfe-loader>
+    
+            <!-- Allowed cors origin -->
+            <div class="col-md-12 mt-3">
+                <div class="form-group">
+                    <rds-input [inputType]="'text'" [label]="translate.instant('Allowed CORS Origin')" [labelPosition]="'top'"
+                        [(ngModel)]="corsOrigin" name="corsOrigin" [placeholder]="'Enter URL'">
+                    </rds-input>
+                </div>
+            </div>
+            <div class="my-2">
+                <rds-button [label]="translate.instant('ADD')" [colorVariant]="'primary'"
+                    (onClick)="addCorsOrigin(corsOrigin)"></rds-button>
+            </div>
+            <rds-label [label]="'Added URL'"></rds-label>
+            <mfe-loader [config]="rdsAllowedCorsOriginTable"></mfe-loader>
+        </ng-container>
     </div>
 </form>

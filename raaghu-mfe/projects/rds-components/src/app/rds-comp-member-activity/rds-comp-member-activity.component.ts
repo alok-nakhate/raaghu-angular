@@ -3,7 +3,7 @@ import { ComponentLoaderOptions } from '@libs/shared';
 import { TableHeader } from '../../models/table-header.model';
 
 @Component({
-  selector: 'app-rds-comp-member-activity',
+  selector: 'rds-comp-member-activity',
   templateUrl: './rds-comp-member-activity.component.html',
   styleUrls: ['./rds-comp-member-activity.component.scss']
 })

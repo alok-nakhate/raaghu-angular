@@ -9,18 +9,17 @@ export class RdsNavTabComponent implements OnInit {
 
   @Input() navtabsItems?: any
   @Input() horizontalAlignment: 'start' | 'center' | 'end' = 'start';
-  @Input() verticalAlignment?: boolean;
-  @Input() pills?: boolean;
-  @Input() tabs?: boolean;
-  @Input() fill?: boolean;
-  @Input() justified?: boolean;
-  @Input() flex?: boolean;
-  @Input() iconHeight: string = '20px';
-  @Input() iconWidth: string = '20px';
+  @Input() verticalAlignment?: boolean = false;
+  @Input() pills: boolean = false;
+  @Input() tabs?: boolean = false;
+  @Input() fill?: boolean = false;
+  @Input() justified?: boolean = false;
+  @Input() flex?: boolean = false;
   @Output()
   onClicktab = new EventEmitter<{ evnt: any }>();
-  @Input() activepage: number = 0;
+  @Input() activeTab: number = 0;
   @Input() tabsWithBorderTop?: boolean = true;
+  navIcon: true;
   constructor() { }
 
   ngOnInit(): void {
@@ -28,20 +27,24 @@ export class RdsNavTabComponent implements OnInit {
   }
 
   onClick(i: any): void {
-    this.activepage = i;
+    this.activeTab = i;
     this.onClicktab.emit(i)
   }
 
   public get classes(): string {
-    const align = ` justify-content-${this.horizontalAlignment}`;
-    const vertical = `${this.verticalAlignment ? ' flex-column vertical-tab' : ' flex '}`;
-    const pill = `${this.pills ? 'nav nav-pills' : ''}`;
-    const tab = `${this.tabs ? ' rds-tab-2' : ''}`;
-    const fill = `${this.fill ? ' nav-pills nav-fill' : ''}`;
-    const justify = `${this.justified ? ' nav-pills nav-justified' : ''}`;
-    const flex = `${this.flex ? 'nav-pills flex-column flex-sm-row' : ''}`
-    const border = `${this.tabsWithBorderTop ? '' : ' rds-tab-2'}`;
-    return align + vertical + pill + tab + border + fill + justify + flex;
+    const align = ` justify-content-${this.horizontalAlignment} `;
+    const vertical = `${this.verticalAlignment ? ' flex-column vertical-tab ' : ' flex '}`;
+    const pill = `${this.pills ? ' nav-pills ' : ''}`;
+    const tab = `${this.tabs ? ' rds-tab-2 ' : ''}`;
+    const fill = `${this.fill ? ' nav-pills nav-fill ' : ''}`;
+    const justify = `${this.justified ? ' nav-pills nav-justified ' : ''}`;
+    // const flex = `${this.flex ? ' nav-pills flex-column flex-sm-row ' : ''}`
+    const border = `${this.tabsWithBorderTop ? '' : ' rds-tab-2 '}`;
+    let navTab = '';
+    if (!this.pills && !this.fill && !this.justified) {
+      navTab = ' nav-tabs'
+    }
+    return align + vertical + pill + navTab + tab + fill + justify;
   }
 
 

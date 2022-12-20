@@ -155,10 +155,10 @@ ProductOverview4.args = {
   sizeDataWithDescription : [{value: '18L', description:"Perfect for a reasonable amount of snacks."},{value: '20L', description:"Enough room for a serious amount of snacks."}]
 
 };
-export const producr_overview_description = Template.bind({});
+export const product_overview_description = Template.bind({});
 
-producr_overview_description.args = {
-  productType: 'producroverviewdescription',
+product_overview_description.args = {
+  productType: 'productoverviewdescription',
   listItems: [
     { id: 1, value: 'Hand cut and sewn locally', some: 'value' },
     { id: 2, value: 'Dyed with our proprietary colors', some: 'value' },

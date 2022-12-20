@@ -1,51 +1,211 @@
-<!-- <p>rds-comp-calendar works!</p> -->
-
 <div class="row text-center">
-    <div class="col-md-4">
-        <div class="btn-group">
-            <div class="btn btn-primary" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
-                (viewDateChange)="closeOpenMonthViewDay()">
-                Previous
-            </div>
-            <div class="btn btn-outline-secondary" mwlCalendarToday [(viewDate)]="viewDate">
-                Today
-            </div>
-            <div class="btn btn-primary" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
-                (viewDateChange)="closeOpenMonthViewDay()">
-                Next
-            </div>
-        </div>
+  <div class="d-flex justify-content-between align-items-center">
+    <div class="d-flex gap-3">
+      <rds-button
+        [size]="'medium'"
+        [isOutline]="true"
+        [colorVariant]="'primary'"
+        [label]="translate.instant('Today')"
+        mwlCalendarToday
+        [(viewDate)]="viewDate"
+      >
+      </rds-button>
+      <rds-button
+        [size]="'medium'"
+        [isOutline]="true"
+        [colorVariant]="'primary'"
+        mwlCalendarPreviousView
+        [view]="view"
+        [(viewDate)]="viewDate"
+        (viewDateChange)="closeOpenMonthViewDay()"
+        [icon]="'chevron_left'"
+        [isFabIcon]="true"
+        [iconHeight]="'18px'"
+        [iconWidth]="'18px'"
+      >
+      </rds-button>
+
+      <rds-button
+        [size]="'medium'"
+        [isOutline]="true"
+        [colorVariant]="'primary'"
+        mwlCalendarNextView
+        [view]="view"
+        [(viewDate)]="viewDate"
+        (viewDateChange)="closeOpenMonthViewDay()"
+        [icon]="'chevron_right'"
+        [iconHeight]="'18px'"
+        [isFabIcon]="true"
+        [iconWidth]="'18px'"
+      >
+      </rds-button>
+      <span class="h3">{{
+        viewDate | calendarDate: view + "ViewTitle":"en"
+      }}</span>
     </div>
-    <div class="col-md-4">
-        <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+    <div class="ms-auto">
+      <div class="dropdown">
+        <button
+          class="form-control dropdown-toggle"
+          type="button"
+          id="dropdownMenuButton1"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          SELECT VIEW
+        </button>
+        <ul class="dropdown-menu show" aria-labelledby="dropdownMenuButton1">
+          <li>
+            <button
+              class="dropdown-item text-primary"
+              (click)="setView(CalendarView.Day)"
+              [class.active]="view === CalendarView.Day"
+            >
+              DAY VIEW
+            </button>
+          </li>
+          <li>
+            <button
+              class="dropdown-item text-primary"
+              (click)="setView(CalendarView.Week)"
+              [class.active]="view === CalendarView.Week"
+            >
+              WEEK VIEW
+            </button>
+          </li>
+          <li>
+            <button
+              class="dropdown-item text-primary"
+              (click)="setView(CalendarView.Month)"
+              [class.active]="view === CalendarView.Month"
+            >
+              MONTH VIEW
+            </button>
+          </li>
+        </ul>
+      </div>
     </div>
-    <div class="col-md-4">
-        <div class="btn-group">
-            <div class="btn btn-primary" (click)="setView(CalendarView.Month)"
-                [class.active]="view === CalendarView.Month">
-                Month
-            </div>
-            <div class="btn btn-primary" (click)="setView(CalendarView.Week)"
-                [class.active]="view === CalendarView.Week">
-                Week
-            </div>
-            <div class="btn btn-primary" (click)="setView(CalendarView.Day)" [class.active]="view === CalendarView.Day">
-                Day
-            </div>
-        </div>
-    </div>
+  </div>
 </div>
 <br />
 <div [ngSwitch]="view">
-    <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events"
-        [refresh]="refresh" [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="dayClicked($event.day)"
-        (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)">
-    </mwl-calendar-month-view>
-    <mwl-calendar-week-view *ngSwitchCase="CalendarView.Week" [viewDate]="viewDate" [events]="events"
-        [refresh]="refresh" (eventClicked)="handleEvent('Clicked', $event.event)"
-        (eventTimesChanged)="eventTimesChanged($event)">
-    </mwl-calendar-week-view>
-    <mwl-calendar-day-view *ngSwitchCase="CalendarView.Day" [viewDate]="viewDate" [events]="events" [refresh]="refresh"
-        (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)">
-    </mwl-calendar-day-view>
+  <mwl-calendar-month-view
+    *ngSwitchCase="CalendarView.Month"
+    [viewDate]="viewDate"
+    [events]="events"
+    [refresh]="refreshed"
+    (dayClicked)="dayClicked($event.day)"
+    (eventClicked)="handleEvent('Clicked', $event.event)"
+    (eventTimesChanged)="eventTimesChanged($event)"
+    [activeDayIsOpen]="true"
+  >
+  </mwl-calendar-month-view>
+  <ng-template
+  #weekViewHourSegmentTemplate
+  let-segment="segment"
+  let-locale="locale"
+  let-segmentHeight="segmentHeight"
+  let-isTimeLabel="isTimeLabel"
+>
+  <div
+    #segmentElement
+    class="cal-hour-segment"
+    [style.height.px]="segmentHeight"
+    [class.cal-hour-start]="segment.isStart"
+    [class.cal-after-hour-start]="!segment.isStart"
+    [ngClass]="segment.cssClass"
+    (mousedown)="startDragToCreate(segment, $event, segmentElement)"
+  >
+    <div class="cal-time" *ngIf="isTimeLabel">
+      {{ segment.date | calendarDate:'weekViewHour':locale }}
+    </div>
+  </div>
+</ng-template>
+
+  <mwl-calendar-week-view
+    *ngSwitchCase="CalendarView.Week"
+    [viewDate]="viewDate"
+    [events]="events"
+    [refresh]="refreshed"
+    (eventClicked)="handleEvent('Clicked', $event.event)"
+    (eventTimesChanged)="eventTimesChanged($event)"
+    [hourSegmentTemplate]="weekViewHourSegmentTemplate"
+    [weekStartsOn]="weekStartsOn"
+  >
+  </mwl-calendar-week-view>
+  <mwl-calendar-day-view
+    *ngSwitchCase="CalendarView.Day"
+    [viewDate]="viewDate"
+    [events]="events"
+    [refresh]="refreshed"
+    (eventClicked)="handleEvent('Clicked', $event.event)"
+    (eventTimesChanged)="eventTimesChanged($event)"
+  >
+  </mwl-calendar-day-view>
 </div>
+
+<rds-offcanvas
+  [canvasTitle]="translate.instant(canvasTitle)"
+  [offId]="'calendarOffcanvas'"
+  [offcanvaswidth]="600"
+  [placement]="'end'"
+  *ngIf="viewCanvas"
+  (onClose)="close(eventCreationForm)"
+>
+  <form
+    #eventCreationForm="ngForm"
+    autocomplete="off"
+    (ngSubmit)="addEvent(eventCreationForm)"
+  >
+    <div class="row align-items-center">
+      <div class="form-group mb-3">
+        <rds-input
+          label="Title"
+          [labelPosition]="'top'"
+          [size]="'medium'"
+          name="title"
+          id="title"
+          [(ngModel)]="eventData.title"
+          #titile="ngModel"
+          [isRequired]="true"
+          required
+          [placeholder]="'Enter Title'"
+        >
+        </rds-input>
+        <div
+          class="form-control-feedback"
+          *ngIf="titile.errors && (titile.dirty || titile.touched)"
+        >
+          <span class="text-danger" *ngIf="titile.errors.required">{{
+            "Title is required" | translate
+          }}</span>
+          <span class="text-danger" *ngIf="titile.errors.pattern"
+            >{{ "Please enter a Title" | translate }}
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="position-sticky bg-white py-3 bottom-0">
+      <rds-button
+        [label]="translate.instant('Edit Event')"
+        [submit]="true"
+        [isDisabled]="!eventCreationForm.valid"
+        [colorVariant]="'primary'"
+        class="ms-2"
+        [size]="'small'"
+      >
+      </rds-button>
+      <rds-button
+        [label]="translate.instant('Delete Event')"
+        [isDisabled]="!eventCreationForm.valid"
+        [colorVariant]="'danger'"
+        [isOutline]="true"
+        class="ms-2"
+        [size]="'small'"
+        (click)="deleteEvent(eventCreationForm)"
+      >
+      </rds-button>
+    </div>
+  </form>
+
+</rds-offcanvas>

@@ -10,11 +10,10 @@ export default {
     moduleMetadata({
       declarations: [],
       imports: [RdsIconModule],
-      }),
+    }),
   ],
-
-
   argTypes: {
+    display_type: { table: { disable: true, }, },
   },
 } as Meta;
 
@@ -23,28 +22,33 @@ const Template: Story<RdsStatComponent> = (args: RdsStatComponent) => ({
 });
 
 export const Default = Template.bind({});
+Default.parameters = { controls: { include: ['display_type', 'statItems'] } };
 Default.args = {
-  display_type: 'Basic',
-    statItems: [
-        { title:'SAM SMITH',
-        value: '2370', 
-        icon: 'star',
-        iconHeight:'80px',
-        iconWidth:'80px',
-        iconFill:true,
-        iconStroke:true},
-      ]
+  display_type: 'basic',
+  statItems: [
+    {
+      title: 'SAM SMITH',
+      value: '2370',
+      icon: 'star',
+      iconHeight: '80px',
+      iconWidth: '80px',
+      iconFill: true,
+      iconStroke: true
+    },
+  ]
 
 }
 
 export const advanced = Template.bind({});
+advanced.parameters = { controls: { include: ['display_type', 'statItems'] } };
 advanced.args = {
-  display_type: 'Advanced',
-    statItems: [
-        { title:'SAM SMITH',
-        value: '2370', 
-      },
-      ]
+  display_type: 'advanced',
+  statItems: [
+    {
+      title: 'SAM SMITH',
+      value: '2370',
+    },
+  ]
 
 }
 

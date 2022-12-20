@@ -1,6 +1,6 @@
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Meta, moduleMetadata, Story } from '@storybook/angular';
-import { RdsButtonModule, RdsCheckboxModule, RdsInputModule } from '@libs/rds-elements';
+import { RdsButtonModule, RdsCheckboxModule, RdsInputModule, RdsOffcanvasModule } from '@libs/rds-elements';
 import { NgxTranslateModule } from '@libs/shared';
 import { RdsCompUserTableComponent } from './rds-comp-user-table.component';
 
@@ -15,7 +15,8 @@ export default {
         RdsButtonModule,
         RdsInputModule,
         RdsCheckboxModule,
-        NgxTranslateModule.forRoot()
+        NgxTranslateModule.forRoot(),
+        RdsOffcanvasModule
       ],
       providers: [
         FormBuilder

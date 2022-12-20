@@ -31,7 +31,7 @@ title: "Elements > Datepicker"
           <div class="contents p-5">
             <div class="row">
                <div class="col-md-4 col-12">
-                  <img src="https://portal.raaghu.io/images/components/_date-time-picker/default.png" class="img-fluid">
+                  <img src="/images/datepicker-default.png" class="img-fluid">
                </div>
             </div>                                          
          </div>
@@ -41,11 +41,7 @@ title: "Elements > Datepicker"
 <div class="row  m-0 p-4">
 
 ```html
-<rds-datepicker
-  Label="Date Range"
-  format="MM-dd-YYYY"
-  (change)="change($event)"
-></rds-datepicker>
+<rds-datepicker [datePickerType]="datePickerType"></rds-datepicker>
 ```
 
 </div>
@@ -56,21 +52,22 @@ title: "Elements > Datepicker"
   </section>
 
 
+
 <section class="py-4">
     <h6>Advanced</h6>
     <div class="py-3">
       <div class="cust-tabs">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
           <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="PreviewBasic-tab" data-bs-toggle="tab" data-bs-target="#PreviewBasic" type="button" role="tab" aria-controls="PreviewBasic" aria-selected="true">Preview </button>
+            <button class="nav-link active" id="PreviewAdvance-tab" data-bs-toggle="tab" data-bs-target="#PreviewAdvance" type="button" role="tab" aria-controls="PreviewAdvance" aria-selected="true">Preview </button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link" id="AngularBasic-tab" data-bs-toggle="tab" data-bs-target="#AngularBasic" type="button" role="tab" aria-controls="AngularBasic" aria-selected="false"><i class="bi bi-code-slash" style="font-size:1.0rem"></i>Angular</button>
+            <button class="nav-link" id="AngularAdvance-tab" data-bs-toggle="tab" data-bs-target="#AngularAdvance" type="button" role="tab" aria-controls="AngularAdvance" aria-selected="false"><i class="bi bi-code-slash" style="font-size:1.0rem"></i>Angular</button>
           </li>
         </ul>
       </div>
       <div class="tab-content card border" id="myTabContent">
-        <div class="tab-pane fade show active" id="PreviewBasic" role="tabpanel" aria-labelledby="PreviewBasic-tab">
+        <div class="tab-pane fade show active" id="PreviewAdvance" role="tabpanel" aria-labelledby="PreviewAdvance-tab">
           <div class="contents p-5">
              <div class="row">
                 <div class="col-md-12">
@@ -79,16 +76,12 @@ title: "Elements > Datepicker"
             </div>                                          
           </div>
         </div>
-        <div class="tab-pane fade show" id="AngularBasic" role="tabpanel" aria-labelledby="AngularBasic-tab">
+        <div class="tab-pane fade show" id="AngularAdvance" role="tabpanel" aria-labelledby="AngularAdvance-tab">
           <div class="contents bg-code">
 <div class="row  m-0 p-4">
 
 ```html
-<rds-datepicker
-  Label="Date Range"
-  format="MM-dd-YYYY"
-  (change)="change($event)"
-></rds-datepicker>
+<rds-datepicker datePickerType="advanced" Label="Date Range"></rds-datepicker>
 ```
 
 </div>
@@ -108,7 +101,7 @@ title: "Elements > Datepicker"
                               <div class="card border p-5">
                                  <div class="row">
                                     <div class="col-md-12">
-                                       <img src="/images/datepicker-skeleton.png" class="img-fluid">
+                                       <img src="/images/date-picker-skeleton.png" class="img-fluid">
                                     </div>
                                  </div>
                               </div>

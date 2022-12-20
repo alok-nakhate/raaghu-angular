@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Tooltip } from 'bootstrap'
 declare var bootstrap: any;
 export interface selectListItem {
@@ -18,13 +18,13 @@ export interface selectListItem {
     multi: true
   }]
 })
-export class RdsSelectListComponent implements AfterViewInit, OnChanges {
+export class RdsSelectListComponent implements AfterViewInit, OnChanges, ControlValueAccessor {
 
-  onChange!: (value: string) => void;
-  onTouched!: () => void
+  onChange = (event: string) => {};
+  onTouched = () => {};
   @Input() size: 'small' | 'medium' | 'large' = 'large';
   @Input() label: string = '';
-  @Input() labelPosition: 'top' | 'bottom' | 'left' | 'right' = 'top';
+  @Input() labelPosition: 'top' | 'bottom'  = 'top';
   @Input() rows: string = '';
   @Input() multiple: boolean = false;
   @Input() itemList: selectListItem[] = [];
@@ -63,15 +63,15 @@ export class RdsSelectListComponent implements AfterViewInit, OnChanges {
     }
   }
 
-  writeValue(obj: any): void {
+  writeValue(obj: any) {
     this.value = obj;
-
   }
-  registerOnChange(fn: any): void {
+
+  registerOnChange(fn: any) {
     this.onChange = fn;
-
   }
-  registerOnTouched(fn: any): void {
+
+  registerOnTouched(fn: any) {
     this.onTouched = fn;
   }
 
@@ -92,20 +92,29 @@ export class RdsSelectListComponent implements AfterViewInit, OnChanges {
     else if (this.labelPosition === 'bottom') {
       classes.push(' d-flex flex-column-reverse')
     }
-    else if (this.labelPosition === 'left') {
-      classes.push('d-flex align-items-baseline justify-content-end gap-3')
-    }
-    else if (this.labelPosition === 'right') {
-      classes.push('d-flex align-items-baseline flex-row-reverse gap-3')
-    }
+    // else if (this.labelPosition === 'left') {
+    //   classes.push('d-flex align-items-baseline justify-content-end gap-3')
+    // }
+    // else if (this.labelPosition === 'right') {
+    //   classes.push('d-flex align-items-baseline flex-row-reverse gap-3')
+    // }
     return classes;
   }
 
   onSelect(event: any) {
-    this.value = event;
+    if(this.multiple == false){
+      this.value = event[0];
+    this.selectListChange.emit(event[0]);
+    this.onChange(event[0])
+    this.onTouched()
+    }
+    else{
+      this.value = event;
     this.selectListChange.emit(event);
     this.onChange(event)
     this.onTouched()
+    }
+    
   }
 
 }

@@ -71,7 +71,10 @@ export const saveRole = createAction(
     (role: any) => ({ role })
 );
 
-
+export const updateRole = createAction(
+    '[Role Page] Update Role',
+    (role: any) => ({ role })
+);
 
 export const deleteRole = createAction(
     '[Role Page] Delete Role',

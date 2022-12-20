@@ -22,10 +22,7 @@ export default {
      })
   ] ,
   argTypes: {
-    display_type: {
-      options: ['Basic', 'benefit_type1', 'benefit_type2', 'benefit_type3', 'benefit_type4', 'benefit_type5'],
-      control: { type: 'select' }
-    },
+    display_type: {table: {disable: true,},},
   }
 } as Meta;
 
@@ -34,6 +31,7 @@ const Template: Story<RdsBenefitComponent> = (args: RdsBenefitComponent) => ({
 });
 
 export const Default = Template.bind({});
+Default.parameters = { controls: { include: ['display_type', 'item'] } };
 Default.args = {
   display_type: 'Default',
   item:
@@ -43,27 +41,28 @@ Default.args = {
     iconHeight: "35px",
     iconWidth: "35px",
     title: "International delivery",
-    description: "Get your order in 2 years"
+    description: "Get your order in 2 days"
   }
 }
 
 export const LeftAligned = Template.bind({});
+LeftAligned.parameters = { controls: { include: ['display_type', 'item', 'position'] } };
 LeftAligned.args = {
   display_type: 'Left Aligned',
   item:
   {
     id: 3,
-    icon:"../assets/benefit_type1.svg",
+    icon:"../assets/benefit_type1.png",
     iconHeight: "40px",
     iconWidth: "40px",
-    position: "start",
     title: "Free delivery all year long",
     description: "Name another place that offers year long free delivery? We'll be waiting. Order now and you'll get delivery absolutely free."
-  }
+  },
 }
 
-export const CentreAligned = Template.bind({});
-CentreAligned.args = {
+export const centreAligned = Template.bind({});
+centreAligned.parameters = { controls: { include: ['display_type', 'item'] } };
+centreAligned.args = {
   display_type: 'Centre Aligned',
   item:
   {
@@ -77,12 +76,13 @@ CentreAligned.args = {
 }
 
 export const WithLabel = Template.bind({});
+WithLabel.parameters = { controls: { include: ['display_type', 'item'] } };
 WithLabel.args = {
   display_type: 'With Label',
   item:
   {
     id: 7,
-    icon: "../assets/benefit_type1.svg",
+    icon: "../assets/benefit_type1.png",
     status: 'Active',
     iconHeight: "40px",
     iconWidth: "40px",
@@ -92,6 +92,7 @@ WithLabel.args = {
 }
 
 export const WithoutLabel = Template.bind({});
+WithoutLabel.parameters = { controls: { include: ['display_type', 'item'] } };
 WithoutLabel.args = {
   display_type: 'Without Label',
   item:
@@ -106,6 +107,7 @@ WithoutLabel.args = {
 }
 
 export const HeadingWithIcon = Template.bind({});
+HeadingWithIcon.parameters = { controls: { include: ['display_type', 'item'] } };
 HeadingWithIcon.args = {
   display_type: 'Heading With Icon',
   item:

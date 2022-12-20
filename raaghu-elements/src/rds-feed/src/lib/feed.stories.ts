@@ -34,6 +34,7 @@ const Template: Story<RdsFeedComponent> = (args: RdsFeedComponent) => ({
   props: args,
 });
 export const Default = Template.bind({})
+Default.parameters = { controls: { include: ['itemList'] } };
 Default.args = {
   itemList: [
     {

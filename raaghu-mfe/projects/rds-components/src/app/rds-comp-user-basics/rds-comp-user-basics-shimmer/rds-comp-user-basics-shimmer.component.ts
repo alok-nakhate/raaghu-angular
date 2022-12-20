@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-rds-comp-user-basics-shimmer',
+  selector: 'rds-comp-user-basics-shimmer',
   templateUrl: './rds-comp-user-basics-shimmer.component.html',
   styleUrls: ['./rds-comp-user-basics-shimmer.component.scss']
 })

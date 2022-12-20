@@ -1,35 +1,20 @@
 <div class="row">
   <div class="d-flex ">
 
-  <div class="d-flex align-items-center" (click)="likeFun($event)">
-    <rds-icon
-    height="25"
-    [fill]="false"
-    [stroke]="true"
-    width="25"
-    type=""
-    [name]="'like'">
-  </rds-icon>
-  <span class="ms-2">
-    <label  class="marginclass">{{likeCount}}</label></span>
-   </div>
-  
-  <div class="d-flex align-items-center" (click)="dislikeFun($event)" >
-    <rds-icon
-    height="25"
-    [fill]="false"
-    [stroke]="true"
-    width="25"
-    type=""
-    name="dislike"
-    class="ms-4"
-   
-  ></rds-icon>
-  <span class="ms-2">
-    <label >{{dislikeCount}}</label>
-  </span>
+    <div class="d-flex align-items-center" (click)="likeFun($event)">
+      <rds-icon height="25px" [fill]="false" [stroke]="true" width="25px" type="" [name]="'like'">
+      </rds-icon>
+      <span class="ms-2">
+        <label class="marginclass">{{count(likeCount)}}</label></span>
+    </div>
+
+    <div class="d-flex align-items-center" (click)="dislikeFun($event)">
+      <rds-icon height="25px" [fill]="false" [stroke]="true" width="25px" type="" name="dislike" class="ms-4"></rds-icon>
+      <span class="ms-2">
+        <label>{{count(dislikeCount)}}</label>
+      </span>
+    </div>
+
   </div>
 
- </div>
- 
 </div>

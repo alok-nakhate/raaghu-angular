@@ -5,12 +5,16 @@ title: "Components > Email"
 ---
 
 
+<!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<link rel="stylesheet" href="../assets/css/style-elements.css">
+
 ### Email
 
-<p class="">A card is a small rectangular module with images and text. It is an entry point for users to learn more details</p>
+<p>Allows a user to edit credentials like name and email</p>
 
 <section class="py-4">
-    <h6>Default</h6>
+ <h6>Default</h6>
     <div class="py-3">
       <div class="cust-tabs">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -37,10 +41,10 @@ title: "Components > Email"
 <div class="row m-0">
 
 ```html
-  <app-rds-comp-email
+  <rds-comp-email
   [editShimmer]="false"
   [EmailData]="EmailData"
-></app-rds-comp-email>
+></rds-comp-email>
 ```
 </div>
 </div>

@@ -15,7 +15,7 @@ export const getEmailSettingsFailure = createAction(
 );
 
 export const saveEmailSettings = createAction('[Setting Page] Save Email Setting',
-(data:any) => ( data ));
+(data:any) => ( {data} ));
 
 
 
@@ -32,7 +32,7 @@ export const getIdentityManagementSettingsFailure = createAction(
     props<{ error: string }>()
 );
 export const saveIdentityManagementSettings = createAction('[Setting Page] Save Identity Management Setting',
-(data:any) => ( data ));
+(data:any) => ({ data }));
 
 ;
 
@@ -48,7 +48,7 @@ export const getThemeSettingsFailure = createAction(
     props<{ error: string }>()
 );
 export const saveThemeSettings = createAction('[Setting Page] Save Theme Settings Setting',
-(data:any) => ( data ));
+(data:any) => ( { data }));
 
 
 
@@ -63,8 +63,12 @@ export const getAccountTwoFactorSettingsFailure = createAction(
     '[Settings Page] Get Account Two Factor Failure',
     props<{ error: string }>()
 );
-export const saveAccountTwoFactorSettings = createAction('[Setting Page] Save Email Se0tting',
-(data:any) => ( data ));
+export const saveAccountTwoFactorSettings = createAction('[Setting Page] Save Email Setting',
+(data:any) => ( {data} ));
+
+export const saveAccountTwoFactorSettingsFailure = createAction('[Setting Page] Two Factor Setting Failure',
+props<{ error: string }>()
+)
 
 
 
@@ -80,8 +84,10 @@ export const getAccountCaptchaSettingsFailure = createAction(
     props<{ error: string }>()
 );
 export const saveAccountCaptchaSettings = createAction('[Setting Page] Save Account Captcha Setting',
-(data:any) => ( data ));
-
+(data:any) => ( {data} ));
+export const saveAccountCapchaSettingsFailure = createAction('[Setting Page]Captcha Setting Failure',
+props<{ error: string }>()
+)
 
 
 export const getAccountGeneralSettings = createAction('[Setting Page] Get Account General Setting');
@@ -97,5 +103,24 @@ export const getAccountGeneralSettingsFailure = createAction(
 );
 export const saveAccountGeneralSettings = createAction('[Setting Page] Save Account General Setting',
 (data:any) => ( data ));
+export const saveAccountGeneralSettingsFailure = createAction('[Setting Page] General Setting Setting Failure',
+props<{ error: string }>()
+)
+export const getExternalProviderSettings = createAction('[Setting Page] Get getExternalProvider Setting');
+
+export const getExternalProviderSettingsSuccess = createAction(
+    '[Setting Page] Get getExternalProvider Settings Success',
+    props<{ externalProviderSettings : any }>()
+);
+
+export const getExternalProviderSettingsFailure = createAction(
+    '[Settings Page] Get getExternalProvider Failure',
+    props<{ error: string }>()
+);
 
 
+export const saveExternalProviderSettings = createAction('[Setting Page] Save External Providers Setting',
+(data:any) => ( {data} ));
+export const saveExternalProviderSettingsFailure = createAction('[Setting Page] External Provider Setting Failure',
+props<{ error: string }>()
+)

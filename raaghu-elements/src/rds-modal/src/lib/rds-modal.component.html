@@ -1,7 +1,7 @@
-<div class="modal" [ngClass]="modalAnimationClass" [attr.id]="modalId" tabindex="-1" data-bs-keyboard="false" [attr.data-bs-backdrop]="modalBackdrop" >
+<div class="modal" [ngClass]="modalAnimationClass" [attr.data-bs-keyboard]="preventEscapeKey" [attr.id]="modalId" tabindex="-1" data-bs-keyboard="false" [attr.data-bs-backdrop]="modalBackdrop" >
   <div [ngClass]="classes">
     <div class="modal-content">
-      <div class="modal-header d-block bg-primary" *ngIf="showModalHeader">
+      <div class="modal-header" *ngIf="showModalHeader">
         <ng-content select="[modalheader]"></ng-content>
       </div>
       <div class="modal-body">

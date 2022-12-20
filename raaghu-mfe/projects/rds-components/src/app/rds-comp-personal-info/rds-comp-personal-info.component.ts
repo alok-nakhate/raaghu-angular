@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-rds-comp-personal-info',
+  selector: 'rds-comp-personal-info',
   templateUrl: './rds-comp-personal-info.component.html',
   styleUrls: ['./rds-comp-personal-info.component.scss']
 })
@@ -13,7 +13,7 @@ export class RdsCompPersonalInfoComponent implements OnInit {
     country: '',
     emailAddress: '',
     jobRole: '',
-    profileImage: '../assets/MaskGroup.png',
+    profileImage: 'https://anzdemoui.raaghu.io/assets/MaskGroup.png',
     profileName: '',
     portfolioProjects:[],
     bio:'I am a Lead Ux Designer and working with RDS System Inc. in United Kingdom. I have Ui and Ux skill-set, brand building knowledge also work on client new requirements as per the projects with my product development team.'

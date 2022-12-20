@@ -1,13 +1,14 @@
 import { Story, Meta, moduleMetadata } from '@storybook/angular';
 import { RdsIconModule } from '@libs/rds-icon';
 import { RdsFileUploaderComponent } from './rds-file-uploader.component';
+import { CommonModule } from '@angular/common';
 
 export default {
   title: 'Elements/File Uploader',
   component: RdsFileUploaderComponent,
   decorators: [
     moduleMetadata({
-      imports: [RdsIconModule],
+      imports: [RdsIconModule, CommonModule],
     }),
   ],
   argTypes: {
@@ -17,6 +18,7 @@ export default {
       control: { type: 'radio' }
     },
     multipleFiles: { control: { type: 'boolean' } },
+    role: {table: {disable: true,},},
   }
 } as Meta
 
@@ -25,6 +27,7 @@ const Template: Story<RdsFileUploaderComponent> = (args: RdsFileUploaderComponen
 });
 
 export const Default = Template.bind({})
+Default.parameters = { controls: { include: ['size', 'multipleFiles', 'role', 'label'] } };
 Default.args = {
   size: 'medium',
   multipleFiles: false,
@@ -34,6 +37,7 @@ Default.args = {
 
 
 export const multiple_file_uploader = Template.bind({})
+multiple_file_uploader.parameters = { controls: { include: ['size', 'multipleFiles', 'role', 'label', 'extensions'] } };
 multiple_file_uploader.args = {
   size: 'medium',
   multipleFiles: true,

@@ -12,10 +12,10 @@ const Template: Story<RdsColorPickerComponent> = (args: RdsColorPickerComponent)
 });
 
 export const Default = Template.bind({})
+Default.parameters = { controls: { include: ['label', 'value', 'disabled', 'position'] } };
 Default.args = {
-   
     label: 'Color picker',
     value: '#800080',
     disabled: false,
-    
+    position: 'start'
 }

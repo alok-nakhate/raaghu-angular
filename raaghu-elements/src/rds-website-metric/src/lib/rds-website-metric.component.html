@@ -1,10 +1,10 @@
 <ng-container *ngIf="item">
-    <ng-container [ngSwitch]="item.display_type">
+    <ng-container [ngSwitch]="display_type">
         <div class="border-start px-3 border-3" [class]="'border-'+colorVariant" *ngSwitchCase="'metric_type1'">
             <h1 class="mb-1 fw-medium" [class]="'text-'+colorVariant">{{item.title}}</h1>
             <rds-label [label]="item.subtitle" class="fw-medium text-muted fs-5"></rds-label>
             <div *ngIf="item.link" [class]="'text-'+colorVariant" class="pt-2 fw-medium">
-                <a>{{item.link}}
+                <a (click)="onLinkClick()">{{item.link}}
                     <rds-icon [name]="'right'" class="px-2" [colorVariant]="colorVariant" [height]="'18px'"
                         [width]="'18px'"></rds-icon>
                 </a>
@@ -17,7 +17,7 @@
                     <h1 class="mb-1 fw-medium" [class]="'text-'+colorVariant">{{item.title}}</h1>
                 </div>
                 <div class="fw-medium" [class]="'text-'+colorVariant" *ngIf="item.link">
-                    <a>{{item.link}}
+                    <a (click)="onLinkClick()">{{item.link}}
                         <rds-icon [name]="'right'" [colorVariant]="colorVariant" class="px-2" [height]="'18px'"
                             [width]="'18px'"></rds-icon>
                     </a>
@@ -27,30 +27,33 @@
 
         </div>
         <div *ngSwitchCase="'metric_type3'">
-            <rds-button [colorVariant]="'primary'" [size]="'medium'" [iconStroke]="true" [roundedButton]="true"
-                icon="edit" [iconHeight]="'20px'" [iconWidth]="'20px'"></rds-button>
+            <rds-button [colorVariant]="colorVariant" [size]="'medium'" [isIconStroke]="true" [isFabIcon]="true"
+                [icon]="item.icon" [iconHeight]="item.iconHeight" [iconWidth]="item.iconWidth"></rds-button>
             <div class="mt-2" [class]="'text-'+colorVariant">
                 <h1 class="mb-1 fw-medium">{{item.title}}</h1>
             </div>
             <rds-label class="fw-medium text-muted fs-5" [label]="item.subtitle"></rds-label>
             <div class="fw-medium pt-2" *ngIf="item.link" [class]="'text-'+colorVariant">
-                <a>{{item.link}}
-                    <rds-icon [name]="'right'" class="px-2" [height]="'18px'" [width]="'18px'"></rds-icon>
+                <a (click)="onLinkClick()">{{item.link}}
+                    <rds-icon [name]="'right'" [colorVariant]="colorVariant" class="px-2" [height]="'18px'"
+                        [width]="'18px'"></rds-icon>
                 </a>
             </div>
         </div>
         <div *ngSwitchCase="'metric_type4'">
             <div class="d-flex">
                 <div class="mt-2">
-                    <rds-button [colorVariant]="'primary'" [size]="'medium'" [iconStroke]="true" [roundedButton]="true"
-                        icon="edit" [iconHeight]="'20px'" [iconWidth]="'20px'"></rds-button>
+                    <rds-button [colorVariant]="colorVariant" [size]="'medium'" [isIconStroke]="true"
+                        [isFabIcon]="true" [icon]="item.icon" [iconHeight]="item.iconHeight"
+                        [iconWidth]="item.iconWidth"></rds-button>
                 </div>
                 <div class="px-3">
                     <h1 class="mb-1 fw-medium" [class]="'text-'+colorVariant">{{item.title}}</h1>
                     <rds-label class="fw-medium text-muted fs-5" [label]="item.subtitle"></rds-label>
                     <div class="fw-medium pt-2" *ngIf="item.link" [class]="'text-'+colorVariant">
-                        <a>{{item.link}}
-                            <rds-icon [name]="'right'" class="px-2" [height]="'18px'" [width]="'18px'"></rds-icon>
+                        <a (click)="onLinkClick()">{{item.link}}
+                            <rds-icon [name]="'right'" [colorVariant]="colorVariant" class="px-2" [height]="'18px'"
+                                [width]="'18px'"></rds-icon>
                         </a>
                     </div>
                 </div>
@@ -58,18 +61,18 @@
         </div>
         <div *ngSwitchCase="'metric_type5'">
             <div class="text-center">
-                <rds-button [colorVariant]="'primary'" [size]="'medium'" [iconStroke]="true" [roundedButton]="true"
-                icon="edit" [iconHeight]="'20px'" [iconWidth]="'20px'" class="d-inline-block"></rds-button>
-            <div class="mt-2" [class]="'text-'+colorVariant">
-                <h1 class="mb-1 fw-medium">{{item.title}}</h1>
+                <rds-button [colorVariant]="colorVariant" [size]="'medium'" [isIconStroke]="true" [isFabIcon]="true"
+                    [icon]="item.icon" [iconHeight]="item.iconHeight" [iconWidth]="item.iconWidth" class="d-inline-block"></rds-button>
+                <div class="mt-2" [class]="'text-'+colorVariant">
+                    <h1 class="mb-1 fw-medium">{{item.title}}</h1>
+                </div>
+                <rds-label class="fw-medium text-muted fs-5" [label]="item.subtitle"></rds-label>
+                <div class="fw-medium pt-2" *ngIf="item.link" [class]="'text-'+colorVariant">
+                    <a>{{item.link}}
+                        <rds-icon [name]="'right'" class="px-2" [height]="'18px'" [width]="'18px'"></rds-icon>
+                    </a>
+                </div>
             </div>
-            <rds-label class="fw-medium text-muted fs-5" [label]="item.subtitle"></rds-label>
-            <div class="fw-medium pt-2" *ngIf="item.link" [class]="'text-'+colorVariant">
-                <a>{{item.link}}
-                <rds-icon [name]="'right'" class="px-2" [height]="'18px'" [width]="'18px'"></rds-icon>
-            </a>
-            </div>
-        </div>
         </div>
         <div class="text-center" *ngSwitchCase="'metric_type6'">
             <div class="mt-2">
@@ -81,8 +84,10 @@
                 </rds-label>
             </div>
             <div class="fw-medium pt-2" [class]="'text-'+colorVariant" *ngIf="item.link">
-                <a>{{item.link}}</a>
-                <rds-icon [name]="'right'" class="px-2" [height]="'20px'" [width]="'20px'"></rds-icon>
+                <a (click)="onLinkClick()">{{item.link}}
+                    <rds-icon [name]="'right'" [colorVariant]="colorVariant" class="px-2" [height]="'20px'"
+                        [width]="'20px'"></rds-icon>
+                </a>
             </div>
         </div>
     </ng-container>

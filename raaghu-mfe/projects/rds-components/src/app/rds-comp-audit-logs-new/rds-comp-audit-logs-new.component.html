@@ -13,22 +13,22 @@
             </rds-datepicker>
         </div>
         <div class="col-md-2 mb-3 sm-p-0 mt-1 d-flex align-items-center sm-block">
-            <rds-input size="default" [inputType]="" [Title]="" [(ngModel)]="user"
+            <rds-input [inputType]="" [label]="" [(ngModel)]="user"
                 [placeholder]="translate.instant('User')" id="txtUsername" (change)="userModify($event)"
                 floatinginputLabel="" ngDefaultControl name="userName"></rds-input>
         </div>
         <div class="col-md-2 mb-3 sm-p-0 mt-1 d-flex align-items-center sm-block">
-            <rds-input size="default" [inputType]="" [Title]="" [(ngModel)]="urlFilter"
+            <rds-input [inputType]="" [label]="" [(ngModel)]="urlFilter"
                 [placeholder]="translate.instant('Url Filter')" id="txtUrlFilter" (change)="urlFilterModify($event)"
                 floatinginputLabel="" ngDefaultControl name="urlFilter"></rds-input>
         </div>
         <div class="col-md-2 mb-3 sm-p-0 mt-1 d-flex align-items-center sm-block">
-            <rds-input size="default" [inputType]="" [Title]="" [(ngModel)]="minDuration"
+            <rds-input [inputType]="" [label]="" [(ngModel)]="minDuration"
                 [placeholder]="translate.instant('Min Duration')" id="minDuration" (change)="minDurationModify($event)"
                 floatinginputLabel="" ngDefaultControl name="minDuration"></rds-input>
         </div>
         <div class="col-md-2 mb-3 sm-p-0 mt-1 d-flex align-items-center sm-block">
-            <rds-input size="default" [inputType]="" [Title]="" [(ngModel)]="maxDuration"
+            <rds-input [inputType]="" [label]="" [(ngModel)]="maxDuration"
                 [placeholder]="translate.instant('Max Duration')" id="maxDuration" (change)="maxDurationModify($event)"
                 floatinginputLabel="" ngDefaultControl name="maxDuration"></rds-input>
         </div>    
@@ -48,13 +48,13 @@
         </div>
         
         <div class="col-md-2 mb-4 sm-p-0 mt-1 d-flex align-items-center sm-block">  
-            <rds-input size="default" [inputType]="" [Title]="" [(ngModel)]="appName"
+            <rds-input [inputType]="" [label]="" [(ngModel)]="appName"
                 [placeholder]="translate.instant('Application Name')" id="appName" (change)="appNameModify($event)"
                 floatinginputLabel="" ngDefaultControl name="appName"></rds-input>
         </div> 
         
         <div class="col-md-2 mb-4 sm-p-0 mt-1 d-flex align-items-center sm-block">  
-            <rds-input size="default"  [inputType]="" [Title]="" [(ngModel)]="appName"
+            <rds-input [inputType]="" [label]="" [(ngModel)]="appName"
                 [placeholder]="translate.instant('Correlation ID')" id="correlationID" (change)="correlationIDModify($event)"
                 floatinginputLabel="" ngDefaultControl name="correlationID"></rds-input>
         </div> 
@@ -67,16 +67,16 @@
         </div>
     </div>
         <div class="row">
-            <app-rds-data-table [tableData]="operationLogs" (deleteEvent)="delete($event)" [pagination]="true"
+            <rds-data-table [tableData]="operationLogs" (deleteEvent)="delete($event)" [pagination]="true"
                 [noDataTitle]="translate.instant('Currently you do not have operation log')" [recordsPerPage]="10"
                 (onActionSelection)="onActionSelect($event)" [showNodataSubtitle]="false" [actions]="actions"
-                [refresh]="true" [tableHeaders]="operationLogsHeaders" [isShimmer]="isShimmer"></app-rds-data-table>
+                [refresh]="true" [tableHeaders]="operationLogsHeaders" [isShimmer]="isShimmer"></rds-data-table>
         </div>
     </div>
 
     <rds-offcanvas [canvasTitle]="translate.instant(auditLogsCanvasTitle)" [offId]="'auditLogCanvas'" [offcanvaswidth]="550"
     [placement]="'end'" *ngIf="viewAuditLogsCanvas" (onClose)="onClose()">
-  <rds-nav-tab [navtabsItems]="getNavTabItems()" (onClicktab)="getSelectedNavTab($event)" [activepage]="activePage"
+  <rds-nav-tab [navtabsItems]="getNavTabItems()" (onClicktab)="getSelectedNavTab($event)" [activeTab]="activePage"
     [horizontalAlignment]="'start'" [verticalAlignment]="false" [pills]="false" [tabs]="true" [fill]="false"
     [justified]="false">
     <div naveContent class="row tab-content py-4 px-3 navsm-p-0" id="nav-tabContent">

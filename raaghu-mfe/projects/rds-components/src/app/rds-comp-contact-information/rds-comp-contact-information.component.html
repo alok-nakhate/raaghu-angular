@@ -4,7 +4,7 @@
             Contact information
         </h3>
         <div class="my-1">
-            <rds-input Title="Email Address" [TitleType]="'Top'" [isRequired]=true required size="'default'"
+            <rds-input label="Email Address" [labelPosition]="'top'" [isRequired]=true required size="medium"
                 name="emailAddress" id="email" #emailAddress="ngModel" [pattern]="emailPattern"
                 [placeholder]="'Enter Email Address'" ngDefaultControl [(ngModel)]="contactData.email" required>
             </rds-input>
@@ -16,7 +16,7 @@
             </div>
         </div>
         <div class="my-3">
-            <rds-input Title="Contact Number" [TitleType]="'Top'" [isRequired]=true required size="'default'"
+            <rds-input label="Contact Number" [labelPosition]="'top'" [isRequired]=true required size="medium"
                 [placeholder]="'Enter Contact Number '" name="contactNumber" id="contactnumber" #emailAddress="ngModel"
                 [pattern]="" ngDefaultControl [(ngModel)]="contactData.contactnumber" required>
             </rds-input>
@@ -32,7 +32,7 @@
         </div>
         <div class="pt-3">
             <rds-button [block]="true" [size]="'medium'" [colorVariant]="'primary'"
-                [label]="translate.instant('Continue')" [disabled]="!contactUsForm.valid" (click)="contact()">
+                [label]="translate.instant('Continue')" [isDisabled]="!contactUsForm.valid" (click)="contact()">
             </rds-button>
         </div>
     </div>

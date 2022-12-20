@@ -7,6 +7,8 @@ import { RdsCompTenantListComponent } from './rds-comp-tenant-list.component';
 import { RdsCompTenantInformationComponent } from '../rds-comp-tenant-information/rds-comp-tenant-information.component';
 import { RdsCompTenantSettingsComponent } from '../rds-comp-tenant-settings/rds-comp-tenant-settings.component';
 import { RdsCompAlertComponent } from '../rds-comp-alert/rds-comp-alert.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export default {
   title: 'Components/Tenant List',
@@ -19,7 +21,7 @@ export default {
       imports: [
         FormsModule, ReactiveFormsModule, RdsButtonModule, RdsModalModule, RdsPaginationModule,RdsIconModule, 
         SharedModule,RdsFabMenuModule,NgxTranslateModule,RdsInputModule,RdsOffcanvasModule,RdsNavTabModule,
-        RdsSelectListModule,RdsCheckboxModule,RdsDatepickerModule
+        RdsSelectListModule,RdsCheckboxModule,RdsDatepickerModule,BsDatepickerModule.forRoot(), BrowserAnimationsModule, 
       ],
       providers: [
         FormBuilder

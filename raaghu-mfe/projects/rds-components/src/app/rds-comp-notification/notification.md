@@ -3,11 +3,13 @@ slug: "/comp-notification"
 date: "2019-05-04"
 title: "Components > Notification"
 ---
-
+<!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<link rel="stylesheet" href="../assets/css/style-elements.css">
 
 #### Notification
 
-<p class="">A card is a small rectangular module with images and text. It is an entry point for users to learn more details</p>
+<p >Provides a notification icon for alerts</p>
 
 <section class="py-4">
     <h6>Default</h6>
@@ -27,7 +29,7 @@ title: "Components > Notification"
          <div class="contents  p-5">
               <div class="row">
               <div class="col-md-12">
-                <img src="/images/notification.png" class="img-fluid" style="height: 66px; width: auto;">
+                <img src="/images/notification.png" class="img-fluid ">
               </div>  
             </div>
           
@@ -38,14 +40,14 @@ title: "Components > Notification"
 <div class="row m-0">
 
 ```html
-  <app-rds-notification
-  unreadCount=""
-  notifications=""
+ <rds-notification
+  unreadCount="12"
+  [notifications]="notifications"
   backgroundColor=""
   borderRadious=""
   Paddig=""
   width=""
-></app-rds-notification>
+></rds-notification>
 ```
 </div>
 </div>

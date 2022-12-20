@@ -5,7 +5,7 @@ import { TableHeader } from '../../models/table-header.model';
 import { AlertPopupData } from '../rds-comp-alert-popup/rds-comp-alert-popup.component';
 declare var bootstrap: any;
 @Component({
-  selector: 'app-rds-data-table',
+  selector: 'rds-data-table',
   templateUrl: './rds-comp-data-table.component.html',
   styleUrls: ['./rds-comp-data-table.component.scss']
 })
@@ -30,6 +30,7 @@ export class RdsDataTableComponent implements OnInit, DoCheck, OnChanges {
   @Input() actions: TableAction[] = [];
   @Input() resetPagination: boolean = false;
   @Input() refresh: boolean = false;
+  @Input() isDeleteConfirmationRequired: boolean = true;
   totalRecords: number = 0;
   @Input() recordsPerPage: number = 10;
   @Input() noDataTitle?: string;
@@ -52,9 +53,13 @@ export class RdsDataTableComponent implements OnInit, DoCheck, OnChanges {
   selectedData: any;
   RecordPerPage: any;
 
+  static count: number = 0;
+  public id: any = 'table'
 
+  constructor(public translate: TranslateService) {
+    this.id = this.id + RdsDataTableComponent.count++;
 
-  constructor(public translate: TranslateService) { }
+  }
   ngDoCheck(): void {
     if (this.tableData) {
       this.tempData = JSON.parse(JSON.stringify(this.tableData));
@@ -117,8 +122,10 @@ export class RdsDataTableComponent implements OnInit, DoCheck, OnChanges {
 
   close(): void {
     var element: any = document.getElementById('deleteModal');
-    var modal = new bootstrap.Modal(element);
-    modal.hide();
+    if (element) {
+      var modal = new bootstrap.Modal(element);
+      modal.hide();
+    }
     this.selectedData = undefined;
     this.showConfirmationPopup = false;
   }
@@ -298,21 +305,26 @@ export class RdsDataTableComponent implements OnInit, DoCheck, OnChanges {
       return this.tableData.length;
     }
   }
-  openSearchModal(): void {
-    var element: any = document.getElementById('search-dropdown');
+  openSearchModal(index: number): void {
+    var element: any = document.getElementById('search-dropdown' + index + this.id);
     var bsOffcanvas = new bootstrap.Dropdown(element);
     bsOffcanvas.show();
   }
 
-  openAction(): void {
-    var element: any = document.getElementById('action-dropdown');
+  openAction(index: number): void {
+    var element: any = document.getElementById('action-dropdown' + index + this.id);
     var dropdown = new bootstrap.Dropdown(element);
     dropdown.show();
   }
 
   onActionSelect(action: TableAction, selectedData: any): void {
     if (action.id === 'delete') {
-      this.deleteConfirmation(selectedData);
+      if (this.isDeleteConfirmationRequired) {
+        this.deleteConfirmation(selectedData);
+      } else {
+        this.selectedData = selectedData;
+        this.delete();
+      }
     } else if (action.id === 'edit') {
       this.editItem(selectedData);
     } else {

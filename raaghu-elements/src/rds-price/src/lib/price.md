@@ -12,6 +12,7 @@ title: "Elements > Price"
 
 #### Price
 
+<p class="">Price your products and discounted price using the price element.</p>
 <section class="py-4">
     <h6>Default</h6>
     <div class="py-3">
@@ -30,7 +31,7 @@ title: "Elements > Price"
          <div class="contents p-5">
               <div class="row">
                  <div class="col-md-12">
-                    <img src="/images/price.png" class="img-fluid w-50">
+                    <img src="/images/price.png" class="img-fluid">
                  </div>               
               </div>
                        

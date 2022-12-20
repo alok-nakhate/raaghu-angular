@@ -1,10 +1,8 @@
-<div class="row px-3">
-    <div class="col-md-2 mb-5">
-        <label [ngClass]="labelClasses">{{label}}</label>
+<div [ngClass]="divclasses">
+    <label [ngClass]="{'d-none': label == '', 'mb-2': position === 'top', 'mt-2': position === 'bottom'}"
+        [ngStyle]="{'order': labelOrder}" for="value">{{label}}</label>
+    <div [ngStyle]="{'width': width + 'px'}">
+        <input type="color" class="form-control-color" [disabled]="disabled" id="exampleColorInput" [value]="value"
+            (input)="changedValue($event)">
     </div>
-    <div class="col-md-10 mb-5">
-        <div [class]="inputPosition"  [ngStyle]="{'width': width + 'px'}">
-            <input type="color" class="form-control-color" [disabled]="disabled" id="exampleColorInput"  [value]="value"  (input)="changedValue($event)">
-        </div>
-    </div>      
-</div> 
+</div>

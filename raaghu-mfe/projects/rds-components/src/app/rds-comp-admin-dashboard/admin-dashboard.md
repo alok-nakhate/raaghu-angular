@@ -9,10 +9,12 @@ title: "Components > Admin-Dashboard"
 <link rel="stylesheet" href="../../../../../../../raaghu/src/assets/css/style-elements.css">
 <link rel="stylesheet" href="../../../../../../../raaghu/src/assets/css/main.css">
 
-#### Admin-Dashboard
+#### Admin Dashboard
+
+<p>Gives a user a graphical and statistical representation of a particular objective</p>
 
  <section class="py-4">
-    <h6>Basic</h6>
+ <h6>Default</h6>
     <div class="py-3">
       <div class="cust-tabs">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -40,9 +42,9 @@ title: "Components > Admin-Dashboard"
 <div class="row m-0">
 
 ```html
-<app-rds-admin-dashboard
+<rds-admin-dashboard
   [memberActivityTableHeader]="memberActivityTableHeader"
-></app-rds-admin-dashboard>
+></rds-admin-dashboard>
 ```
 </div>
 </div>

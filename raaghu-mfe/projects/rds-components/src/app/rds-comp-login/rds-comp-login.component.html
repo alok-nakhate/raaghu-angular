@@ -9,19 +9,19 @@
   <div class="pt-5">
     <form #loginForm="ngForm">
       <div class="form-group mb-3 text-start">
-        <rds-input size="default" [inputType]="userNameInputType" [Title]="translate.instant(UserName)"
-          [TitleType]="'Top'" [placeholder]="translate.instant(UserName)" id="txtUsername" floatinginputLabel=""
-          [(ngModel)]="userNameData"  [isRequired]=true required #username="ngModel"
-          ngDefaultControl name="userName"></rds-input>
+        <rds-input size="medium" [inputType]="'email'" [label]="translate.instant(UserName)"
+          [labelPosition]="'top'" [placeholder]="translate.instant(UserName)" id="txtUsername" floatinginputLabel=""
+          [(ngModel)]="userNameData" [isRequired]=true required #username="ngModel" ngDefaultControl name="userName">
+        </rds-input>
         <div class="form-control-feedback" *ngIf="username.errors && (username.dirty || username.touched)">
           <span class="text-danger" *ngIf="username.errors.required">{{"Username is required"|translate}}</span>
           <!-- <span class="text-danger" *ngIf="username.errors.pattern">{{"Please enter valid username"|translate}}</span> -->
         </div>
       </div>
       <div class="form-group mb-3 text-start">
-        <rds-input size="default" [iconCursor]="'pointer'" [icon]="'eye'" [iconOpacity]="'0.4'" [iconHeight]="'18px'"
-          [iconWidth]="'18px'" [inputType]="userPasswordInputType" [Title]="translate.instant(Password)"
-          [TitleType]="'Top'" [placeholder]="translate.instant(Password)" floatinginputLabel="" id="txtPassword"
+        <rds-input size="medium" [iconCursor]="'pointer'" [icon]="'eye'" [iconOpacity]="'0.4'" [iconHeight]="'18px'"
+          [iconWidth]="'18px'" [inputType]="'password'" [label]="translate.instant(Password)"
+          [labelPosition]="'top'" [placeholder]="translate.instant(Password)" floatinginputLabel="" id="txtPassword"
           [(ngModel)]="userPasswordData" [isRequired]=true ngDefaultControl required #userPassword="ngModel"
           name="password"></rds-input>
         <div class="form-control-feedback" *ngIf="userPassword.errors && (userPassword.dirty || userPassword.touched)">
@@ -37,7 +37,8 @@
             </div>
           </div>
           <div class="col-md-6">
-            <a class="text-decoration-none float-end" routerLink="/forgot-password">{{translate.instant("Forgot password?")}}</a>
+            <a class="text-decoration-none float-end" routerLink="/forgot-password">{{translate.instant("Forgot
+              password?")}}</a>
           </div>
         </div>
         <br />
@@ -54,8 +55,8 @@
   </div>
 </div>
 
-<rds-modal [modalId]="'ChangeTenant'" [modalBackdrop]="'static'" (onClose)="onModalClose(tenantForm)">
-  <div modalheader class="d-flex w-100">
+<rds-modal [modalId]="'ChangeTenant'" [modalBackdrop]="'static'" (onClose)="onModalClose(tenantForm)" class="change-tenant">
+  <div modalheader class="d-flex w-100 border-0">
     <h5 class="modal-title"><b> {{"Switch Tenant"|translate}}</b></h5>
     <button type="button" class="btn-close " data-bs-dismiss="modal" aria-label="Close"></button>
   </div>
@@ -73,10 +74,10 @@
       <div class="row">
         <div class="col-md-12">
           <div class="form-group" [class.disable-pointer]="!switchTenant">
-            <rds-input size="default" [class.disabled]="!switchTenant" [inputType]="'text'"
+            <rds-input size="medium" [class.disabled]="!switchTenant" [inputType]="'text'"
               [placeholder]="translate.instant('Tenancy Name')" id="txtTenantName" [(ngModel)]="TenantNameData"
               #TenantName="ngModel" required="true" ngDefaultControl [isRequired]=true name="TenantName"
-              [TitleType]="'Top'" [Title]="translate.instant('Tenancy Name')">
+              [labelPosition]="'top'" [label]="translate.instant('Tenancy Name')">
             </rds-input>
             <div class="form-control-feedback" *ngIf="TenantName.errors && (TenantName.dirty || TenantName.touched)">
               <span class="text-danger" *ngIf="switchTenant&&TenantName.errors.required">{{"Teanancy is
@@ -87,13 +88,13 @@
       </div>
     </form>
   </div>
-  <div modalfooter>
-    <rds-button [tooltipPlacement]="'top'"  [outlineButton]="true"data-bs-dismiss="modal" [colorVariant]="'primary'" [size]="'medium'"
-      (click)="back()" [label]="translate.instant('Cancel')" class="px-2">
+  <div modalfooter class="border-0">
+    <rds-button [tooltipPlacement]="'top'" [isOutline]="true" data-bs-dismiss="modal" [colorVariant]="'primary'"
+      [size]="'medium'" (click)="back()" [label]="translate.instant('Cancel')" class="px-2">
     </rds-button>
-    <rds-button class="mr-1" [id]="'yes'" [disabled]="switchTenant&&!TenantNameData" [size]="'medium'"
+    <rds-button class="mr-1" [id]="'yes'" [isDisabled]="switchTenant&&!TenantNameData" [size]="'medium'"
       (click)="ChangeTenant(tenantForm)" [tooltipPlacement]="'top'" [colorVariant]="'primary'"
-      [label]="translate.instant('Switch to the tenant')" [showLoadingSpinner]="buttonSpinnerForChangeTenant">
+      [label]="Modallabel" [showLoadingSpinner]="buttonSpinnerForChangeTenant">
     </rds-button>
   </div>
 </rds-modal>

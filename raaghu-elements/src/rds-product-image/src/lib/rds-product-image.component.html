@@ -1,6 +1,15 @@
 <div [ngSwitch]="display_type">
     <div *ngSwitchCase="'Basic'">
-      <img [src]="itemList[0]" [ngClass]="imgClass" class="w-100">
+      <div *ngFor="let item of images; index as i;">
+        <!-- <img [src]="itemList[0]" [ngClass]="imgClass" class="w-100"> -->
+        <img [src]="item" class="w-100">
+        <!-- <rds-icon name="heart" colorVariant='primary' width="20px" height="20px"></rds-icon> -->
+        <!-- <rds-icon class="position-absolute icon-positionheart" [colorVariant]="'dark'"
+                  [name]="'heart'" width="20px" height="20px" [stroke]="true" 
+                  [fill]="false"
+                  ></rds-icon> -->
+      </div>
+      
     </div>
 
     <div class="container-fluid" *ngSwitchCase="'Product_overview1'" style="width: 100%;">

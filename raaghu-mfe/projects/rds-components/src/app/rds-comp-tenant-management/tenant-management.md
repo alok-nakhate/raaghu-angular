@@ -4,13 +4,17 @@ date: "2019-05-04"
 title: "Components > Tenant Management"
 ---
 
+<!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<link rel="stylesheet" href="../assets/css/style-elements.css">
 
-### Tenant Management
 
-<p class="">A card is a small rectangular module with images and text. It is an entry point for users to learn more details</p>
+#### Tenant Management
+
+<p>A card with different checkboxes used for registration of a user </p>
 
 <section class="py-4">
-    <h6>Default</h6>
+<h6>Default</h6>     
     <div class="py-3">
       <div class="cust-tabs">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -37,9 +41,9 @@ title: "Components > Tenant Management"
 <div class="row m-0">
 
 ```html
- <app-rds-comp-tenant-management
+ <rds-comp-tenant-management
   [settingsTenantEditionList]="settingsTenantEditionList"
-></app-rds-comp-tenant-management>
+></rds-comp-tenant-management>
 ```
 </div>
 </div>

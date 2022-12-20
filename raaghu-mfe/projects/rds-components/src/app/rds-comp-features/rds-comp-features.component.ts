@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, DoCheck, EventEmitter, Injector, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
-import { ComponentLoaderOptions, MfeBaseComponent } from '@libs/shared';
+import { AlertService, ComponentLoaderOptions, MfeBaseComponent } from '@libs/shared';
 import { TreeNode } from '../../models/tree-node.model';
 import { TableHeader } from '../../models/table-header.model';
 import { TableAction } from '../../models/table-action.model';
@@ -18,7 +18,7 @@ declare var bootstrap: any;
   ]
 })
 export class RdsCompFeaturesComponent implements OnInit, OnChanges, DoCheck {
-  actions: TableAction[] = [{ id: 'edit', displayName: this.translate.instant('Edit') }, { id: 'delete', displayName:this.translate.instant('Delete') }, { id: 'moveTenant', displayName: this.translate.instant('Move Tenants to Another Edition') }]
+  actions: TableAction[] = [{ id: 'edit', displayName: this.translate.instant('Edit') }, { id: 'delete', displayName: this.translate.instant('Delete') }, { id: 'moveTenant', displayName: this.translate.instant('Move Tenants to Another Edition') }]
   @Input() selectedFeatures = [];
   @Input() selectedEdition: any;
   @Input() EditionsTableHeader: TableHeader[] = [];
@@ -34,12 +34,12 @@ export class RdsCompFeaturesComponent implements OnInit, OnChanges, DoCheck {
   @Input() ExpiryInterval: number = 0;
   @Input() freeEditon: string;
   @Input() isDefault: boolean = false;
-  @Input() isShimmer:boolean=false;
-  @Input() editShimmer:boolean=true;
+  @Input() isShimmer: boolean = false;
+  @Input() editShimmer: boolean = true;
   @Input() featureList: any = [];
   @Input() nodeColors = [];
   @Input() treeData: TreeNode[] = [];
-  buttonSpinnerForNewEdition: boolean = true;
+  @Input() showLoadingSpinner: boolean = false;
   @Output() deleteEdition = new EventEmitter<{ item: any }>();
   @Output() onEditionSave = new EventEmitter<any>();
   @Output() updateEdition = new EventEmitter<any>();
@@ -71,8 +71,9 @@ export class RdsCompFeaturesComponent implements OnInit, OnChanges, DoCheck {
   @Input() tenantCount: number = 0;
 
   isReset: boolean = false;
-
-  targetEditionId: string = '';
+  freeEditionId = undefined
+  targetEdition: string = '';
+  targetEditionId = undefined
   sourceEditionId: string = '';
 
 
@@ -89,6 +90,7 @@ export class RdsCompFeaturesComponent implements OnInit, OnChanges, DoCheck {
 
 
   navtabsItems: any = [];
+  currentAlerts: any = [];
 
   TreeNodeLabeles: any = {
     ParentItemPlaceholder: "Parent node",
@@ -108,7 +110,7 @@ export class RdsCompFeaturesComponent implements OnInit, OnChanges, DoCheck {
   // rdshierarchyConfig: ComponentLoaderOptions;
   public Editionform: FormGroup;
 
-  constructor(public datepipe: DatePipe, public translate: TranslateService) {
+  constructor(public datepipe: DatePipe, public translate: TranslateService, private alertService: AlertService) {
 
   }
   ngOnChanges(): void {
@@ -124,7 +126,26 @@ export class RdsCompFeaturesComponent implements OnInit, OnChanges, DoCheck {
 
   ngOnInit(): void {
 
+    if(this.freeEditionId){
+      this.freeEditions.forEach((res: any) => {
+        if (res && +res.value===+this.freeEditionId) {
+          this.freeEditon = res.some;
+        }
+      })
+    }
 
+    if(this.targetEditionId){
+      this.editionList.forEach((res : any) => {
+        if(res && +res.value===+this.targetEditionId){
+          this.targetEdition= res.some;
+        }
+      })
+    }
+    this.subscribeToAlerts();
+  }
+
+  onAlertHide(event: any): void {
+    this.currentAlerts = event;
   }
 
   onEdit(event): void {
@@ -171,12 +192,12 @@ export class RdsCompFeaturesComponent implements OnInit, OnChanges, DoCheck {
       body.edition.trialDayCount = this.TrailPeriod;
       body.edition.annualPrice = this.AnnualPrice;
       body.edition.waitingDayAfterExpire = this.ExpiryInterval;
-      body.edition.expiringEditionId = this.freeEditon;
+      body.edition.expiringEditionId = this.freeEditionId;
 
     }
     this.onEditionSave.emit(body);
-    this.closeCanvas();
-    this.resetPermission();
+    this.viewCanvas = false;
+    this.resetPermission();  
   }
 
   resetPermission() {
@@ -216,7 +237,7 @@ export class RdsCompFeaturesComponent implements OnInit, OnChanges, DoCheck {
     this.selectpermissionList = event
   }
   openCanvas(): void {
-    this.buttonSpinnerForNewEdition = true;
+    this.showLoadingSpinner = true;
     this.updateEdition.emit(0);
     this.contentOnEdit = false;
     this.selectedFeatures = [];
@@ -294,7 +315,7 @@ export class RdsCompFeaturesComponent implements OnInit, OnChanges, DoCheck {
 
   closeCanvas(): void {
     this.viewCanvas = false;
-    this.buttonSpinnerForNewEdition = false;
+    this.showLoadingSpinner = false;
     this.resetPermission();
   }
 
@@ -346,9 +367,32 @@ export class RdsCompFeaturesComponent implements OnInit, OnChanges, DoCheck {
 
 
   // fabmenu for mobile list
-  onSelectMenu(event:any){
-    if(event.key==='new'){
+  onSelectMenu(event: any) {
+    if (event.key === 'new') {
       this.openCanvas();
     }
+  }
+
+  onFreeListSelect(event : any){
+    this.freeEditon = event.item.some
+    this.freeEditionId = event.item.value;
+    }
+
+  onTargetListSelect(event : any ){
+    this.targetEdition = event.item.some
+    this.targetEditionId = event.item.value
+  }
+
+  subscribeToAlerts() {
+    this.alertService.alertEvents.subscribe((alert) => {
+      this.currentAlerts = [];
+      const currentAlert: any = {
+        type: alert.type,
+        title: alert.title,
+        message: alert.message,
+        sticky: alert.sticky,
+      };
+      this.currentAlerts.push(currentAlert);
+    });
   }
 }

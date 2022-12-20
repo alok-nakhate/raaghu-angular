@@ -1,11 +1,27 @@
 @media (max-width: 767px){
     .mobile-ul-tabs{
-        overflow-x: auto;
-        overflow-y: hidden;
+        overflow-x: scroll;
         flex-wrap: nowrap;
-        min-height: 2.8rem;
+        overflow-y: hidden;
+    } 
+    .mobile-nav-item{
+        white-space: nowrap;
+    }
+}
+@media screen and (min-width:767px) and (max-width:1023px) {
+    .mobile-ul-tabs{
+        overflow-x: scroll;
+        flex-wrap: nowrap; 
+        overflow-y: hidden; 
     }
     .mobile-nav-item{
         white-space: nowrap;
+    }
+}
+@media screen and (min-width:1024px) and (max-width:1279px) {
+    .mobile-ul-tabs{
+        overflow-x: scroll;
+        flex-wrap: nowrap;
+        overflow-y: hidden;
     }
 }

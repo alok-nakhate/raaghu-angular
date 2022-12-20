@@ -36,23 +36,23 @@ const Template: Story<RdsCompNewLanguageComponent> = (args: RdsCompNewLanguageCo
 export const Default = Template.bind({});
 Default.args = {
     flags:[
-        {value: "famfamfam-flags ad", displayText: "ad", isSelected: false}
-        ,{value: "famfamfam-flags ae", displayText: "ae", isSelected: false}
-        ,{value: "famfamfam-flags af", displayText: "af", isSelected: false}
-        ,{value: "famfamfam-flags ag", displayText: "ag", isSelected: false}
-        ,{value: "famfamfam-flags ai", displayText: "ai", isSelected: false}
+        {value: "famfamfam-flags ad", some: "ad", isSelected: false}
+        ,{value: "famfamfam-flags ae", some: "ae", isSelected: false}
+        ,{value: "famfamfam-flags af", some: "af", isSelected: false}
+        ,{value: "famfamfam-flags ag", some: "ag", isSelected: false}
+        ,{value: "famfamfam-flags ai", some: "ai", isSelected: false}
     ],
     languageNames:[
-        {value: "", displayText: "Invariant Language ()", isSelected: false}
-        ,{value: "aa", displayText: "Afar (aa)", isSelected: false}
-        ,{value: "aa-DJ", displayText: "Afar (Djibouti) (aa-DJ)", isSelected: false}
-        ,{value: "aa-ER", displayText: "Afar (Eritrea) (aa-ER)", isSelected: false}
-        ,{value: "aa-ET", displayText: "Afar (Ethiopia) (aa-ET)", isSelected: false}
-        ,{value: "af", displayText: "Afrikaans (af)", isSelected: false}
-        ,{value: "af-NA", displayText: "Afrikaans (Namibia) (af-NA)", isSelected: false}
-        ,{value: "af-ZA", displayText: "Afrikaans (South Africa) (af-ZA)", isSelected: false}
-        ,{value: "agq", displayText: "Aghem (agq)", isSelected: false}
-        ,{value: "agq-CM", displayText: "Aghem (Cameroon) (agq-CM)", isSelected: false}
-        ,{value: "ak", displayText: "Akan (ak)", isSelected: false}
+        {value: "", some: "Invariant Language ()", isSelected: false}
+        ,{value: "aa", some: "Afar (aa)", isSelected: false}
+        ,{value: "aa-DJ", some: "Afar (Djibouti) (aa-DJ)", isSelected: false}
+        ,{value: "aa-ER", some: "Afar (Eritrea) (aa-ER)", isSelected: false}
+        ,{value: "aa-ET", some: "Afar (Ethiopia) (aa-ET)", isSelected: false}
+        ,{value: "af", some: "Afrikaans (af)", isSelected: false}
+        ,{value: "af-NA", some: "Afrikaans (Namibia) (af-NA)", isSelected: false}
+        ,{value: "af-ZA", some: "Afrikaans (South Africa) (af-ZA)", isSelected: false}
+        ,{value: "agq", some: "Aghem (agq)", isSelected: false}
+        ,{value: "agq-CM", some: "Aghem (Cameroon) (agq-CM)", isSelected: false}
+        ,{value: "ak", some: "Akan (ak)", isSelected: false}
     ]
 }

@@ -1,90 +1,183 @@
-<nav class="navbar navbar-expand-sm fixed-top p-0">
+<nav [class.fixed-top]="FixedHeader" class="navbar navbar-expand-sm p-0">
   <div class="container-fluid mobile-fluid">
-    
-    <button (click)="onToggleButton()" class="navbar-toggler px-2" id="humbreger-btn" type="button"
-      data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-      aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-brand p-0 m-0" href="#">
+      <img class="image" [src]="logo" width="70" /><span
+        class="title fw-bold text-lowercase"
+        ><b>{{ projectName }}</b></span
+      >
+    </span>
+    <button
+      (click)="onToggleButton()"
+      class="navbar-toggler px-2"
+      id="humbreger-btn"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="py-0 m-0 breadcrumbs">
       <div>
-        <a class="nav-link active p-0" aria-current="page" href="#">{{
-          selectedMenu|translate
-          }}<span *ngIf="tabName" class="mx-2"><b class="text-primary pt-1">></b> {{tabName}}</span></a>
+        <a class="nav-link active p-0" aria-current="page" href="#"
+          >{{ selectedMenu | translate
+          }}<span *ngIf="tabName" class="mx-2"
+            ><b class="text-primary pt-1"></b> {{ tabName }}</span
+          ></a
+        >
       </div>
       <div class="mob-description">
-         <a class="nav-link text-muted p-0 fs-6" href="#">{{selectedMenuDescription|translate}}</a>
+        <a class="nav-link text-muted p-0 fs-6" href="#">{{
+          selectedMenuDescription | translate
+        }}</a>
       </div>
     </div>
 
-    <div class="collapse navbar-collapse ps-5 ms-4 py-0 m-0" id="navbarSupportedContent1">
+    <div
+      class="collapse navbar-collapse ps-5 ms-4 py-0 m-0"
+      id="navbarSupportedContent1"dropdownHeight
+    >
       <ul class="navbar-nav d-flex align-items-center ms-auto">
-        <rds-dropdownlist [placeholder]="'Select theme'" [value]="themes.value" [borderDropdown]="false"
-          [listItems]="themes" (onSelect)="onThemeSelect($event.item.value)"></rds-dropdownlist>
-        <rds-dropdownlist class="ms-2" [placeholder]="'Languages'" [value]="selectedLanguage.language"
-          [icon]="selectedLanguage.icon" [borderDropdown]="false" [iconHeight]="'18px'" [iconWidth]="'18px'"
-          [listItems]="languageItems" (onSelect)="onLanguageSelect($event)">
+        <rds-dropdownlist
+          class="ms-2"
+          [id]="'language-dropdown'"
+          [placeholder]="'Languages'"
+          [value]="selectedLanguage.language"
+          [xOffset]="'-90'"
+          [yOffset]="'0'"
+          [icon]="selectedLanguage.icon"
+          [borderDropdown]="false"
+          [iconHeight]="'18px'"
+          [iconWidth]="'18px'"
+          [listItems]="languageItems"
+          [dropdownHeight]="'500'"
+          (onSelect)="onLanguageSelect($event)"
+        >
         </rds-dropdownlist>
-        <li class="nav-item dropdown border-end px-2">
-          <a class="nav-link py-0" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown"
-            aria-expanded="false">
+        <li class="nav-item dropdown pe-3 ps-2 me-1">
+          <a
+            class="nav-link py-0"
+            href="#"
+            id="navbarDropdownMenuLink"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
             <span>
-              <rds-button class="position-relative" [size]="'small'" [id]="'notification'" [roundedButton]="true"
-                [colorVariant]="'default'" type="button">
-                <rds-icon name="notification" width="20px" height="20px"></rds-icon>
-                <rds-badge class="notification-li" right size="smallest" badgeType="circle" colorVariant="primary" [label]="unreadCount"
-                  [positioned]="true" >
+              <rds-button
+                class="position-relative"
+                [isFabIcon]="true"
+                [size]="'small'"
+                [id]="'notification'"
+                [isRounded]="true"
+                [colorVariant]="'default'"
+                type="button"
+              >
+                <rds-icon
+                  name="notification"
+                  width="20px"
+                  height="20px"
+                ></rds-icon>
+                <rds-badge
+                  class="notification-li"
+                  right
+                  size="smallest"
+                  badgeType="circle"
+                  colorVariant="primary"
+                  [label]="unreadCount"
+                  [positioned]="true"
+                >
                 </rds-badge>
               </rds-button>
               <!-- <rds-icon name="notifications" width="20px"></rds-icon> -->
             </span>
           </a>
-          <div aria-labelledby="navbarDropdownMenuLink" class="
+          <div
+            aria-labelledby="navbarDropdownMenuLink"
+            class="
               dropdown-menu dropdown-menu-right
               notifications-dropdown
               w-md-375px
               border-0
               mt-2
               p-0
-            ">
-            <app-rds-notification [notifications]="notificationData" [unreadCount]="unreadCount"
+            "
+          >
+            <rds-notification
+              [notifications]="notificationData"
+              [unreadCount]="unreadCount"
               (setAsReadOutput)="setNotificationAsRead.emit($event)"
-              (setAllReadOutput)="setAllNotificationAsRead.emit($event)"></app-rds-notification>
+              (setAllReadOutput)="setAllNotificationAsRead.emit($event)"
+            ></rds-notification>
             <!-- <mfe-loader [config]="rdsNotoficationMfeConfig"></mfe-loader> -->
           </div>
         </li>
-        <li class="nav-item border-end px-2">
-          <rds-icon width="20px" height="20px" name="chevron_down_arrow"></rds-icon>
+        <li class="nav-item border-end border-start px-3">
+          <!-- <a href="#" this.router.navigate(['/link']);><rds-icon width="20px" height="20px" name="gear"></rds-icon></a> -->
+          <a routerLinkActive="routerLinkActive-name"  [routerLink]="['/pages/settings']" class="setting">
+            <rds-icon width="20px" height="20px" name="gear"></rds-icon>
+          </a>
         </li>
       </ul>
     </div>
     <div class="mobile-ms">
       <ul class="navbar-nav d-flex align-items-center flex-row gap-2">
         <li class="nav-item dropdown px-2 mobile-notification">
-          <a class="nav-link py-0" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown"
-            aria-expanded="false">
+          <a
+            class="nav-link py-0"
+            href="#"
+            id="navbarDropdownMenuLink"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
             <span>
-              <rds-button class="position-relative" [size]="'small'" [id]="'notification'" [roundedButton]="true"
-                [colorVariant]="'default'" type="button">
-                <rds-icon name="notification" width="20px" height="20px"></rds-icon>
-                <rds-badge class="notification-li" right size="smallest" badgeType="circle" colorVariant="primary" [label]="unreadCount"
-                  [positioned]="true" >
+              <rds-button
+                class="position-relative"
+                [size]="'small'"
+                [id]="'notification'"
+                [isRounded]="true"
+                [colorVariant]="'default'"
+                type="button"
+              >
+                <rds-icon
+                  name="notification"
+                  width="20px"
+                  height="20px"
+                ></rds-icon>
+                <rds-badge
+                  class="notification-li"
+                  right
+                  size="smallest"
+                  badgeType="circle"
+                  colorVariant="primary"
+                  [label]="unreadCount"
+                  [positioned]="true"
+                >
                 </rds-badge>
               </rds-button>
               <!-- <rds-icon name="notifications" width="20px"></rds-icon> -->
             </span>
           </a>
-          <div aria-labelledby="navbarDropdownMenuLink" class="
+          <div
+            aria-labelledby="navbarDropdownMenuLink"
+            class="
               dropdown-menu dropdown-menu-right
               notifications-dropdown
               w-md-375px
               border-0
               mt-2
               p-0
-            ">
-            <app-rds-notification [notifications]="notificationData" [unreadCount]="unreadCount"
+            "
+          >
+            <rds-notification
+              [notifications]="notificationData"
+              [unreadCount]="unreadCount"
               (setAsReadOutput)="setNotificationAsRead.emit($event)"
-              (setAllReadOutput)="setAllNotificationAsRead.emit($event)"></app-rds-notification>
+              (setAllReadOutput)="setAllNotificationAsRead.emit($event)"
+            ></rds-notification>
             <!-- <mfe-loader [config]="rdsNotoficationMfeConfig"></mfe-loader> -->
           </div>
         </li>
@@ -93,29 +186,36 @@
             <div class="px-2">
               <!-- <rds-icon name="profile_circle" height="20px" width="20px" [stroke]="true"></rds-icon> -->
               <!-- <rds-avatar [WithProfilePic]="true" [profilePic]="profilePic" [Size]="'small'"></rds-avatar> -->
-              <img [src]="profilePic" alt="" height="32px" width="32px">
+              <rds-avatar [withProfilePic]="true" [profilePic]="profilePic" [roundedPills]="true"
+                  [verticallyAlligned]="true" [roundedAvatar]="true" [size]="'small'" [width] ="'32'" [height]="'32'"></rds-avatar>
+              <!-- <img [src]="profilePic" alt="" height="32px" width="32px"> -->
             </div>
             <div class="pe-auto" *ngIf="profileData">
-              <span class="text-decoration-none d-flex" (click)="redirect('profile')">
+              <span
+                class="text-decoration-none d-flex"
+                (click)="redirect('profile')"
+              >
                 <div>
                   <span>{{ tenancy }}</span>
-                  <p class="mb-0  text-muted user-role">
+                  <p class="mb-0 text-muted user-role">
                     {{ profileData.userName }}
                   </p>
                 </div>
-                <rds-icon name="chevron_down" [height]="'11px'" [width]="'11px'" class="ms-3 mt-2"></rds-icon>
-                
-
+                <rds-icon
+                  name="chevron_down"
+                  [height]="'11px'"
+                  [width]="'11px'"
+                  class="ms-3 mt-2"
+                ></rds-icon>
               </span>
             </div>
-
           </div>
         </li>
       </ul>
     </div>
-    </div>
+  </div>
 </nav>
-<app-rds-comp-profile [MenuItems]="navtabItems" [Profileurl]="profilePic" [viewCanvas]="showOffcanvas"
+<rds-comp-profile [MenuItems]="navtabItems" [Profileurl]="profilePic" [viewCanvas]="showOffcanvas"
   [tableWidth]="tableWidth" [id]="offCanvasId" [userList]="userList" [languageItems]="languageItems"
   [listItemsResult]="listusename" [DownloadTable]="dounloadata" [tableStyle]="tableStyle"
   [LoginAttempts]="LoginAttempts" [ProfileData]="profileData" [selectedLanguage]="selectedLanguage"
@@ -124,8 +224,11 @@
   (onDeleteDeligate)="deleteDeligateuser.emit($event)" (ondeleteLinkaccount)="deleteLinkaccount.emit($event)"
   (onLinkToUser)="saveLinkUsers($event)" (onProfileSave)="onProfileSave.emit($event)"
   (onLoginAttempts)="onLoginAttemptsRefresh.emit($event)" (onDownloadLink)="onDownloadLink.emit($event)"
-  [linkedAccountHeaders]="linkedAccountHeaders" [linkedAccountData]="linkedAccountData">
-</app-rds-comp-profile>
-<app-rds-comp-notification-settings [notificationTypes]="notificationTypes"
+  [linkedAccountHeaders]="linkedAccountHeaders" [linkedAccountData]="linkedAccountData" (onProfilePicUpdate)="getProfilePic($event)"
+  [showDelegationButtonSpinner]="showDelegationButtonSpinner" [tenancy]="tenancy">
+</rds-comp-profile>
+<rds-comp-notification-settings
+  [notificationTypes]="notificationTypes"
   [receiveNotifications]="receiveNotifications"
-  (onUpdateNotificationSettings)="onUpdateNotificationSettings.emit($event)"></app-rds-comp-notification-settings>
+  (onUpdateNotificationSettings)="onUpdateNotificationSettings.emit($event)"
+></rds-comp-notification-settings>

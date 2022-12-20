@@ -21,6 +21,7 @@ const Template: Story<RdsVideoPlayerComponent> = (args: RdsVideoPlayerComponent)
 });
 
 export const Default = Template.bind({})
+Default.parameters = { controls: { include: ['videoLink'] } };
 Default.args = {
 videoLink:'http://static.videogular.com/assets/videos/videogular.mp4',
 }

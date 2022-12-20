@@ -10,7 +10,7 @@ export interface navItem {
   styleUrls: ['./rds-nav-bar.component.scss']
 })
 export class RdsNavBarComponent implements OnInit {
-  @Input() colorVariant: 'primary' | 'secondary' | 'danger' | 'success' | 'warning' | 'info' | 'light' | 'dark' | undefined = undefined;
+  // @Input() colorVariant: 'primary' | 'secondary' | 'danger' | 'success' | 'warning' | 'info' | 'light' | 'dark' | undefined = undefined;
   @Input() title: string = 'Navbar';
   @Input() navbarItems: navItem[] = [{
     label: "Home",
@@ -33,25 +33,25 @@ export class RdsNavBarComponent implements OnInit {
   }
 
 
-  public get classes(): string[] {
-    const styles: any = ['navbar']
-    // if (this.size === 'small') {
-    //   styles.push('navbar-expand-sm');
-    // }
-    // if (this.size === 'medium') {
-    //   styles.push('navbar-expand-md');
-    // }
-    // if (this.size === 'large') {
-    //   styles.push('navbar-expand-lg');
-    // }
-    // if (this.size === 'extra-large') {
-    //   styles.push('navbar-expand-xl');
-    // }
-    // styles.push('navbar-expand-sm');
-    if (this.colorVariant) {
-      styles.push('bg-' + this.colorVariant);
+  // public get classes(): string[] {
+  //   const styles: any = ['navbar']
+  //   // if (this.size === 'small') {
+  //   //   styles.push('navbar-expand-sm');
+  //   // }
+  //   // if (this.size === 'medium') {
+  //   //   styles.push('navbar-expand-md');
+  //   // }
+  //   // if (this.size === 'large') {
+  //   //   styles.push('navbar-expand-lg');
+  //   // }
+  //   // if (this.size === 'extra-large') {
+  //   //   styles.push('navbar-expand-xl');
+  //   // }
+  //   // styles.push('navbar-expand-sm');
+  //   // if (this.colorVariant) {
+  //   //   styles.push('bg-' + this.colorVariant);
 
-    }
-    return styles;
-  }
+  //   // }
+  //   return styles;
+  // }
 }

@@ -35,22 +35,18 @@ const Template: Story<RdsIconLabelComponent> = (args: RdsIconLabelComponent) => 
   [icon]="icon"
   [colorVariant]="colorVariant"
   [label]="label"
-  [size] = "size"
-  [height] = "height"
-  [width]="width">
+  [size] = "size">
   </rds-icon-label>`
 
 });
 
 export const Default = Template.bind({});
-Default.parameters = { controls: { include: ['label', 'icon', 'size', 'height', 'width', 'colorVariant'] } };
+Default.parameters = { controls: { include: ['label', 'icon', 'size', 'colorVariant'] } };
 Default.args = {
   label: "Contact Number",
   icon: 'phone',
-  size: 'small',
-  height: '13px',
-  width: '13px',
-  colorVariant: undefined
+  size: 'medium',
+  colorVariant: 'dark'
 }
 
 const withPositionTemplate: Story<RdsIconLabelComponent> = (args: RdsIconLabelComponent) => ({
@@ -61,22 +57,18 @@ const withPositionTemplate: Story<RdsIconLabelComponent> = (args: RdsIconLabelCo
   [colorVariant]="colorVariant"
   [label]="label"
   [size] = "size"
-  [height] = "height"
-  [iconposition]="iconposition"
-  [width]="width">
+  [iconposition]="iconposition">
   </rds-icon-label>`
 
 });
 
 export const withPosition = withPositionTemplate.bind({});
-withPosition.parameters = { controls: { include: ['label', 'icon', 'size', 'height', 'width', 'colorVariant', 'iconposition'] } };
+withPosition.parameters = { controls: { include: ['label', 'icon', 'size', 'colorVariant', 'iconposition'] } };
 withPosition.args = {
   label: "Contact Number",
   icon: 'phone',
-  size: 'small',
-  height: '13px',
-  width: '13px',
-  colorVariant: undefined,
-  iconposition: 'left'
+  size: 'medium',
+  colorVariant: 'dark',
+  iconposition: 'right'
 }
 

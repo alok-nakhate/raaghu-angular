@@ -1,34 +1,47 @@
 
-import { Story, Meta } from '@storybook/angular';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { Story, Meta, moduleMetadata } from '@storybook/angular';
 import { RdsInputGroupComponent } from './rds-input-group.component';
 
 export default {
 
     title: 'Elements/Input Group',
     component: RdsInputGroupComponent,
-    // decorators: [
-    //     moduleMetadata({
-    //         declarations: [RdsInputComponent, RdsSelectListComponent],
-    //         schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    //     }),
-    // ],
+    decorators: [
+        moduleMetadata({
+            declarations: [],
+            imports: [CommonModule,FormsModule],
+        }),
+    ],
     argTypes: {
         size: {
-            options: ['sm', 'md', 'lg'],
+            options: ['small', 'medium', 'large'],
             control: { type: 'select' }
         },
-         colorVariant: {
-            options:['warning' , 'danger' , 'success' , 'info' , 'primary' , 'secondary' , 'dark' , 'light'],
-            control: { type: 'select' }}
+        position: {
+            options: ['top', 'bottom'],
+            control: { type: 'radio' }
+        },
+        colorVariant: {
+            options: ['warning', 'danger', 'success', 'info', 'primary', 'secondary', 'dark'],
+            control: { type: 'select' }
+        }
 
     },
 } as Meta;
 
 export const Default: Story<RdsInputGroupComponent> = (args) => ({
-    props: args, 
+    props: args,
 });
+Default.parameters = { controls: { include: ['colorVariant', 'position', 'size', 'buttonLabel', 'placeholder'] } };
+
 Default.args = {
-    
+    size: 'small',
+    position: 'top',
+    colorVariant: 'primary',
+    buttonLabel: 'button',
+    placeholder: 'Placeholder Text'
 }
 
 

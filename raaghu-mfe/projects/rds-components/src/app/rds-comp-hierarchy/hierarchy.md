@@ -9,7 +9,7 @@ title: "Components > Hierarchy"
 
 #### Hierarchy
 
-<p class="">A card is a small rectangular module with images and text. It is an entry point for users to learn more details</p>
+<p>Provides a description on the ranking according to the ranking.</p>
 <section class="py-4">
     <h6>Default</h6>
     <div class="py-3">
@@ -39,14 +39,14 @@ title: "Components > Hierarchy"
 <div class="row m-0">
 
 ```html
-<app-rds-comp-hierarchy
+<rds-comp-hierarchy
 [treeData]="treeData"
 [mutable]="true"
 ButtonLabel="New Node"
 [TreeNodeLabeles]="TreeNodeLabeles"
 [TreeType]="TreeType"
 [nodeColors]="nodeColors">
-</app-rds-comp-hierarchy>
+</rds-comp-hierarchy>
 ```
 </div>
 </div>

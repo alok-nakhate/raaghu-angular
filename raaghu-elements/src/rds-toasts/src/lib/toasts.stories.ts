@@ -1,5 +1,6 @@
 
 import { CommonModule } from '@angular/common';
+import { RdsButtonModule } from '@libs/rds-button';
 import { RdsIconModule } from '@libs/rds-icon';
 import { Story, Meta, moduleMetadata } from '@storybook/angular';
 import { RdsToastsComponent } from './rds-toasts.component';
@@ -11,7 +12,8 @@ export default {
     moduleMetadata({
       declarations: [],
       imports: [
-        RdsIconModule, CommonModule
+        RdsIconModule, CommonModule,
+        RdsButtonModule
       ],
 
     })
@@ -24,7 +26,16 @@ export default {
     position: {
       options: ['Top-Left', 'Top-Center', 'Top-Right', 'Middle-Left', 'Middle-Center', 'Middle-Right', 'Bottom-Left', 'Bottom-Center', 'Bottom-Right'],
       control: { type: 'select' }
+    },
+    border: {
+      options: ['info', 'warning', 'success', 'danger', 'primary', 'secondary', 'light', 'dark'],
+      control: { type: 'select' }
+    },
+    headerColorVariant: {
+      options: ['info', 'warning', 'success', 'danger', 'primary', 'secondary', 'light', 'dark'],
+      control: { type: 'select' }
     }
+    
   },
 } as Meta;
 
@@ -33,52 +44,72 @@ const Template: Story<RdsToastsComponent> = (args: RdsToastsComponent) => ({
 });
 
 export const Default = Template.bind({});
-Default.parameters = { controls: { include: ['colorVariant', 'headerTitle', 'message', 'show'] } };
+Default.parameters = { controls: { include: ['', 'headerTitle', 'message', 'show','headerColorVariant'] } };
 Default.args = {
   headerTitle: 'Toast',
   show: true,
-  colorVariant: 'light',
-  message: 'This is a sample toast'
+  message: 'This is a sample toast',
+  headerColorVariant: 'light'
 };
+
+
+
+export const withBorderDisplay = Template.bind({});
+withBorderDisplay.parameters = { controls: { include: ['headerTitle', 'headerColorVariant', 'show', 'border','showButton'] } };
+withBorderDisplay.args = {
+  headerTitle: 'Toast',
+  show: true,
+  headerColorVariant: 'light',
+  showButton: true,
+  border: 'light',
+};
+
+
+
+
+
 export const toastWithAutohide = Template.bind({});
-toastWithAutohide.parameters = { controls: { include: ['colorVariant', 'headerTitle', 'message', 'show', 'autohide'] } };
+toastWithAutohide.parameters = { controls: { include: ['', 'headerTitle', 'message', 'show', 'autohide','headerColorVariant'] } };
 toastWithAutohide.args = {
   headerTitle: 'Toast',
   show: true,
-  colorVariant: 'light',
+ 
   message: 'This is a sample toast',
-  autohide: true
+  autohide: true,
+  headerColorVariant: 'light'
 };
 
 export const toastWithDelay = Template.bind({});
-toastWithDelay.parameters = { controls: { include: ['colorVariant', 'headerTitle', 'message', 'show', 'delay', 'autohide'] } };
+toastWithDelay.parameters = { controls: { include: ['', 'headerTitle', 'message', 'show', 'delay', 'autohide' ,'headerColorVariant'] } };
 toastWithDelay.args = {
   headerTitle: 'Toast',
   show: true,
-  colorVariant: 'light',
+  
   autohide: true,
   message: 'This is a sample toast',
-  delay: 5000
+  delay: 5000,
+  headerColorVariant: 'light'
 };
 
 export const toastWithPosition = Template.bind({});
-toastWithPosition.parameters = { controls: { include: ['colorVariant', 'headerTitle', 'message', 'show', 'position'] } };
+toastWithPosition.parameters = { controls: { include: ['', 'headerTitle', 'message', 'show', 'position' ,'headerColorVariant'] } };
 toastWithPosition.args = {
   headerTitle: 'Toast',
   show: true,
-  colorVariant: 'light',
   message: 'This is a sample toast',
-  position: 'Top-Left'
+  position: 'Top-Left',
+  headerColorVariant: 'light'
 };
 
 export const toastWithoutHeader = Template.bind({});
-toastWithoutHeader.parameters = { controls: { include: ['colorVariant', 'headerTitle', 'message', 'show', 'showHeader'] } };
+toastWithoutHeader.parameters = { controls: { include: ['colorVariant', 'headerTitle', 'message', 'show', 'showHeader','closebtn'] } };
 toastWithoutHeader.args = {
   headerTitle: 'Toast',
   show: true,
-  colorVariant: 'light',
   showHeader: false,
   message: 'This is a sample toast',
+  colorVariant: 'light',
+  closebtn: true
 };
 
 // export const Type1 = Template.bind({})

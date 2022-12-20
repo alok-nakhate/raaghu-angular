@@ -1,6 +1,6 @@
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Meta, moduleMetadata, Story } from '@storybook/angular';
-import { RdsButtonModule, RdsCheckboxModule, RdsDatepickerModule, RdsFabMenuModule, RdsIconModule, RdsInputModule, RdsModalModule, RdsNavTabModule, RdsOffcanvasModule, RdsPaginationModule, RdsPopoverModule, RdsSelectListModule } from '@libs/rds-elements';
+import { RdsButtonModule, RdsCheckboxModule, RdsDatepickerModule, RdsDropdownlistModule, RdsFabMenuModule, RdsIconModule, RdsInputModule, RdsModalModule, RdsNavTabModule, RdsOffcanvasModule, RdsPaginationModule, RdsPopoverModule, RdsSelectListModule } from '@libs/rds-elements';
 import { NgxTranslateModule, SharedModule } from '@libs/shared';
 import { RdsCompTenantInformationComponent } from './rds-comp-tenant-information.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
@@ -15,7 +15,7 @@ export default {
       imports: [
         FormsModule, ReactiveFormsModule, RdsButtonModule, RdsModalModule, RdsPaginationModule,RdsIconModule, 
         SharedModule,RdsFabMenuModule,NgxTranslateModule,RdsInputModule,RdsOffcanvasModule,RdsNavTabModule,
-        RdsSelectListModule,RdsCheckboxModule,RdsDatepickerModule,BsDatepickerModule.forRoot(), BrowserAnimationsModule, 
+        RdsSelectListModule,RdsCheckboxModule,RdsDatepickerModule,BsDatepickerModule.forRoot(), BrowserAnimationsModule, RdsDropdownlistModule
       ],
       providers: [
         FormBuilder,

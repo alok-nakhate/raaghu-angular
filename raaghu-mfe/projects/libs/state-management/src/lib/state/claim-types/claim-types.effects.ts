@@ -41,6 +41,7 @@ export class ClaimTypesEffects {
           // Take the returned value and return a new success action containing the todos
           map(() => {
             this.store.dispatch(getAllClaimTypes());
+            this.alertService.showAlert('Success', 'ClaimType added successfully','success' )
             return saveClaimTypesSuccess();
           }),
           // Or... if it errors return a new failure action containing the error
@@ -53,8 +54,8 @@ export class ClaimTypesEffects {
   deleteClaims$ = createEffect(() =>
     this.actions$.pipe(
       ofType(deleteClaims),
-      mergeMap((data) =>
-      this.claimTypesService.claimTypesDELETE(data).pipe(map((res: any) => {
+      mergeMap(({id}) =>
+      this.claimTypesService.claimTypesDELETE(id).pipe(map((res: any) => {
         this.store.dispatch(getAllClaimTypes());
           this.alertService.showAlert('Success', 'ClaimTypes deleted successfully','success' )
         }),

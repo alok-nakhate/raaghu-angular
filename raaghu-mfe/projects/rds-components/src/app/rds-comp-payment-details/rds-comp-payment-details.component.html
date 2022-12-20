@@ -2,50 +2,50 @@
     <p class="heading">
         Payment details
     </p>
-     <div class="row">
-      <div class="col-md-4">
-        <rds-radio-button [switch]="false" [inline]="false" [isInputGroup]="false"
-          [itemList]="paymentModeList"></rds-radio-button>
-      </div>
+    <div class="row">
+        <div class="col-md-4">
+            <rds-radio-button [switch]="false" [inline]="false" [isInputGroup]="false" [itemList]="paymentModeList">
+            </rds-radio-button>
+        </div>
     </div>
-    
+
     <div class="my-3">
-        <rds-input Title="Card Number" [TitleType]="'Top'" [isRequired]=true  required size="'default'" name="cardNumber" id="txtCardNumber"
-            ngDefaultControl [(ngModel)]="cardNumber" required>
+        <rds-input label="Card Number" [labelPosition]="'top'" [isRequired]=true required size="medium" name="cardNumber"
+            id="txtCardNumber" ngDefaultControl [(ngModel)]="cardNumber" required>
         </rds-input>
     </div>
 
     <div class="my-3">
-        <rds-input Title="Name On Card" [TitleType]="'Top'" [isRequired]=true  required size="'default'" name="name" id="txtName"
-            ngDefaultControl [(ngModel)]="name" required>
+        <rds-input label="Name On Card" [labelPosition]="'top'" [isRequired]=true required size="medium" name="name"
+            id="txtName" ngDefaultControl [(ngModel)]="name" required>
         </rds-input>
     </div>
 
     <div class="my-3 row">
         <div class="col-9">
-            <rds-input Title="Expiration Date (MM/YY)" [TitleType]="'Top'" [isRequired]=true  required size="'default'" name="expirationDate" id="txtExpirationDate"
-                ngDefaultControl [(ngModel)]="expirationDate" required>
+            <rds-input label="Expiration Date (MM/YY)" [labelPosition]="'top'" [isRequired]=true required size="medium"
+                name="expirationDate" id="txtExpirationDate" ngDefaultControl [(ngModel)]="expirationDate" required>
             </rds-input>
         </div>
         <div class="col-3">
-            <rds-input Title="CVC" [TitleType]="'Top'" [isRequired]=true  required size="'default'" name="cvc" id="txtCvc"
-                ngDefaultControl [(ngModel)]="cvc" required>
+            <rds-input label="CVV" [labelPosition]="'top'" [isRequired]=true required size="medium" name="cvc"
+                id="txtCvc" ngDefaultControl [(ngModel)]="cvc" required>
             </rds-input>
         </div>
     </div>
-    
+
     <div class="my-4 pt-4 row">
         <div class="col-6">
-            <rds-button [block]="true" [size]="'medium'" [outlineButton]="true" [colorVariant]="'primary'"  
-            [label]="translate.instant('back')" (click)="back()" >
-        </rds-button>
+            <rds-button [block]="true" [size]="'medium'" [isOutline]="true" [colorVariant]="'primary'"
+                [label]="translate.instant('cancel')" (click)="back()">
+            </rds-button>
         </div>
         <div class="col-6">
-            <rds-button [block]="true" [size]="'medium'" [colorVariant]="'primary'"  [showLoadingSpinner]="buttonSpinner"
-            [label]="translate.instant('Continue')" (click)="continue()">
-        </rds-button>
+            <rds-button [block]="true" [size]="'medium'" [colorVariant]="'primary'" [showLoadingSpinner]="buttonSpinner"
+                [label]="translate.instant('confirm')" (click)="continue()">
+            </rds-button>
         </div>
-        
-        
+
+
     </div>
 </div>

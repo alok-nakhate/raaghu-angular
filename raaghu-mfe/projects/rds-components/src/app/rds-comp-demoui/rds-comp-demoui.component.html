@@ -1,38 +1,31 @@
 <!-- Accordion -->
-<div class="card mb-3 mt-5">
+<div class="card mb-3 mt-5 pt-3">
   <div class="card-header">
     <h5>
-      Accordion
+       {{"Accordion"|translate}}
     </h5>
   </div>
-  <div class="card-body  pt-0">
-    <div class="row border p-4 m-2">
-      <div class="col-6">
+  <div class="card-body pt-0">
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-xs-12 mb-3">
         <h6 class="mb-3">{{"Accordion - Basic"|translate}}</h6>
-        <rds-accordian id="basicAccordion">
-          <accordion-item title="Section 1 title" accordionId="basicAccordion">
-            <strong>{{"This is the first item's accordion body."|translate}}</strong>
-            {{
-            "It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each
-            element. These classes control the overall appearance, as well as the showing and hiding via CSS
-            transitions.
-            You can modify any of this with custom CSS or overriding our default variables."|translate
-            }}
+        <rds-accordian [id]="'basicAccordian'" >
+          <accordion-item [parentId]="'basicAccordian'" title="Section 1 title"  >
+          <h3 accordianBody>Custom </h3>
           </accordion-item>
-          <accordion-item title="Section 2 title" accordionId="basicAccordion">
-            <h3>{{"Custom"|translate}}</h3>
+          <accordion-item title="Section 2 title" [parentId]="'basicAccordian'"   >
+          <h3 accordianBody>Custom </h3>
           </accordion-item>
         </rds-accordian>
       </div>
-      <div class="col-6">
+      <div class="col-lg-6 col-md-6 col-xs-12 mb-3">
         <h6 class="mb-3">{{"Accordion - With Flush"|translate}}</h6>
-        <rds-accordian [flush]="true" id="accordionWithFlush">
-          <accordion-item title="Section 1 title" accordionId="accordionWithFlush">
-            {{"this is content updated"|translate}}
-
+        <rds-accordian [flush]= "true" [id]="'myaccordian'">
+          <accordion-item title="Section 1 title" [parentId]="'myaccordian'" >
+          <h3 accordianBody>Custom </h3>
           </accordion-item>
-          <accordion-item title="Section 2 title" accordionId="accordionWithFlush">
-            <h3>{{"Custom"|translate}} </h3>
+          <accordion-item title="Section 2 title" [parentId]="'myaccordian'" >
+          <h3 accordianBody>Custom </h3>
           </accordion-item>
         </rds-accordian>
       </div>
@@ -42,16 +35,16 @@
 </div>
 <!-- /Accordion -->
 <!-- Alert -->
-<div class="card mb-3">
+<div class="card mb-3 pt-3">
   <div class="card-header">
     <h5>
       {{"Alert"|translate}}
     </h5>
   </div>
-  <div class="card-body  pt-0">
-    <div class="row border p-4 m-2">
-      <div class="col-12">
-        <rds-button colorVariant="primary" [block]="false" size="medium" label="Show Alert"
+  <div class="card-body pt-0">
+    <div class="row">
+      <div class="col-lg-12 col-xs-12 mb-3">
+        <rds-button colorVariant="primary" [block]="false" size="medium" [label]="translate.instant('Show Alert')"
           (click)="onClickShowAlert()"></rds-button>
 
         <rds-alert size="small" [dismissible]="true" icon="close_circle" [iconHeight]="'20px'" [iconWidth]="'20px'"
@@ -64,26 +57,27 @@
 
 <!-- /Alert -->
 <!-- Avatar -->
-<div class="card mb-3">
+<div class="card mb-3 pt-3">
   <div class="card-header">
     <h5>
-      Avatar
+      {{"Avatar"|translate}}
     </h5>
   </div>
-  <div class="card-body  pt-0">
-    <div class="row border p-4 m-2">
-      <div class="col-6">
+  <div class="card-body pt-0">
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-xs-12 mb-4">
         <h6 class="mb-3">{{"Avatar"|translate}}</h6>
         <rds-avatar firstName="Admin" lastName="Admin" [size]="'medium'" colorVariant="primary">
-          <div class="ms-4 mt-2">Admin</div>
+          <div class="ms-4">Admin</div>
         </rds-avatar>
       </div>
-      <div class="col-6">
+      <div class="col-lg-6 col-md-6 col-xs-12 mb-4">
         <h6 class="mb-3">{{"Avatar - With Profile pic"|translate}}</h6>
         <rds-avatar [withProfilePic]="true"
-          profilePic="https://th.bing.com/th/id/OIP.3IsXMskZyheEWqtE3Dr7JwHaGe?pid=ImgDet&rs=1" [size]="'medium'"
+          profilePic="../assets/profile-picture.png" [size]="'medium'"
           [verticallyAlligned]="false"></rds-avatar>
       </div>
+    </div>
       <!-- <div class="col-6">
         <h6 class="mb-3">{{"Avatar - With Profile pic and horizontally aligned Info"|translate}}</h6>
         <rds-avatar [withProfilePic]="true"
@@ -99,20 +93,21 @@
           <div class="mt-2">Admin</div>
         </rds-avatar>
       </div> -->
-      <div class="col-6 mt-2">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-xs-12 mb-4">
         <h6 class="mb-3">{{"Avatar in different Sizes - Without Profile picture"|translate}}</h6>
-        <div class="row">
-          <div class="col-4">
+        <div class="d-flex gap-5 align-items-center">
+          <div>
             <rds-avatar firstName="Keanu" [colorVariant]="'primary'" lastName="Foster" [size]="'small'"
               [verticallyAlligned]="false">
             </rds-avatar>
           </div>
-          <div class="col-4 ">
+          <div>
             <rds-avatar firstName="Keanu" lastName="Foster" [colorVariant]="'primary'" [size]="'medium'"
               [verticallyAlligned]="false"></rds-avatar>
           </div>
 
-          <div class="col-4">
+          <div>
             <rds-avatar firstName="Keanu" lastName="Foster" [colorVariant]="'primary'" [size]="'large'"
               [verticallyAlligned]="false"></rds-avatar>
 
@@ -129,20 +124,20 @@
 <!-- </div> -->
 <!-- /Avatar -->
 <!-- Badge -->
-<div class="card mb-3">
+<div class="card mb-3 pt-3">
   <div class="card-header">
     <h5>
-      Badge
+      {{"Badge"|translate}}
     </h5>
   </div>
-  <div class="card-body  pt-0">
-    <div class="row border p-4 m-2">
-      <div class="col-3">
-        <h6 class="mb-3">{{"Badge - Basic"|translate}}</h6>
+  <div class="card-body pt-0">
+    <div class="row">
+      <div class="col-lg-3 col-md-6 col-xs-12 mb-4">
+        <h6 class="mb-3 pb-2">{{"Badge - Basic"|translate}}</h6>
         <rds-badge size="small" colorVariant="primary" [label]="translate.instant('New')" [positioned]="false">
         </rds-badge>
       </div>
-      <div class="col-3">
+      <div class="col-lg-3 col-md-6 col-xs-12 mb-4">
         <h6 class="mb-3">{{"Badge as button"|translate}}</h6>
         <rds-button class="m-1" [label]="translate.instant('button')" [colorVariant]="'primary'" [size]="'medium'"
           type="button" position="bottom" role="basic">
@@ -151,17 +146,17 @@
           </span>
         </rds-button>
       </div>
-      <div class="col-3">
-        <h6 class="mb-3">{{"Badge With icon"|translate}}</h6>
-        <rds-button class="position-relative" [size]="'medium'" [colorVariant]="'primary'" [outlineButton]="false"
-          [roundedButton]="true" type="button">
+      <div class="col-lg-3 col-md-6 col-xs-12 mb-4">
+        <h6 class="mb-3 pb-2">{{"Badge With icon"|translate}}</h6>
+        <rds-button class="position-relative" [size]="'medium'" [colorVariant]="'primary'" [isOutline]="false"
+          [isFabIcon]="true" type="button">
           <rds-icon name="youtube" height="22px" width="22px"></rds-icon>
           <rds-badge right size="small" colorVariant="primary" label="9" [positioned]="true">
           </rds-badge>
         </rds-button>
       </div>
-      <div class="col-3">
-        <h6 class="mb-3">{{"Badge With Positioned"|translate}}</h6>
+      <div class="col-lg-3 col-md-6 col-xs-12 mb-4">
+        <h6 class="mb-3 pb-2">{{"Badge With Positioned"|translate}}</h6>
         <rds-button type="button" class="position-relative" [size]="'medium'" [label]="translate.instant('button')"
           [colorVariant]="'primary'">
           <span right>
@@ -175,15 +170,15 @@
 </div>
 <!-- /Badge -->
 <!-- Banner -->
-<div class="card mb-3">
+<div class="card mb-3 pt-3">
   <div class="card-header">
     <h5>
-      Banner
+      {{"Banner"|translate}}
     </h5>
   </div>
-  <div class="card-body  pt-0">
-    <div class="row border p-4 m-2">
-      <h6 class="mb-3">{{"Banner"|translate}}</h6>
+  <div class="card-body pt-0">
+    <div class="row">
+      <!-- <h6 class="mb-3">{{"Banner"|translate}}</h6> -->
       <rds-banner bannerText="Big news! We are excited to announce a brand new product." [sticky]="false"
         position="bottom" colorVariant="info"></rds-banner>
     </div>
@@ -191,16 +186,16 @@
 </div>
 <!-- /Banner -->
 <!-- Big Number Widget -->
-<div class="card mb-3">
+<div class="card mb-3 pt-3">
   <div class="card-header">
     <h5>
-      Big Number Widget
+      {{"Big Number Widget"|translate}}
     </h5>
   </div>
-  <div class="card-body  pt-0">
-    <div class="row border p-4 m-2">
-      <div class="col-6">
-        <h6>{{"Big Number Widget -Center Aligned"|translate}}</h6>
+  <div class="card-body pt-0">
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-xs-12 mb-3">
+        <h6 class="mb-3">{{"Big Number Widget -Center Aligned"|translate}}</h6>
         <div>
           <rds-widget [isRefreshRequired]="false" [headerTitle]="'Widget'" cardheight='card-stretch-half'>
             <div body>
@@ -211,11 +206,11 @@
           </rds-widget>
         </div>
       </div>
-      <div class="col-6">
-        <h6>{{"Big Number Widget -Left Aligned"|translate}}</h6>
+      <div class="col-lg-6 col-md-6 col-xs-12 mb-3">
+        <h6 class="mb-3">{{"Big Number Widget -Left Aligned"|translate}}</h6>
         <div>
-          <rds-widget [isRefreshRequired]="false" [headerTitle]="'Widget'" [colorVariant]="'primary'"
-            cardheight='card-stretch-half'>
+          <rds-widget [isRefreshRequired]="false" [headerTitle]="'Widget'" [colorVariant]="'gradient-primary'"
+            cardheight='card-stretch-half'> 
             <div body>
               <rds-big-number-widget [iconFill]="true" [iconStroke]="true" [iconColor]="'primary'"
                 [bigNumber]="'$13,20,21'" [textAlign]="'text-start'" subTitleColorVariant="warning"
@@ -225,8 +220,8 @@
           </rds-widget>
         </div>
       </div>
-      <div class="col-6">
-        <h6>{{"Big Number Widget -Right Aligned"|translate}}</h6>
+      <div class="col-lg-6 col-md-6 col-xs-12 mb-3">
+        <h6 class="mb-3">{{"Big Number Widget -Right Aligned"|translate}}</h6>
 
         <div>
           <rds-widget [isRefreshRequired]="false" [headerTitle]="'Widget'" [colorVariant]="'warning'"
@@ -240,11 +235,11 @@
           </rds-widget>
         </div>
       </div>
-      <div class="col-6">
-        <h6>{{"Big Number Widget -Center Aligned"|translate}}</h6>
+      <div class="col-lg-6 col-md-6 col-xs-12 mb-3">
+        <h6 class="mb-3">{{"Big Number Widget -Center Aligned"|translate}}</h6>
 
         <div>
-          <rds-widget [isRefreshRequired]="false" [headerTitle]="'Widget'" [colorVariant]="'success'"
+          <rds-widget [isRefreshRequired]="false" [headerTitle]="'Widget'" [colorVariant]="'gradient-primary'"
             cardheight='card-stretch-half'>
             <div body>
               <rds-big-number-widget [iconFill]="true" [iconStroke]="true" [iconColor]="'success'"
@@ -260,19 +255,19 @@
 </div>
 <!-- /Big Number Widget -->
 <!-- BreadCrumbs -->
-<div class="card mb-3">
+<div class="card mb-3 pt-3">
   <div class="card-header">
     <h5>
-      BreadCrumbs
+      {{"BreadCrumbs"|translate}}
     </h5>
   </div>
-  <div class="card-body  pt-0">
-    <div class="row border p-4 m-2">
-      <div class="col-6">
+  <div class="card-body pt-0">
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-xs-12 mb-3">
         <h6 class="mb-3">{{"BreadCrumbs - Basic"|translate}}</h6>
         <rds-breadcrumb role="basic"></rds-breadcrumb>
       </div>
-      <div class="col-6">
+      <div class="col-lg-6 col-md-6 col-xs-12 mb-3">
         <h6 class="mb-3">{{"BreadCrumbs - With Divider"|translate}}</h6>
         <rds-breadcrumb role="withDivider"></rds-breadcrumb>
       </div>
@@ -282,31 +277,31 @@
 </div>
 <!-- /BreadCrumbs -->
 <!-- ButtonGroup -->
-<div class="card mb-3">
+<div class="card mb-3 pt-3">
   <div class="card-header">
     <h5>
-      ButtonGroup
+      {{"ButtonGroup"|translate}}
     </h5>
   </div>
-  <div class="card-body  pt-0">
-    <div class="row border p-4 m-2">
-      <div class="row col-8">
-        <div class="col-6 pb-3">
+  <div class="card-body pt-0">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-xl-8 col-xs-12 col-xxl-8 mb-3 row">
+        <div class="col-lg-6 col-md-6 col-xs-12 mb-3 pb-3">
           <h6 class="mb-3">{{"ButtonGroup - Basic"|translate}}</h6>
           <rds-button-group [vertical]="false" [outline]="false" role="button" [buttonGroupItem]="buttonGroupItem">
           </rds-button-group>
         </div>
-        <div class="col-6">
+        <div class="col-lg-6 col-md-6 col-xs-12 mb-3">
           <h6 class="mb-3">{{"ButtonGroup - Checkbox"|translate}}</h6>
           <rds-button-group [vertical]="false" [outline]="true" role="checkbox" [buttonGroupItem]="buttonGroupItem">
           </rds-button-group>
         </div>
-        <div class="col-6">
+        <div class="col-lg-6 col-md-6 col-xs-12 mb-3">
           <h6 class="mb-3">{{"ButtonGroup - Radio"|translate}}</h6>
           <rds-button-group [vertical]="false" [outline]="true" role="radio" [buttonGroupItem]="buttonGroupItem">
           </rds-button-group>
         </div>
-        <div class="col-6">
+        <div class="col-lg-6 col-md-6 col-xs-12 mb-3">
           <h6 class="mb-3">{{"ButtonGroup - Icon"|translate}}</h6>
           <!-- <rds-button-group [vertical]="false" colorVariant="warning" [outline]="false" role="button"
           [buttonGroupItem]="buttonGroupItemWithIcon"></rds-button-group> -->
@@ -314,7 +309,7 @@
             [buttonGroupItem]="buttonGroupItemWithIcon"></rds-button-group>
         </div>
       </div>
-      <div class="col-4">
+      <div class="col-lg-4 col-md-6 col-xs-12 mb-3">
         <h6 class="mb-3">{{"ButtonGroup - Vertical"|translate}}</h6>
         <rds-button-group [vertical]="true" [outline]="false" role="button" [buttonGroupItem]="buttonGroupItem">
         </rds-button-group>
@@ -324,111 +319,152 @@
 </div>
 <!-- /ButtonGroup -->
 <!-- Button -->
-<div class="card mb-3">
+<div class="card mb-3 pt-3">
   <div class="card-header">
     <h5>
-      Button
+      {{"Button"|translate}}
     </h5>
   </div>
   <div class="card-body  pt-0">
     <div class="row border p-4 m-2">
-      <div class="row col-6">
-        <div class="col-4 pb-3">
-          <h6 class="mb-3">{{"Button - Basic"|translate}}</h6>
-          <rds-button colorVariant="primary" [submit]="false" [block]="false" [disabled]="false" [outlineButton]="false"
-            [roundedButton]="false" label="button" tooltipTitle="" tooltipPlacement="bottom">
-          </rds-button>
+      <div class="row mb-3">
+        <div class="col-lg-12 col-md-12 col-xxl-6">
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <h6 class="mb-3">{{"Button - Basic"|translate}}</h6>
+              <rds-button colorVariant="primary" [submit]="false" [block]="false" [isDisabled]="false" [isOutline]="false"
+                [isFabIcon]="false" label="button" tooltipTitle="" tooltipPlacement="bottom">
+              </rds-button>
+            </div>
+            <div class="col-md-4 mb-3">
+              <h6 class="mb-3">{{"Button - Disable"|translate}}</h6>
+              <rds-button colorVariant="primary" [submit]="false" [block]="false" [isDisabled]="true" [isOutline]="false"
+                [isFabIcon]="false" label="Disable" tooltipTitle="" tooltipPlacement="bottom">
+              </rds-button>
+            </div>
+            <div class="col-md-4 mb-3">
+              <h6 class="mb-3">{{"Button - Icon With Label"|translate}}</h6>
+              <rds-button colorVariant="primary" [submit]="false" [block]="false" [isDisabled]="false" [isOutline]="false"
+                [isFabIcon]="false" icon="pencil" iconHeight="18px" iconWidth="18px" label="button" tooltipTitle=""
+                tooltipPlacement="bottom">
+              </rds-button>
+            </div>
+          </div>
         </div>
-        <div class="col-4">
-          <h6 class="mb-3">{{"Button - Disable"|translate}}</h6>
-          <rds-button colorVariant="primary" [submit]="false" [block]="false" [disabled]="true" [outlineButton]="false"
-            [roundedButton]="false" label="Disable" tooltipTitle="" tooltipPlacement="bottom">
-          </rds-button>
-        </div>
-        <div class="col-4">
-          <h6 class="mb-3">{{"Button - Icon With Label"|translate}}</h6>
-          <rds-button colorVariant="primary" [submit]="false" [block]="false" [disabled]="false" [outlineButton]="false"
-            [roundedButton]="false" icon="pencil" iconHeight="18px" iconWidth="18px" label="button" tooltipTitle=""
-            tooltipPlacement="bottom">
-          </rds-button>
-        </div>
-        <div class="col-4">
-          <h6 class="mb-3">{{"Button - Outline"|translate}}</h6>
-          <rds-button colorVariant="primary" [submit]="false" [block]="false" [disabled]="false" [outlineButton]="true"
-            [roundedButton]="false" label="outline" tooltipTitle="" tooltipPlacement="bottom">
-          </rds-button>
-        </div>
-        <div class="col-4">
-          <h6 class="mb-3">{{"Button - Tooltip"|translate}}</h6>
-          <rds-button colorVariant="primary" [submit]="false" [block]="false" [disabled]="false" [outlineButton]="false"
-            [roundedButton]="false" label="button" tooltipTitle="This is tooltip" tooltipPlacement="bottom">
-          </rds-button>
-        </div>
-        <div class="col-4">
-          <h6 class="mb-3">{{"Button - icon"|translate}}</h6>
-          <rds-button colorVariant="primary" [submit]="false" [size]="'small'" [block]="false" [disabled]="false"
-            [outlineButton]="false" [roundedButton]="true" icon="pencil" label="" iconHeight="13px" iconWidth="13px"
-            tooltipTitle="" tooltipPlacement="bottom">
-          </rds-button>
+        <div class="col-lg-12 col-md-12 col-xxl-6">
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <h6 class="mb-3">{{"Button - Outline"|translate}}</h6>
+              <rds-button colorVariant="primary" [submit]="false" [block]="false" [isDisabled]="false" [isOutline]="true"
+                [isFabIcon]="false" label="outline" tooltipTitle="" tooltipPlacement="bottom">
+              </rds-button>
+            </div>
+            <div class="col-md-4 mb-3">
+              <h6 class="mb-3">{{"Button - Tooltip"|translate}}</h6>
+              <rds-button  type="button" colorVariant="primary" [submit]="false" [block]="false" [isDisabled]="false" [isOutline]="false"
+                [isFabIcon]="false" label="button" tooltipTitle="This is tooltip" tooltipPlacement="bottom">
+              </rds-button>      
+            </div>
+            <div class="col-md-4 mb-3">
+              <h6 class="mb-3">{{"Button - icon"|translate}}</h6>
+              <rds-button colorVariant="primary" [submit]="false" [size]="'small'" [block]="false" [isDisabled]="false"
+                [isOutline]="false" [isFabIcon]="true" icon="pencil" label="" iconHeight="13px" iconWidth="13px"
+                tooltipTitle="" tooltipPlacement="bottom">
+              </rds-button>
+            </div>
+          </div>
         </div>
       </div>
-
-      <div class="col-6 ms-4">
-        <h6 class="mb-3">Button - Size</h6>
+      
+      <div class="col-lg-12 col-xl-12 col-xs-12 col-xxl-12 mb-3">
         <div class="row">
-          <div class="col-3">
-            <rds-button colorVariant="primary" [submit]="false" [block]="false" [disabled]="false"
-              [outlineButton]="false" [roundedButton]="false" label="button" tooltipTitle="This is tooltip"
-              tooltipPlacement="bottom" [size]="'small'"></rds-button>
+          <div class="col-lg-12 col-md-12 col-xxl-6">
+            <h6 class="mb-3">{{"Button - Size"|translate}}</h6>
+            <div class="row">
+              <div class="col-md-4 pb-3">
+                <rds-button colorVariant="primary" [submit]="false" [block]="false" [isDisabled]="false"
+                  [isOutline]="false" [isFabIcon]="false" label="button" tooltipTitle="This is tooltip"
+                  tooltipPlacement="bottom" [size]="'small'"></rds-button>
+              </div>
+              <div class="col-md-4 pb-3">
+                <rds-button colorVariant="primary" [submit]="false" [block]="false" [isDisabled]="false"
+                  [isOutline]="false" [isFabIcon]="false" label="button" tooltipTitle="This is tooltip"
+                  tooltipPlacement="bottom" [size]="'medium'"></rds-button>
+              </div>
+              <div class="col-md-4 pb-3">
+                <rds-button colorVariant="primary" [submit]="false" [block]="false" [isDisabled]="false"
+                  [isOutline]="false" [isFabIcon]="false" label="button" tooltipTitle="This is tooltip"
+                  tooltipPlacement="bottom" [size]="'large'"></rds-button>
+              </div>
+            </div>
           </div>
-          <div class="col-3">
-            <rds-button colorVariant="primary" [submit]="false" [block]="false" [disabled]="false"
-              [outlineButton]="false" [roundedButton]="false" label="button" tooltipTitle="This is tooltip"
-              tooltipPlacement="bottom" [size]="'medium'"></rds-button>
-          </div>
-          <div class="col-3">
-            <rds-button colorVariant="primary" [submit]="false" [block]="false" [disabled]="false"
-              [outlineButton]="false" [roundedButton]="false" label="button" tooltipTitle="This is tooltip"
-              tooltipPlacement="bottom" [size]="'large'"></rds-button>
-          </div>
-        </div>
-        <h6 class="mt-3 mb-3">Button Icon- Size</h6>
-        <div class="row">
-          <div class="col-3">
-            <rds-button colorVariant="primary" [submit]="false" [size]="'small'" [block]="false" [disabled]="false"
-              [outlineButton]="false" [roundedButton]="true" icon="pencil" label="" iconHeight="14px" iconWidth="14px"
-              tooltipTitle="" tooltipPlacement="bottom">
-            </rds-button>
-          </div>
-          <div class="col-3">
-            <rds-button colorVariant="primary" [submit]="false" [size]="'medium'" [block]="false" [disabled]="false"
-              [outlineButton]="false" [roundedButton]="true" icon="pencil" label="" iconHeight="18px" iconWidth="18px"
-              tooltipTitle="" tooltipPlacement="bottom">
-            </rds-button>
-          </div>
-          <div class="col-3">
-            <rds-button colorVariant="primary" [submit]="false" [size]="'large'" [block]="false" [disabled]="false"
-              [outlineButton]="false" [roundedButton]="true" icon="pencil" label="" iconHeight="24px" iconWidth="24px"
-              tooltipTitle="" tooltipPlacement="bottom">
-            </rds-button>
-          </div>
-        </div>
 
+          <div class="col-lg-12 col-md-12 col-xxl-6">
+            <h6 class="mb-3">{{"Button - Icon- Size"|translate}}</h6>
+            <div class="row">
+              <div class="col-md-4 pb-3">
+                <rds-button colorVariant="primary" [submit]="false" [size]="'small'" [block]="false" [isDisabled]="false"
+                  [isOutline]="false" [isFabIcon]="true" icon="pencil" label="" iconHeight="14px" iconWidth="14px"
+                  tooltipTitle="" tooltipPlacement="bottom">
+                </rds-button>
+              </div>
+              <div class="col-md-4 pb-3">
+                <rds-button colorVariant="primary" [submit]="false" [size]="'medium'" [block]="false" [isDisabled]="false"
+                  [isOutline]="false" [isFabIcon]="true" icon="pencil" label="" iconHeight="18px" iconWidth="18px"
+                  tooltipTitle="" tooltipPlacement="bottom">
+                </rds-button>
+              </div>
+              <div class="col-md-4 pb-3">
+                <rds-button colorVariant="primary" [submit]="false" [size]="'large'" [block]="false" [isDisabled]="false"
+                  [isOutline]="false" [isFabIcon]="true" icon="pencil" label="" iconHeight="24px" iconWidth="24px"
+                  tooltipTitle="" tooltipPlacement="bottom">
+                </rds-button>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+        <!-- <h6 class="mb-3">Button Icon- Size</h6>
+        <div class="row align-items-center">
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-4 pb-3">
+                <rds-button colorVariant="primary" [submit]="false" [size]="'small'" [block]="false" [isDisabled]="false"
+                  [isOutline]="false" [isFabIcon]="true" icon="pencil" label="" iconHeight="14px" iconWidth="14px"
+                  tooltipTitle="" tooltipPlacement="bottom">
+                </rds-button>
+              </div>
+              <div class="col-md-4 pb-3">
+                <rds-button colorVariant="primary" [submit]="false" [size]="'medium'" [block]="false" [isDisabled]="false"
+                  [isOutline]="false" [isFabIcon]="true" icon="pencil" label="" iconHeight="18px" iconWidth="18px"
+                  tooltipTitle="" tooltipPlacement="bottom">
+                </rds-button>
+              </div>
+              <div class="col-md-4 pb-3">
+                <rds-button colorVariant="primary" [submit]="false" [size]="'large'" [block]="false" [isDisabled]="false"
+                  [isOutline]="false" [isFabIcon]="true" icon="pencil" label="" iconHeight="24px" iconWidth="24px"
+                  tooltipTitle="" tooltipPlacement="bottom">
+                </rds-button>
+              </div>
+            </div>
+          </div>
+        </div> -->
       </div>
     </div>
   </div>
 </div>
 <!-- /Button -->
 <!-- Card -->
-<div class="card mb-3">
+<div class="card mb-3 pt-3">
   <div class="card-header">
     <h5>
-      Card
+      {{"Card"|translate}}
     </h5>
   </div>
   <div class="card-body  pt-0">
-    <div class="row border p-4 m-2">
-      <div class="col-4">
+    <div class="row pb-5">
+      <div class="col-lg-6 col-md-12 col-xl-4 col-xs-12 col-xxl-4 mb-3">
         <h6 class="mb-3">{{"Card - Basic"|translate}}</h6>
         <rds-card class="rounded-avatar-basic">
           <div class="text-center" header>
@@ -439,12 +475,12 @@
             <p class="custom-desc px-3">{{cardData.cardDescription}}</p>
           </div>
           <div footer>
-            <a href="#" class="btn btn-primary m-3">{{"Go somewhere"|translate}}</a>
+            <a href="#" class="btn btn-primary">{{"Go somewhere"|translate}}</a>
           </div>
         </rds-card>
       </div>
-      <div class="col-4">
-        <h6 class="mb-3">Card - With Avatar</h6>
+      <div class="col-lg-6 col-md-12 col-xl-4 col-xs-12 col-xxl-4 mb-3">
+        <h6 class="mb-3">{{"Card - With Avatar"| translate}}</h6>
         <rds-card width="30%" class="rounded-avatar-left">
           <div header>
             <div class="banner-image1">
@@ -457,11 +493,11 @@
             <p class="custom-desc">{{cardData.cardDescription}}</p>
           </div>
           <div footer>
-            <a href="#" class="btn btn-primary m-3">{{"Go somewhere"|translate}}</a>
+            <a href="#" class="btn btn-primary">{{"Go somewhere"|translate}}</a>
           </div>
         </rds-card>
       </div>
-      <div class="col-4">
+      <div class="col-lg-6 col-md-12 col-xl-4 col-xs-12 col-xxl-4 mb-3">
         <h6 class="mb-3">{{"Card - With Avatar center"|translate}}</h6>
         <rds-card width="28%" class="rounded-avatar-center">
           <div header>
@@ -476,7 +512,7 @@
             <p class="custom-desc">{{cardData.cardDescription}}</p>
           </div>
           <div footer>
-            <a href="#" class="btn btn-primary m-3">{{"Go somewhere"|translate}}</a>
+            <a href="#" class="btn btn-primary">{{"Go somewhere"|translate}}</a>
           </div>
         </rds-card>
       </div>
@@ -485,19 +521,19 @@
 </div>
 <!-- /Card -->
 <!-- Carousel -->
-<div class="card mb-3">
+<div class="card mb-3 pt-3">
   <div class="card-header">
     <h5>
-      Carousel
+      {{"Carousel"|translate}}
     </h5>
   </div>
-  <div class="card-body  pt-0">
-    <div class="row border p-4 m-2">
-      <div class="col-6">
-        <h6 class="mb-3">{{"Carousel"|translate}}</h6>
+  <div class="card-body pt-0">
+    <div class="row">
+      <div class="col-lg-12 col-xs-12">
+        <!-- <h6 class="mb-3">{{"Carousel"|translate}}</h6> -->
         <!-- <rds-carousel [crossFade]="true" [darkVariant]="false" [indicators]="true" [controls]="true"
         [imageItem]="imageItem"></rds-carousel> -->
-        <rds-carousel [crossFade]="true" [darkVariant]="false" [indicators]="true" [controls]="true"
+        <rds-carousel [crossFade]="true" [indicators]="true" [controls]="true"
           [imageItem]="imageItem"></rds-carousel>
       </div>
     </div>
@@ -505,15 +541,15 @@
 </div>
 <!-- /Carousel -->
 <!-- Checkbox -->
-<div class="card mb-3">
+<div class="card mb-3 pt-3">
   <div class="card-header">
     <h5>
-      Checkbox
+      {{"Checkbox"|translate}}
     </h5>
   </div>
-  <div class="card-body  pt-0">
-    <div class="row border p-4 m-2">
-      <div class="col-md-4">
+  <div class="card-body pt-0">
+    <div class="row">
+      <div class="col-lg-4 col-md-4 col-xs-12 mb-3">
         <div class="pb-4">
           <h6 class="mb-3">{{"Checkbox"|translate}}</h6>
           <rds-checkbox [label]="'default checkbox'" [checked]="false" [disabled]="false" [switch]="false"
@@ -521,41 +557,59 @@
         </div>
         <div>
           <h6 class="mb-3">{{"Checkbox Group"|translate}}</h6>
-          <rds-checkbox-groups [checked]="false" [disabled]="false" [switch]="false" [inline]="true" [withLabel]="true"
-            [isInputGroup]="false" [itemList]="itemList" [id]="'checkboxGroup'"></rds-checkbox-groups>
+          <rds-checkbox-groups [switch]="false" [inline]="true" [withLabel]="true"
+            [isInputGroup]="false" [itemList]="itemListWithInputGroup" [id]="'checkboxGroup'"></rds-checkbox-groups>
         </div>
       </div>
-      <div class="col-md-4">
+      <div class="col-lg-4 col-md-4 col-xs-12 mb-3">
         <div>
           <h6 class="mb-3">{{"Checkbox Group"|translate}}</h6>
-          <rds-checkbox-groups [checked]="false" [disabled]="false" [switch]="false" [inline]="false" [withLabel]="true"
-            [isInputGroup]="true" [itemList]="itemList" [id]="'checkboxGroup1'"></rds-checkbox-groups>
+          <rds-checkbox-groups [switch]="false" [inline]="false" [withLabel]="true"
+            [isInputGroup]="true" [itemList]="itemListWithoutInputGroup" [id]="'checkboxGroup1'"></rds-checkbox-groups>
         </div>
       </div>
-      <div class="col-md-4">
+      <div class="col-lg-4 col-md-4 col-xs-12 mb-3">
         <h6 class="mb-3">{{"Checkbox -Parent Child"|translate}}</h6>
-        <rds-checkbox-parent-child [checked]="false" [disabled]="false" [label]="'default checkbox'" [switch]="false"
-          [inline]="false" [withLabel]="true" [isInputGroup]="false" [id]="'checkboxParentChild'">
+        <rds-checkbox-parent-child [switch]="false"
+          [inline]="false" [isInputGroup]="false" [itemList]="checkboxParentChilditemList" [id]="'checkboxParentChild'">
         </rds-checkbox-parent-child>
+
+
       </div>
     </div>
   </div>
 </div>
 <!-- /Checkbox -->
 <!-- Collapse -->
-<div class="card mb-3">
+<div class="card mb-3 pt-3">
   <div class="card-header">
     <h5>
-      Collapse
+      {{"Collapse"|translate}}
     </h5>
   </div>
 
-  <div class="card-body  pt-0">
-    <div class="card card-body mb-3">
-      <div class="container border p-4 m-2">
-        <h6>Multi-Collapse example</h6>
-        <rds-collapse collapseId="collapseExample4" label="collapse button" [multipleButton]="true"
-          content="placeholder content for collapse. Its hidden by default and shown when triggered."></rds-collapse>
+  <div class="card-body pt-0">
+    <div class="mb-3">
+      <div class="">
+        <h6 class="mb-3">Multi-Collapse example</h6>
+        <rds-collapse [buttonList]="buttonList">
+          <div class="row mt-4">
+          <div class="col-lg-6 col-xs-12 mb-3">
+            <div class="collapse" id="collapseExample">
+              <div class="card card-body">
+                Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-xs-12 mb-3">
+            <div class="collapse multi-collapse" id="collapseExample1">
+              <div class="card card-body">
+                Some placeholder content for the second collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.
+              </div>
+            </div>
+          </div>
+        </div>
+          </rds-collapse>
       </div>
 
     </div>
@@ -563,16 +617,16 @@
 </div>
 <!-- /Collapse -->
 <!-- Color Picker -->
-<div class="card mb-3">
+<div class="card mb-3 pt-3">
   <div class="card-header">
     <h5>
-      Color Picker
+      {{"Color Picker"|translate}}
     </h5>
   </div>
-  <div class="card-body  pt-0">
-    <div class="row border p-4 m-2">
-      <div class="col-8">
-        <h6 class="mb-3">{{"Color Picker"|translate}}</h6>
+  <div class="card-body pt-0">
+    <div class="row">
+      <div class="col-lg-12 col-xs-12">
+        <!-- <h6 class="mb-3">{{"Color Picker"|translate}}</h6> -->
         <rds-color-picker value="#800080" [label]="translate.instant('Color picker')" [disabled]="false"
           title="Pick your color" [position]="'start'">
         </rds-color-picker>
@@ -582,76 +636,61 @@
 </div>
 <!-- /Color Picker -->
 <!-- Date Picker -->
-<div class="card mb-3">
+<div class="card mb-3 pt-3">
   <div class="card-header">
     <h5>
-      Date Picker
+      {{"Date Picker"|translate}}
     </h5>
   </div>
-  <div class="card-body  pt-0">
-    <div class="row border p-4 m-2">
-      <div class="col-6">
+  <div class="card-body pt-0">
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-xs-12 mb-3">
         <h6 class="mb-3">{{"Date Picker - Basic"|translate}}</h6>
-
         <rds-datepicker datePickerType="basic" name="date-picker" [placeholder]="translate.instant('End Date')">
         </rds-datepicker>
-
-
         <!-- <rds-datepicker datePickerType="advanced"
           DatePickerConfig="{ dateInputFormat: 'DD/MM/YYYY', showWeekNumbers: false, isAnimated: true }"
           placeholder="Date" datesDisabled="[]" datesEnabled="[]" dateTooltipTexts="[]" daysDisabled="[]" [isOpen]="false"
           [outsideClick]="true" [outsideEsc]="false" placement="bottom" Label="Date Range" format="MM-dd-YYYY">
         </rds-datepicker>-->
       </div>
-      <div class="col-6">
-
-        <h6 class="mb-3 ms-3">{{"Date Picker - Advanced"|translate}}</h6>
-        <rds-datepicker datePickerType="advanced" label="Date Range"></rds-datepicker>
-
+      <div class="col-lg-6 col-md-6 col-xs-12 mb-3 date-picker-advanced">
+        <h6 class="ms-3 sm-ms-0">{{"Date Picker - Advanced"|translate}}</h6>
+        <rds-datepicker datePickerType="advanced"></rds-datepicker>
       </div>
-
-
-    </div>
-    <div class="col-4">
-      <!-- <h6>{{"Date Picker - Basic"|translate}}</h6> -->
-      <!-- <rds-datepicker datePickerType="basic"
-      DatePickerConfig=" { dateInputFormat: 'DD/MM/YYYY', showWeekNumbers: false, isAnimated: true }"
-      placeholder="Date" datesDisabled="[new Date()]"
-      dateTooltipTexts="[{ date: new Date(), tooltipText: 'todays Date' }]" daysDisabled="[3]"
-      maxDate=" new Date(new Date().setDate(27))" placement="bottom"></rds-datepicker> -->
     </div>
   </div>
 </div>
 <!-- /Date Picker -->
 <!-- Double Range -->
-<div class="card mb-3">
+<div class="card mb-3 pt-3">
   <div class="card-header">
     <h5>
-      Double Range
+      {{"Double Range"|translate}}
     </h5>
   </div>
-  <div class="card-body  pt-0">
-    <div class="row border p-4 m-2">
-      <h6 class="mb-3">{{"Double Range"|translate}}</h6>
-      <rds-double-range [min]="50" [max]="100"></rds-double-range>
+  <div class="card-body pt-0">
+    <div class="px-3">
+      <!-- <h6 class="mb-3">{{"Double Range"|translate}}</h6> -->
+      <rds-double-range [min]="0" [max]="100"></rds-double-range>
     </div>
   </div>
 </div>
 <!-- /Double Range -->
 <!-- Dropdown -->
-<div class="card mb-3">
+<div class="card mb-3 pt-3">
   <div class="card-header">
     <h5>
-      Dropdown
+      {{"Dropdown"|translate}}
     </h5>
   </div>
-  <div class="card-body  pt-0">
-    <div class="row border p-4 m-2">
+  <div class="card-body pt-0">
+    <div class="row">
 
 
-      <div class="col-6">
+      <div class="col-lg-6 col-md-6 col-xs-12 mb-3">
         <h6 class="mb-3">{{"Dropdown List Without Icon"|translate}}</h6>
-        <rds-dropdownlist [listItems]="listItems" size="default" class="text-dark" [placeholder]="'Select Country'">
+        <rds-dropdownlist [listItems]="listItems"  class="text-dark" [placeholder]="'Select Country'" [borderDropdown]="true">
           <ng-template #DropdownItems let-val let-index="index">
             <li [class.active]="index === 1">
               <div class="d-flex align-items-center bind-center-div1 group-list">
@@ -667,9 +706,9 @@
         </rds-dropdownlist>
       </div>
 
-      <div class="col-6">
+      <div class="col-lg-6 col-md-6 col-xs-12 mb-3">
         <h6 class="mb-3">{{"Dropdown List With Icon"|translate}}</h6>
-        <rds-dropdownlist [listItems]="listItemsCountryCode" size="default" class="text-dark"
+        <rds-dropdownlist [listItems]="listItemsCountryCode"  class="text-dark" [borderDropdown]="true"
           [placeholder]="'Select Country Code'">
           <ng-template #DropdownItems let-val let-index="index">
             <li [class.active]="index === 1">
@@ -692,16 +731,16 @@
 
 <!-- /Dropdown -->
 <!-- Editor -->
-<div class="card mb-3">
+<div class="card mb-3 pt-3">
   <div class="card-header">
     <h5>
-      Editor
+      {{"Editor"|translate}}
     </h5>
   </div>
-  <div class="card-body  pt-0">
-    <div class="row border p-4 m-2">
-      <h6 class="mb-3">Editor</h6>
-      <div class="col-md-12">
+  <div class="card-body pt-0">
+    <div class="row">
+      <!-- <h6 class="mb-3">Editor</h6> -->
+      <div class="col-lg-12 col-xs-12">
         <rds-text-editor id="" editorData="<p>Hello!</p>"></rds-text-editor>
       </div>
     </div>
@@ -709,64 +748,23 @@
 </div>
 <!-- /Editor -->
 <!-- File Uploader -->
-<div class="card mb-3">
+<div class="card mb-3 pt-3">
   <div class="card-header">
     <h5>
-      File Uploader
+      {{"File Uploader"|translate}}
     </h5>
   </div>
-  <div class="card-body  pt-0">
-    <div class="row border p-4 m-2">
-      <div class="row">
-        <div class="col-xl-6 col-md-9 mb-4">
-          <!-- =========================== rds-fileuploader ============================ -->
-          <!--<form class="rds-fileuploader ">
-            <div class="row">
-              <div class="col-6">
-                <label>
-                  Upload Files
-                </label>
-              </div>
-              <div class="col-6 text-end">
-                <label class="text-muted">
-                  Maximum 5MB
-                </label>
-              </div>
-
-            </div>
-            <input type="file" id="file-upload" multiple required />
-            <label class="file-upload" for="file-upload">
-              Drag and drop files
-              <div>(PNG, JPG, DOC, PDF, PPT)</div>
-            </label>
-            <div>
-              <div class="alert alert-dismissible" role="alert" id="rds-file-label" style="display: none;">
-                <div class="row">
-                  <div class="col-md-1 col-1 text-end">
-                    <img src="images/components/_file-uploaders/default-icon.svg" width="20px">
-                  </div>
-                  <div class="col-md-8 col-8">
-                    <div id="file-upload-filename"></div>
-                  </div>
-                  <div class="col-md-3 col-3  text-center pr-4"> 478 KB </div>
-                </div>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-              </div>
-
-            </form>-->
-          <!-- =========================== /rds-fileuploader ============================ -->
-        </div>
-      </div>
-      <div class="col-6">
+  <div class="card-body pt-0">
+    <div class="row">
+      <div class="col-lg-6 col-xs-12 mb-3">
         <h6 class="mb-3">{{"File Uploader"|translate}}</h6>
         <rds-file-uploader label="Upload Files" [multipleFiles]="false" maxfilesize="5" sizeType="" role="default">
         </rds-file-uploader>
       </div>
-      <div class="col-6">
-        <h6 class="mb-3">{{"Multiple File Uploader"|translate}}</h6>
+      <div class="col-lg-6 col-xs-12 mb-3">
+        <h6>{{"Multiple File Uploader"|translate}}</h6>
         <rds-file-uploader label="Upload Files" [multipleFiles]="true" maxfilesize="5" sizeType="" role="fileUpload">
         </rds-file-uploader>
-
       </div>
     </div>
 
@@ -775,16 +773,15 @@
 
 <!-- /File Uploader -->
 <!-- Icon -->
-<div class="card mb-3">
+<div class="card mb-3 pt-3">
   <div class="card-header">
     <h5>
-      Icon
+      {{"Icon"|translate}}
     </h5>
   </div>
-  <div class="card-body  pt-0">
-    <div class="row border p-4 m-2">
-      <div class="col-4"></div>
-      <h6 class="mb-3">{{"Icon"|translate}}</h6>
+  <div class="card-body pt-0 mb-3">
+    <div class="">
+      <!-- <h6 class="mb-3">{{"Icon"|translate}}</h6> -->
       <rds-icon name="file_plus" [height]="'100px'" [width]="'100px'"></rds-icon>
       <!-- <rds-icon icon="calendar-date" [size]="15"></rds-icon> -->
     </div>
@@ -792,16 +789,15 @@
 </div>
 <!-- /Icon -->
 <!-- Badge -->
-<div class="card mb-3">
+<div class="card mb-3 pt-3">
   <div class="card-header">
     <h5>
-      Illustration
+      {{"Illustration"|translate}}
     </h5>
   </div>
-  <div class="card-body  pt-0">
-    <div class="row border p-4 m-2">
-      <div class="col-6"></div>
-      <h6 class="mb-3">{{"Illustration"|translate}}</h6>
+  <div class="card-body pt-0 ">
+    <div class="">
+      <!-- <h6 class="mb-3">{{"Illustration"|translate}}</h6> -->
       <rds-illustration label="Currently you do not have Webhook Subscriptions"
         subLabel="Click on the button above to add"></rds-illustration>
     </div>
@@ -810,87 +806,87 @@
 </div>
 <!-- /Badge -->
 <!-- Input Group -->
-<div class="card mb-3">
+<div class="card mb-3 pt-3">
   <div class="card-header">
     <h5>
-      Input Group
+      {{"Input Group"|translate}}
     </h5>
   </div>
-  <div class="card-body  pt-0">
-    <div class="row border p-4 m-2">
-      <div class="col-5">
-        <h6 class="mb-3">{{"Input Group"|translate}}</h6>
-        <rds-input-group>
-          <input type="text" class="form-control" id="Errormessage" placeholder="placeholder" />
-          <rds-button id="button-addon1" [label]="'Button'" [colorVariant]="'primary'" [outlineButton]="false"
-            [size]="'medium'" type="button">
-          </rds-button>
-        </rds-input-group>
+  <div class="card-body pt-0">
+    <div class="row">
+      <div class="col-lg-12 col-xs-12">
+        <!-- <h6 class="mb-3">{{"Input Group"|translate}}</h6> -->
+        <rds-input-group
+          colorVariant="primary"
+          size="small"
+          position="top"
+          placeholder="placeholder"
+          buttonLabel="button"
+        ></rds-input-group>
       </div>
     </div>
   </div>
 </div>
 <!-- /Input Group -->
 <!-- Input -->
-<div class="card mb-3">
+<div class="card mb-3 pt-3">
   <div class="card-header">
     <h5>
-      Input
+      {{"Input"|translate}}
     </h5>
   </div>
-  <div class="card-body  pt-0">
-    <div class="row border p-4 m-2">
-      <div class="col-2">
+  <div class="card-body pt-0">
+    <div class="row">
+      <div class="col-lg-3 col-md-3 col-xl-3 col-xs-12 col-xxl-3 mb-4">
         <h6 class="mb-3">{{"Input - With Auto Tooltip"|translate}}</h6>
-        <rds-input size="default" [disabled]="false" Title="" TitleType="text" [readonly]="false" value=""
-          inputType="text" placeholder="Add placeholder" inputName="Field_name" icon="" tooltipTitle="Auto"
-          tooltipPlacement="auto"></rds-input>
+        <rds-input size="medium" [disabled]="false" [readonly]="false" value="" inputType="text"
+          placeholder="Add placeholder" inputName="Field_name" icon="" tooltipTitle="Auto" tooltipPlacement="bottom">
+        </rds-input>
       </div>
-      <div class="col-2">
+      <div class="col-lg-3 col-md-3 col-xl-3 col-xs-12 col-xxl-3 mb-4">
         <h6 class="mb-3">{{"Input - Basic"|translate}}</h6>
-        <rds-input size="default" [disabled]="false" Title="" TitleType="text" [readonly]="false" value=""
-          inputType="text" placeholder="Add placeholder" inputName="Field_name" icon="" tooltipTitle=""
-          tooltipPlacement="top"></rds-input>
+        <rds-input size="medium" [disabled]="false" [readonly]="false" value="" inputType="text"
+          placeholder="Add placeholder" inputName="Field_name" icon="" tooltipTitle="" tooltipPlacement="top">
+        </rds-input>
       </div>
-      <div class="col-2">
+      <div class="col-lg-3 col-md-3 col-xl-3 col-xs-12 col-xxl-3 mb-4">
         <h6 class="mb-3">{{"Input - Bottom tooltip"|translate}}</h6>
-        <rds-input size="default" [disabled]="false" Title="" TitleType="text" [readonly]="false" value=""
-          inputType="text" placeholder="Add placeholder" inputName="Field_name" icon="" tooltipTitle="Bottom"
-          tooltipPlacement="bottom"></rds-input>
+        <rds-input size="medium" [disabled]="false" [readonly]="false" value="" inputType="text"
+          placeholder="Add placeholder" inputName="Field_name" icon="" tooltipTitle="Bottom" tooltipPlacement="bottom">
+        </rds-input>
       </div>
-      <div class="col-2">
+      <div class="col-lg-3 col-md-3 col-xl-3 col-xs-12 col-xxl-3 mb-4">
         <h6 class="mb-3">{{"Input - left tooltip"|translate}}</h6>
-        <rds-input size="default" [disabled]="false" Title="" TitleType="text" [readonly]="false" value=""
-          inputType="text" placeholder="Add placeholder" inputName="Field_name" icon="" tooltipTitle="Left"
-          tooltipPlacement="left"></rds-input>
+        <rds-input size="medium" [disabled]="false" [readonly]="false" value="" inputType="text"
+          placeholder="Add placeholder" inputName="Field_name" icon="" tooltipTitle="Left" tooltipPlacement="left">
+        </rds-input>
       </div>
-      <div class="col-2">
+      <div class="col-lg-3 col-md-3 col-xl-3 col-xs-12 col-xxl-3 mb-4">
         <h6 class="mb-3">{{"Input - right tootip"|translate}}</h6>
-        <rds-input size="default" [disabled]="false" Title="" TitleType="text" [readonly]="false" value=""
-          inputType="text" placeholder="Add placeholder" inputName="Field_name" icon="" tooltipTitle="Right"
-          tooltipPlacement="right"></rds-input>
+        <rds-input size="medium" [disabled]="false" [readonly]="false" value="" inputType="text"
+          placeholder="Add placeholder" inputName="Field_name" icon="" tooltipTitle="Right" tooltipPlacement="right">
+        </rds-input>
       </div>
-      <div class="col-2">
+      <div class="col-lg-3 col-md-3 col-xl-3 col-xs-12 col-xxl-3 mb-4">
         <h6 class="mb-3">{{"Input- top-tooltip"|translate}}</h6>
-        <rds-input size="default" [disabled]="false" Title="" TitleType="text" [readonly]="false" value=""
-          inputType="text" placeholder="Add placeholder" inputName="Field_name" icon="" tooltipTitle="Top"
-          tooltipPlacement="top"></rds-input>
-
+        <rds-input size="medium" [disabled]="false" [readonly]="false" value="" inputType="text"
+          placeholder="Add placeholder" inputName="Field_name" icon="" tooltipTitle="Top" tooltipPlacement="top">
+        </rds-input>
       </div>
     </div>
   </div>
 </div>
 <!-- /Input -->
 <!-- List Group -->
-<div class="card mb-3">
+<div class="card mb-3 pt-3">
   <div class="card-header">
     <h5>
-      List Group
+      {{"List Group"|translate}}
     </h5>
   </div>
-  <div class="card-body  pt-0">
-    <div class="row border p-4 m-2">
-      <div class="col-md-6">
+  <div class="card-body pt-0">
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-xs-12 mb-3">
         <h6 class="mb-3">{{"List Group"|translate}}</h6>
         <rds-list-group listType="list" [listItem]="listitem">
           <ng-template #list let-item>
@@ -901,7 +897,7 @@
           </ng-template>
         </rds-list-group>
       </div>
-      <div class="col-md-6">
+      <div class="col-lg-6 col-md-6 col-xs-12 mb-3">
         <h6 class="mb-3">{{"List Group With multiselect"|translate}}</h6>
         <rds-list-group listType="list" [multiSelect]="true" [listItem]="listitemCheck">
           <ng-template #list1 let-item>
@@ -917,20 +913,20 @@
 </div>
 <!-- /List Group -->
 <!-- Modal -->
-<div class="card mb-3">
+<div class="card mb-3 pt-3">
   <div class="card-header">
     <h5>
-      Modal
+      {{"Modal"|translate}}
     </h5>
   </div>
-  <div class="card-body  pt-0">
-    <div class="row border p-4 m-2">
-      <div class="col-3 pb-4">
+  <div class="card-body pt-0">
+    <div class="row">
+      <div class="col-lg-4 col-md-4 col-xl-4 col-xs-12 col-xxl-4 mb-3">
         <h6 class="mb-3">{{"Form Modal"|translate}}</h6>
         <rds-button [label]="'Form Modal'" [colorVariant]="'primary'" [size]="'small'" type="button"
           data-bs-toggle="modal" data-bs-target="#storybookModal">
         </rds-button>
-        <rds-modal modalId="storybookModal">
+        <rds-modal modalId="storybookModal" [preventEscapeKey]="true">
           <div modalheader class="col-md-12">
             <rds-button type="button" class="btn-close float-end" colorVariant="default" data-bs-dismiss="modal"
               aria-label="Close">
@@ -941,7 +937,7 @@
             <p>{{modalData.modalContent}}</p>
           </div>
           <div modalfooter>
-            <rds-button class="m-1" [label]="translate.instant('Close')" [outlineButton]="true"
+            <rds-button class="m-1" [label]="translate.instant('Close')" [isOutline]="true"
               [colorVariant]="'primary'" [size]="'small'" type="button" data-bs-dismiss="modal"></rds-button>
             <rds-button [label]="translate.instant('Save Changes')" [colorVariant]="'primary'" [size]="'small'"
               type="button" data-bs-dismiss="modal"></rds-button>
@@ -1040,13 +1036,13 @@
         </rds-modal>
       </div> -->
 
-      <div class="col-3">
+      <div class="col-lg-4 col-md-4 col-xl-4 col-xs-12 col-xxl-4 mb-3">
         <h6 class="mb-3">{{"Long Content Modal"|translate}}</h6>
         <rds-button [label]="translate.instant('Long Content Modal')" [colorVariant]="'primary'" [size]="'small'"
           type="button" data-bs-toggle="modal" data-bs-target="#storybookLongModal">
         </rds-button>
 
-        <rds-modal modalId="storybookLongModal" [scrollable]="true">
+        <rds-modal modalId="storybookLongModal" [preventEscapeKey]="true" [scrollable]="true">
           <div modalheader class="col-md-12">
             <rds-button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close">
             </rds-button>
@@ -1058,21 +1054,21 @@
             </p>
           </div>
           <div modalfooter>
-            <rds-button class="m-1" [label]="translate.instant('Close')" [outlineButton]="true"
+            <rds-button class="m-1" [label]="translate.instant('Close')" [isOutline]="true"
               [colorVariant]="'primary'" [size]="'small'" type="button" data-bs-dismiss="modal"></rds-button>
             <rds-button [label]="translate.instant('Save Changes')" [colorVariant]="'primary'" [size]="'small'"
               type="button" data-bs-dismiss="modal"></rds-button>
           </div>
         </rds-modal>
       </div>
-      <div class="col-3">
+      <div class="col-lg-4 col-md-4 col-xl-4 col-xs-12 col-xxl-4 mb-3">
         <h6 class="mb-3">{{"Backdrop Modal"|translate}}</h6>
         <rds-button [label]="translate.instant('Backdrop Modal')" [colorVariant]="'primary'" [size]="'small'"
           type="button" data-bs-toggle="modal" data-bs-target="#storybookBackdropModal">
         </rds-button>
 
 
-        <rds-modal backdropstatic="static" modalId="storybookBackdropModal" backdrop="static">
+        <rds-modal backdropstatic="static" [preventEscapeKey]="true" modalId="storybookBackdropModal" backdrop="static">
           <div modalheader class="col-md-12">
             <rds-button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close">
             </rds-button>
@@ -1082,7 +1078,7 @@
             <p>{{modalData2.modalContent}}</p>
           </div>
           <div modalfooter>
-            <rds-button class="m-1" [label]="translate.instant('Close')" [outlineButton]="true"
+            <rds-button class="m-1" [label]="translate.instant('Close')" [isOutline]="true"
               [colorVariant]="'primary'" [size]="'small'" type="button" data-bs-dismiss="modal"></rds-button>
             <rds-button [label]="translate.instant('Save Changes')" [colorVariant]="'primary'" [size]="'small'"
               type="button" data-bs-dismiss="modal"></rds-button>
@@ -1094,19 +1090,19 @@
 </div>
 <!-- /Modal -->
 <!-- Nav Tab -->
-<div class="card mb-3">
+<div class="card mb-3 pt-3">
   <div class="card-header">
     <h5>
-      Nav Tab
+      {{"Nav Tab"|translate}}
     </h5>
   </div>
-  <div class="card-body  pt-0">
-    <div class="row border p-4 m-2">
-      <div class="col-6 mb-4">
-        <h6 class="mb-3">{{"Nav Tab - Basic"|translate}}</h6>
+  <div class="card-body pt-0">
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-xs-12 mb-3">
+        <h6 class="mb-3 pb-1">{{"Nav Tab - Basic"|translate}}</h6>
         <div class="col-md-12">
           <rds-nav-tab [navtabsItems]="navtabsItems" horizontalAlignment="start" [verticalAlignment]="false"
-            [pills]="false" [tabs]="false" [fill]="false" [justified]="false" [flex]="false"></rds-nav-tab>
+            [pills]="false" [tabs]="false" [fill]="false" [justified]="false" ></rds-nav-tab>
           <div naveContent class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active p-2" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
               <p>
@@ -1140,11 +1136,11 @@
           </div>
         </div>
       </div>
-      <div class="col-6 mb-4">
+      <div class="col-lg-6 col-md-6 col-xs-12 mb-3">
         <h6 class="mb-3">{{"Nav Tab - Tabs"|translate}}</h6>
         <div class="col-md-12">
           <rds-nav-tab [navtabsItems]="navtabsItemsTabs" horizontalAlignment="start" [verticalAlignment]="false"
-            [pills]="false" [tabs]="true" [fill]="false" [justified]="false" [flex]="false"></rds-nav-tab>
+            [pills]="false" [tabs]="true" [fill]="false" [justified]="false" ></rds-nav-tab>
           <div naveContent class="tab-content" id="nav-tabContent-tabs">
             <div class="tab-pane fade show active p-2" id="nav-home-tabs" role="tabpanel"
               aria-labelledby="nav-home-tab">
@@ -1180,11 +1176,11 @@
           </div>
         </div>
       </div>
-      <div class="col-6">
-        <h6 class="mb-3">{{"Nav Tab - pills"|translate}}</h6>
+      <div class="col-lg-6 col-md-6 col-xs-12 mb-3">
+        <h6 class="mb-3 pb-1">{{"Nav Tab - pills"|translate}}</h6>
         <div class="col-md-12">
           <rds-nav-tab [navtabsItems]="navtabsItemsPills" horizontalAlignment="start" [verticalAlignment]="false"
-            [pills]="true" [tabs]="false" [fill]="false" [justified]="false" [flex]="false"></rds-nav-tab>
+            [pills]="true" [tabs]="false" [fill]="false" [justified]="false" ></rds-nav-tab>
           <div naveContent class="tab-content" id="nav-tabContent-pills">
             <div class="tab-pane fade show active p-2" id="nav-home-pills" role="tabpanel"
               aria-labelledby="nav-home-tab">
@@ -1228,42 +1224,42 @@
 </div>
 <!-- /Nav Tab -->
 <!-- Offcanvas -->
-<div class="card mb-3">
+<div class="card mb-3 pt-3">
   <div class="card-header">
     <h5>
-      Offcanvas
+      {{"Offcanvas"|translate}}
     </h5>
   </div>
-  <div class="card-body  pt-0">
-    <div class="row border p-4 m-2">
-      <div class="col-3">
+  <div class="card-body pt-0">
+    <div class="row">
+      <div class="col-lg-3 col-md-6 col-xs-12 mb-3">
         <h6 class="mb-3">{{"Offcanvas - start"|translate}}</h6>
         <rds-button [colorVariant]="'primary'" [label]="translate.instant('Button')" [size]="'small'" type="button"
           data-bs-toggle="offcanvas" data-bs-target="#canvasExample1" aria-controls="canvasExample1">
 
         </rds-button>
-        <rds-offcanvas [canvasTitle]="'Title'" [offId]="'canvasExample1'" [placement]="'start'"></rds-offcanvas>
+        <rds-offcanvas [canvasTitle]="'Title'" [preventEscapeKey]="true" [offId]="'canvasExample1'" [placement]="'start'"></rds-offcanvas>
       </div>
-      <div class="col-3">
-        <h6>{{"Offcanvas - end"|translate}}</h6>
+      <div class="col-lg-3 col-md-6 col-xs-12 mb-3">
+        <h6 class="mb-3">{{"Offcanvas - end"|translate}}</h6>
         <rds-button [colorVariant]="'primary'" [label]="translate.instant('Button')" [size]="'small'" type="button"
           data-bs-toggle="offcanvas" data-bs-target="#canvasExample" aria-controls="canvasExample">
         </rds-button>
-        <rds-offcanvas [canvasTitle]="'Title'" [placement]="'end'"></rds-offcanvas>
+        <rds-offcanvas [canvasTitle]="'Title'" [preventEscapeKey]="true" [placement]="'end'"></rds-offcanvas>
       </div>
-      <div class="col-3">
-        <h6>{{"Offcanvas - top"|translate}}</h6>
+      <div class="col-lg-3 col-md-6 col-xs-12 mb-3">
+        <h6 class="mb-3">{{"Offcanvas - top"|translate}}</h6>
         <rds-button [colorVariant]="'primary'" [label]="translate.instant('Button')" [size]="'small'" type="button"
           data-bs-toggle="offcanvas" data-bs-target="#canvasExample3" aria-controls="canvasExample3">
         </rds-button>
-        <rds-offcanvas [canvasTitle]="'Ttile'" [placement]="'top'" offId="canvasExample3"></rds-offcanvas>
+        <rds-offcanvas [canvasTitle]="'Ttile'" [preventEscapeKey]="true" [placement]="'top'" offId="canvasExample3"></rds-offcanvas>
       </div>
-      <div class="col-3">
-        <h6>{{"Offcanvas - bottom"|translate}}</h6>
+      <div class="col-lg-3 col-md-6 col-xs-12 mb-3">
+        <h6 class="mb-3">{{"Offcanvas - bottom"|translate}}</h6>
         <rds-button [colorVariant]="'primary'" [label]="translate.instant('Button')" [size]="'small'" type="button"
           data-bs-toggle="offcanvas" data-bs-target="#canvasExample4" aria-controls="canvasExample4">
         </rds-button>
-        <rds-offcanvas [canvasTitle]="'Title'" [canvasTitle]="'Header'" [placement]="'bottom'" offId="canvasExample4">
+        <rds-offcanvas [canvasTitle]="'Title'" [preventEscapeKey]="true" [canvasTitle]="'Header'" [placement]="'bottom'" offId="canvasExample4">
         </rds-offcanvas>
       </div>
     </div>
@@ -1271,22 +1267,22 @@
 </div>
 <!-- /Offcanvas -->
 <!-- Pagination -->
-<div class="card mb-3">
+<div class="card mb-3 pt-3">
   <div class="card-header">
     <h5>
-      Pagination
+      {{"Pagination"|translate}}
     </h5>
   </div>
-  <div class="card-body  pt-0">
-    <div class="row border p-4 m-2">
-      <div class="col-4">
-        <h6>{{"Pagination - Advanced"|translate}}</h6>
-        <rds-pagination [totalRecords]="20" [recordsPerPage]="5" alignmentType="start" role="Advanced" [reset]="false">
+  <div class="card-body pt-0">
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-xs-12 mb-3">
+        <h6 class="mb-3">{{"Pagination - Advanced"|translate}}</h6>
+        <rds-pagination [totalRecords]="20" [recordsPerPage]="5" alignmentType="start" role="Advanced">
         </rds-pagination>
       </div>
-      <div class="col-4">
-        <h6>{{"Pagination - Basic"|translate}}</h6>
-        <rds-pagination [totalRecords]="20" [recordsPerPage]="5" alignmentType="start" role="Basic" [reset]="false">
+      <div class="col-lg-6 col-md-6 col-xs-12 mb-3">
+        <h6 class="mb-3">{{"Pagination - Basic"|translate}}</h6>
+        <rds-pagination [totalRecords]="20" [recordsPerPage]="5" alignmentType="start" role="Basic">
         </rds-pagination>
 
       </div>
@@ -1295,15 +1291,15 @@
 </div>
 <!-- /Pagination -->
 <!-- Popover -->
-<div class="card mb-3">
+<div class="card mb-3 pt-3">
   <div class="card-header">
     <h5>
-      Popover
+      {{"Popover"|translate}}
     </h5>
   </div>
-  <div class="card-body  pt-0">
-    <div class="row border p-4 m-2">
-      <div class="col-4">
+  <div class="card-body pt-0">
+    <div class="row">
+      <div class="col-lg-4 col-md-6 col-xs-12 mb-4">
         <h6>{{"popover with button"|translate}}</h6>
         <rds-popover [popoverPosition]="'bottom'" [popoverTitle]="translate.instant('popoverTitle')"
           [popoverContent]="translate.instant('popoverContent')">
@@ -1311,7 +1307,7 @@
             type="button"></rds-button>
         </rds-popover>
       </div>
-      <div class="col-4">
+      <div class="col-lg-4 col-md-6 col-xs-12 mb-4">
         <h6>{{"popover with link"|translate}}</h6>
         <rds-popover [popoverPosition]="'top'" [popoverTitle]="translate.instant('popoverTitle')"
           [popoverContent]="translate.instant('popoverContent')">
@@ -1325,39 +1321,38 @@
 <!-- Profile -->
 <!-- /Profile -->
 <!-- Radio Button -->
-<div class="card mb-3">
+<div class="card mb-3 pt-3">
   <div class="card-header">
     <h5>
-      Radio Button
+      {{"Radio Button"|translate}}
     </h5>
   </div>
-  <div class="card-body  pt-0">
-    <div class="row border p-4 m-2">
+  <div class="card-body pt-0">
+    <div class="">
       <rds-radio-button [switch]="false" [inline]="false" [isInputGroup]="false" [itemList]="itemList">
       </rds-radio-button>
-
     </div>
   </div>
 </div>
 <!-- /Radio Button -->
 <!-- Progress Bar -->
-<div class="card mb-3">
+<div class="card mb-3 pt-3">
   <div class="card-header">
     <h5>
-      Progress Bar
+      {{"Progress Bar"|translate}}
     </h5>
   </div>
-  <div class="card-body  pt-0">
-    <div class="row border p-4 m-2">
-      <div class="col-md-6">
+  <div class="card-body pt-0">
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-xs-12 mb-3">
         <h6 class="mb-3">{{"Progress Bar - Single"|translate}}</h6>
-        <rds-progressbar [animation]="false" height="15" colorVariant="default" striped="default" [progressWidth]="40"
-          progressbar_MaxWidth="100" [label]="false" role="single"></rds-progressbar>
+        <rds-progressbar [animation]="false" [height]="20" colorVariant="default" striped="default" [progressWidth]="40"
+          [progressbar_MaxWidth]="100"  role="single"></rds-progressbar>
       </div>
-      <div class="col-md-6">
+      <div class="col-lg-6 col-md-6 col-xs-12 mb-3">
         <h6 class="mb-3">{{"Progress Bar - Multiple"|translate}}</h6>
-        <rds-progressbar [animation]="true" height="15" colorVariant="default" striped="progress-bar-striped"
-          [progressWidth]="10" progressbar_MaxWidth="70" [label]="false" role="multiple"
+        <rds-progressbar [animation]="true" [height]="20" colorVariant="default" striped="progress-bar-striped"
+          [progressWidth]="10" [progressbar_MaxWidth]="100"  role="multiple"
           [progressvalues]="progressvalues"></rds-progressbar>
       </div>
 
@@ -1444,15 +1439,15 @@
   </div>-->
 <!-- /Scroll Spy -->
 <!-- Search Input -->
-<div class="card mb-3">
+<div class="card mb-3 pt-3">
   <div class="card-header">
     <h5>
-      Search Input
+      {{"Search Input"|translate}}
     </h5>
   </div>
-  <div class="card-body  pt-0">
-    <div class="row border p-4 m-2">
-      <div class="col-8">
+  <div class="card-body pt-0">
+    <div class="row">
+      <div class="col-lg-12 col-xs-12">
         <h6 class="mb-3">{{"Search"|translate}}</h6>
         <rds-search-input placeholder="Search.." size="small"></rds-search-input>
       </div>
@@ -1461,150 +1456,77 @@
 </div>
 <!-- /Search Input -->
 <!-- Spinner -->
-<div class="card mb-3">
+<div class="card mb-3 pt-3">
   <div class="card-header">
     <h5>
-      Spinner
+      {{"Spinner"|translate}}
     </h5>
   </div>
-  <div class="card-body  pt-0">
-    <div class="row border p-4 m-2">
-      <div class="col-4">
-        <h6>{{"Spinner"|translate}}</h6>
-        <rds-spinner [spinnerType]="false" size="md" colorVariant="text-primary"></rds-spinner>
-      </div>
-      <div class="col-4">
+  <div class="card-body pt-0">
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-xs-12 mb-3">
         <h6 class="mb-3">{{"Spinner"|translate}}</h6>
-        <rds-spinner [spinnerType]="true" size="md" colorVariant="text-primary"></rds-spinner>
+        <rds-spinner [spinnerType]="false" size="md" [colorVariant]="'primary'"></rds-spinner>
+      </div>
+      <div class="col-lg-6 col-md-6 col-xs-12 mb-3">
+        <h6 class="mb-3">{{"Spinner"|translate}}</h6>
+        <rds-spinner [spinnerType]="true" size="md" [colorVariant]="'primary'"></rds-spinner>
       </div>
     </div>
   </div>
 </div>
 <!-- /Spinner -->
 <!-- Select list -->
-<div class="card mb-3">
+<div class="card mb-3 pt-3">
   <div class="card-header">
     <h5>
-      Select list
+      {{"Select list"|translate}}
     </h5>
   </div>
-  <div class="card-body  pt-0">
-    <div class="row border p-4 m-2">
-      <div class="row col-12">
-        <div class="col-4 pb-3">
-          <h6 class="mb-3">{{"Select list - Basic"|translate}}</h6>
+  <div class="card-body pt-0">
+      <div class="row">
+        <div class="col-lg-12 col-xs-12 mb-3">
+          <!-- <h6 class="mb-3">{{"Select list - Basic"|translate}}</h6> -->
           <rds-select-list [disabled]="false" [multiple]="false" [itemList]="options">
           </rds-select-list>
         </div>
-        <!--<div class="col-4">
-          <h6 class="mb-3">{{"Select list - Auto tooltip"|translate}}</h6>
-          <rds-select-list size="default" [disabled]="false" [multiple]="false" customIcon="" [tooltipTitle]="'Tooltip'"
-                           [tooltipPlacement]="'auto'" [itemList]="options">
-
-          </rds-select-list>
-        </div>-->
-        <!--<div class="col-4">
-          <h6 class="mb-3">{{"Select list - bottom tooltip"|translate}}</h6>
-          <rds-select-list size="default" [disabled]="false" [multiple]="false" customIcon="" [tooltipTitle]="'Tooltip'"
-                           [tooltipPlacement]="'bottom'" [itemList]="options">
-
-          </rds-select-list>
-        </div>
-        <div class="col-4">
-          <h6 class="mb-3">{{"Select list - left tooltip"|translate}}</h6>
-          <rds-select-list size="default" [disabled]="false" [multiple]="false" customIcon="" [tooltipTitle]="'Tooltip'"
-                           [tooltipPlacement]="'left'" [itemList]="options">
-
-          </rds-select-list>
-        </div>
-        <div class="col-4">
-          <h6 class="mb-3">{{"Select list - right tooltip"|translate}}</h6>
-          <rds-select-list size="default" [disabled]="false" [multiple]="false" customIcon="" [tooltipTitle]="'Tooltip'"
-                           [tooltipPlacement]="'right'" [itemList]="options">
-
-          </rds-select-list>
-        </div>
-        <div class="col-4">
-          <h6 class="mb-3">{{"Select list - top tooltip"|translate}}</h6>
-          <rds-select-list size="default" [disabled]="false" [multiple]="false" customIcon="" [tooltipTitle]="'Tooltip'"
-                           [tooltipPlacement]="'top'" [itemList]="options">
-
-          </rds-select-list>
-        </div>-->
-
       </div>
-    </div>
   </div>
 </div>
-<!-- /Select list -->
-<!-- Side Nav -->
-<!--<div class="card mb-3">
-  <div class="card-header">
-    <h5>
-      Side Nav
-    </h5>
-  </div>
-  <div class="card-body  pt-0">
-    <div class="row border p-4 m-2">
-      <div class="col-4">
-        <h6 class="mb-3">Side Nav</h6>
-        <div class="row">
-          <div class="col-lg-2">
-            <rds-side-nav [sidenavItems]="sidenavItems" ></rds-side-nav>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>-->
 <!-- /Side Nav -->
 <!-- Table -->
-<div class="card mb-3">
+<div class="card mb-3 pt-3">
   <div class="card-header">
     <h5>
-      Table
+      {{"Table"|translate}}
     </h5>
   </div>
-  <div class="card-body  pt-0">
-    <div class="row border p-4 m-2">
-      <div class="col-12">
-        <h6 class="mb-3">{{"Table"|translate}}</h6>
+  <div class="card-body pt-0">
+    <div class="row">
+      <div class="col-lg-12 col-xs-12">
+        <!-- <h6 class="mb-3">{{"Table"|translate}}</h6> -->
         <rds-table [showTableBorder]="false" [tableHeaders]="tableHeaderItems" [tableData]="tableBodyItems"
           colorVariant="primary"></rds-table>
-        <!--<rds-table [thead]="thead" [tbody]="tbody">
-          <ng-template #thead>
-            <th>{{"Name"|translate}}</th>
-            <th>{{"Age"|translate}}</th>
-            <th>{{"State"|translate}}</th>
-          </ng-template>
-          <ng-template #tbody let-tabval>
-            <tr>
-              <td>{{tabval.name}}</td>
-              <td>{{tabval.age}}</td>
-              <td>{{tabval.state}}</td>
-            </tr>
-          </ng-template>
-        </rds-table>-->
       </div>
     </div>
   </div>
 </div>
 <!-- /Table -->
 <!-- Tag -->
-<div class="card mb-3">
+<div class="card mb-3 pt-3">
   <div class="card-header">
     <h5>
-      Tag
+      {{"Tag"|translate}}
     </h5>
   </div>
-  <div class="card-body  pt-0">
-    <div class="row border p-4 m-2">
-      <div class="col-4">
+  <div class="card-body pt-0">
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-xs-12 mb-3">
         <h6 class="mb-3">{{"Tag - With scroll"|translate}}</h6>
         <rds-tags [tagType]="'square'" [colorVariant]="'primary'" [role]="'tagWithScroll'"></rds-tags>
       </div>
 
-      <div class="col-4">
+      <div class="col-lg-6 col-md-6 col-xs-12 mb-3">
         <h6 class="mb-3">{{"Tag - Basic"|translate}}</h6>
         <rds-tags [tagType]="'square'" [colorVariant]="'primary'" [role]="'basic'"></rds-tags>
 
@@ -1614,18 +1536,18 @@
 </div>
 <!-- /Tag -->
 <!-- Textarea -->
-<div class="card mb-3">
+<div class="card mb-3 pt-3">
   <div class="card-header">
     <h5>
-      Text area
+      {{"Text area"|translate}}
     </h5>
   </div>
-  <div class="card-body  pt-0">
-    <div class="row border p-4 m-2">
-      <div class="col-4">
+  <div class="card-body pt-0">
+    <div class="row">
+      <div class="col-lg-12 col-xs-12">
         <!--<h6 class="mb-3">{{"Textarea"|translate}}</h6>-->
         <rds-textarea value="" [disabled]="false" rows="3" [readonly]="false" label="Text area" floatinginputLabel=""
-          placeholderText="Add Placeholder" tooltipTitle="Text Area" tooltipPlacement="auto"></rds-textarea>
+          placeholderText="Add Placeholder" tooltipTitle="Text Area" tooltipPlacement="bottom"></rds-textarea>
       </div>
     </div>
 
@@ -1633,35 +1555,35 @@
 </div>
 <!-- /Textarea -->
 <!-- Toast -->
-<div class="card mb-3">
+<div class="card mb-3 pt-3">
   <div class="card-header">
     <h5>
-      Toast
+      {{"Toast"|translate}}
     </h5>
   </div>
-  <div class="card-body  pt-0">
-    <div class="row border p-4 m-2">
-      <div class="col-4">
+  <div class="card-body pt-0">
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-xs-12 col-xxl-3 mb-3">
         <h6 class="mb-3">{{"Toast"|translate}}</h6>
         <rds-toasts message="Hello, world! This is a toast message." headerTitle="Bootstrap" time="11 Seconds ago"
           [show]="true" [toastId]="'Toast'" [role]="'basic'">
         </rds-toasts>
       </div>
-      <div class="col-4">
+      <div class="col-lg-6 col-md-6 col-xs-12 col-xxl-3 mb-3">
         <h6 class="mb-3">{{"Toast With Position"|translate}}</h6>
-        <div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;">
-          <rds-toasts position="Top-Left" colorVariant="info" headerTitle="Bootstrap" time="11 Seconds ago" [show]="true"
-            [toastId]="'Toast-position'" [role]="'basic'"></rds-toasts>
+        <div aria-live="polite" aria-atomic="true">
+          <rds-toasts position="Top-Left" colorVariant="info" headerTitle="Bootstrap" time="11 Seconds ago"
+            [show]="true" [toastId]="'Toast-position'" [role]="'basic'"></rds-toasts>
         </div>
       </div>
-      <div class="col-4">
+      <div class="col-lg-6 col-md-6 col-xs-12 col-xxl-3 mb-3">
         <h6 class="mb-3">{{"Toast - With Call to Action"|translate}}</h6>
         <rds-toasts [showHeader]="false" headerTitle="Bootstrap" time="11 Seconds ago" [show]="true"
           [toastId]="'Toast-WithCalltoAction'" [role]="'basic'">
           <div class="mt-2 p-2 border-top" body>
             <rds-button [label]="'Take action'" [colorVariant]="'primary'" [size]="'small'" type="button">
             </rds-button>
-            <rds-button class="mx-2" [label]="'Close'" [colorVariant]="'primary'" [outlineButton]="true"
+            <rds-button class="mx-2" [label]="'Close'" [colorVariant]="'primary'" [isOutline]="true"
               [size]="'small'" type="button" data-bs-dismiss="toast"></rds-button>
           </div>
         </rds-toasts>
@@ -1671,15 +1593,15 @@
 </div>
 <!-- /Toast -->
 <!-- Widget -->
-<div class="card mb-3">
+<div class="card mb-3 pt-3">
   <div class="card-header">
     <h5>
-      Widget
+      {{"Widget"|translate}}
     </h5>
   </div>
-  <div class="card-body  pt-0">
-    <div class="row border p-4 m-2">
-      <div class="col-5">
+  <div class="card-body pt-0">
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-xs-12 mb-3">
         <h6 class="mb-3">{{"Widget - With refresh"|translate}}</h6>
         <rds-widget headerTitle="Widget" [isRefreshRequired]="true" colorVariant="info" cardheight="card-stretch">
           <div>
@@ -1690,7 +1612,7 @@
           </div>
         </rds-widget>
       </div>
-      <div class="col-5">
+      <div class="col-lg-6 col-md-6 col-xs-12 mb-3">
         <h6 class="mb-3">{{"Widget - Without refresh"|translate}}</h6>
         <rds-widget headerTitle="Widget" [isRefreshRequired]="false" colorVariant="warning" cardheight="card-stretch">
           <div>
@@ -1706,58 +1628,41 @@
 </div>
 <!-- /Widget -->
 <!-- Counter -->
-<div class="card mb-3">
+<div class="card mb-3 pt-3">
   <div class="card-header">
     <h5>
-      Counter
+      {{"Counter"|translate}}
     </h5>
   </div>
-  <div class="card-body  pt-0">
-    <div class="row border p-4 m-2">
-      <h6 class="mb-3">{{"Counter"|translate}}</h6>
-      <!-- <div class="col-md-3">
-
-        <rds-counter
-        [counterValue]="0"
-        Title="Counter"
-        label=""
-        [min]="0"
-        [max]="40"
-        colorVariant="dark"
-
-        ></rds-counter>
-
-
-            </div> -->
-      <div class="col-md-12">
+  <div class="card-body pt-0">
+    <div class="row">
+      <!-- <h6 class="mb-3">{{"Counter"|translate}}</h6> -->
+      <div class="col-lg-12 col-xs-12">
         <rds-counter [counterValue]="0" Title="Select Quantity" label="" [min]="0" [max]="40" colorVariant="primary">
         </rds-counter>
-
-
       </div>
     </div>
   </div>
 </div>
 <!-- /Counter -->
 <!-- Charts -->
-<div class="card mb-5">
+<div class="card mb-5 pt-3">
   <div class="card-header">
     <h5>
-      Charts
+      {{"Charts"|translate}}
     </h5>
   </div>
-  <div class="card-body  pt-0">
-
-    <div class="row p-4 mb-3">
-      <div class="col-md-6 ">
-        <h5 class="py-3">Area Chart</h5>
+  <div class="card-body pt-0">
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-xs-12 mb-5 pb-4">
+        <h5 class="py-3">{{"Area Chart"|translate}}</h5>
         <div class="border p-2 h-100 align-items-center">
           <rds-chart-area [chartWidth]="400" [chartLabels]="chartLabelsArea" [chartDataSets]="chartDataSetsArea"
             [chartOptions]="chartOptionsArea" chartId="areaChart"></rds-chart-area>
         </div>
       </div>
-      <div class="col-md-6 ">
-        <h5 class="py-3">Bar Chart</h5>
+      <div class="col-lg-6 col-md-6 col-xs-12 mb-5 pb-4">
+        <h5 class="py-3">{{"Bar Chart"|translate}}</h5>
         <div class="border p-2 h-100  align-items-center justify-content-center">
           <rds-chart-bar-horizontal [chartWidth]="400" [chartLabels]="chartLables" [chartDataSets]="ChartDatasSets"
             [chartOptions]="chartOptions" chartId="barChart"></rds-chart-bar-horizontal>
@@ -1765,17 +1670,17 @@
       </div>
     </div>
 
-    <div class="row p-4 mb-3">
-      <div class="col-md-6 ">
-        <h5 class="py-3">Bubble Chart</h5>
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-xs-12 mb-5 pb-4">
+        <h5 class="py-3">{{"Bubble Chart"|translate}}</h5>
         <div class="border p-2 h-100  align-items-center justify-content-center">
           <rds-chart-bubble [chartWidth]="400" chartId="ChartBubble" [chartLabels]="chartLabelsBubble"
             [chartDataSets]="chartDataSetsBubble" [chartOptions]="chartOptionsBubble">
           </rds-chart-bubble>
         </div>
       </div>
-      <div class="col-md-6 ">
-        <h5 class="py-3">Mixed Chart </h5>
+      <div class="col-lg-6 col-md-6 col-xs-12 mb-5 pb-4">
+        <h5 class="py-3"> {{"Mixed Chart"|translate}}</h5>
         <div class="border p-2 h-100 align-items-center justify-content-center">
           <rds-chart-mixed [chartWidth]="400" chartId="mixedChart" [chartLabels]="chartLabelsChartMixed"
             [chartDataSets]="chartDataSetsChartMixed" [chartOptions]="chartOptionsChartMixed"></rds-chart-mixed>
@@ -1784,70 +1689,73 @@
     </div>
 
 
-    <div class="row p-4 mb-4">
-      <div class="col-md-6 ">
-        <h5 class="py-3">Doughnut Chart</h5>
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-xs-12 mb-5 pb-4">
+        <h5 class="py-3">{{"Doughnut Chart"|translate}}</h5>
         <div class="border p-2 h-100 align-items-center justify-content-center">
           <rds-chart-doughnut [chartWidth]="400" [chartHeight]="300" [chartLabels]="chartLabelsDoughnut"
             [chartDataSets]="chartDataSetsDoughnut" [chartOptions]="chartOptionsDoughnut" chartId="doughnutChart">
           </rds-chart-doughnut>
         </div>
       </div>
-      <div class="col-md-6 ">
-        <h5 class="py-3">Pie Chart </h5>
+      <div class="col-lg-6 col-md-6 col-xs-12 mb-5 pb-4">
+        <h5 class="py-3"> {{"Pie Chart"|translate}}</h5>
         <div class="border p-2 h-100 align-items-center justify-content-center">
-          <rds-chart-pie [chartWidth]="400" [chartHeight]="300" [chartLabels]="chartLabelsPieChat" [chartDataSets]="chartDataSetsPieChat"
-            [chartOptions]="chartOptionsPieChat" chartId="pieChart"></rds-chart-pie>
+          <rds-chart-pie [chartWidth]="400" [chartHeight]="300" [chartLabels]="chartLabelsPieChat"
+            [chartDataSets]="chartDataSetsPieChat" [chartOptions]="chartOptionsPieChat" chartId="pieChart">
+          </rds-chart-pie>
         </div>
       </div>
     </div>
 
-    <div class="row p-4 mb-4">
-      <div class="col-md-6 ">
-        <h5 class="py-3">Boolean Chart</h5>
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-xs-12 mb-5 pb-4">
+        <h5 class="py-3">{{"Boolean Chart"|translate}}</h5>
         <div class="border p-2 h-100 align-items-center justify-content-center">
           <rds-chart-bool [chartWidth]="400" [chartHeight]="300" [chartLabels]="chartLablesBool"
-            [chartDataSets]="ChartDatasSetsBool" [chartOptions]="chartOptionsBool"
-            chartId="boolChart"></rds-chart-bool>
+            [chartDataSets]="ChartDatasSetsBool" [chartOptions]="chartOptionsBool" chartId="boolChart"></rds-chart-bool>
         </div>
       </div>
-      <div class="col-md-6 ">
-        <h5 class="py-3">Multi Series Pie chart</h5>
+      <div class="col-lg-6 col-md-6 col-xs-12 mb-5 pb-4">
+        <h5 class="py-3">{{"Multi Series Pie chart"|translate}}</h5>
         <div class="border p-2 h-100  align-items-center justify-content-center">
-          <rds-chart-pie [chartWidth]="400" [chartHeight]="300" chartId="multiPieChart" [chartLabels]="pieChartMultiLabel"
-            [chartDataSets]="pieChartMultiDataSets" [chartOptions]="pieChartMultiOptions"></rds-chart-pie>
+          <rds-chart-pie [chartWidth]="400" [chartHeight]="300" chartId="multiPieChart"
+            [chartLabels]="pieChartMultiLabel" [chartDataSets]="pieChartMultiDataSets"
+            [chartOptions]="pieChartMultiOptions"></rds-chart-pie>
         </div>
-      </div> 
+      </div>
     </div>
-    <div class="row p-4 mb-4">
-      <div class="col-md-6">
-        <h5 class="py-3">Polar Chart</h5>
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-xs-12 mb-5 pb-4">
+        <h5 class="py-3">{{"Polar Chart"|translate}}</h5>
         <div class="border p-2 h-100 align-items-center justify-content-center">
-          <rds-chart-polar-area [chartWidth]="400" [chartHeight]="400"  [chartLabels]="chartLabelsPolar" [chartDataSets]="chartDataSetsPolar"
-            [chartOptions]="chartOptionsPolar" chartId=polarChart></rds-chart-polar-area>
+          <rds-chart-polar-area [chartWidth]="400" [chartHeight]="400" [chartLabels]="chartLabelsPolar"
+            [chartDataSets]="chartDataSetsPolar" [chartOptions]="chartOptionsPolar" chartId=polarChart>
+          </rds-chart-polar-area>
         </div>
       </div>
-      <div class="col-md-6 ">
-        <h5 class="py-3">Radar Chart</h5>
+      <div class="col-lg-6 col-md-6 col-xs-12 mb-5 pb-4 ">
+        <h5 class="py-3">{{"Radar Chart"|translate}}</h5>
         <div class="border p-2 h-100 align-items-center justify-content-center text-center ">
-          <rds-chart-radar [chartWidth]="400" [chartHeight]="400"  [chartLabels]="chartLabelsRadar" [chartDataSets]="chartDataSetsRadar"
-            [chartOptions]="chartOptionsRadar" chartId="radarChart"></rds-chart-radar>
+          <rds-chart-radar [chartWidth]="400" [chartHeight]="400" [chartLabels]="chartLabelsRadar"
+            [chartDataSets]="chartDataSetsRadar" [chartOptions]="chartOptionsRadar" chartId="radarChart">
+          </rds-chart-radar>
         </div>
       </div>
     </div>
 
 
-    <div class="row p-4 mb-4">
-      <div class="col-md-6 ">
-        <h5 class="py-3">Scatter Chart</h5>
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-xs-12 mb-5 pb-4">
+        <h5 class="py-3">{{"Scatter Chart"|translate}}</h5>
         <div class="border p-2 h-100 align-items-center justify-content-center">
           <rds-chart-scatter [chartWidth]="400" [chartLabels]="chartLabelsScatter"
             [chartDataSets]="chartDataSetsScatter" [chartOptions]="chartOptionsScatter" chartId="scatterChart">
           </rds-chart-scatter>
         </div>
       </div>
-      <div class="col-md-6 ">
-        <h5 class="py-3">Stacked Line Chart</h5>
+      <div class="col-lg-6 col-md-6 col-xs-12 mb-5 pb-4">
+        <h5 class="py-3">{{"Stacked Line Chart"|translate}}</h5>
         <div class="border p-2 h-100 align-items-center justify-content-center">
           <rds-chart-stacked [chartWidth]="400" [chartLabels]="chartLabelsStacked"
             [chartDataSets]="chartDataSetsStacked" [chartOptions]="chartOptionsStacked"></rds-chart-stacked>
@@ -1855,17 +1763,17 @@
       </div>
     </div>
 
-    <div class="row p-4 mb-4">
-      <div class="col-md-6 ">
-        <h5 class="py-3">Line Chart</h5>
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-xs-12 mb-5 pb-4">
+        <h5 class="py-3">{{"Line Chart"|translate}}</h5>
         <div class="border p-2 h-100 align-items-center justify-content-center">
-          <rds-chart-line [chartWidth]="400" [chartHeight]="230" [chartLabels]="chartLabelsLineChart"
+          <rds-chart-line [chartWidth]="400" [isGradient]="true" [chartHeight]="230" [chartLabels]="chartLabelsLineChart"
             [chartDataSets]="chartDataSetsLinechart" [chartOptions]="chartOptionsLineChart" chartId="lineChartgradient">
           </rds-chart-line>
         </div>
       </div>
-      <div class="col-md-6 ">
-        <h5 class="py-3">Bar Chart With Pills</h5>
+      <div class="col-lg-6 col-md-6 col-xs-12 mb-5 pb-4">
+        <h5 class="py-3">{{"Bar Chart With Pills"|translate}}</h5>
         <div class="border p-2 h-100 align-items-center justify-content-center">
           <rds-chart-bar-horizontal [chartWidth]="400" [chartLabels]="chartLabelsBarChartThick"
             [chartDataSets]="chartDataSetsBarChartThick" [chartOptions]="chartOptionsBarChartThick">
@@ -1877,16 +1785,16 @@
 </div>
 <!-- /Charts -->
 <!-- Video Player -->
-<div class="card mb-3">
+<div class="card mb-3 pt-3">
   <div class="card-header">
     <h5>
-      Video Player
+      {{"Video Player"|translate}}
     </h5>
   </div>
-  <div class="card-body  pt-0">
-    <div class="row border p-4 m-2">
-      <div class="col-md-12">
-        <rds-video-player [videoLink]="video"></rds-video-player>
+  <div class="card-body pt-0">
+    <div class="row">
+      <div class="col-lg-12 col-xs-12">
+        <rds-video-player [videoLink]="video"></rds-video-player> 
       </div>
     </div>
   </div>

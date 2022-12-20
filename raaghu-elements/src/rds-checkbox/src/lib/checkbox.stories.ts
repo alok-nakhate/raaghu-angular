@@ -1,10 +1,17 @@
-import { Story, Meta } from '@storybook/angular';
-
+import { Story, Meta, moduleMetadata } from '@storybook/angular';
+import { CommonModule } from '@angular/common';
 import { action } from "@storybook/addon-actions";
 import { RdsCheckboxComponent } from './rds-checkbox.component';
+import { FormsModule } from '@angular/forms';
 export default {
     title: 'Elements/Checkbox',
     component: RdsCheckboxComponent ,
+    decorators: [
+      moduleMetadata({
+        declarations: [],
+        imports: [CommonModule, FormsModule],
+      }),
+    ],
     argTypes: {
          
     },
@@ -24,6 +31,7 @@ export const actionsData = {
 };
 
 export const Default = Template.bind({})
+Default.parameters = { controls: { include: ['label', 'checked', 'disabled', 'switch', 'inline', 'state', 'id', 'withLabel', 'isInputGroup'] } };
 Default.args = {
  label:'default checkbox',
  checked:false,

@@ -19,7 +19,7 @@ export interface orderDetails {
   processPercent: number
 }
 @Component({
-  selector: 'app-rds-comp-order-details',
+  selector: 'rds-comp-order-details',
   templateUrl: './rds-comp-order-details.component.html',
   styleUrls: ['./rds-comp-order-details.component.scss']
 })

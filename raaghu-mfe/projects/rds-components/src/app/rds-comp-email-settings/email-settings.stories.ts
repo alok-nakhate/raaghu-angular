@@ -38,5 +38,5 @@ Default.args={
       newEmail: 'abc@waiin.com',
       confirmEmail: 'abc@waiin.com'
     },
-    buttonSpinner:true
+    buttonSpinner:false
 }

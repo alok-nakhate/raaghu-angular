@@ -9,10 +9,9 @@ export class RdsSearchInputComponent implements OnInit {
 
   @Input() value = ''
   @Input() placeholder?: string;
-  @Input() icon = ''
-  @Input() size: 'default' | 'small' | 'large' = 'default';
-  @Input() label='';
-  @Input() position: 'start' | 'end' | 'top' | 'bottom' = 'start';
+  @Input() size: 'medium' | 'small' | 'large' = 'small';
+  @Input() label = '';
+  @Input() position: 'top' | 'bottom' = 'top';
   @Output() onClick = new EventEmitter<any>();
 
   constructor() { }
@@ -34,44 +33,20 @@ export class RdsSearchInputComponent implements OnInit {
   }
 
   public get classes(): string[] {
-    var inputClass = ['form-group has-search ']
-    if (this.position === "start" || this.position === "end") {
-      inputClass.push('mx-5');
-    }
-    else if (this.position === "top") {
-      inputClass.push('mt-3');
-    }
-    if (this.size === 'small') {
+    var inputClass = ['form-group']
+    if (this.size == 'small') {
       inputClass.push('input-group-sm');
     }
-    else if (this.size === "large") {
+    if (this.size == "large") {
       inputClass.push('input-group-lg');
     }
-    else {
-      inputClass.push('');
+    if (this.size == "medium") {
+      inputClass.push('input-group-md');
     }
     return inputClass;
   }
 
 
-  public get labelClasses(): string[] {
-
-    var classes = ['position-absolute']
-    if (this.position === 'start') {     
-      classes.push('start-0');     
-    }
-    else if(this.position === 'end') {
-      classes.push('end-0')
-    }
-    else if(this.position === 'bottom') {
-      classes.push('mt-5')
-    }
-     else if(this.position === 'top') {
-      classes.push('top-0')
-    }
-
-    return classes;
-  }
 
 
 }

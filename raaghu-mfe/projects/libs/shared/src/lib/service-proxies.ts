@@ -9433,35 +9433,35 @@ export class ServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
         if (resourceName === null)
             throw new Error("The parameter 'resourceName' cannot be null.");
         else if (resourceName !== undefined)
-            url_ += "ResourceName=" + encodeURIComponent("" + resourceName) + "&";
+            url_ += "resourceName=" + encodeURIComponent("" + resourceName) + "&";
         if (baseCultureName === null)
             throw new Error("The parameter 'baseCultureName' cannot be null.");
         else if (baseCultureName !== undefined)
-            url_ += "BaseCultureName=" + encodeURIComponent("" + baseCultureName) + "&";
+            url_ += "baseCultureName=" + encodeURIComponent("" + baseCultureName) + "&";
         if (targetCultureName === null)
             throw new Error("The parameter 'targetCultureName' cannot be null.");
         else if (targetCultureName !== undefined)
-            url_ += "TargetCultureName=" + encodeURIComponent("" + targetCultureName) + "&";
+            url_ += "targetCultureName=" + encodeURIComponent("" + targetCultureName) + "&";
         if (getOnlyEmptyValues === null)
             throw new Error("The parameter 'getOnlyEmptyValues' cannot be null.");
         else if (getOnlyEmptyValues !== undefined)
-            url_ += "GetOnlyEmptyValues=" + encodeURIComponent("" + getOnlyEmptyValues) + "&";
+            url_ += "getOnlyEmptyValues=" + encodeURIComponent("" + getOnlyEmptyValues) + "&";
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "sorting=" + encodeURIComponent("" + sorting) + "&";
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "skipCount=" + encodeURIComponent("" + skipCount) + "&";
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "maxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -9471,7 +9471,7 @@ export class ServiceProxy {
                 "Accept": "text/plain"
             })
         };
-
+console.log("url_",url_);
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
             return this.processLanguageTextsGET(response_);
         })).pipe(_observableCatch((response_: any) => {

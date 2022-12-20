@@ -2,8 +2,8 @@
   <div class="tab-content">
     <div ria-labelledby="nav-LinkAccount" class="h-100">
       <div class="card border-0 h-100">
-        <div class="card-header border-bottom">
-          <h5 class="card-title">{{"NEW LINK ACCOUNT"|translate}}</h5>
+        <div class="card-header border-bottom border-dark border-opacity-10">
+          <h5 class="card-title">{{showNewLinkAccoutButton ? translate.instant("MANAGE LINKED ACCOUNTS") : translate.instant("NEW LINK ACCOUNT")}}</h5>
         </div>
 
         <div class="card-body">
@@ -17,19 +17,19 @@
             <div class="row" *ngIf="!showNewLinkAccoutButton">
               <div class="col-sm-12 col-md-12">
                 <div class="form-group mb-3">
-                  <rds-input size="default" value="" [Title]="translate.instant('Tenancy Name')"
-                    [placeholder]="translate.instant('Tenancy Name')" [TitleType]="'Top'" name="tenancy_name"
-                    #tenancy="ngModel" inputType="text" [(ngModel)]="tenancyName" ngDefaultControl [isRequired]=true
-                    required></rds-input>
-                  <div class="form-control-feedback" *ngIf="tenancy.errors&&(tenancy.dirty||tenancy.touched)">
+                  <rds-input size="medium" value="" [label]="translate.instant('Tenancy Name')"
+                    [placeholder]="translate.instant('Tenancy Name')" [labelPosition]="'top'" name="tenancy_name"
+                    #tenancy="ngModel" inputType="text" [(ngModel)]="tenancyName" ngDefaultControl
+                    ></rds-input>
+                  <!-- <div class="form-control-feedback" *ngIf="tenancy.errors&&(tenancy.dirty||tenancy.touched)">
                     <span class="text-danger" *ngIf="tenancy.errors.required">{{"Tenancy name is
                       required"|translate}}</span>
-                  </div>
+                  </div> -->
                 </div>
               </div>
               <div class="col-md-12 col-sm-12">
                 <div class="form-group mb-3">
-                  <rds-input size="default" value="" [Title]="translate.instant('User Name')" [TitleType]="'Top'"
+                  <rds-input size="medium" value="" [label]="translate.instant('User Name')" [labelPosition]="'top'"
                     #user="ngModel" inputType="text" [placeholder]="translate.instant('User Name')"
                     [(ngModel)]="userName" name="user_name" [isRequired]=true ngDefaultControl>
                   </rds-input>
@@ -40,8 +40,9 @@
               </div>
               <div class="col-md-12 col-sm-12">
                 <div class="form-group mb-3">
-                  <rds-input size="default" value="" [Title]="translate.instant('Password')" [placeholder]="'Password'"
-                    name="linked_pswd" [TitleType]="'Top'" inputType="password" [(ngModel)]="password" [isRequired]=true
+                  <rds-input size="medium" value="" [label]="translate.instant('Password')" [placeholder]="translate.instant('Password')"
+                    [iconCursor]="'pointer'" [icon]="'eye'" [iconOpacity]="'0.4'" [iconHeight]="'18px'"[iconWidth]="'18px'"
+                    name="linked_pswd" [labelPosition]="'top'" inputType="password" [(ngModel)]="password" [isRequired]=true
                     #linkedPswd="ngModel" ngDefaultControl>
                   </rds-input>
                   <div class="form-control-feedback" *ngIf="linkedPswd.errors&&(linkedPswd.dirty||linkedPswd.touched)">
@@ -55,9 +56,9 @@
 
           <div class="row" *ngIf="showNewLinkAccoutButton">
             <div class="col-sm-12">
-              <app-rds-data-table [tableStyle]="'light'" [actions]="actions" [recordsPerPage]="5"
+              <rds-data-table [tableStyle]="'light'" [actions]="actions" [recordsPerPage]="5"
                 [noDataTitle]="'Currently you do not have linked accounts'" [pagination]="true" [width]="100"
-                [tableData]="linkedAccountData" [tableHeaders]="linkedAccountHeaders"></app-rds-data-table>
+                [tableData]="linkedAccountData" [tableHeaders]="linkedAccountHeaders"></rds-data-table>
             </div>
           </div>
         </div>
@@ -67,21 +68,21 @@
   <div class="footer-buttons my-2 shadow-none" *ngIf="!showNewLinkAccoutButton">
     <div class="row">
       <div class="col-sm-12">
-        <rds-button [label]="translate.instant('Cancel')" [outlineButton]="true" [colorVariant]="'primary'" type="button"
-          [size]="'medium'" (click)="onCancel()">
+        <rds-button [label]="translate.instant('Cancel')" [isOutline]="true" [colorVariant]="'primary'" type="button"
+          [size]="'small'" (click)="onCancel()">
         </rds-button>
-        <rds-button [label]="translate.instant('Save')" [disabled]="linkedAccountForm.invalid" type="button"
-          [size]="'medium'" [colorVariant]="'primary'" (click)="saveAllLinkAccount(linkedAccountForm)" class="ms-2">
+        <rds-button [label]="translate.instant('Save')" [isDisabled]="linkedAccountForm.invalid" type="button"
+          [size]="'small'" [colorVariant]="'primary'" (click)="saveAllLinkAccount(linkedAccountForm)" class="ms-2">
         </rds-button>
       </div>
     </div>
   </div>
   <!-- <div class="row" *ngIf="!linkedAccountDivFlag">
     <div class="col-sm-12">
-      <app-rds-data-table [tableData]="rdslinkedAccountTableData" [pagination]="pagination"
+      <rds-data-table [tableData]="rdslinkedAccountTableData" [pagination]="pagination"
         (deleteEvent)="deleteLinkedAccountData($event)" [recordsPerPage]="recordsPerpage" 
         [tableHeaders]="rdsLinkedAccountTableHeader" noDataTitle="Currently you do not have linked Account">
-      </app-rds-data-table>
+      </rds-data-table>
     </div> 
   </div> -->
 

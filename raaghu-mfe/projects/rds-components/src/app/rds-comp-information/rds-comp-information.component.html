@@ -3,32 +3,40 @@
     <div class="row">
       <div class="col-md-6 pr-0">
         <div class=" form-group mb-3">
-          <rds-input size="default" [Title]="translate.instant('Property Name')" [disabled]="false" [readonly]="false" [TitleType]="'Top'"
-            value="" name="propertyName" [isRequired]=true inputType="text" [placeholder]="translate.instant('Property Name')" #propertyName="ngModel"
+          <rds-input size="medium" [label]="translate.instant('Property Name')" [disabled]="false" [readonly]="false"
+            [labelPosition]="'top'" value="" name="propertyName" [isRequired]=true inputType="text"
+            [placeholder]="translate.instant('Property Name')" #propertyName="ngModel"
             [(ngModel)]="dynamicPropertiesData.propertyName" floatinginputLabel="" required ngDefaultControl>
           </rds-input>
-          <div class="form-control-feedback" *ngIf="propertyName.errors&&(propertyName.dirty||propertyName.touched)">
-            <span class="text-danger" *ngIf="propertyName.errors.required">{{'Property name is required'| translate}}</span>
+          <div class="form-control-feedback mt-1" *ngIf="propertyName.errors&&(propertyName.dirty||propertyName.touched)">
+            <h6><span class="text-danger" *ngIf="propertyName.errors.required">{{'Property name is required'|
+                translate}}</span></h6>
           </div>
         </div>
       </div>
       <div class="col-md-6 pr-0">
         <div class=" form-group mb-3">
-          <rds-input size="default" [Title]="translate.instant('Display Name')" [disabled]="false" [readonly]="false" [TitleType]="'Top'"
-            value="" inputType="text" name="displayName" [placeholder]="translate.instant('Display Name')"
-            [(ngModel)]="dynamicPropertiesData.displayName" #displayName="ngModel" floatinginputLabel="" required ngDefaultControl>
+          <rds-input size="medium" [label]="translate.instant('Display Name')" [disabled]="false" [readonly]="false"
+            [labelPosition]="'top'" value="" inputType="text" name="displayName"
+            [placeholder]="translate.instant('Display Name')" [(ngModel)]="dynamicPropertiesData.displayName"
+            #displayName="ngModel" floatinginputLabel="" required ngDefaultControl>
           </rds-input>
         </div>
       </div>
       <div class="col-md-6">
         <div class=" form-group mb-3 mt-2">
-          <rds-select-list [placeholder]="'Input Type'" [labelPosition]="'top'" [(ngModel)]="dynamicPropertiesData.inputType"
-            [label]="translate.instant('Input Type')" #inputNameData="ngModel" [value]="dynamicPropertiesData.inputType" ngDefaultControl name="inputNameData" 
-            required [itemList]="inputTypeList">
-          </rds-select-list>
+          <div class="mb-2">
+            <rds-label label="Input Type"></rds-label>
+          </div>
+          <rds-dropdownlist [placeholder]="translate.instant('Input Type')" [borderDropdown]="true" class="text-dark"
+            [id]="'input-type-dropdown'" [(ngModel)]="dynamicPropertiesData.inputType" [listItems]="inputTypeList"
+            #inputNameData="ngModel" required [multiSelect]="false" [selectAll]="false" [entity]="false"
+            (onSelect)="getInputTypeData($event)" [value]="dynamicPropertiesData.inputType" ngDefaultControl
+            name="inputNameData">
+          </rds-dropdownlist>
         </div>
       </div>
     </div>
   </div>
 </form>
-<app-rds-comp-information-shimmer *ngIf="editShimmer"></app-rds-comp-information-shimmer>
+<rds-comp-information-shimmer *ngIf="editShimmer"></rds-comp-information-shimmer>

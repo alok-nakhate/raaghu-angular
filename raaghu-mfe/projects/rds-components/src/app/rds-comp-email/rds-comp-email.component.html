@@ -1,15 +1,15 @@
-<div class="pt-5 ps-0" *ngIf="!editShimmer">
+<div class="pt-4 ps-0" *ngIf="!editShimmer">
   <!--<app-rds-comp-open-position [item]="openPositions"></app-rds-comp-open-position>-->
 
   <form #emailForm="ngForm">
     <div class="row">
       <div class="col-md-6 mb-3">
-        <rds-input size="'default'" [Title]="translate.instant('Default From (Sender) Email Address')" name="defaultFromAddress" [placeholder]="'Email Address'" id="txtUsername"
+        <rds-input [size]="'medium'" [label]="translate.instant('Default From (Sender) Email Address')" name="defaultFromAddress" [placeholder]="translate.instant('Email Address')" id="txtUsername"
                    #defaultFromAddress="ngModel" [pattern]="emailPattern" ngDefaultControl
-                   [(ngModel)]="EmailData.defaultFromAddress" required [isRequired]=true floatinginputLabel="" [TitleType]="'Top'">
+                   [(ngModel)]="EmailData.defaultFromAddress" required [isRequired]=true floatinginputLabel="" [labelPosition]="'top'" (change)="onChange()">
         </rds-input>
         <div class="form-control-feedback"
-             *ngIf="defaultFromAddress.errors&&(defaultFromAddress.dirty||defaultFromAddress.touched)">
+          *ngIf="defaultFromAddress.errors&&(defaultFromAddress.dirty||defaultFromAddress.touched)">
           <span class="text-danger" *ngIf="defaultFromAddress.errors.pattern">
             {{"Please enter a valid emailId"|translate }}
           </span>
@@ -17,8 +17,8 @@
       </div>
       <div class="col-md-6">
         <div class="form-group mb-3">
-          <rds-input size="'default'" [Title]="translate.instant('Default From (Sender) Display Name')" [placeholder]="'Display Name'" name="defaultFromDisplayName" id="txtUsername"
-                     #defaultFromDisplayName="ngModel" [(ngModel)]="EmailData.defaultFromDisplayName" [TitleType]="'Top'">
+          <rds-input [size]="'medium'" [label]="translate.instant('Default From (Sender) Display Name')" [placeholder]="translate.instant('Display Name')" name="defaultFromDisplayName" id="txtUsername"
+                     #defaultFromDisplayName="ngModel" [(ngModel)]="EmailData.defaultFromDisplayName" [labelPosition]="'top'" (change)="onChange()">
           </rds-input>
         </div>
       </div>
@@ -26,67 +26,75 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group mb-3">
-          <rds-input size="'default'" [Title]="translate.instant('SMTP Host')" [placeholder]="'127.0.0.1'" id="smtpHost"
-                     #smtpHost="ngModel" [(ngModel)]="EmailData.smtpHost" name='smtpHost' [pattern]="hostAddressPattern"
-                     [TitleType]="'Top'">
+          <rds-input [size]="'medium'" [label]="translate.instant('SMTP Host')" [placeholder]="'127.0.0.1'"
+            id="smtpHost" #smtpHost="ngModel" [(ngModel)]="EmailData.smtpHost" name='smtpHost'
+            [pattern]="hostAddressPattern" [labelPosition]="'top'" (change)="onChange()">
           </rds-input>
-          
+
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-group mb-3">
-          <rds-input size="'default'" [placeholder]="'25'" [Title]="translate.instant('SMTP Port')" id="smtpPort"
-                     name="smtpPort" [(ngModel)]="EmailData.smtpPort" #smtpPort="ngModel" [TitleType]="'Top'"></rds-input>
+          <rds-input [size]="'medium'" [placeholder]="'25'" [label]="translate.instant('SMTP Port')" id="smtpPort"
+            name="smtpPort" [(ngModel)]="EmailData.smtpPort" #smtpPort="ngModel" [labelPosition]="'top'"
+            (change)="onChange()"></rds-input>
         </div>
       </div>
     </div>
+    
     <div class="row">
-      <div class="col-md-12">
-        <div class="form-group mb-3">
-          <rds-checkbox [label]="translate.instant('Use SSL')" [checked]="EmailData.smtpEnableSsl" [(ngModel)]="EmailData.smtpEnableSsl"
-                        name="smtpEnableSsl" [disabled]="false" [switch]="false" [inline]="false" #smtpEnableSsl="ngModel"
-                        [withLabel]="true" [isInputGroup]="false" [id]="'smtpEnableSsl'" (onChange)="selectAllFeature($event,'smtpEnableSsl')"></rds-checkbox>
-        </div>
-      </div>
-      <div class="col-md-12">
-        <div class="form-group mb-3">
-          <rds-checkbox [label]="translate.instant('Use Default Credentials')" [checked]="EmailData.smtpUseDefaultCredentials" [disabled]="false" [switch]="false"
-                        [inline]="false" [withLabel]="true" [isInputGroup]="false"
-                        [(ngModel)]="EmailData.smtpUseDefaultCredentials" ngDefaultControl name="smtpUseDefaultCredentials" #smtpUseDefaultCredentials="ngModel"
-                        [id]="'smtpUseDefaultCredentials'" (onChange)="selectAllFeature($event,'smtpUseDefaultCredentials')"></rds-checkbox>
-
-          <!-- <rds-checkbox label="Use Default Credentials" [checked]="dataset.smtpUseDefaultCredentials" [disabled]="false"
-          name="smtpUseDefaultCredentials" #smtpUseDefaultCredentials="ngModel"
-            [switch]="false" [inline]="false"  [withLabel]="true" [isInputGroup]="false" [(ngModel)]="EmailData.smtpUseDefaultCredentials"
-             [id]="'smtpUseDefaultCredentials'"></rds-checkbox> -->
-        </div>
-      </div>
-    </div>
-    <div class="row pt-4">
+      <!-- <div class="row"> -->
       <div class="col-md-6">
         <div class="form-group mb-3">
-          <rds-input size="'default'" [pattern]="emailPattern" [Title]="translate.instant('Test Email Settings')"
-                     [placeholder]="'admin@aspnetzero.com'" id="txtUsername" #smtpDomain="ngModel"
-                     [(ngModel)]="EmailData.smtpDomain" name="smtpDomain" [TitleType]="'Top'">
-          </rds-input>
+          <rds-checkbox [label]="translate.instant('Use SSL')" [checked]="EmailData.smtpEnableSsl"
+            [(ngModel)]="EmailData.smtpEnableSsl" name="smtpEnableSsl" [disabled]="false" [switch]="false"
+            [inline]="false" #smtpEnableSsl="ngModel" [withLabel]="true" [isInputGroup]="false" [id]="'smtpEnableSsl'"
+            (onChange)="selectAllFeature($event,'smtpEnableSsl')" (change)="onChange()"></rds-checkbox>
+        </div>
+        <div class="form-group mb-3">
+          <rds-checkbox [label]="translate.instant('Use Default Credentials')"
+            [checked]="EmailData.smtpUseDefaultCredentials" [disabled]="false" [switch]="false" [inline]="false"
+            [withLabel]="true" [isInputGroup]="false" [(ngModel)]="EmailData.smtpUseDefaultCredentials" ngDefaultControl
+            name="smtpUseDefaultCredentials" #smtpUseDefaultCredentials="ngModel" [id]="'smtpUseDefaultCredentials'"
+            (onChange)="selectAllFeature($event,'smtpUseDefaultCredentials')" (change)="onChange()"></rds-checkbox>
+        </div>
 
-          <div class="form-control-feedback"
-             *ngIf="smtpDomain.errors&&(smtpDomain.dirty||smtpDomain.touched)">
+      </div>
+      <div class="col md-6">
+        <rds-input [size]="'medium'" [pattern]="emailPattern" [label]="translate.instant('Test Email Settings')"
+          [placeholder]="'admin@aspnetzero.com'" id="txtUsername" #smtpDomain="ngModel"
+          [(ngModel)]="EmailData.smtpDomain" name="smtpDomain" [labelPosition]="'top'" (change)="onChange()">
+        </rds-input>
+
+        <div class="form-control-feedback" *ngIf="smtpDomain.errors&&(smtpDomain.dirty||smtpDomain.touched)">
           <span class="text-danger" *ngIf="smtpDomain.errors.pattern">
             {{"Please enter a valid emailId"|translate }}
           </span>
         </div>
-
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="form-group mb-3 mt-1 pt-4">
-          <rds-button [tooltipPlacement]="'bottom'" (click)="sendTestmail()" [id]="'sendTestEmail'" [tooltipTitle]="translate.instant('SEND TEST EMAIL')" [label]="translate.instant('SEND TEST EMAIL')"
-                      type="button" [size]="'small'" [colorVariant]="'primary'" [outlineButton]="false"></rds-button>
-        </div>
       </div>
     </div>
+    <div class="pt-4">
+      <div class="row">
+        <div class="">
+          <div class="form-group float-end mb-3 mt-1 pt-4">
+            <rds-button [tooltipPlacement]="'bottom'" (click)="sendTestmail()" [id]="'sendTestEmail'"
+              [tooltipTitle]="translate.instant('SEND TEST EMAIL')" [label]="translate.instant('SEND TEST EMAIL')"
+              type="button" [size]="'medium'" [colorVariant]="'primary'" [isOutline]="false" (change)="onChange()">
+            </rds-button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+    <!-- </div> -->
   </form>
-</div>
-<app-rds-comp-email-shimmer *ngIf="editShimmer"></app-rds-comp-email-shimmer>
-<script src="https://smtpjs.com/v3/smtp.js"></script>
+  <rds-comp-email-shimmer *ngIf="editShimmer"></rds-comp-email-shimmer>
+  <script src="https://smtpjs.com/v3/smtp.js"></script>
+
+
+
+  <!-- <rds-checkbox label="Use Default Credentials" [checked]="dataset.smtpUseDefaultCredentials" [disabled]="false"
+          name="smtpUseDefaultCredentials" #smtpUseDefaultCredentials="ngModel"
+            [switch]="false" [inline]="false"  [withLabel]="true" [isInputGroup]="false" [(ngModel)]="EmailData.smtpUseDefaultCredentials"
+             [id]="'smtpUseDefaultCredentials'"></rds-checkbox> -->

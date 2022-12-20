@@ -273,7 +273,7 @@
   border-left: 0;
   padding: 0.25rem;
   border-radius: 0.2rem;
-  top: -0.4rem;
+  top: 0rem;
 }
 
 .sliderTooltipRangeTwo {
@@ -335,4 +335,134 @@
 
 #myRange{
   width: 100%;
+}
+
+// Range Type 1
+.slider_Type11 {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 100%;
+  outline: none;
+  position: absolute;
+  margin: auto;
+  background-color: transparent;
+  pointer-events: none;
+  z-index: 2;
+
+  ::-webkit-slider-runnable-track {
+    -webkit-appearance: none;
+    height: 5px;
+  }
+
+  ::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 2.2em;
+    width: 2.2em;
+    background-color: transparent;
+    cursor: pointer;
+    margin-top: -12px;
+    pointer-events: auto;
+    z-index: 2;
+    border-radius: 0%;
+  
+  }
+}
+
+.slider_Type11::-webkit-slider-runnable-track {
+  -webkit-appearance: none;
+  height: 5px;
+}
+
+.slider_Type11::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 1.7em;
+  width: 1.7em;
+  background-color: transparent;
+  cursor: pointer;
+  margin-top: -9px;
+  pointer-events: auto;
+  border: none;
+  border-radius: 0%;
+}
+
+.sliderTooltipRangeType1 {
+  display: block;
+  position: absolute;
+  color: white;
+  background: #5c82e3;
+  border-top: 0;
+  border-left: 0;
+  padding: 0.25rem;
+  border-radius: 0.2rem;
+  top: 2.2rem;
+  z-index: 1;
+  padding-left: 6px;
+  margin-left: -7px;
+  width: 39px;
+    text-align: center;
+    max-width: 100%;
+}
+
+
+// Range Type 2
+.sliderTooltipRangeTwo {
+  display: block;
+  position: absolute;
+  color: #ffff;
+  background: #5c82e3;
+  border-top: 0;
+  border-left: 0;
+  padding: 0.25rem;
+  border-radius: 0.2rem;
+  top: 1rem;
+  margin-left: 52px;
+}
+
+.sliderTooltipRangeType2 {
+  display: block;
+  position: absolute;
+  color: black;
+  max-width: 100%;
+  background: #ffffff;
+  border-top: 0;
+  border-left: 0;
+  padding: 0.25rem;
+  border-radius: 0.2rem;
+  top: 5rem;
+  border: 1px solid #B9C5CD;
+}
+
+.sliderTooltipRangeType2::after {
+  display: block;
+  content: "";
+  background: #ffffff;
+  position: absolute;
+  border: 1px #B9C5CD solid;
+  border-top: 0;
+  border-left: 0;
+  width: 8px;
+  height: 8px;
+  left: 10px;
+  bottom: 26px;
+  transform: rotate(225deg);
+}
+.val1PositionType2 {
+  top: 80px;
+  left: -5px;
+  border: 1px solid #B9C5CD;
+}
+
+.val2PositionType2 {
+  right: -20px;
+  top: 80px;
+  border: 1px solid #B9C5CD;
+}
+
+.val1PositionDefault {
+  bottom: 4px;
+}
+.val2PositionDefault {
+  right: 0px;
+  bottom: 4px;
 }

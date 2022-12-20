@@ -1,31 +1,28 @@
 
-<div class="row">
-        <div class="col-md-6">
-            <div class="text-center d-flex justify-content-center">
-                <div>
-                    <div class="h-100 sm-h-auto">
-                        <img src="static/media/.storybook/assets/raaghu-logo.svg" class="raaghu-logo">
-                    </div>
-                    <div class="h-100 sm-h-auto sm-pt-2">
-                        <h1><b><rds-label [label]="'Page not found'"></rds-label></b></h1>
-                        <rds-label [label]="'Sorry, we couldnt find the page youre looking for.'" class="text-muted fw-medium"></rds-label>
-                        <p class="mb-0 pt-4">
-                            <a class="go-back-home text-primary" href="">Go back home
-                                <rds-icon name="right" icon="right" class="text-primary" width="16px" height="16px"></rds-icon>
-                            </a>
-                        </p>
-                    </div>
-                   <div class="d-flex justify-content-center pt-5 mt-4 text-muted fw-medium sm-pb-2 sm-fs-6 sm-pt-2">
-                       <!-- <div>Contact Support<span class="px-3">|</span>Status<span class="px-3">|</span>Twitter</div> -->
-                       <div><span class="border-end px-3">Contact Support</span> <span class="border-end px-3">Status</span> <span class="ps-3">Twitter</span></div>
-                   </div>
-                </div>
+<div class="page">
+    
+    <div class="newsletter-col col">
+        <div>
+            <div class="sm-h-auto text-center pt-4">
+                <img src="static/media/.storybook/assets/raaghu-logo.svg" class="raaghu-logo">
             </div>
-        </div> 
-        <div class="col-md-6">
-            <div class="page-not-found-bg">
-
+             <div class="newslatter middle text-center">
+            <div class="sm-h-auto sm-pt-2 position-absolute w-100 page-text">
+                <h1><b><rds-label [label]="'Page not found'"></rds-label></b></h1>
+                <rds-label [label]="'Sorry, we couldnt find the page youre looking for.'" class="text-muted fw-medium"></rds-label>
+                <p class="mb-0 pt-4">
+                    <a class="go-back-home text-primary" href="">Go back home
+                        <rds-icon name="right" icon="right" class="text-primary" width="16px" height="16px"></rds-icon>
+                    </a>
+                </p>
             </div>
-            <!-- <img src="https://cdn.pixabay.com/photo/2016/11/22/14/41/astronaut-1849401_960_720.jpg" class="w-100 h-100" /> -->
+            <div class="d-flex justify-content-center text-muted fw-medium sm-pb-2 sm-fs-6 sm-pt-2 bg-page position-absolute bottom-0 w-100 p-5">
+                <div class="pt-1"><span class="border-end px-3">Contact Support</span> <span class="border-end px-3">Status</span> <span class="ps-3">Twitter</span></div>
+            </div>
+          </div>
         </div>
-</div>
+    </div>
+    <div class="countdown-col col">
+       
+      </div>
+  </div>

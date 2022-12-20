@@ -1,24 +1,24 @@
-<div class="">
+<!-- <div class="">
   <div class="row">
-    <div class="col-md-12 text-end pb-3 desktop-btn">
-      <rds-button [label]="translate.instant('NEW ROLE')" [showLoadingSpinner]="buttonSpinnerForNewRole" type="button"
+      <div class="col-md-8">
+        <ng-container *ngIf="currentAlerts&&currentAlerts.length>0">
+          <mfe-loader [config]="rdsAlertMfeConfig"></mfe-loader>
+        </ng-container>
+    </div>
+    <div class="col-md-4 text-end pb-3 desktop-btn">
+      <rds-button [label]="translate.instant('NEW ROLE')" [showLoadingSpinner]="showLoadingSpinner" type="button"
         style="float: right" [size]="'small'" [colorVariant]="'primary'" (click)="newRole($event)" [icon]="'plus'"
         iconHeight="12px" iconWidth="12px" class="ms-2">
       </rds-button>
-      <rds-button type="button" [size]="'small'" [colorVariant]="'primary'" [roundedButton]="true" icon="refresh"
-        class="ms-2" (click)="getRoles()" iconHeight="18px" iconWidth="26px">
-      </rds-button>
-      <rds-button [label]="translate.instant('FILTER BY PERMISSIONS')" type="button"
-        (click)="filterByPermission($event)" [size]="'small'" [colorVariant]="'primary'" [outlineButton]="true"
-        class="ms-2 px-2">
-      </rds-button>
     </div>
+    </div>
+    <div class="row">
     <div class="col-md-12">
       <div class="card p-2 h-100 border-0 rounded-0 card-full-stretch">
         <div class="table-responsive">
-          <app-rds-data-table [tableData]="roleList" [inlineEdit]="false" [pagination]="true" [recordsPerPage]="10"
+          <rds-data-table [tableData]="tableData" [inlineEdit]="false" [pagination]="true" [recordsPerPage]="10"
             [actions]="actions" (deleteEvent)="deleteEvent.emit($event)" (onActionSelection)="onActionSelect($event)"
-            [tableHeaders]="roleHeaders" [isShimmer]="isShimmer"></app-rds-data-table>
+            [tableHeaders]="roleHeaders" [isShimmer]="isShimmer"></rds-data-table>
         </div>
       </div>
     </div>
@@ -30,88 +30,99 @@
 </div>
 <rds-offcanvas [canvasTitle]="translate.instant(canvasTitle)" [offId]="'RoleOffcanvas'" [offcanvaswidth]="550"
   [placement]="'end'" *ngIf="viewCanvas" (onClose)="close()">
-  <rds-nav-tab [navtabsItems]="getNavTabItems()" (onClicktab)="getSelectedNavTab($event)" [activepage]="activePage"
+  <rds-nav-tab [navtabsItems]="getNavTabItems()" (onClicktab)="getSelectedNavTab($event)" [activeTab]="activePage"
     [horizontalAlignment]="'start'" [verticalAlignment]="false" [pills]="false" [tabs]="true" [fill]="false"
     [justified]="false">
     <div naveContent class="tab-content" id="nav-tabContent">
       <div class="tab-pane fade" [ngClass]="{'show active': activePage === 0}" id="Role" role="tabpanel"
         aria-labelledby="nav-home-tab">
-        <app-rds-comp-new-role (RoleInfo)="getRoleData($event)" [roleData]="RolesData" (onCancel)="close()"
+        <rds-comp-new-role (RoleInfo)="getRoleData($event)" [roleData]="RolesData" (onCancel)="close()"
           [isReset]="isReset" [EditShimmer]="EditShimmer">
-        </app-rds-comp-new-role>
+        </rds-comp-new-role>
       </div>
-      <div class="tab-pane fade" [ngClass]="{'show active': activePage === 1}" id="Permission" role="tabpanel"
+      <div class="tab-pane fade py-2" [ngClass]="{'show active': activePage === 1}" id="Permission" role="tabpanel"
         aria-labelledby="nav-home-tab">
-        <app-rds-comp-permission-tree [treeData]="permissionsList" [selectedItems]="SelectedPermissionValues"
-          (getAllSelectedNodes)="getSelectedPermissionList($event)" [selectAllLabel]="'Select Permissions'">
-        </app-rds-comp-permission-tree>
-
+ 
         <div class="pt-4 pb-4">
-          <rds-banner 
+          <rds-banner
             [bannerText]="translate.instant('If you are changing your own permissions, you may need to refresh page (F5) to take effect of permission changes on your own screen!')"
             [sticky]="false" position="bottom" colorVariant="primary"></rds-banner>
         </div>
+      </div>
+
+      <div class="tab-pane fade" *ngIf="actionId == 'edit'" [ngClass]="{'show active': activePage === 2}" id="Claims" role="tabpanel"
+        aria-labelledby="nav-home-tab">
+        <mfe-loader [config]="rdsClaimTypeRoleMfeConfig"></mfe-loader>
+        </div>
+       
+
+
         <div class="footer-buttons my-2">
-          <rds-button [label]="translate.instant('Cancel')" (click)="close()" [colorVariant]="'primary'"
-            [size]="'small'" data-bs-dismiss="offcanvas">
+            <rds-banner
+            [bannerText]="translate.instant('If you are changing your own permissions, you may need to refresh page (F5) to take effect of permission changes on your own screen!')"
+            [sticky]="false" position="bottom" [colorVariant]="'primary'"></rds-banner>
+  
+          
+          <rds-button [label]="translate.instant('Cancel')" (click)="close()" [isOutline]="true"
+            [colorVariant]="'primary'" [size]="'small'" data-bs-dismiss="offcanvas">
           </rds-button>
           <rds-button [label]="translate.instant('Save')" class="ms-2" [colorVariant]="'primary'" [size]="'small'"
-            [disabled]="EnableTreeSave" (click)="save()">
+            [isDisabled]="EnableTreeSave" (click)="save()">
           </rds-button>
         </div>
       </div>
     </div>
   </rds-nav-tab>
+  <div class="footer-buttons my-2">
+    <rds-button [label]="translate.instant('Cancel')" (click)="close()" [colorVariant]="'primary'" [size]="'small'"
+      data-bs-dismiss="offcanvas">
+    </rds-button>
+    <rds-button [label]="translate.instant('Save')" class="ms-2" [colorVariant]="'primary'" [size]="'small'"
+      [disabled]="EnableTreeSave" (click)="save()">
+    </rds-button>
+  </div>
 </rds-offcanvas>
 
-<!-- Filter by Permissions Offcanvas -->
 <rds-offcanvas [canvasTitle]="translate.instant(canvasTitle)" [offId]="'PermissionOffcanvas'" [offcanvaswidth]="550"
   [placement]="'end'" *ngIf="viewCanvas" (onClose)="closeFilterPermission()">
-  <app-rds-comp-permission-tree [treeData]="permissionsList" [selectedItems]="SelectedPermissionValues"
-    (getAllselectedPermissions)="getFilterPermissionList($event)" [selectAllLabel]="'Select Permissions'">
-  </app-rds-comp-permission-tree>
+
   <div class="footer-buttons my-2">
-    <rds-button [label]="translate.instant('Cancel')" (click)="closeFilterPermission()"
-      [colorVariant]="'primary'" [size]="'small'" [outlineButton]="true" data-bs-dismiss="offcanvas">
+    <rds-button [label]="translate.instant('Cancel')" (click)="closeFilterPermission()" [colorVariant]="'primary'"
+      [size]="'small'" [outlineButton]="true" data-bs-dismiss="offcanvas">
     </rds-button>
-    <rds-button [label]="translate.instant('Select')" [class.disabled]="disableButton()" class="ms-2" [colorVariant]="'primary'" [size]="'small'" [id]="'savePermission'"
-      [disabled]="disableButton()"
+    <rds-button [label]="translate.instant('Select')" [class.disabled]="disableButton()" class="ms-2"
+      [colorVariant]="'primary'" [size]="'small'" [id]="'savePermission'" [disabled]="disableButton()"
       (click)="saveFilterPermission()">
     </rds-button>
   </div>
 </rds-offcanvas>
 <rds-offcanvas [canvasTitle]="translate.instant(canvasTitle)" [offId]="'RoleOffcanvas'" [offcanvaswidth]="550"
   [placement]="'end'" *ngIf="viewCanvas" (onClose)="close()">
-  <rds-nav-tab [navtabsItems]="getNavTabItems()" (onClicktab)="getSelectedNavTab($event)" [activepage]="activePage"
+  <rds-nav-tab [navtabsItems]="getNavTabItems()" (onClicktab)="getSelectedNavTab($event)" [activeTab]="activePage"
     [horizontalAlignment]="'start'" [verticalAlignment]="false" [pills]="false" [tabs]="true" [fill]="false"
     [justified]="false">
     <div naveContent class="row tab-content m-2" id="nav-tabContent">
       <div class="tab-pane fade" [ngClass]="{'show active': activePage === 0}" id="Role" role="tabpanel"
         aria-labelledby="nav-home-tab">
-        <app-rds-comp-new-role (RoleInfo)="getRoleData($event)" (RoleDataemit)="onchangeRoldate($event)"
+        <rds-comp-new-role (RoleInfo)="getRoleData($event)" (RoleDataemit)="onchangeRoldate($event)"
           [roleData]="RolesData" (onCancel)="close()">
-        </app-rds-comp-new-role>
+        </rds-comp-new-role>
       </div>
       <div class="tab-pane fade" [ngClass]="{'show active': activePage === 1}" id="Permission" role="tabpanel"
         aria-labelledby="nav-home-tab">
-        <app-rds-comp-permission-tree [treeData]="permissionsList" [selectedItems]="SelectedPermissionValues"
-          (getAllSelectedNodes)="getSelectedPermissionList($event)" [selectAllLabel]="'Select Permissions'">
-        </app-rds-comp-permission-tree>
+    
 
         <div class="footer-buttons my-2">
-          <rds-button [label]="translate.instant('Cancel')" (click)="close()" [colorVariant]="'secondary'"
-            data-bs-dismiss="offcanvas">
+          <rds-button [label]="translate.instant('Cancel')" (click)="close()" [isOutline]="true"
+            [colorVariant]="'secondary'" data-bs-dismiss="offcanvas">
           </rds-button>
           <rds-button [label]="translate.instant('Save')" class="save-btn" [colorVariant]="'primary'"
-            [disabled]="!selectedPermissionList||selectedPermissionList.length===0||!selectedPermissionList[0].selected" (click)="save()">
+            [disabled]="!selectedPermissionList||selectedPermissionList.length===0||!selectedPermissionList[0].selected"
+            (click)="save()">
           </rds-button>
         </div>
       </div>
 
     </div>
   </rds-nav-tab>
-</rds-offcanvas>
-
-<ng-container *ngIf="currentAlerts&&currentAlerts.length>0">
-  <mfe-loader [config]="rdsAlertMfeConfig"></mfe-loader>
-</ng-container>
+</rds-offcanvas> -->

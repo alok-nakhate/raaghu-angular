@@ -1,44 +1,39 @@
-<div class="pb-5 mb-5">
-<form>
-    <rds-nav-tab [navtabsItems]="navtabsItems" [horizontalAlignment]="'start'" [activepage]="activePage"
-    [verticalAlignment]="false" [pills]="false" [tabs]="true" [fill]="false" [justified]="false"
-    (onClicktab)="onTabClick($event)"></rds-nav-tab>
-<div naveContent class="tab-content py-2 px-3 navsm-p-0" id="nav-tabContent">
-    <div class="tab-pane fade" [ngClass]="{'show active': activePage === 0}" id="email" edition="tabpanel"
-        aria-labelledby="nav-home-tab">
-        <app-rds-comp-email-settings-new  (emailSettingsInfo)="getEmailData($event)"  ></app-rds-comp-email-settings-new>
-    </div>
-    <div class="tab-pane fade" [ngClass]="{'show active': activePage === 1}" id="identity" role="tabpanel" 
-        aria-labelledby="nav-home-tab">
-        <app-rds-comp-identity-management-new [identityData]="" (identitymanagementInfo)="getIdentityData($event)"></app-rds-comp-identity-management-new>
-    </div>
-    <div class="tab-pane fade" [ngClass]="{'show active': activePage === 2}" id="theme" theme="tabpanel" 
-        aria-labelledby="nav-home-tab">
-        <app-rds-comp-theme-new
-        [StyleList]="StyleList"
-        [WebList]="WebList"
-        [MenuList]="MenuList"
-        [StatusList]="StatusList"
-        (themeInfo)="getThemeData($event)"
-      ></app-rds-comp-theme-new>
-    </div>
-    <div class="tab-pane fade" [ngClass]="{'show active': activePage === 3}" id="account" account="tabpanel" 
-        aria-labelledby="nav-home-tab">
-        <app-rds-comp-account-new
-  [AuthentiactionList]="AuthentiactionList"
-  [VersionList]="VersionList"
-  (accountInfo)="getAccountData($event)"
-></app-rds-comp-account-new> 
-    </div>
-</div>
+<div class="card">
+    <div class="card-body">
+        <div class="pb-5 mb-5">
+   
+            <rds-nav-tab [navtabsItems]="navtabsItems" [horizontalAlignment]="'start'" [activeTab]="activePage"
+                [verticalAlignment]="false" [pills]="false" [tabs]="true" [fill]="false" [justified]="false"
+                (onClicktab)="onTabClick($event)"></rds-nav-tab>
+            <div naveContent class="tab-content py-2 px-3 navsm-p-0" id="nav-tabContent">
+                <div class="tab-pane fade" [ngClass]="{'show active': activePage === 0}" id="email" edition="tabpanel"
+                    aria-labelledby="nav-home-tab">
+                    <rds-comp-email-settings-new [emailSettingsData]="emailSettingsData" (emailSettingsInfo)="onDataSaveEmail.emit($event)"></rds-comp-email-settings-new>
+                  
+                </div>
+                <div class="tab-pane fade" [ngClass]="{'show active': activePage === 1}" id="identity" role="tabpanel"
+                    aria-labelledby="nav-home-tab">
+                    <rds-comp-identity-management-new [identityData]="identiyData" (identityInfo)="onDataSaveIdentity.emit($event)">
+                    </rds-comp-identity-management-new>
 
-</form>
+                </div>
+                <div class="tab-pane fade" [ngClass]="{'show active': activePage === 2}" id="theme" theme="tabpanel"
+                    aria-labelledby="nav-home-tab">
+                    <rds-comp-theme-new [StyleList]="StyleList" [WebList]="WebList" [themeData]="themeData" [MenuList]="MenuList"
+                        [StatusList]="StatusList" (themeInfo)="onDataSaveTheme.emit($event)"></rds-comp-theme-new>
+
+                        
+                </div>
+                <div class="tab-pane fade" [ngClass]="{'show active': activePage === 3}" id="account" account="tabpanel"
+                    aria-labelledby="nav-home-tab">
+                    <rds-comp-account-new [AuthentiactionList]="AuthentiactionList" [externalProviders]="externalProviders" [accountData]="accountData" [VersionList]="VersionList"
+                        (accountInfo)="onDataSaveAccount.emit($event)"></rds-comp-account-new>
+
+                </div>
+            </div>
+    
+      
+    </div>
+  
+    </div>
 </div>
-<div class="footer-buttons my-2 justify-content-end d-flex position-fixed bottom-0 ">
-    <rds-button [label]="'Cancel'" [colorVariant]="'primary'" [size]="'small'" [outlineButton]="true" 
-                >
-    </rds-button>
-    <rds-button [label]="'Create'" (click)="onSave()" [size]="'small'" class="ms-2" 
-                [colorVariant]="'primary'"  >
-    </rds-button>
-  </div>

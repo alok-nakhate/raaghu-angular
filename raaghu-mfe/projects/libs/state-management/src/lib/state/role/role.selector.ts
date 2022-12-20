@@ -16,3 +16,13 @@ export const selectRoleForEdit = createSelector(
     Roleselector,
     (state: RolesState) => state.EditRoleSateI
 );
+
+export const selectAllClaimsTypesRoles = createSelector(
+    Roleselector,
+    (state: RolesState) => state.allClaimTypes
+);
+
+export const selectClaimsTypeByRole = createSelector(
+    Roleselector,
+    (state: RolesState) => state.claimTypes
+);

@@ -12,7 +12,7 @@ title: "Elements > Accordion"
 
 #### Accordion
 
-<p class="checkbox-def">It is list of collapsible panels with clickable heading or down arrow, expands </p>
+<p class="checkbox-def">It is list of collapsible panels with clickable heading or down arrow, expanding to reveal hidden content. </p>
 
 <!-- Basic -->
   <section class="py-4">
@@ -112,6 +112,60 @@ title: "Elements > Accordion"
       </div>
     </div>
 </section>
+
+<!-- Accordian Always open -->
+
+ <section class="py-4">
+    <h6>Always open </h6>
+    <div class="py-3">
+      <div class="cust-tabs">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="PreviewOpen-tab" data-bs-toggle="tab" data-bs-target="#PreviewOpen" type="button" role="tab" aria-controls="PreviewOpen" aria-selected="true">Preview </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="AngularOpen-tab" data-bs-toggle="tab" data-bs-target="#AngularOpen" type="button" role="tab" aria-controls="AngularOpen" aria-selected="false"><i class="bi bi-code-slash" style="font-size:1.0rem"></i>Angular</button>
+          </li>
+        </ul>
+      </div>
+      <div class="tab-content card border" id="myTabContent">
+        <div class="tab-pane fade show active" id="PreviewOpen" role="tabpanel" aria-labelledby="PreviewOpen-tab">
+          <div class="contents  p-5">
+            <div class="row">
+               <div class="col-md-12">
+                  <img src="/images/accordion-always-open.png" class="img-fluid">
+               </div>          
+              </div>
+          </div>
+        </div>
+        <div class="tab-pane fade show" id="AngularOpen" role="tabpanel" aria-labelledby="AngularOpen-tab">
+          <div class="contents bg-code">
+    <div class="row m-0">
+
+```html
+<rds-accordian [outline]="true">
+  <accordion-item
+    title="Section 1 title"
+    [alwaysOpen]="alwaysOpen"
+    [expanded]="true"
+  >
+    this is content updated
+  </accordion-item>
+</rds-accordian>
+<rds-accordian>
+  <accordion-item title="Section 2 title" [alwaysOpen]="alwaysOpen">
+    <h3>Custom</h3>
+  </accordion-item>
+</rds-accordian>
+```
+
+</div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+
 <!-- Accoradtion with product overview -->
   <section class="py-4">
     <h6>With Product Overview</h6>

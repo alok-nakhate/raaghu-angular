@@ -1,5 +1,6 @@
 import {
   Component,
+  DoCheck,
   EventEmitter,
   Input,
   OnInit,
@@ -16,19 +17,19 @@ declare let bootstrap: any;
   templateUrl: './rds-comp-tenant-features.component.html',
   styleUrls: ['./rds-comp-tenant-features.component.scss'],
 })
-export class RdsCompTenantFeaturesComponent implements OnInit {
-  @Input() public editionList: any = [];
-  public emailPattern =
-    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  @Output() tenantInfo = new EventEmitter<any>();
+export class RdsCompTenantFeaturesComponent implements OnInit, DoCheck {
+  //  @Output() tenantFeatureInfo = new EventEmitter<any>();
   @Output() onCancel = new EventEmitter<any>();
-  @Input() tenantData: any;
-  @ViewChild('tenantCreationForm') tenantInfoForm: NgForm;
-  @Input() showEmail: boolean = true;
+  @Input() tenantFeatures= [];
+  @ViewChild('tenantFeatureForm') tenantInfoForm: NgForm;
   @Input() editShimmer: boolean = false;
   @Input() buttonSpinner: boolean = true;
   @Output() onSaveFeatures = new EventEmitter<any>();
-  showInput: boolean = false;
+  @Input() public twoFactorList: any = [
+    {displayText : 'Optional', value : 'Optional'},
+    {displayText : 'Disabled', value : 'Disabled'},
+    {displayText : 'Forced', value : 'Forced'}
+  ];
   buttonSpinnerForSave: boolean = true;
   buttonSpinnerForNewUser: boolean = true;
   selectedFeatureList: any = [];
@@ -37,49 +38,96 @@ export class RdsCompTenantFeaturesComponent implements OnInit {
   viewCanvas: boolean = false;
   @Input() offCanvasId: string;
   sampleCounter = 0;
-  EnableSettingsManagement = false;
-  EnableLanguageManagement = false;
-  EnableTextTemplateManagement = false;
-  EnableThemeManagement = false;
-  EnableAuditLoggingPage = false;
-  AuditLoggingPage = false;
 
   constructor(public translate: TranslateService) {}
 
   ngOnInit(): void {
-    if (!this.tenantData) {
-      this.tenantData = {};
-      this.tenantData['tenancyName'] = undefined;
-      this.tenantData['tenantName'] = '';
-      this.tenantData['adminEmailAddress'] = '';
-      this.tenantData['edition'] = '';
-      this.tenantData['unlimitedSubscription'] = true;
-      this.tenantData['imageUrl'] = '../assets/edit-pic.png';
-      this.tenantData['subscriptionEndDate'] = null;
-    }
     setTimeout(() => {
-      if (this.tenantData && this.tenantInfoForm) {
+      if (this.tenantFeatures && this.tenantInfoForm) {
         this.tenantInfoForm.statusChanges.subscribe((res) => {
-          if (res === 'VALID') {
-            this.tenantInfo.emit({ tenant: this.tenantData, next: false });
-          } else {
-            this.tenantInfo.emit({ tenant: undefined, next: false });
-          }
+            this.onSaveFeatures.emit(this.tenantFeatures);
         });
       }
     }, 100);
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (!this.tenantData) {
-      this.tenantData = {};
-      this.tenantData['tenancyName'] = '';
-      this.tenantData['tenantName'] = '';
-      this.tenantData['adminEmailAddress'] = '';
-      this.tenantData['edition'] = '';
-      this.tenantData['unlimitedSubscription'] = true;
-      this.tenantData['imageUrl'] = '../assets/edit-pic.png';
-      this.tenantData['subscriptionEndDate'] = null;
+  ngDoCheck(): void {
+    // console.log(this.tenantFeatures);
+  }
+   ngOnChanges(changes: SimpleChanges): void {
+    if (this.tenantFeatures.length == 0) {
+      this.tenantFeatures = [
+        {
+          name : 'Identity',
+          value : false
+        },
+        {
+          name : 'Identity 1',
+          value : '0'
+        },
+        {
+          name : 'Identity 2',
+          value : false
+        },
+        {
+          name : 'Identity 3',
+          value : false
+        },
+        {
+          name : 'Identity 4',
+          value : false
+        },
+        {
+          name : 'Identity 5',
+          value : false
+        },
+        {
+          name : 'Identity 6',
+          value : false
+        },
+        {
+          name : 'Identity 7',
+          value : false
+        },
+        {
+          name : 'Identity 8',
+          value : false
+        },
+        {
+          name : 'Identity 9',
+          value : false
+        }
+      ]
+      
+    }
+   }
+
+  getCheckboxValue(event: boolean, type: string): void {
+    switch (type) {
+      case 'identity 1':
+        this.tenantFeatures[2].value = event;
+        break;
+        case 'identity 2':
+        this.tenantFeatures[3].value = event;
+        break;
+      case 'settingManagment 1':
+        this.tenantFeatures[4].value = event;
+        break;
+        case 'settingManagment 2':
+        this.tenantFeatures[5].value = event;
+        break;
+      case 'languageManagement':
+        this.tenantFeatures[6].value = event;
+        break;
+      case 'textTemplateManagement': 
+        this.tenantFeatures[7].value = event;
+        break;
+      case 'themeManagement':
+        this.tenantFeatures[8].value = event;
+        break;
+      case 'auditLoggingPage':
+        this.tenantFeatures[9].value = event;
+        break;
     }
   }
 
@@ -88,10 +136,13 @@ export class RdsCompTenantFeaturesComponent implements OnInit {
     this.onCancel.emit(true);
   }
   save(event: NgForm): void {
-    console.log(event.form.value);
+    debugger
+    console.log('FeatureList', event.form.value);
     this.buttonSpinnerForSave = true;
     this.buttonSpinnerForNewUser = false;
-    this.onSaveFeatures.emit(event.form.value);
+    
+    console.log('checkbox Value' ,event.form.value);
+    
     this.activePage = 0;
     var offcanvas = document.getElementById(this.offCanvasId);
     var bsOffcanvas = new bootstrap.Offcanvas(offcanvas);

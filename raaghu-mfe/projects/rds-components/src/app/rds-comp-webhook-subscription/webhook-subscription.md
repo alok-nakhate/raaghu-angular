@@ -9,8 +9,8 @@ title: "Components > Webhook-Subscription"
 <link rel="stylesheet" href="../../../../../../../raaghu/src/assets/css/style-elements.css">
 <link rel="stylesheet" href="../../../../../../../raaghu/src/assets/css/main.css">
 
-#### Webhook-Subscription
-
+#### Webhook Subscription
+<p>Provides a card with necessary details to be filled </p>
  <section class="py-4">
     <h6>Default</h6>
     <div class="py-3">
@@ -39,9 +39,9 @@ title: "Components > Webhook-Subscription"
 <div class="row m-0">
 
 ```html
-<app-rds-comp-webhook-subscription
+<rds-comp-webhook-subscription
  [HeaderTableHeader]="HeaderTableHeader"
-></app-rds-comp-webhook-subscription>
+></rds-comp-webhook-subscription>
 ```
 </div>
 </div>

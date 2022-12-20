@@ -3,7 +3,7 @@
         <h5 class="modal-title"><b> {{translate.instant('Notification settings')}}</b></h5>
         <button type="button" class="btn-close " data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
-    <div modalbody >
+    <div modalbody>
         <form #notificationSettingsForm="ngForm">
             <div class="row mb-5">
                 <div class="col-md-12">
@@ -11,14 +11,13 @@
                     <div class="form-group mt-2">
                         <rds-checkbox class="mt-1"
                             [label]="translate.instant('(this option can be used to completely enable/disable receiving notifications.)')"
-                            [withLabel]="true" [checked]="receiveNotifications"
-                            [(ngModel)]="receiveNotifications" name="receive_notification"
-                            (onChange)="onReceiveNotificationsChange($event)" [withLabel]="true" [switch]="true"
-                            [inline]="false" id="receive_Notifications">
+                            [withLabel]="true" [checked]="receiveNotifications" [(ngModel)]="receiveNotifications"
+                            name="receive_notification" (onChange)="onReceiveNotificationsChange($event)"
+                            [withLabel]="true" [switch]="true" [inline]="false" id="receive_Notifications">
                         </rds-checkbox>
                     </div>
                 </div>
-                <div class="col-md-12 mt-2" >
+                <div class="col-md-12 mt-2">
                     <rds-label [bold]="true" [label]="'Notification Types'"></rds-label>
                     <div class="form-group mt-2" *ngFor="let notification of notificationTypes">
                         <rds-checkbox [label]="notification.displayName" [withLabel]="true"
@@ -32,11 +31,11 @@
         </form>
     </div>
     <div modalfooter>
-        <rds-button [tooltipPlacement]="'top'" data-bs-dismiss="modal" [colorVariant]="'primary'" [outlineButton]="true"
-            [size]="'medium'" [label]="translate.instant('Cancel')" class="px-2">
+        <rds-button [tooltipPlacement]="'top'" (click)="cancel()" [colorVariant]="'primary'" [isOutline]="true"
+            [size]="'medium'" [attr.data-bs-dismiss]="'modal'" [label]="translate.instant('Cancel')" class="px-2">
         </rds-button>
         <rds-button class="mr-1" [id]="'notificationSave'" [size]="'medium'" iconHeight="15px" iconWidth="15px"
-            (click)="updateSettings()" [tooltipPlacement]="'top'" [colorVariant]="'primary'" icon="save"
+            (click)="updateSettings()" [attr.data-bs-dismiss]="'modal'" [tooltipPlacement]="'top'" [colorVariant]="'primary'" icon="save"
             [label]="translate.instant('Save')">
         </rds-button>
     </div>

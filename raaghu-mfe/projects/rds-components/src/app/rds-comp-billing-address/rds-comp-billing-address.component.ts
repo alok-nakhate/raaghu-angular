@@ -13,7 +13,7 @@ export class billingData {
   postalCode: string;
 }
 @Component({
-  selector: 'app-rds-comp-billing-address',
+  selector: 'rds-comp-billing-address',
   templateUrl: './rds-comp-billing-address.component.html',
   styleUrls: ['./rds-comp-billing-address.component.scss']
 })

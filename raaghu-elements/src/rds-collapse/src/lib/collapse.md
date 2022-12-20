@@ -80,7 +80,7 @@ title: "Elements > Collapse"
            <div class="contents  p-5">
               <div class="row">
                <div class="col-md-12">
-                   <img src="/images/collapse-basic.png" class="img-fluid w-100">
+                   <img src="/images/collapse-multiple-target.png" class="img-fluid w-100">
                </div>                           
            </div>
                        

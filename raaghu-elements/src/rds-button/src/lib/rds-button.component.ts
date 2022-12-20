@@ -1,94 +1,83 @@
-import { AfterViewInit, Component, DoCheck, EventEmitter, Input, OnInit, Output } from '@angular/core';
-// import { Tooltip } from 'bootstrap'
+import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Tooltip } from 'bootstrap'
-declare var bootstrap: any;
+import { is } from 'date-fns/locale';
 @Component({
   selector: 'rds-button',
   templateUrl: './rds-button.component.html',
   styleUrls: ['./rds-button.component.scss']
 })
-export class RdsButtonComponent implements AfterViewInit, OnInit, DoCheck {
+export class RdsButtonComponent implements AfterViewInit, OnInit ,OnChanges{
 
-  @Input() colorVariant: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'dark' | 'light' | 'default' = 'default';
+  @Input() colorVariant: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'dark' | 'light' | 'default' | 'review' | '' = 'default';
   @Input() submit = false;
   static count: number = 0;
   @Input() block: boolean = false;
-  @Input() size: 'small' | 'medium' | 'large' = 'small';
-  @Input() disabled = false;
-  @Input() outlineButton = false;
-  @Input() roundedButton = false;
-  @Input() roundedCorner = false;
-  @Input() tooltipTitle: string = '';
+  @Input() size: 'small' | 'medium' | 'large' | undefined = 'small';
+  @Input() isDisabled = false;
+  @Input() isOutline = false;
+  @Input() isFabIcon = false;
+  @Input() isRounded = false;
+  @Input() tooltipTitle: string;
   @Input() tooltipPlacement: 'top' | 'bottom' | 'right' | 'left' = 'bottom';
-  @Input() id: string = 'buttonId';
+  @Input() id: string = 'rds_buttonId_';
+  @Input() buttonId: string = '';
   @Input() isLoading: boolean = false;
   @Input() showLoadingSpinner: boolean = false;
   @Input() iconHeight: string = '';
   @Input() iconWidth: string = '';
-  @Input() iconStroke: boolean = true;
-  @Input() iconFill: boolean = false;
-  @Input() buttonType?: 'iconOnly' | 'labelOnly' | 'iconLabel' = 'iconLabel';
+  @Input() isIconStroke: boolean = true;
+  @Input() isIconFill: boolean = false;
   @Input() icon: string = '';
   @Input() label: string = '';
-  private labelTemp: string;
-
   @Output() onClick = new EventEmitter<Event>();
 
-
-  makeSpinnerActive: boolean;
-  iconTemp: string;
-  buttonTypeTemp: 'iconOnly' | 'labelOnly' | 'iconLabel' | undefined;
-
   constructor() {
-    this.id = this.id + RdsButtonComponent.count++;
-  }
 
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    if(this.tooltipTitle){
+      const btnElement: any = document.getElementById(this.id);
+      if(btnElement){
+        const tooltip = new Tooltip(btnElement, {
+          title: this.tooltipTitle,
+          placement: this.tooltipPlacement
+        });
+      }
+    }  }
 
   ngOnInit(): void {
-    this.makeSpinnerActive = this.showLoadingSpinner;
-    this.showLoadingSpinner = false;
-    this.labelTemp = this.label;
-    this.iconTemp = this.icon;
-    this.buttonTypeTemp = this.buttonType;
-  }
-
-  ngDoCheck(): void {
-    if (this.showLoadingSpinner == true) {
-      this.label = '';
-      this.icon = '';
-      this.buttonType = 'labelOnly';
+    if (this.buttonId == '') {
+      this.id = this.id + RdsButtonComponent.count++;
     }
     else {
-      this.label = this.labelTemp;
-      this.icon = this.iconTemp;
-      this.buttonType = this.buttonTypeTemp;
+      this.id = this.id + this.buttonId;
     }
   }
 
-
   ngAfterViewInit(): void {
-    const tooltipTriggerList: any = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-    if (this.tooltipTitle && tooltipTriggerList) {
-      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new Tooltip(tooltipTriggerEl))
+    if(this.tooltipTitle){
+      const btnElement: any = document.getElementById(this.id);
+      if(btnElement){
+        const tooltip = new Tooltip(btnElement, {
+          title: this.tooltipTitle,
+          placement: this.tooltipPlacement
+        });
+      }
     }
-    // if (this.tooltipPlacement && this.tooltipTitle) {
-    //   const tooltipElement: any = document.getElementById(this.id)
-    //   // update
-    //   if (tooltipElement) {
-    //     let bsTooltip = new bootstrap.Tooltip(tooltipElement)
-    //     tooltipElement.title = this.tooltipTitleou
-    //     bsTooltip = new bootstrap.Tooltip(tooltipElement)
-    //   }
+
+    // const tooltipTriggerList: any = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    // if (this.tooltipTitle && tooltipTriggerList) {
+    //   const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new Tooltip(tooltipTriggerEl)) || '';
     // }
+
   }
 
   public get classes(): string {
-    const outline = `${this.outlineButton ? ' btn btn-outline-' + this.colorVariant : ' btn btn-' + this.colorVariant}`;
-    const mode = ` btn-${this.size === 'small' ? 'sm ' : this.size === 'large' ? 'lg ' : 'md '}`;
-    const icon = `${this.roundedButton ? ' btn-icon rounded-pill ' : ''}`;
-    const icon1 = `${this.roundedCorner ? ' rounded-pill ' : ''}`;
-    const disabledGrey = `${this.disabled === true ? 'btn ' : ''}`
-
+    const outline = `${this.isOutline ? ' btn btn-outline-' + this.colorVariant : ' btn btn-' + this.colorVariant}`;
+    const mode = this.size ? ` btn-${this.size === 'small' ? 'sm ' : this.size === 'large' ? 'lg ' : 'md '}` : '';
+    const icon = `${this.isFabIcon ? ' btn-icon rounded-pill ' : ''}`;
+    const icon1 = `${this.isRounded ? ' rounded-pill ' : ''}`;
+    const disabledGrey = `${this.isDisabled === true ? 'btn ' : ''}`
     return outline + mode + icon + icon1 + disabledGrey;
   }
 
@@ -100,7 +89,6 @@ export class RdsButtonComponent implements AfterViewInit, OnInit, DoCheck {
     }
 
     return classes;
-    // return this.block ? 'd-grid' : '';
   }
 
   public get submitButton(): string {
@@ -112,11 +100,9 @@ export class RdsButtonComponent implements AfterViewInit, OnInit, DoCheck {
   }
 
   buttonClick(evt: any) {
-    if (this.makeSpinnerActive) {
-      this.showLoadingSpinner = true;
-
+    if (!this.showLoadingSpinner && !this.isDisabled) {
+      this.onClick.emit(evt);
     }
-    this.onClick.emit(evt);
   }
 
 }

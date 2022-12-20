@@ -1,366 +1,168 @@
-import { Component, DoCheck, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, DoCheck, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormGroup, NgForm } from '@angular/forms';
+import { PermissionGroupDto } from '@libs/shared';
 import { TranslateService } from '@ngx-translate/core';
-import { PermissionNode, TreeType } from '../../models/pemission.model';
+import { Permission, PermissionNode, TreeType } from '../../models/pemission.model';
 
 @Component({
-  selector: 'app-rds-comp-permission-tree',
+  selector: 'rds-comp-permission-tree',
   templateUrl: './rds-comp-permission-tree.component.html',
   styleUrls: ['./rds-comp-permission-tree.component.scss']
 })
 export class RdsCompPermissionTreeComponent implements OnInit {
-  @Input() isReset: boolean = false;
-  @Input() isEdit: boolean = false;
-  @Input() selectedItems: PermissionNode[] = [];
+
+  // Input Decorators
+  @Input() treeData: PermissionNode[] = [];
   @Input() selectAllLabel: string = 'Select All';
-  @Input() treeData: PermissionNode[];
-  @Input() mutable: boolean;
-  @Input() ButtonLabel: String;
-  @Input() multiselectTree: boolean = true;
-  @Input()
-  TreeType: TreeType = {
-    IconLabel: false,
-    Normal: false,
-    checkbox: true
-  }
-  @Input() nodeColors: string[] = ['#6E4D9F', '#0D79AE', '#14A94B', '#FBA919'];
+  @Input() roleName!: string;
+  @Input() isEdit: boolean = false;
+
+  // Output Decorators
   @Output() onSelectAll = new EventEmitter<{ item: any }>();
   @Output() onSelectnode = new EventEmitter<{ item: any }>();
   @Output() getAllSelectedNodes = new EventEmitter<any>();
   @Output() getAllselectedPermissions = new EventEmitter<any>();
-  @Input() permissions: any;
-  elementUrls: string[];
-  activepage: any = 0;
-  activesubmenu: any = 0;
-  activeMenuWithChildren: any = 0;
-  collapsed = false;
-  openedMenu = false;
-  selectedPermissions: any = [];
-  public permissionForm: NgForm;
 
-  constructor(public translate: TranslateService) {
-  }
+  // Properties
+  modifiedtreeData: PermissionNode[] = [];
+
+  constructor(public translate: TranslateService) { }
+
   ngOnInit(): void {
-  }
-  ngOnChanges(changes: SimpleChanges): void {
-
-    if (this.treeData && this.multiselectTree) {
-      this.selectAllPermissions(false);
-      if (this.selectedItems.length > 0) {
-        this.selectedItems.forEach((item) => {
-          this.checkSelectedNodes(this.treeData, item);
-
-        })
+    // Convert data into editable format
+    if (this.treeData) {
+      const resPermission: any[] = [];
+      this.treeData.forEach(element => {
+        const item = {
+          name: element.name,
+          displayName: element.displayName,
+          permissions: element.permissions
+        };
+        resPermission.push(item);
+      });
+      for (let i = 0; i < resPermission.length; i++) {
+        const eachPermission: any[] = [];
+        resPermission[i].permissions.forEach(element => {
+          const eachPermissionItem = {
+            referParentIndex: i,
+            allowedProviders: element.allowedProviders,
+            displayName: element.displayName,
+            grantedProviders: element.grantedProviders,
+            isGranted: this.roleName == 'admin' && this.isEdit === false ? false : element.isGranted,
+            name: element.name,
+            parentName: element.parentName,
+          }
+          eachPermission.push(eachPermissionItem);
+        });
+        resPermission[i].permissions = eachPermission;
       }
-    } else {
-      this.selectAllPermissions(false)
-      if (this.selectedItems.length > 0) {
-        this.selectedItems.forEach((item) => {
-          this.checkSelectedNodes(this.treeData, item);
-        })
-      }
+      this.modifiedtreeData = resPermission;
     }
-
   }
 
-
-  checkSelectedNodes(treeData: any, node: any) {
-    treeData.forEach((item: any) => {
-      if (item.data.name) {
-        if (item.data.name === node.name) {
-          item.selected = (node.value === 'true') ? true : (node.value === 'false') ? false : node.value;
-
-        } else {
-          this.checkSelectedNodes(item.children, node)
-        }
-      }
-      if (item.data.displayName) {
-        if (item.data.displayName === node.name) {
-          item.selected = (node.value === 'true') ? true : (node.value === 'false') ? false : node.value;
-
-        } else {
-          this.checkSelectedNodes(item.children, node)
-
-        }
-      }
-    })
+  // Parent checkbox selection based on child
+  tickCheckbox(node: any): boolean {
+    if (node.parentName == undefined && node.isGranted == undefined) return node.permissions.filter((x: Permission) => x.isGranted == true).length > 0 ? true : false;
+    else return node.isGranted;
   }
 
-  checkSelectAll(treeData: any): boolean {
-
-    let allSelected: boolean = true;
-    if (!this.treeData || this.treeData.length == 0) {
-      allSelected = false;
+  // Select and Deselect all on main checkbox selection
+  selectAllFeature(event: any) {
+    for (let i = 0; i < this.modifiedtreeData.length; i++) {
+      this.modifiedtreeData[i].permissions.forEach(element => element.isGranted = event);
+      const mainParentElement = document.getElementById(this.modifiedtreeData[i].name) as HTMLInputElement;
+      this.modifiedtreeData[i].permissions.filter(x => x.isGranted == true).length > 0 ? mainParentElement.checked = true : mainParentElement.checked = false;
     }
-    this.treeData.forEach((tree: any) => {
-      if (tree.selected && allSelected) {
-        allSelected = this._checkSelectAll(tree.children);
-      } else {
-        allSelected = false;
-      }
-    });
-    return allSelected;
-
+    this.getSelectedNodes();
   }
 
-  _checkSelectAll(treeData: any): boolean {
-    let allSelected: boolean = true;
-    treeData.forEach((tree: any) => {
-      if (tree.selected && allSelected) {
-        allSelected = this._checkSelectAll(tree.children);
-      } else {
-        allSelected = false;
-      }
-    });
-    return allSelected;
-
-  }
-
-  disableSaveButton: boolean;
-  disableSaveButtonfromDes: boolean
-  disableSaveButtonfromCode: boolean
-  selectedNodeList: PermissionNode[] | null;
-  selectedNestedNode: PermissionNode | null;
-  SelectAll: boolean = false;
-  nodeLabel!: string;
-  itemCode: any;
-  ItemDescription: any;
-  addNode(nodeArray: PermissionNode[]) {
-    this.itemCode = '';
-    this.ItemDescription = '';
-    this.selectedNodeList = nodeArray;
-  }
-  addNestedNode(node: PermissionNode) {
-    this.disableSaveButton = true
-    this.itemCode = '';
-    this.ItemDescription = '';
-    this.selectedNestedNode = node;
-  }
-  getNodeColor(level: number) {
-    return this.nodeColors[(level - 1) % 4];
-  }
-  setStateBasedOnMutable(lastNode: boolean, node: PermissionNode) {
-    if (!this.mutable && lastNode && node.children.length === 0) {
-      return false;
-    }
-    return true;
-  }
+  // Selection of the particular checkbox
   selectNode(node: any, event: any) {
-    if (this.multiselectTree) {
-      node.selected = event;
-      this.selectAllNode(node, event);
-      if (node.data.parentName) {
-        this.checkForParent(this.treeData, node, event);
+    if (node.isGranted == undefined) node.permissions.forEach((element: Permission) => event ? element.isGranted = true : element.isGranted = false);
+    else {
+      node.isGranted = event;
+      const treeNodePermissions = this.modifiedtreeData[node.referParentIndex].permissions;
+      const mainParentElement = document.getElementById(this.modifiedtreeData[node.referParentIndex].name) as HTMLInputElement;
+      const nodeChildern = treeNodePermissions.filter(x => x.parentName == node.name);
+      if (nodeChildern.length > 0) {
+        nodeChildern.forEach(element => event ? element.isGranted = true : element.isGranted = false);
+        treeNodePermissions.filter(x => x.isGranted == true).length > 0 ? mainParentElement.checked = true : mainParentElement.checked = false;
       }
-      this.selectedPermissions = [];
-      this.getSelectedPermissionNodes(this.treeData)
-      const selectedNodes: PermissionNode[] = this.getSelectedNodes(this.treeData);
-      this.getAllSelectedNodes.emit(this.treeData);
-      this.onSelectnode.emit({ item: node });
-      this.getAllselectedPermissions.emit(this.selectedPermissions)
-    } else {
-      this.selectedPermissions = [];
+      else {
+        const similarNodes = treeNodePermissions.filter(x => x.parentName == node.parentName);
+        if (similarNodes.filter(x => x.isGranted == true).length > 0) {
+          const findParent = treeNodePermissions.find(x => x.name == node.parentName);
+          findParent != undefined ? findParent.isGranted = true : null;
+          mainParentElement.checked = true;
+        }
+        else {
+          const findParent = treeNodePermissions.find(x => x.name == node.parentName);
+          findParent != undefined ? findParent.isGranted = false : null;
+          treeNodePermissions.filter(x => x.isGranted == true).length > 0 ? mainParentElement.checked = true : mainParentElement.checked = false;
+        }
+      }
+    }
+    this.getSelectedNodes(node);
+  }
+
+  // Emit data
+  getSelectedNodes(node?: any) {
+    // Emit all selected nodes
+    let allSelectedNodes: any[] = [];
+    for (let i = 0; i < this.modifiedtreeData.length; i++) {
+      const getSelected = this.modifiedtreeData[i].permissions.filter(x => x.isGranted == true);
+      if (getSelected.length > 0) {
+        const concatedSelectedNodes = allSelectedNodes.concat(getSelected);
+        allSelectedNodes = concatedSelectedNodes;
+      };
+    };
+    this.getAllSelectedNodes.next(allSelectedNodes);
+    // Emit particular selected node
+    if (node != undefined || node != null) this.onSelectnode.next({ item: node });
+    // Emit Selected Permission for value and name
+    const selectedPermissionsNames: any[] = [];
+    allSelectedNodes.forEach(element => {
       const itemselected: any = {
-        name: node.data.name,
-        value: event
+        name: element.name,
+        isGranted: element.isGranted
+      };
+      selectedPermissionsNames.push(itemselected);
+    });
+    this.getAllselectedPermissions.next(selectedPermissionsNames);
+  }
+
+  // Get custom height for vertical dotted line at last checkbox
+  customHeight(node: any): string {
+    const lastElement = this.modifiedtreeData[this.modifiedtreeData.length - 1];
+    return lastElement.name == node.name ? (lastElement.permissions.length * 50).toString() + '%' : '100%';
+  }
+
+  // Show-hide vertical dotted line
+  verticalLine(node: any): boolean {
+    if (this.modifiedtreeData.length > 0) {
+      if (node.parentName == null && node.permissions == undefined) return this.modifiedtreeData[node.referParentIndex].permissions.filter(x => x.parentName == node.name).length > 0 ? true : false;
+      else if (node.parentName == undefined) {
+        if (this.modifiedtreeData[this.modifiedtreeData.length - 1].name == node.name) return node.permissions.length > 0 ? true : false;
+        return true;
       }
-      this.selectedPermissions.push(itemselected)
-      node.selected = event;
-      this.UnselectAllNodeExceptSelctedNode(false, node.data.name)
-      this.onSelectnode.emit(node.data);
-      this.getAllselectedPermissions.emit(this.selectedPermissions)
+      else if (node.parentName.length > 0) return this.modifiedtreeData[node.referParentIndex].permissions.filter(x => x.parentName == node.parentName).length > 0 ? false : null;
     }
   }
-  getCounterData(count: number, name: string) {
-    this.selectedPermissions = [];
-    this.selectedItems.forEach((item: any) => {
-      if (item.name == name) {
-        const itemselected: any = {
-          name: name,
-          value: count
-        }
-        this.selectedPermissions.push(itemselected)
-      } else {
-        const itemselected: any = {
-          name: item.name,
-          value: item.value
-        }
-        this.selectedPermissions.push(itemselected)
-      }
-    })
-    //this.selectedPermissions.push(itemselected)
-    this.selectedItems = [...this.selectedPermissions]
-    this.getAllselectedPermissions.emit(this.selectedPermissions)
-  }
-  getselectedPermissions(name: any, value: any) {
-    this.selectedPermissions = [];
-    this.selectedItems.forEach((item: any) => {
-      if (item.name == name) {
-        const itemselected: any = {
-          name: name,
-          value: value
-        }
-        this.selectedPermissions.push(itemselected)
-      } else {
-        const itemselected: any = {
-          name: item.name,
-          value: item.value
-        }
-        this.selectedPermissions.push(itemselected)
-      }
-    })
-    this.selectedItems = [...this.selectedPermissions]
 
-  }
-  getSelectedNodes(treeData: any): PermissionNode[] {
-    const selectedNodes: any = [];
-    treeData.forEach((tree: any) => {
-      if (tree.selected) {
-        tree.selectedChildren = this.getSelectedNodes(tree.children);
-        selectedNodes.push(tree);
+  // Show-hide vertical extraa dotted line
+  verticalLineExtraa(node: any): boolean {
+    if (this.modifiedtreeData.length > 0) {
+      if (node.parentName == null && node.permissions == undefined) return false;
+      else if (node.parentName == undefined) return false;
+      else if (node.parentName.length > 0) {
+        const childArray = this.modifiedtreeData[node.referParentIndex].permissions.filter(x => x.parentName == node.parentName);
+        if (childArray.length > 0) return childArray.indexOf(node, 0) == (childArray.length - 1) ? false : true;
       }
-    })
-    return selectedNodes;
-  }
-  getSelectedPermissionNodes(treeData: any) {
-    treeData.forEach((tree: any) => {
-      const itemselected: any = {
-        name: tree.data.name,
-        value: tree.selected
-      }
-      this.selectedPermissions.push(itemselected)
-      if (tree.children) {
-        this.getSelectedPermissionNodes(tree.children);
-      }
-
-    })
-
-  }
-  checkForParent(treeData: PermissionNode[], node: any, event: boolean): void {
-    treeData.forEach((tree: any) => {
-      if (tree.data.name === node.data.parentName) {
-        const exist: any = tree.children.find((x: any) => x.selected && x.data.name !== node.data.name);
-        if (!exist) {
-          tree.selected = event;
-        }
-        if (tree.data.parentName) {
-          this.checkForParent(this.treeData, tree, event);
-        }
-      } else {
-        this.checkForParent(tree.children, node, event);
-      }
-    })
+    }
   }
 
+  // On cliking on label of particular checkbox node
   onClicknode(node: string) {
     this.onSelectnode.emit({ item: node })
   }
-  selectAllNode(node: PermissionNode, checked: boolean) {
-    node.selected = checked;
-    for (const n of node.children) {
-      this.selectAllNode(n, checked);
-    }
-    const selectedNodes: PermissionNode[] = this.getSelectedNodes(this.treeData);
-    this.getAllSelectedNodes.emit(selectedNodes);
-  }
-  unselecttAllNode(node: any, checked: boolean, name: string) {
-    node.selected = checked;
-    for (const n of node.children) {
-      if (n.data.name != name) {
-        this.unselecttAllNode(n, checked, name);
-      }
-    }
-
-  }
-  UnselectAllNodeExceptSelctedNode(checked: boolean, nodename: string) {
-    for (const n of this.treeData) {
-      this.unselecttAllNode(n, checked, nodename);
-    }
-
-
-  }
-  selectAllFeature(event: any) {
-    for (const n of this.treeData) {
-      this.selectAllNode(n, event);
-    }
-    this.SelectAll = event;
-    if (event) {
-      this.onSelectAll.emit({ item: this.treeData });
-    } else {
-      this.onSelectAll.emit({ item: [] });
-      this.resetPermission();
-    }
-  }
-
-  resetPermission() {
-    if (this.permissions) {
-      this.permissions.forEach((element: any) => {
-        if (element.value == 'false' || element.value == 'true') {
-          element.value = false;
-        }
-        else {
-          element.value = 0;
-        }
-      });
-    }
-  }
-
-  selectAllPermissions(event: any) {
-    for (const n of this.treeData) {
-      this.selectAllNode(n, event);
-    }
-    this.SelectAll = event;
-    if (event) {
-      this.onSelectAll.emit({ item: this.treeData });
-    } else {
-      this.onSelectAll.emit({ item: [] });
-
-    }
-
-  }
-
-  checkNodSelectOrnot(node: PermissionNode): boolean {
-    if (node.selected == false) {
-      return false;
-    } else {
-      for (const n of node.children) {
-        let checked = this.checkNodSelectOrnot(n);
-        if (!checked) {
-          return false;
-        }
-      }
-    }
-    return true;
-  }
-  setMaximumuserButton(index: number, length: number) {
-    let place = length / 2;
-    place = Math.floor(place);
-    if (index === place) {
-      return true;
-
-    } else {
-      return false;
-    }
-  }
-  checkSavebuttonEnable(disableSaveButton: boolean, disableSaveButtonfromDes: boolean) {
-    if (disableSaveButton === true || disableSaveButtonfromDes === true) {
-      this.disableSaveButton = true;
-    } else {
-      this.disableSaveButton = false
-    }
-
-  }
-
-  onMenuWithChildrenClick(i: number, path: any) {
-    const x = document.getElementById('menuWithChildren' + i);
-    if (x !== null)
-      this.openedMenu = x.classList.contains('collapsed');
-    if (!this.openedMenu) {
-      this.activepage = i;
-      this.activesubmenu = 0;
-
-    }
-  }
-
-
 }

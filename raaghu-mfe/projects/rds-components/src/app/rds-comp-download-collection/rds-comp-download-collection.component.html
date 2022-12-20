@@ -1,7 +1,7 @@
 <div aria-labelledby="nav-Deligation" class="h-100">
   <div class="card border-0 h-100">
     <div class="card-header border-bottom">
-      <h5 class="card-title">{{"DOWNLOAD COLLECTED DATA"|translate}}</h5>
+      <div class="card-title">{{"DOWNLOAD COLLECTED DATA"|translate}}</div>
     </div>
     <div class="card-body pt-2">
       <div>
@@ -10,7 +10,7 @@
             <rds-icon name="information" height="25" width="25"></rds-icon>
           </div>
           <div class="col-md-10">
-            <p style="margin-bottom: 0px;">{{"your Data is Prepared,Click here to download"|translate}}</p>
+            <div class="margin-bottom: 0px;">{{"your Data is Prepared,Click here to download"|translate}}</div>
             <p style="margin-bottom: 0px;">{{item.DateofData}}</p>
             <small class="text-muted" style="margin-bottom: 0px;">{{item.NummberofDates}}</small>
           </div>
@@ -26,7 +26,7 @@
     </div>
     <div class="card-footer">
       <div class="col-sm-12" *ngIf="this.DownloadTable.length > 10">
-        <rds-pagination [reset]="resetPagination" (onPageChange)="onPagination($event)"
+        <rds-pagination  (onPageChange)="onPagination($event)"
                         [recordsPerPage]="+recordsPerPage" [totalRecords]="getTotalRecords()" role="Basic"></rds-pagination>
       </div>
     </div>

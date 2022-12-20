@@ -2,17 +2,22 @@
 
 
 <div class="row">
-  <div class="col-md-12 text-end pb-3 desktop-btn">
-    <rds-button [label]="translate.instant('NEW EDITION')" [showLoadingSpinner]="buttonSpinnerForNewEdition" type="button" [colorVariant]="'primary'"
+  <div class="col-md-10">
+    <rds-comp-alert [currentAlerts]="currentAlerts" (onAlertHide)="onAlertHide($event)"></rds-comp-alert>
+   </div>
+<div class="col-md-2 text-end pb-3 desktop-btn">
+  <rds-button [label]="translate.instant('NEW EDITION')" [showLoadingSpinner]="showLoadingSpinner" type="button" [colorVariant]="'primary'"
       (click)="openCanvas()" [attr.aria-controls]="'addEdition'" [icon]="'plus'" iconHeight="12px" iconWidth="12px" [size]="'small'">
     </rds-button>
   </div>
+  </div>
+  <div class="row">
   <div class="col-md-12">
     <div class="card p-2 h-100 border-0 rounded-0 card-full-stretch">
-      <app-rds-data-table [inlineEdit]="false" [actions]="actions" [recordsPerPage]="recordsPerpage" [pagination]="true"
+      <rds-data-table [inlineEdit]="false" [actions]="actions" [recordsPerPage]="recordsPerpage" [pagination]="true"
         [tableHeaders]="EditionsTableHeader" (onActionSelection)="onActionSelect($event)"
         noDataTitle="Currently you do not have edition" [tableData]="tableData"  [isShimmer]="isShimmer">
-      </app-rds-data-table>
+      </rds-data-table>
     </div>
   </div>
 </div>
@@ -27,18 +32,18 @@
  [offcanvaswidth]="600" *ngIf="viewCanvas" (onClose)="closeCanvas()" >
   <app-rds-comp-features-edit-shimmer *ngIf="editShimmer"></app-rds-comp-features-edit-shimmer>
   <div *ngIf="!editShimmer">
-  <rds-nav-tab [navtabsItems]="navtabsItems" [horizontalAlignment]="'start'" [activepage]="activePage"
+  <rds-nav-tab [navtabsItems]="navtabsItems" [horizontalAlignment]="'start'" [activeTab]="activePage"
                [verticalAlignment]="false" [pills]="false" [tabs]="true" [fill]="false" [justified]="false"
                (onClicktab)="onTabClick($event)"></rds-nav-tab>
   <div naveContent class="tab-content py-2 px-3 navsm-p-0" id="nav-tabContent">
     <div class="tab-pane fade" [ngClass]="{'show active': activePage === 0}" id="newedition" edition="tabpanel"
       aria-labelledby="nav-home-tab">
       <form #editionForm="ngForm">
-        <div class="row" *ngIf="!contentOnEdit">
+        <div class="row py-2" *ngIf="!contentOnEdit">
           <div class="col-md-6">
             <div class="form-group mb-3">
-              <rds-input size="default" [inputType]="'text'" [Title]="translate.instant('Edition Name')"
-                [TitleType]="'Top'" #edition_name="ngModel" [isRequired]=true [placeholder]="translate.instant('Edition Name')" required
+              <rds-input size="medium" [inputType]="'text'" [label]="translate.instant('Edition Name')"
+                [labelPosition]="'top'" #edition_name="ngModel" [isRequired]=true [placeholder]="translate.instant('Edition Name')" required
                 [(ngModel)]="EditionName" name="edition" ngDefaultControl>
               </rds-input>
               <div class="form-control-feedback"
@@ -49,8 +54,8 @@
           </div>
           <div class="col-md-6">
             <div class="form-group mb-3">
-              <rds-input size="default" [inputType]="'text'" [placeholder]="translate.instant('Annual Price')" 
-                [TitleType]="'Top'" [Title]="translate.instant('Annual Price')" #annual_price="ngModel"
+              <rds-input size="medium"  [placeholder]="'$ ' + translate.instant('Annual Price')" 
+                [labelPosition]="'top'" [label]="translate.instant('Annual Price')" #annual_price="ngModel"
                 [(ngModel)]="AnnualPrice" [isRequired]=true name="annual" required ngDefaultControl               
                 onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
               </rds-input>
@@ -64,9 +69,9 @@
         </div>
         <div class="row" *ngIf="contentOnEdit">
           <div class="col-md-12">
-            <div class="form-group mb-3">
-              <rds-input size="default" [inputType]="'text'" [TitleType]="'Top'"
-                [Title]="translate.instant('Edition Name')+' *'" #edition_name="ngModel" [isRequired]=true [placeholder]="'Edition name'"
+            <div class="form-group mb-3 py-2">
+              <rds-input size="medium" [inputType]="'text'" [labelPosition]="'top'"
+                [label]="translate.instant('Edition Name')" #edition_name="ngModel" [isRequired]=true [placeholder]="'Edition name'"
                 required [(ngModel)]="EditionName" name="edition" ngDefaultControl>
               </rds-input>
               <div class="form-control-feedback"
@@ -123,9 +128,10 @@
 
           <div class="row mt-4" *ngIf="showAssignEditionDropdown">
             <div class="col-md-6">
-              <rds-select-list ngDefaultControl name="freeEditions" [(ngModel)]="freeEditon" [value]="freeEditon"
-                [itemList]="freeEditions" [id]="freeEditions" [placeholder]="'Select Edition'">
-              </rds-select-list>
+              <rds-dropdownlist [placeholder]="translate.instant('Select Edition')" [borderDropdown]="true"
+              class="text-dark" [id]="'freeEditions'" [(ngModel)]="freeEditon" [listItems]="freeEditions"
+             [value]="freeEditon" (onSelect)="onFreeListSelect($event)" ngDefaultControl name="freeEditionId">
+            </rds-dropdownlist>
             </div>
           </div>
         </div>
@@ -137,10 +143,10 @@
       <div class="row">
         <div class="col-md-12">
           <div>
-            <app-rds-comp-permission-tree [treeData]="featureList" [selectedItems]="selectedFeatures" [permissions]="selectedFeatures"
+            <!-- <app-rds-comp-permission-tree [treeData]="featureList" [selectedItems]="selectedFeatures" [permissions]="selectedFeatures"
               [isEdit]="isEdition"  (getAllselectedPermissions)="getselectedPermissionList($event)"
               [selectAllLabel]="'Select  Features'">
-            </app-rds-comp-permission-tree>
+            </app-rds-comp-permission-tree> -->
           </div>
         </div>
       </div>
@@ -148,10 +154,10 @@
   </div>
   <div class="footer-buttons my-2">
     <div class="col-md-12 ">
-      <rds-button [label]="translate.instant('Cancel')" [colorVariant]="'primary'" [outlineButton]="true" [size]="'small'" (click)="closeCanvas()"
+      <rds-button [label]="translate.instant('Cancel')" [colorVariant]="'primary'" [isOutline]="true" [size]="'small'" (click)="closeCanvas()"
         data-bs-dismiss="offcanvas">
       </rds-button>
-      <rds-button [label]="translate.instant('Save')" [size]="'small'" [disabled]="editionForm.invalid" class="ms-2"
+      <rds-button [label]="translate.instant('save')" [size]="'small'" [isDisabled]="editionForm.invalid" class="ms-2"
         [colorVariant]="'primary'" (click)="addEdition(editionForm)" 
         data-bs-target="#AddEdition">
       </rds-button>
@@ -164,19 +170,23 @@
 <rds-offcanvas [canvasTitle]="translate.instant(moveTenantCanvasTitle)" [offId]="'moveTenantEdition'" [placement]="'end'" 
   [offcanvaswidth]="600" *ngIf="viewMoveTenantCanvas" (onClose)="closeMoveTenantCanvas()">
   <!-- <b>{{moveTenantCanvasTitle}}</b> -->
-  <div class="tab-content px-3 py-4 navsm-p-0">
+  <div class="tab-content px-3 navsm-p-0">
     <div class="row">
       <div class="col-md-12">
         <div class="text-primary mb-2">{{tenantCount}} {{"Tenants will be moved"|translate}}</div>
-        <rds-select-list [label]="translate.instant('Edition')" ngDefaultControl 
+        <!-- <rds-select-list [label]="translate.instant('Edition')" ngDefaultControl 
                          name="edition" [(ngModel)]="targetEditionId" [itemList]="editionList" [id]="editionList">
-      </rds-select-list>
+      </rds-select-list> -->
+      <rds-dropdownlist [placeholder]="translate.instant('Edition')" [borderDropdown]="true"
+      class="text-dark" [id]="'editionList'" [(ngModel)]="targetEdition" [listItems]="editionList"
+     [value]="targetEdition" (onSelect)="onTargetListSelect($event)" ngDefaultControl name="targetEditionId">
+    </rds-dropdownlist>
       </div>
     </div>
   </div>
 
   <div class="footer-buttons my-2">
-      <rds-button [label]="translate.instant('Close')" [colorVariant]="'primary'" [outlineButton]="true" [size]="'small'" (click)="closeMoveTenantCanvas()"
+      <rds-button [label]="translate.instant('Close')" [colorVariant]="'primary'" [isOutline]="true" [size]="'small'" (click)="closeMoveTenantCanvas()"
                   data-bs-dismiss="offcanvas">
       </rds-button>
       <rds-button [label]="translate.instant('Save')" [size]="'small'" class="ms-2"

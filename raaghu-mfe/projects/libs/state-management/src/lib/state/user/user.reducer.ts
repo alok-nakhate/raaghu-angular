@@ -1,11 +1,13 @@
 import { createReducer, on } from "@ngrx/store";
-import { assignableRoles, assignableRolesFailure, assignableRolesSuccess, availbleOrganizationUnit, availbleOrganizationUnitFailure, availbleOrganizationUnitSuccess, changePasswordUser, changePasswordUserSuccess, getAllClaimTypes, getAllClaimTypesFailure, getAllClaimTypesSuccess, getClaimTypes, getClaimTypesFailure, getClaimTypesSuccess, getUserFailure, getUserForEdit, getUserForEditSuccess, getUserPermission, getUserPermissionFilterList, getUserPermissionListSuccess, getUserPermissionSuccess, getUsers, getUserSuccess, saveClaims } from "./user.actions";
+import { assignableRoles, assignableRolesFailure, assignableRolesSuccess, availbleOrganizationUnit, availbleOrganizationUnitFailure, availbleOrganizationUnitSuccess, changePasswordUser, changePasswordUserSuccess, getAllClaimTypes, getAllClaimTypesFailure, getAllClaimTypesSuccess, getClaimTypes, getClaimTypesFailure, getClaimTypesSuccess, getTemplateContent, getTemplateContentFailure, getTemplateContentSuccess, getTemplateDefinition, getTemplateDefinitionFailure, getTemplateDefinitionSuccess, getUserFailure, getUserForEdit, getUserForEditSuccess, getUserPermission, getUserPermissionFilterList, getUserPermissionListSuccess, getUserPermissionSuccess, getUsers, getUserSuccess, saveClaims } from "./user.actions";
 import { User } from "./user.models";
 
 
 export interface UsersState {
     users: any;
     UserEditI: any;
+    allTextTemplate:any;
+    templateContent:any;
     availableOrgUnit: any;
     assignableRoles:any;
     claimTypes:any;
@@ -21,6 +23,8 @@ export const userInitialState: UsersState = {
     UserEditI:null,
     availableOrgUnit: null,
     assignableRoles:null,
+    allTextTemplate:null,
+    templateContent:null,
     claimTypes:null,
     allClaimTypes:null,
     UserPermissionStateI: null,
@@ -32,6 +36,34 @@ export const userInitialState: UsersState = {
 export const UserReducer = createReducer(
     // Supply the initial state
     userInitialState,
+    on(getTemplateDefinition, (state) => ({ ...state, status: 'loading' })),
+    // Handle successfully loaded todos
+    on(getTemplateDefinitionSuccess, (state,  allTextTemplate ) => ({
+        ...state,
+        allTextTemplate: allTextTemplate,   
+        error: null,
+        status: 'success',
+    })),
+    // Handle todos load failure
+    on(getTemplateDefinitionFailure, (state, { error }) => ({
+        ...state,
+        error: error,
+        status: 'error',
+    })),
+    on(getTemplateContent, (state) => ({ ...state, status: 'loading' })),
+    // Handle successfully loaded todos
+    on(getTemplateContentSuccess, (state, { templateContent}) => ({
+        ...state,
+        templateContent: templateContent,   
+        error: null,
+        status: 'success',
+    })),
+    // Handle todos load failure
+    on(getTemplateContentFailure, (state, { error }) => ({
+        ...state,
+        error: error,
+        status: 'error',
+    })),
     on(getUsers, (state) => ({ ...state, status: 'loading' })),
     // Handle successfully loaded todos
     on(getUserSuccess, (state, users) => ({
@@ -143,4 +175,28 @@ export const UserReducer = createReducer(
     })),
 )
 
+
+// export interface TextTemplateState {
+//     allTextTemplate:any;
+//     templateContent:any;
+//     error: string;
+//     status: 'pending' | 'loading' | 'error' | 'success';
+// }
+
+
+// export const TextTemplateInitialState: TextTemplateState = {
+//     allTextTemplate:null,
+//     templateContent:null,
+//     error: null,
+//     status: 'pending',
+// };
+
+// export const TextTemplateReducer = createReducer(
+//     // Supply the initial state
+//     TextTemplateInitialState,
+    
+   
+   
+   
+// )
 

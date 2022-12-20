@@ -1,48 +1,5 @@
-<!-- <button [class]="collapsebutton" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#'+collapseIdOne"
-  [attr.aria-expanded]="expanded" [attr.aria-controls]="collapseIdTwo" (click)="toggleExpanded()">
-  {{label}}
+<button type="button" *ngFor="let button of buttonList" class="btn btn-{{button.colorVariant}} me-3 mb-3"
+  (click)="open(button.id)" data-bs-toggle="collapse">
+  {{button.label}}
 </button>
-
-<div [class]="collapsewrapper" [id]="collapseIdTwo" class="mt-2">
-  <ng-container>
-    <div [ngClass]="cardClasses">
-      {{content}}
-    </div>
-  </ng-container>
-</div> -->
-
-
-<div class="d-flex mb-3">
-  <button [class]="collapsebutton" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#'+collapseIdOne"
-          [attr.aria-expanded]="expanded" [attr.aria-controls]="collapseIdTwo" (click)="toggleExpanded()">
-    {{buttonLabelOne}}
-  </button>
-  <button [class]="collapsebutton" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#'+collapseIdTwo"
-          [attr.aria-expanded]="expanded" [attr.aria-controls]="collapseIdTwo" (click)="toggleExpanded()" *ngIf="multipleButton">
-    {{buttonLabelTwo}}
-  </button>
-  <button [class]="collapsebutton" type="button" data-bs-toggle="collapse" data-bs-target=".multi-collapse"
-          [attr.aria-expanded]="expanded" [attr.aria-controls]="'#'+collapseIdOne+'#'+collapseIdTwo" (click)="toggleExpanded()" *ngIf="multipleButton">
-    {{multipleButtonLabel}}
-  </button>
-</div>
-<div class="row">
-  <div class="col-12 mb-2">
-    <div [class]="collapsewrapper" [id]="collapseIdOne">
-      <ng-container>
-        <div [ngClass]="cardClasses">
-          {{contentSectionOne}}
-        </div>
-      </ng-container>
-    </div>
-  </div>
-  <div class="col-12">
-    <div [class]="collapsewrapper" [id]="collapseIdTwo">
-      <ng-container>
-        <div [ngClass]="cardClasses">
-          {{contentSectionTwo}}
-        </div>
-      </ng-container>
-    </div>
-  </div>
-</div>
+<ng-content> </ng-content>

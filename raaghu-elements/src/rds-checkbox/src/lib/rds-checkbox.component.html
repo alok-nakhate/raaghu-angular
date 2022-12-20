@@ -1,7 +1,7 @@
 <div [ngClass]="classes">
-    <input class="form-check-input" type="checkbox" [(ngModel)]="checked" (ngModelChange)="changeData($event)"
-      [value]="checked" [checked]="checked" [id]="id" [disabled]="disabled">
-    <label class="form-check-label" [for]="id" *ngIf="withLabel" [ngClass]="{'ms-2': isInputGroup}">
-        {{label}}
-    </label>
+  <input class="form-check-input" [ngClass]="formState()" type="checkbox" [(ngModel)]="checked" (ngModelChange)="changeData($event)"
+    [value]="checked" [checked]="checked" [id]="id" [disabled]="disabled">
+  <label class="form-check-label" [for]="id" *ngIf="withLabel" [ngClass]="{'ms-2': isInputGroup || switch}">
+      {{label}}
+  </label>
 </div>

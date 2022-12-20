@@ -14,7 +14,7 @@
   <div *ngSwitchCase="'checkbox'">
     <div [class]="classes" role="group" aria-label="Basic example">
       <ng-container *ngFor="let item of buttonGroupItem;let i=index">
-        <input type="checkbox" class="btn-check" [id]="item.id" autocomplete="off" [name]="item.label"
+        <input type="checkbox" class="btn-check" [id]="item.id" autocomplete="off" [name]="item.name"
           (click)="onButtonClick(i)" [value]="item.checked" [(ngModel)]="item.checked">
         <label [for]="item.id" [class]="itemClass(item)">
           <rds-icon [name]="item.icon" *ngIf="item.icon" [width]="item.iconWidth" [height]="item.iconHeight"

@@ -7,11 +7,11 @@ title: "Components > data-table"
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <link rel="stylesheet" href="../assets/css/style-elements.css">
 
-#### Data-Table
+#### Data Table
 
-<p class="">A card is a small rectangular module with images and text. It is an entry point for users to learn more details</p>
-<section class="py-4">                                                                                             
-    <h6>Data Table</h6>
+<p>Categorised the table based on types of plans along with the price</p>
+<section class="py-4"> 
+<h6>Default</h6>                                                                                            
     <div class="py-3">
       <div class="cust-tabs">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -28,7 +28,7 @@ title: "Components > data-table"
          <div class="contents  p-5">
               <div class="row">
               <div class="col-md-12">
-              <img src="/images/data-table.png" class="img-fluid">
+              <img src="/images/data-table1.png" class="img-fluid">
            </div>
            </div>            
   </div>
@@ -38,12 +38,12 @@ title: "Components > data-table"
 <div class="row m-0">
 
 ```html
-<app-rds-data-table
+<rds-data-table
   [tableData]="tableData"
   [tableHeaders]="tableHeaders"
   [pagination]="true"
   [actions]="actions"
-></app-rds-data-table>   
+></rds-data-table>   
 ```
 </div>
 </div>

@@ -16,7 +16,9 @@ export class RdsAvatarComponent implements OnInit, OnChanges {
   @Input() roundedAvatar: boolean = true;
   @Input() roundedPills: boolean = false;
   @Input() height? : string ;
-
+  @Input() width? : string;
+  @Input() subTitle:string = ''
+  @Input() profileContentAlign:boolean=false
   constructor() { }
   ngOnInit(): void {
 
@@ -45,7 +47,17 @@ export class RdsAvatarComponent implements OnInit, OnChanges {
     if (this.roundedAvatar && this.withProfilePic) {
       classes.push('rounded-circle');
     }
+    if(!this.profileContentAlign){
+      classes.push('mb-2')
+    }
     return classes;
+    
   }
-
+  public get profileClass(): string[]{
+    let profileClass:string[]= ['flex-grow-0 align-items-center gap-2'];
+    if(this.withProfilePic && this.profileContentAlign){
+      profileClass.push('d-flex');
+    }
+    return profileClass;
+  }
 }

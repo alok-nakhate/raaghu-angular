@@ -1,6 +1,6 @@
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Meta, moduleMetadata, Story } from '@storybook/angular';
-import { RdsBadgeModule, RdsButtonModule, RdsCardModule } from '@libs/rds-elements';
+import { RdsBadgeModule, RdsButtonModule, RdsCardModule, RdsIconModule } from '@libs/rds-elements';
 import { RdsNotificationComponent } from './rds-comp-notification.component';
 import { NgxTranslateModule } from '@libs/shared';
 
@@ -10,7 +10,7 @@ export default {
   decorators: [
     moduleMetadata({
       imports: [
-        FormsModule, ReactiveFormsModule, RdsButtonModule, RdsCardModule, RdsBadgeModule, NgxTranslateModule
+        FormsModule, ReactiveFormsModule, RdsButtonModule, RdsCardModule, RdsBadgeModule, NgxTranslateModule, RdsIconModule
       ],
       providers: [
         FormBuilder
@@ -28,9 +28,35 @@ const Template: Story<RdsNotificationComponent> = (args: RdsNotificationComponen
 export const Default = Template.bind({});
 Default.args={
   unreadCount:'12',
-  notifications:'',
   backgroundColor:'',
   borderRadious:'',
   Paddig:'',
-  width:''
+  width:'',
+  notifications:[
+    {status: 'success', title:'Tenant added' , 
+      urlTitle: 'hello',
+      time: 'a month ago',
+      state: 1,
+       userNotificationId: 1,
+      selected: false},
+      {status: 'error', title:'Tenant deleted' , 
+      urlTitle: 'hello',
+      time: 'a month ago',
+      state: 1,
+       userNotificationId: 1,
+      selected: false},
+      {status: 'warn', title:'Tenant added' , 
+      urlTitle: 'hello',
+      time: 'a month ago',
+      state: 1,
+       userNotificationId: 1,
+      selected: false},
+      {status: 'info', title:'Tenant deleted' , 
+      urlTitle: 'hello',
+      time: 'a month ago',
+      state: 1,
+       userNotificationId: 1,
+      selected: false}
+
+  ]
 }

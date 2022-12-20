@@ -1,134 +1,58 @@
-<rds-offcanvas
-  [offId]="id"
-  [bodySpacing]="false"
-  [offcanvaswidth]="offCanvasWidth"
-  [placement]="'end'"
->
-  <button
-    type="button"
-    class="btn-close text-reset closetabs"
-    (click)="close()"
-    aria-label="Close"
-  ></button>
+<rds-offcanvas [offId]="id" [offcanvaswidth]="offCanvasWidth" [placement]="'end'" [bodySpacing]="false"
+  [scrolling]="true">
+  <button type="button" class="btn-close text-reset closetabs" (click)="close()" aria-label="Close"></button>
   <div class="d-lg-flex d-sm-block h-100 overflow-hidden">
-    <div
-      naveContent
-      class="tab-content profileMenuContent"
-      [ngClass]="{ 'd-none': !isAnyProfileMenuSelected }"
-      id="nav-tabContent"
-    >
-      <button
-        type="button"
-        class="btn-close text-reset closetabs"
-        (click)="onClickCloseTabContent()"
-        aria-label="Close"
-      ></button>
-      <div
-        class="tab-pane active h-100"
-        [ngClass]="{ 'show active': activePage === 0 }"
-        id="nav-LinkAccount"
-        role="tabpanel"
-        aria-labelledby="nav-LinkAccount"
-      >
-        <app-rds-linked-accounts
-          [linkedAccountHeaders]="linkedAccountHeaders"
-          [linkedAccountData]="linkedAccountData"
-          (ondelete)="ondeleteLinkaccount.emit($event)"
-          [manageLinkedAccountsTabOpened]="manageLinkedAccountsTabOpened"
-          [pagination]="pagination"
-          [recordsPerpage]="recordsPerpage"
-          (deleteEvent)="deleteLinkaccount($event)"
-          (onUserSave)="linkToUser($event)"
-          (onCancelLinkedAccounts)="onClickCloseTabContent()"
-        >
+    <div naveContent class="tab-content profileMenuContent" [ngClass]="{ 'd-none': !isAnyProfileMenuSelected }"
+      id="nav-tabContent">
+      <button type="button" class="btn-close text-reset closetabs" (click)="onClickCloseTabContent()"
+        aria-label="Close"></button>
+      <div class="tab-pane active h-100" [ngClass]="{ 'show active': activePage === 0 }" id="nav-LinkAccount"
+        role="tabpanel" aria-labelledby="nav-LinkAccount">
+        <app-rds-linked-accounts [linkedAccountHeaders]="linkedAccountHeaders" [linkedAccountData]="linkedAccountData"
+          (ondelete)="ondeleteLinkaccount.emit($event)" [manageLinkedAccountsTabOpened]="manageLinkedAccountsTabOpened"
+          [pagination]="pagination" [recordsPerpage]="recordsPerpage" (deleteEvent)="deleteLinkaccount($event)"
+          (onUserSave)="linkToUser($event)" (onCancelLinkedAccounts)="onClickCloseTabContent()">
         </app-rds-linked-accounts>
       </div>
-      <div
-        class="tab-pane fade h-100"
-        [ngClass]="{ 'show active': activePage === 1 }"
-        id="nav-Deligation"
-        role="tabpanel"
-        aria-labelledby="nav-Deligation"
-      >
-        <app-rds-user-delegations
-          [rdsDeligateTableHeader]="rdsDeligateTableHeader"
-          [pagination]="pagination"
-          [delegateTabopened]="delegateTabopened"
-          (onDeligateSave)="onSaveDelegate.emit($event)"
-          [tableWidth]="tableWidth"
-          [tableStyle]="tableStyle"
-          [recordsPerpage]="recordsPerpage"
-          [userList]="userList"
-          [rdsDeligateTableData]="rdsDeligateTableData"
-          (onCancelDeligate)="cancelDelegate($event)"
-        >
-        </app-rds-user-delegations>
+      <div class="tab-pane fade h-100" [ngClass]="{ 'show active': activePage === 1 }" id="nav-Deligation"
+        role="tabpanel" aria-labelledby="nav-Deligation">
+        <rds-user-delegations [rdsDeligateTableHeader]="rdsDeligateTableHeader"
+          [buttonSpinner]="showDelegationButtonSpinner" [pagination]="pagination"
+          [delegateTabopened]="delegateTabopened" (onDeligateSave)="onSaveDelegate.emit($event)" (onDeleteDeligate)="deleteDelegate($event)"
+          [tableWidth]="tableWidth" [tableStyle]="tableStyle" [recordsPerpage]="recordsPerpage" [userList]="userList"
+          [rdsDeligateTableData]="rdsDeligateTableData" (onCancelDeligate)="cancelDelegate($event)">
+        </rds-user-delegations>
       </div>
 
-      <div
-        class="tab-pane fade h-100"
-        [ngClass]="{ 'show active': activePage === 2 }"
-        id="nav-Attempts"
-        role="tabpanel"
-        aria-labelledby="nav-Attempts"
-      >
-        <app-rds-comp-login-attempts
-          [LoginAttempts]="LoginAttempts"
-          (RefreshLoginAttemts)="onLoginAttempts.emit($event)"
-        >
+      <div class="tab-pane fade h-100" [ngClass]="{'show active': activePage === 2 }" id="nav-Attempts" role="tabpanel"
+        aria-labelledby="nav-Attempts">
+        <app-rds-comp-login-attempts [LoginAttempts]="LoginAttempts"
+          (RefreshLoginAttemts)="onLoginAttempts.emit($event)">
         </app-rds-comp-login-attempts>
       </div>
-      <div
-        class="tab-pane fade h-100"
-        [ngClass]="{ 'show active': activePage === 3 }"
-        id="nav-Settings"
-        role="tabpanel"
-        aria-labelledby="nav-Settings"
-      >
-        <app-rds-mysettings
-          [ProfileData]="ProfileData"
-          (onProfileSave)="onProfileSave.emit($event)"
-          (onProfileClose)="onClickCloseTabContent()"
-        >
-        </app-rds-mysettings>
+      <div class="tab-pane fade h-100" [ngClass]="{ 'show active': activePage === 3 }" id="nav-Settings" role="tabpanel"
+        aria-labelledby="nav-Settings">
+        <rds-mysettings [ProfileData]="ProfileData" (onProfileSave)="onProfileSave.emit($event)"
+          (onProfileClose)="onClickCloseTabContent()">
+        </rds-mysettings>
       </div>
-      <div
-        class="tab-pane fade h-100"
-        id="nav-DownLoad"
-        role="tabpanel"
-        aria-labelledby="nav-DownLoad"
-      >
-        <!-- <app-rds-comp-download-collection [DownloadTable]="DownloadTable"></app-rds-comp-download-collection> -->
+      <div class="tab-pane fade h-100" id="nav-DownLoad" role="tabpanel" aria-labelledby="nav-DownLoad">
+        <!-- <rds-comp-download-collection [DownloadTable]="DownloadTable"></rds-comp-download-collection> -->
       </div>
 
-      <div
-        class="tab-pane fade h-100"
-        id="nav-Attempts"
-        [ngClass]="{ 'show active': activePage === 4 }"
-        role="tabpanel"
-        aria-labelledby="nav-Attempts"
-      >
-        <app-rds-comp-login-attempts
-          [LoginAttempts]="LoginAttempts"
-          (RefreshLoginAttemts)="onLoginAttempts.emit($event)"
-        >
+      <div class="tab-pane fade h-100" id="nav-Attempts" [ngClass]="{ 'show active': activePage === 4 }" role="tabpanel"
+        aria-labelledby="nav-Attempts">
+        <app-rds-comp-login-attempts [LoginAttempts]="LoginAttempts"
+          (RefreshLoginAttemts)="onLoginAttempts.emit($event)">
         </app-rds-comp-login-attempts>
       </div>
-      <div
-        class="tab-pane fade h-100"
-        id="nav-Settings"
-        [ngClass]="{ 'show active': activePage === 5 }"
-        role="tabpanel"
-        aria-labelledby="nav-Settings"
-      >
-        <app-rds-mysettings
-          [ProfileData]="ProfileData"
-          (onProfileSave)="onProfileSave.emit($event)"
-        >
-        </app-rds-mysettings>
+      <div class="tab-pane fade h-100" id="nav-Settings" [ngClass]="{ 'show active': activePage === 5 }" role="tabpanel"
+        aria-labelledby="nav-Settings">
+        <rds-mysettings [ProfileData]="ProfileData" (onProfileSave)="onProfileSave.emit($event)">
+        </rds-mysettings>
       </div>
       <!-- <div class="tab-pane fade h-100" id="nav-DownLoad" role="tabpanel" aria-labelledby="nav-DownLoad">
-        <app-rds-comp-download-collection [DownloadTable]="DownloadTable"></app-rds-comp-download-collection>
+        <rds-comp-download-collection [DownloadTable]="DownloadTable"></rds-comp-download-collection>
       </div> -->
     </div>
     <div class="pt-6">
@@ -137,73 +61,50 @@
           <div class="card-body h-100 p-0 d-grid">
             <div class="justify-content-center d-flex align-items-center">
               <div class="d-inline-block position-relative">
-                <rds-avatar
-                  [withProfilePic]="true"
-                  [profilePic]="Profileurl"
-                  [roundedPills]="true"
-                  [verticallyAlligned]="true"
-                  [roundedAvatar]="true"
-                  [height]="'110'"
-                ></rds-avatar>
-                <div class="" *ngIf="ProfileData">
-                  {{ ProfileData.UserName }}
-                  <input
-                    type="file"
-                    (change)="checkFileSize($event); checkExtension($event)"
-                    #file
-                    (input)="getValue($event)"
-                    name="myfile"
-                    style="display: none"
-                  />
-                  <button
-                    class="btn btn-icon upload-icon btn-md rounded-circle"
+                <rds-avatar [withProfilePic]="true" [firstName]="tenancy" [subTitle]="ProfileData.userName"  [profilePic]="Profileurl" [roundedPills]="true"
+                  [verticallyAlligned]="true" [roundedAvatar]="true"  [profileContentAlign]="false" [width] ="'130'" [height]="'120'"></rds-avatar>
+                <div class="text-center" *ngIf="ProfileData">
+                  <!-- {{ ProfileData.userName }} -->
+                  <input type="file" (change)="onSelectFile($event)" #file
+                    (input)="getValue($event)" name="myfile" style="display: none" />
+                  <rds-button class="btn btn-icon upload-icon position-absolute top-50 btn-md rounded-circle" colorVariant="" size="medium" [isFabIcon]="true" tooltipTitle="" tooltipPlacement="right" iconHeight="18px"
+                    iconWidth="18px"
+                    [isIconStroke]="true"
+                    [isIconFill]="false"
+                    buttonType="iconOnly"
+                    icon="pencil"
                     (click)="file.click()"
-                    style="display: none"
-                  >
-                    <rds-icon
-                      name="edit"
-                      width="30px"
-                      height="30px"
-                      text-primary
-                    ></rds-icon>
-                  </button>
+                  ></rds-button>
+
+
+                  <!-- <rds-button class="btn btn-icon upload-icon btn-md rounded-circle" 
+                    >
+                    <rds-icon name="edit" [stroke]="true" [fill]="false" width="15px" height="15px" text-primary></rds-icon>
+                  </rds-button> -->
                 </div>
               </div>
             </div>
 
-            <rds-nav-tab
-              [navtabsItems]="getMenuItems()"
-              horizontalAlignment="start"
-              [verticalAlignment]="true"
-              [pills]="false"
-              [tabs]="false"
-              [fill]="false"
-              [justified]="false"
-              [flex]="false"
-              [activepage]="activePage"
-              (onClicktab)="onclickMenu($event)"
-            >
+            <rds-nav-tab [navtabsItems]="getMenuItems()" horizontalAlignment="start" [verticalAlignment]="true"
+              [pills]="false" [tabs]="false" [fill]="false" [justified]="false" [activeTab]="activePage"
+              (onClicktab)="onclickMenu($event)">
             </rds-nav-tab>
-            <div></div>
+            <div class="text-center">
+              <rds-button [isOutline]="true" [label]="translate.instant('LOGOUT')" type="button" [size]="'medium'"
+                          [colorVariant]="'primary'" [isIconFill]="false" [isIconStroke]="true"  (click)="logout()" [icon]="'logout'"
+                          [iconHeight]="'15px'" [iconWidth]="'15px'">
+              </rds-button>
+            </div>
 
             <div class="mobile-header-option">
               <div class="row d-flex align-items-center">
                 <div class="col-md-6">
-                  <rds-dropdownlist
-                    [placeholder]="'Languages'"
-                    [value]="selectedLanguage.language"
-                    [icon]="selectedLanguage.icon"
-                    [listItems]="languageItems"
-                    (onSelect)="onLanguageSelect($event)"
-                  >
+                  <rds-dropdownlist [placeholder]="'Languages'" [value]="selectedLanguage.language"
+                    [icon]="selectedLanguage.icon" [listItems]="languageItems" (onSelect)="onLanguageSelect($event)">
                   </rds-dropdownlist>
                 </div>
                 <div class="col-md-6 px-2 pt-2">
-                  <a
-                    class="nav-link py-0 pe-auto text-dark"
-                    type="button"
-                    (click)="redirectToSettings()"
-                  >
+                  <a class="nav-link py-0 pe-auto text-dark" type="button" (click)="redirectToSettings()">
                     <span class="text-uppercase">
                       <!-- <rds-icon name="gear_settings"></rds-icon> -->
                       settings
@@ -213,37 +114,16 @@
               </div>
             </div>
           </div>
-          <div
-            class="
-              card-footer
-              border-0
-              bg-transparent
-              d-flex
-              justify-content-center
-              py-3
-            "
-          >
-            <rds-button
-              [outlineButton]="true"
-              [label]="translate.instant('LOGOUT')"
-              type="button"
-              [size]="'medium'"
-              [colorVariant]="'primary'"
-              [iconFill]="false"
-              [iconStroke]="true"
-              (click)="logout()"
-              [icon]="'logout'"
-              [iconHeight]="'15px'"
-              [iconWidth]="'15px'"
-            >
-            </rds-button>
-          </div>
+
         </div>
       </div>
     </div>
   </div>
+
 </rds-offcanvas>
 <mfe-loader [config]="rdsAlertMfeConfig"></mfe-loader>
-<!--  </div>
-  </div>
-</rds-offcanvas> -->
+<ng-container *ngIf="showConfirmationPopup">
+  <rds-comp-alert-popup [alertID]="'deleteDelegationModal'" (onCancel)="closeModal()" (onDelete)="delete()"
+    [alertData]="deleteConfirmationData">
+  </rds-comp-alert-popup>
+</ng-container>

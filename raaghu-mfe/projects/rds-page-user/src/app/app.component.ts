@@ -168,25 +168,7 @@ export class AppComponent {
         this.rdsUserMfeConfig = mfeConfig;
       }
     });
-    // this.store.select(selectUserForEdit).subscribe((res: any) => {
-
-    //   if (res) {
-    //     this.userData = {};
-    //     this.userData['name'] = '';
-    //     this.userData['userName'] = '';
-    //     this.userData['email'] = '';
-    //     this.userData['phoneNumber'] = '';
-    //     this.userData['password'] = '';
-    //     this.userData['isTwoFactorEnabled'] = false;
-    //     this.userData['surname'] = '';
-    //     console.log(this.userData);
-    //     const mfeConfig = this.rdsUserMfeConfig
-    //     mfeConfig.input.userData = { ... this.userData };
-    //     mfeConfig.input.editShimmer = false
-    //     this.rdsUserMfeConfig = mfeConfig;
-    //     }
-        
-    // });
+ 
     this.store.dispatch(getUsers());
     this.store.select(selectAllUsers).subscribe((res: any) => {
      
@@ -217,18 +199,7 @@ export class AppComponent {
             surName:element.surname,
           
           };
-          // if (element && element.roles) {
-          //   this.roleName = '';
-          //   element.roles.forEach((e: any) => {
-          //     if (this.roleName == '') {
-          //       this.roleName = e.roleName
-          //     }
-          //     else {
-          //       this.roleName = this.roleName + ', ' + e.roleName;
-          //     }
-          //   });
-          //   item.roleName = this.roleName
-          // }
+         
           this.userList.push(item);
         });
 

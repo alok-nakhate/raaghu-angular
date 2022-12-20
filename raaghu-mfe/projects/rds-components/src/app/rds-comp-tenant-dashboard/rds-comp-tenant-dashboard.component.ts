@@ -23,7 +23,7 @@ export interface BigNumberWidgetData {
 }
 
 @Component({
-  selector: 'app-rds-comp-tenant-dashboard',
+  selector: 'rds-comp-tenant-dashboard',
   templateUrl: './rds-comp-tenant-dashboard.component.html',
   styleUrls: ['./rds-comp-tenant-dashboard.component.scss']
 })

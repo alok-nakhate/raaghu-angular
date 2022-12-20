@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { RdsAccordionService } from '../rds-accordion.service';
+import { Collapse } from 'bootstrap';
 
 @Component({
   selector: 'accordion-item',
@@ -8,7 +9,7 @@ import { RdsAccordionService } from '../rds-accordion.service';
   styleUrls: ['./accordion-item.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class AccordionItemComponent implements OnInit,OnChanges {
+export class AccordionItemComponent implements OnInit, OnChanges, AfterViewInit {
 
   // static accordionItemCount = 0;
   // @Input() id = AccordionItemComponent.accordionItemCount;
@@ -59,7 +60,7 @@ export class AccordionItemComponent implements OnInit,OnChanges {
   //   return val
   // }
   static accordionItemCount = 0;
-    subscription!: Subscription;
+  subscription!: Subscription;
   @Input() id = AccordionItemComponent.accordionItemCount;
   @Input() count = AccordionItemComponent.accordionItemCount;
   @Input() title!: string;
@@ -68,28 +69,52 @@ export class AccordionItemComponent implements OnInit,OnChanges {
 
   @Output() onClose = new EventEmitter<any>();
   @Output() onShow = new EventEmitter<any>();
-  @Input() accordionIcon : boolean = false;
-  @Input() accordionId: string = 'myAccordion';
-  border:boolean=false
-  constructor(private rdsservice: RdsAccordionService ) {
+  @Input() accordionIcon: boolean = false;
+  @Input() parentId: string = '';
+  border: boolean = false
+  constructor(private rdsservice: RdsAccordionService) {
     AccordionItemComponent.accordionItemCount++;
+  }
+  ngAfterViewInit(): void {
+    const myCollapsible = document.getElementById('collapse' + this.id);
+    if (myCollapsible) {
+      myCollapsible.addEventListener('hide.bs.collapse', event => {
+        this.expanded = false;
+      });
+      myCollapsible.addEventListener('show.bs.collapse', event => {
+        this.expanded = true;
+      })
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-  
+
   }
 
   ngOnInit(): void {
-    this.subscription=this.rdsservice.getItem().subscribe(item=>{
-      if(item){
-        this.border=true
+    this.subscription = this.rdsservice.getItem().subscribe(item => {
+      if (item) {
+        this.border = true
         this.accordionIcon = true
-      }else{
-        this.border=false
+      } else {
+        this.border = false
         this.accordionIcon = false
       }
     })
 
+  }
+  toggle(id: string): void {
+    this.expanded = !this.expanded;
+    var element: any = document.getElementById(id);
+    var collapse = new Collapse(element);
+    collapse.show();
+    if (this.expanded) {
+      this.onShow.emit({ id: this.id });
+    }
+    else {
+      this.onClose.emit({ id: this.id });
+
+    }
   }
 
 }

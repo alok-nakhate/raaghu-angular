@@ -9,17 +9,20 @@
       </h6>
     </div>
   </div>
-  <div class="border-top  border-3 border-{{subTitleColorVariant}} row align-items-center big-number p-3"
+  <div class="border-top  border-3 border-{{subTitleColorVariant}} d-flex justify-content-center align-items-center big-number p-3 gap-4"
     *ngSwitchCase="'advanced'">
     <!-- <div [ngClass]="alignclasses" class="row"> -->
-    <div class="col-md-6 text-center">
-      <div class="fs-1"><b>{{bigNumber}}</b></div>
-      <span [ngClass]="subTitleClasses" class="fs-7">
-        {{subText}}
-      </span>
+    <div class="">
+      <div class="fs-1 text-center">
+        <p class="mb-0"><b>{{bigNumber}}</b></p>
+        <p [ngClass]="subTitleClasses" class="fs-6 mb-0">
+          {{subText}}
+        </p>
+      </div>
+      
     </div>
-    <div class="col-md-6 text-center align-items-center justify-content-center d-flex">
-      <div class="w-50">
+    <div class="">
+      <div class="align-items-center justify-content-center d-flex">
         <ng-content></ng-content>
       </div>
     </div>

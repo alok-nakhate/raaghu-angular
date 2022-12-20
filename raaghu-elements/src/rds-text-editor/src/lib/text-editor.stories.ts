@@ -23,6 +23,7 @@ const Template: Story<RdsTextEditorComponent> = (args: RdsTextEditorComponent) =
 });
 
 export const Default = Template.bind({});
+Default.parameters = { controls: { include: ['id', 'editorData'] } };
 Default.args = {
   id: '',
   editorData: '<p>Hello!</p>',

@@ -9,9 +9,9 @@ title: "Components > Login Attempts"
 
 #### Login Attempts
 
-<p class="">A card is a small rectangular module with images and text. It is an entry point for users to learn more details</p>
-<section class="py-4">                                                                                             
-    <h6>Default</h6>
+<p>Provides a necessary details about the login</p>
+<section class="py-4"> 
+    <h6>Default</h6>                                                                                            
     <div class="py-3">
       <div class="cust-tabs">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -40,9 +40,9 @@ title: "Components > Login Attempts"
 
 ```html
 
-<app-rds-comp-login-attempts
+<rds-comp-login-attempts
   [listItemsResult]="listItemsResult"
-></app-rds-comp-login-attempts>
+></rds-comp-login-attempts>
 ```
 </div>
 </div>

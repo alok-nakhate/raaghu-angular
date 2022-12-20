@@ -12,6 +12,8 @@ title: "Elements > Progressbar"
 
 #### Progressbar
 
+<p class="">Track the progress of a task with the help of the progressbar.</p>
+
 <section class="py-4">
     <h6>Default</h6>
     <div class="py-3">

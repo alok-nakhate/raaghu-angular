@@ -10,9 +10,12 @@ title: "Elements > Button"
 
 <link rel="stylesheet" href="../assets/css/main.css">
 
-#### Buttons
+#### Button
   
 <p class="">A button triggers an event or action. They let users know what will happen next.</p> 
+
+<!-- Default -->
+
 <section class="py-4">
   <h6>Default</h6>
    <div class="py-3">
@@ -31,7 +34,7 @@ title: "Elements > Button"
          <div class="contents  p-5">
          <div class="row">
          <div class="col-md-12">
-           <img src="/images/button-basic.png"> 
+           <img src="/images/button-basic.png" class=" img-fluid w-15"> 
            </div>
    </div>                          
    </div>
@@ -55,11 +58,56 @@ title: "Elements > Button"
       </div>
     
   </section>
+
+<!-- Block Button -->
   
+<section class="py-4">
+  <h6>Block Button</h6>
+   <div class="py-3">
+      <div class="cust-tabs">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="PreviewBlock-tab" data-bs-toggle="tab" data-bs-target="#PreviewBlock" type="button" role="tab" aria-controls="PreviewBlock" aria-selected="true">Preview </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="AngularBlock-tab" data-bs-toggle="tab" data-bs-target="#AngularBlock" type="button" role="tab" aria-controls="AngularBlock" aria-selected="false"><i class="bi bi-code-slash" style="font-size:1.0rem"></i>Angular</button>
+          </li>
+        </ul>
+      </div>
+      <div class="tab-content card border" id="myTabContent">
+        <div class="tab-pane fade show active" id="PreviewBlock" role="tabpanel" aria-labelledby="PreviewBlock-tab">
+         <div class="contents  p-5">
+         <div class="row">
+         <div class="col-md-12">
+           <img src="/images/button-block.png" class=" img-fluid w-100"> 
+           </div>
+   </div>                          
+   </div>
+   </div>
+        <div class="tab-pane fade show" id="AngularBlock" role="tabpanel" aria-labelledby="AngularBlock-tab">
+          <div class="contents bg-code">
+<div class="row m-0">
 
-  <section class="py-4">
+```html
+<rds-button
+  colorVariant="primary"
+  [block]="true"
+  size="medium"
+  label="Block"
+></rds-button>
+```
 
- ###### Icon Button  
+</div>
+          </div>
+        </div>
+      </div>
+    
+</section>
+  
+<!-- Rounded Button with Icon -->
+
+<section class="py-4">
+<h6>Rounded Button with Icon</h6>
    <div class="py-3">
       <div class="cust-tabs">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -76,7 +124,7 @@ title: "Elements > Button"
          <div class="row">
          <div class="col-md-12">
          <div class="contents p-5">
-          <img src="/images/button-icon.png">  
+          <img src="/images/button-icon.png" class=" img-fluid w-15">  
            </div>
    </div>                          
    </div>
@@ -88,13 +136,13 @@ title: "Elements > Button"
 ```html
 <rds-button
   colorVariant="primary"
-  [block]="false"
   size="medium"
-  [roundedButton]="false"
+  [roundedButton]="true"
   iconHeight="18px"
   iconWidth="18px"
+  [iconStroke]="true"
+  [iconFill]="false"
   icon="plus"
-  label="button"
 ></rds-button>
 ```
 
@@ -105,9 +153,10 @@ title: "Elements > Button"
     
   </section>
 
-<section class="py-4">
+ <!-- With Icon and Label  -->
 
- ###### Icon with label 
+<section class="py-4">
+<h6>With Icon and Label </h6>
    <div class="py-3">
       <div class="cust-tabs">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -124,7 +173,7 @@ title: "Elements > Button"
          <div class="row">
          <div class="col-md-12">
          <div class="contents bg-light p-5">
-          <img src="/images/button-with-label.png">  
+          <img src="/images/button-with-label.png" class=" img-fluid w-15">  
            </div>
    </div>                          
    </div>
@@ -134,14 +183,14 @@ title: "Elements > Button"
 <div class="row m-0">
 
 ```html
+
 <rds-button
   colorVariant="primary"
-  [block]="false"
   size="medium"
-  [roundedButton]="false"
-  [roundedCorner]="false"
   iconHeight="18px"
   iconWidth="18px"
+  [iconStroke]="true"
+  [iconFill]="false"
   icon="plus"
   label="button"
 ></rds-button>
@@ -154,9 +203,10 @@ title: "Elements > Button"
     
 </section>
 
-<section class="py-4">
+<!-- Outline -->
 
-###### Outline Button  
+<section class="py-4">
+<h6>Outline </h6>
    <div class="py-3">
       <div class="cust-tabs">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -173,7 +223,7 @@ title: "Elements > Button"
          <div class="row">
          <div class="col-md-12">
          <div class="contents p-5">
-            <img src="/images/button-outline.png">
+            <img src="/images/button-outline.png" class=" img-fluid w-15">
                </div>
    </div>              
    </div>
@@ -199,9 +249,11 @@ title: "Elements > Button"
     
   </section>
 
-<section class="py-4">
 
-###### Button Disable
+<!-- Disable -->
+
+<section class="py-4">
+<h6>Disable </h6>
    <div class="py-3">
       <div class="cust-tabs">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -218,7 +270,7 @@ title: "Elements > Button"
          <div class="row">
          <div class="col-md-12">
          <div class="contents p-5">
-            <img src="/images/disable-button.png">
+            <img src="/images/disable-button.png" class=" img-fluid w-15">
                </div>
    </div>              
    </div>
@@ -244,7 +296,55 @@ title: "Elements > Button"
     
   </section>
 
-  ###### Button-Tooltip Disable
+<!-- Rounded Corner Button -->
+
+<section class="py-4">
+<h6> Rounded Corner Button </h6>
+   <div class="py-3">
+      <div class="cust-tabs">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="PreviewRounded-tab" data-bs-toggle="tab" data-bs-target="#PreviewRounded" type="button" role="tab" aria-controls="PreviewRounded" aria-selected="true">Preview </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="AngularRounded-tab" data-bs-toggle="tab" data-bs-target="#AngularRounded" type="button" role="tab" aria-controls="AngularRounded" aria-selected="false"><i class="bi bi-code-slash" style="font-size:1.0rem"></i>Angular</button>
+          </li>
+        </ul>
+      </div>
+      <div class="tab-content card border" id="myTabContent">
+        <div class="tab-pane fade show active" id="PreviewRounded" role="tabpanel" aria-labelledby="PreviewRounded-tab">
+         <div class="row">
+         <div class="col-md-12">
+         <div class="contents p-5">
+            <img src="/images/button-rounded.png" class=" img-fluid w-15">
+               </div>
+   </div>              
+   </div>
+   </div>
+        <div class="tab-pane fade show" id="AngularRounded" role="tabpanel" aria-labelledby="AngularRounded-tab">
+          <div class="contents bg-code">
+<div class="row">
+
+```html
+<rds-button
+  colorVariant="primary"
+  size="medium"
+  [roundedCorner]="true"
+  label="Rounded Corner"
+></rds-button>
+```
+
+</div>
+          </div>
+        </div>
+      </div>
+    
+  </section>
+
+
+<!-- Tooltip -->
+<section class="py-4">
+<h6>Tooltip </h6>
    <div class="py-3">
       <div class="cust-tabs">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -261,7 +361,7 @@ title: "Elements > Button"
          <div class="row">
          <div class="col-md-12">
          <div class="contents p-5">
-            <img src="/images/button-tooltip.png">
+            <img src="/images/button-tooltip.png" class=" img-fluid w-25">
                </div>
    </div>              
    </div>
@@ -272,12 +372,11 @@ title: "Elements > Button"
 
 ```html
 <rds-button
-  colorVariant="primary"
-  [block]="false"
-  size="medium"
-  label="button"
-  tooltipTitle="This is tooltip"
-  tooltipPlacement="bottom"
+      [label]="label"
+      [colorVariant]="colorVariant"
+      [size]="size"
+      [tooltipTitle]="tooltipTitle"
+      [tooltipPlacement]="tooltipPlacement"
 ></rds-button>
 ```
 
@@ -294,7 +393,7 @@ title: "Elements > Button"
  <div class="card border p-5">
   <div class="row">
       <div class="col-md-12">
-        <img src="/images/button-skeleton.png" class="img-fluid">
+        <img src="/images/button-skeleton.png" class=" img-fluid w-50">
      </div>
    </div>
    </div>

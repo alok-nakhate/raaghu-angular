@@ -15,6 +15,8 @@ export class RdsColorPickerComponent implements OnInit {
   @Input() position: 'start' | 'end' | 'top' | 'bottom' = 'start';
   @Output() onItemClick = new EventEmitter<any>();
 
+  labelOrder!: string; 
+
   onChange!: (value: string) => void;
   onTouched!: () => void;
 
@@ -35,55 +37,28 @@ export class RdsColorPickerComponent implements OnInit {
 
   changedValue(event: any) {
     this.onItemClick.emit({ evnt: event, item: event.target.value });
-    console.log(event.target.value);
     // this.onChange(event.target.value)
     // this.onTouched()
   }
 
-  public get inputClasses(): string[] {
-
-    var classes = ['form-control-color']
-    if (this.position === 'start') {     
-      classes.push('');     
+  public get divclasses(): string[] {
+    var classes = ['']
+    if (this.position == 'top') {
+      classes.push('top-0');
+      this.labelOrder = ' ';
     }
-    else if(this.position === 'end') {
-      // classes.push('end-0')
+    else if (this.position == 'bottom') {
+      classes.push(' d-flex flex-column-reverse')
+      this.labelOrder = ' ';
     }
-    else if(this.position === 'bottom') {
-      classes.push('')
+    else if (this.position === 'start') {
+      classes.push('d-flex align-items-center gap-3 ')
+      this.labelOrder = ' ';
     }
-     else if(this.position === 'top') {
-      classes.push('')
+    else if (this.position == 'end') {
+      classes.push(' d-flex align-items-center gap-3');
+      this.labelOrder = '2';
     }
-
     return classes;
-  }
-  public get labelClasses(): string[] {
-
-    var classes = ['position-absolute']
-    if (this.position === 'start') {     
-      classes.push('');     
-    }
-    else if(this.position === 'end') {
-      classes.push('end-0')
-    }
-    else if(this.position === 'bottom') {
-      classes.push('mt-5')
-    }
-     else if(this.position === 'top') {
-      classes.push('top-0')
-    }
-
-    return classes;
-  }
-  public get inputPosition(): string[]{
-    var inputClass=['input-group'];
-    if(this.position==='top'){
-      inputClass.push('mt-4');
-    }
-    else if(this.position==='bottom'){
-      inputClass.push('mb-4');
-    }
-    return inputClass;
   }
 }

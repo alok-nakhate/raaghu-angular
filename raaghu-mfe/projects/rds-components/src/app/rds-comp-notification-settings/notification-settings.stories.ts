@@ -27,6 +27,7 @@ const Template: Story<RdsCompNotificationSettingsComponent> = (args: RdsCompNoti
 export const Default = Template.bind({});
 Default.args = {
     show: true,
+    backdrop:false,
     notificationTypes: [
         {
             "displayName": "On a new user registered to the application.",

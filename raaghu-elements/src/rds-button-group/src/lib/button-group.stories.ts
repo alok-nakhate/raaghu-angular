@@ -14,6 +14,9 @@ export default {
       imports: [RdsIconModule,CommonModule,FormsModule],
     }),
   ],
+  argTypes : {
+    role: { table: { disable: true}},
+  }
 } as Meta;
 
 const Template: Story<RdsButtonGroupComponent> = (args: RdsButtonGroupComponent) => ({
@@ -21,11 +24,10 @@ const Template: Story<RdsButtonGroupComponent> = (args: RdsButtonGroupComponent)
 });
 
 export const DefaultFilled = Template.bind({});
+DefaultFilled.parameters = { controls: { include: ['vertical', 'size', 'buttonGroupItem'] } };
 DefaultFilled.args = {
   vertical: false,
   size: 'medium',
-  colorVariant: 'primary',
-  role: 'button',
   buttonGroupItem: [
 
     {
@@ -38,24 +40,24 @@ DefaultFilled.args = {
       label: 'Middle',
       id: '',
       name: '',
-      colorVariant: 'danger'
+      colorVariant: 'primary'
 
     },
     {
       label: 'Right',
       id: '',
       name: '',
-      colorVariant: 'warning'
+      colorVariant: 'primary'
 
     },
   ]
 };
 
 export const VerticalGroupFilled = Template.bind({});
+VerticalGroupFilled.parameters = { controls: { include: ['vertical', 'size', 'buttonGroupItem'] } };
 VerticalGroupFilled.args = {
   vertical: true,
   size: 'medium',
-  colorVariant: 'primary',
   buttonGroupItem: [
 
     {
@@ -86,10 +88,10 @@ VerticalGroupFilled.args = {
 };
 
 export const IconGroupFilled = Template.bind({});
+IconGroupFilled.parameters = { controls: { include: ['vertical', 'size', 'buttonGroupItem'] } };
 IconGroupFilled.args = {
   vertical: false,
   size: 'medium',
-  colorVariant: 'primary',
   buttonGroupItem: [
     {
       label: '',
@@ -131,10 +133,10 @@ IconGroupFilled.args = {
 };
 
 export const radioButtonGroup = Template.bind({});
+radioButtonGroup.parameters = { controls: { include: ['vertical', 'size', 'outline','role', 'buttonGroupItem'] } };
 radioButtonGroup.args = {
   vertical: false,
   size: 'medium',
-  colorVariant: 'primary',
   outline: true,
   role: 'radio',
   buttonGroupItem: [
@@ -164,10 +166,10 @@ radioButtonGroup.args = {
 };
 
 export const OutlineButtonGroup = Template.bind({});
+OutlineButtonGroup.parameters = { controls: { include: ['vertical', 'size','outline','role', 'buttonGroupItem'] } };
 OutlineButtonGroup.args = {
   vertical: false,
   size: 'medium',
-  colorVariant: 'primary',
   outline: true,
   role: 'checkbox',
   buttonGroupItem: [

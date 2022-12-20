@@ -8,13 +8,13 @@
                 <ng-container *ngIf="tagArray">
                   <span class="d-inline-block m-1 mb-2" *ngFor="let item of tagArray; index as i">
                     <div [ngClass]="classes">
-                      <div class="tags tags-dismissible align-items-center fade show" role="alert" aria-live="assertive"
+                      <div class="tags tags-dismissible align-items-center fade show tagcorners" role="alert" aria-live="assertive"
                         aria-atomic="true">
-                        <div class="d-flex">
-                          <div class="tags-body">
+                        <div class="d-flex align-items-center">
+                          <div class="tags-body" [ngClass]="tagbodytext">
                             {{item}}
                           </div>
-                          <rds-icon [height]="'8'" [fill]="false" [stroke]="true" [width]="'8'" [name]="'cancel'" (click)="deleteTag(i)"
+                          <rds-icon [ngClass]="tagbodytext" [height]="'8'" [fill]="false" [stroke]="true" [width]="'8'" [name]="'cancel'" (click)="deleteTag(i)"
                              style="cursor: pointer;"></rds-icon>
                         </div>
                       </div>
@@ -44,10 +44,10 @@
                     <div class="tags align-items-center fade show" role="alert" aria-live="assertive"
                       aria-atomic="true">
                       <div class="d-flex">
-                        <div class="tags-body">
+                        <div class="tags-body" [ngClass]="tagbodytext">
                           {{item}}
                         </div>
-                        <rds-icon [height]="'8'" [fill]="false" [stroke]="true" [width]="'8'" [name]="'cancel'" (click)="deleteTag(i)"
+                        <rds-icon [ngClass]="tagbodytext" [height]="'8'" [fill]="false" [stroke]="true" [width]="'8'" [name]="'cancel'" (click)="deleteTag(i)"
                          style="cursor: pointer;"></rds-icon>
                       </div>
                     </div>

@@ -26,6 +26,7 @@ export default {
                 RdsDropdownlistModule,
                 NgxTranslateModule,
                 
+                
             ],
             
         })
@@ -41,10 +42,10 @@ const Template: Story<RdsCompPropertiesComponent> = (args: RdsCompPropertiesComp
 export const Default = Template.bind({});
 Default.args = {
         PropertyTableData: [
-            { "cases": 10, "member": "<div class=\"d-flex align-items-center\"><div> <img class=\"prop-img\" src=https://stageui.raaghu.io/assets/profile-picture-circle.svg width=\"40px\" ></div><div class=\"ms-2 mt-2\"><b>Brian</b><div>Software Developer </div></div></div>", "active": 38, "closed": 10, "rate": "<div class=\"HighRate\">92</div>" }
-            , { "cases": 18, "member": "<div class=\"d-flex align-items-center\"><div> <img class=\"prop-img\" src=https://stageui.raaghu.io/assets/profile-picture-circle.svg width=\"40px\" ></div><div class=\"ms-2 mt-2\"><b>Kim</b><div>Senior Developer </div></div></div>", "active": 342, "closed": 25, "rate": "<div class=\"MidRate\">42</div>" }
-            , { "cases": 7, "member": "<div class=\"d-flex align-items-center\"><div> <img class=\"prop-img\" src=https://stageui.raaghu.io/assets/profile-picture-circle.svg width=\"40px\" ></div><div class=\"ms-2 mt-2\"><b>Jane</b><div>Sales Executive </div></div></div>", "active": 25, "closed": 5, "rate": "<div class=\"HighRate\">96</div>" }
-            , { "cases": 14, "member": "<div class=\"d-flex align-items-center\"><div> <img class=\"prop-img\" src=https://stageui.raaghu.io/assets/profile-picture-circle.svg width=\"40px\" ></div><div class=\"ms-2 mt-2\"><b>Brian</b><div>Software Developer</div></div></div>", "active": 42, "closed": 42, "rate": "<div class=\"LowRate\">16</div>" }
+            { "cases": 10, "member": "<div class=\"d-flex align-items-center\"><div> <img class=\"prop-img\" src=https://anzstageui.raaghu.io/assets/profile-picture-circle.svg width=\"40px\" ></div><div class=\"ms-2 mt-2\"><b>Brian</b><div>Software Developer </div></div></div>", "active": 38, "closed": 10, "rate": "<div class=\"HighRate\">92</div>" }
+            , { "cases": 18, "member": "<div class=\"d-flex align-items-center\"><div> <img class=\"prop-img\" src=https://anzstageui.raaghu.io/assets/profile-picture-circle.svg width=\"40px\" ></div><div class=\"ms-2 mt-2\"><b>Kim</b><div>Senior Developer </div></div></div>", "active": 342, "closed": 25, "rate": "<div class=\"MidRate\">42</div>" }
+            , { "cases": 7, "member": "<div class=\"d-flex align-items-center\"><div> <img class=\"prop-img\" src=https://anzstageui.raaghu.io/assets/profile-picture-circle.svg width=\"40px\" ></div><div class=\"ms-2 mt-2\"><b>Jane</b><div>Sales Executive </div></div></div>", "active": 25, "closed": 5, "rate": "<div class=\"HighRate\">96</div>" }
+            , { "cases": 14, "member": "<div class=\"d-flex align-items-center\"><div> <img class=\"prop-img\" src=https://anzstageui.raaghu.io/assets/profile-picture-circle.svg width=\"40px\" ></div><div class=\"ms-2 mt-2\"><b>Brian</b><div>Software Developer</div></div></div>", "active": 42, "closed": 42, "rate": "<div class=\"LowRate\">16</div>" }
             // , { "cases": 23, "member": "<div class=\"d-flex\"><div> <img src=../assets/user1_icon.png width=\"50px\" ></div><div class=\"ms-2 mt-2\"><b>Kath</b><div>Manager </div></div></div>", "active": 10, "closed": 3, "rate": "<div class=\"MidRate\">52</div>" },
             // { "cases": 10, "member": "<div class=\"d-flex\"><div> <img src=../assets/user1_icon.png width=\"50px\" ></div><div class=\"ms-2 mt-2\"><b>Brian</b><div>Software Developer </div></div></div>", "active": 38, "closed": 10, "rate": "<div class=\"HighRate\">92</div>" }
             // , { "cases": 18, "member": "<div class=\"d-flex\"><div> <img src=../assets/user1_icon.png width=\"50px\" ></div><div class=\"ms-2 mt-2\"><b>Kim</b><div>Senior Developer </div></div></div>", "active": 342, "closed": 25, "rate": "<div class=\"MidRate\">42</div>" }

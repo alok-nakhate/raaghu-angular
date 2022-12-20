@@ -9,7 +9,7 @@ title: "Components > Product-overview"
 
 #### Product Overview
 
-<p class="">A card is a small rectangular module with images and text. It is an entry point for users to learn more details</p>
+<p>Gives the details on the product selected along with the user requirement on size</p>
 <section class="py-4">
     <h6>Default</h6>
     <div class="py-3">

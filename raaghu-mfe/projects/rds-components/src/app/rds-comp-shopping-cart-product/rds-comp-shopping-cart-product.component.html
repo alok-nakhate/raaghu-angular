@@ -2,7 +2,7 @@
    <div *ngSwitchCase="'basic'">
       <div class="row border-bottom mb-3" [ngClass]="{'active': closedata === i}" *ngFor="let item of itemList; index as i ">
          <div class="col-md-2 mb-3 ps-0">
-            <img [src]="item.image" width="100px">
+            <img [src]="item.image" class="w-100" width="100px">
          </div>
          <div class="col-md-10 mb-3 d-flex justify-content-between">
             <div>
@@ -15,17 +15,22 @@
                <div class="py-1">
                   <span class="fw-bolder">${{item.price}}</span>
                </div>
-               <div class="mt-4">
-                  <rds-icon-label class="text-muted fw-medium" [icon]="item.highlights.icon" [label]="item.highlights.label">
+               <div class="mt-4 d-flex justify-content-between">
+                  <rds-icon-label class="text-muted fw-medium" [colorVariant]="'success'" [stroke]="true"  [icon]="item.highlights.icon" [label]="item.highlights.label">
                   </rds-icon-label>
                </div>
             </div>
-            <div class="d-flex justify-content-between gap-4 sm-position-relative align-items-baseline">
+            <div>
                <rds-select-list name="value" (selectListChange)="onSelectValue($event,item)"
-                              [itemList]="item.quantity" [value]="value">
-               </rds-select-list>
-               <button (click)="closeFilterPermission(item,i)" class="btn-close text-reset "></button>
+                           [itemList]="item.quantity" [value]="value">
+            </rds-select-list>
             </div>
+            <div class="d-flex justify-content-between gap-4 sm-position-relative align-items-baseline">
+               
+               <button (click)="closeFilterPermission(item,i)" class="btn-close text-reset "></button>
+               
+            </div>
+            
          </div>
          
       </div>
@@ -49,7 +54,7 @@
       </table> -->
       <div class="row border-bottom mb-3" *ngFor="let item of itemList; index as i ">
          <div class="col-md-2 mb-3">
-            <img [src]="item.image" height="100px" width="100px" class="border">
+            <img [src]="item.image" height="100px" width="100px" class="border w-100 h-100">
          </div>
          <div class="col-md-10 d-flex justify-content-between mb-3">
             <div>

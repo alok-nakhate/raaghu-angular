@@ -18,10 +18,14 @@ export class RdsToastsComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() toastId: string = 'toastId';
   @Input() colorVariant: 'primary' | 'success' | 'secondary' | 'light' | 'dark' | 'danger' | 'warning' | 'info' | undefined = undefined;
   @Input() showHeader: boolean = true
+  @Input() headerColorVariant: 'primary' | 'success' | 'secondary' | 'light' | 'dark' | 'danger' | 'warning' | 'info' | undefined = undefined;
+
   @Input() headerTitle: string = ''
   @Input() position: 'Top-Left' | 'Top-Center' | 'Top-Right' | 'Middle-Left' | 'Middle-Center' | 'Middle-Right' | 'Bottom-Left' | 'Bottom-Center' | 'Bottom-Right' = 'Top-Left';
   @Input() show: boolean = false;
-
+  @Input() showButton: boolean = false;
+  @Input() border: 'primary' | 'success' | 'secondary' | 'light' | 'dark' | 'danger' | 'warning' | 'info' | undefined = undefined;
+  @Input() closebtn: boolean = false
   // @Input() iconName: string = 'check';
   // @Input() iconHeight: string = '16px'
   // @Input() iconWidth: string = '18px'
@@ -72,13 +76,73 @@ export class RdsToastsComponent implements OnInit, AfterViewInit, OnChanges {
       this.show = false;
     }
   }
+  // main fun
+  // public get backgroudClass(): any {
+  //   var backgroudClass = ''
+  //   if (this.colorVariant && this.border) {
+  //     return backgroudClass = 'bg-' + `${this.colorVariant}` + 'border border-'+`${this.border}`
+  //   }
+  //   return backgroudClass;
+  // }
 
+  
   public get backgroudClass(): any {
-    if (this.colorVariant) {
-      return 'text-bg-' + `${this.colorVariant}`
+      var backgroudClass = ['']
+      const borderColor = 'border border-' + `${this.border}`
+      backgroudClass.push(borderColor)
+      return backgroudClass;
     }
-    return '';
+
+
+
+
+
+  // newly added
+  public get backgroud(): any {
+    var backgroud = ''
+    if (this.headerColorVariant) {
+      // return backgroud = 'bg-' + `${this.headerVariant}` + ' border border-'+`${this.border}`
+      return backgroud = 'toast-' + `${this.headerColorVariant}`
+    }
+    return backgroud;
   }
+
+  // newly added 2
+  public get bodycolor(): any {
+    // var bodycolor = ['']
+    // const borderColor = 'border border-' + `${this.border}`
+    // bodycolor.push('border border-1');
+    // bodycolor.push(borderColor);
+
+
+    var backgroudClass = ''
+    if (this.colorVariant) {
+      return backgroudClass = 'toast-' + `${this.colorVariant}`
+    }
+    return 
+  }
+
+  // newly added 3
+  // public get messageColor(): any {
+  //   var messageColor = ''
+  //   if(this.headerColorVariant == 'primary' || this.headerColorVariant== 'secondary' || this.headerColorVariant== 'success' || this.headerColorVariant== 'danger' || this.headerColorVariant== 'dark'){
+  //     messageColor = 'text-white'
+  //     return messageColor;
+  //   }
+  //   else{
+  //     messageColor = 'text-dark';
+  //     return messageColor
+  //   }
+  // }
+
+  // newly added 4 
+  public get toastoutlinebtn(): any {
+    var toastoutlinebtn = ['']
+    const outlineprimbtn = 'btn btn-outline-' + `${this.border}`
+    toastoutlinebtn.push(outlineprimbtn)
+    return toastoutlinebtn
+  }
+
 
   public get positionClass(): any[] {
     var positionClasses = ['']
@@ -110,5 +174,12 @@ export class RdsToastsComponent implements OnInit, AfterViewInit, OnChanges {
       positionClasses.push('bottom-0 end-0')
     }
     return positionClasses;
+  }
+
+  public get getborder(): string | string {
+    if (this.getborder) {
+      return 'text-bg-' + `${this.getborder}`
+    }
+    return '';
   }
 }

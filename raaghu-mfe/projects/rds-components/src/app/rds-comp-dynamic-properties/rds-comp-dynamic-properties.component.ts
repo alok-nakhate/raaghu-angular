@@ -91,7 +91,7 @@ export class RdsCompDynamicPropertiesComponent implements OnInit, OnChanges {
     this.canvasTitle = this.translate.instant('NEW DYNAMIC PROPERTY');
     this.IsEdit = false;
     this.selectedPermissionList = [];
-
+    this.viewCanvas = false;
   }
   editTableRow(event): void {
     this.activePage = 0;
@@ -100,6 +100,7 @@ export class RdsCompDynamicPropertiesComponent implements OnInit, OnChanges {
     this.selectedPermissionList = [];
     this.editPropertyTableRowData.emit(event.id);
     this.id = event.id;
+    this.viewCanvas = true;
   }
   addDynamic(event) {
     this.activePage = 0;
@@ -125,13 +126,15 @@ export class RdsCompDynamicPropertiesComponent implements OnInit, OnChanges {
           tenantId: null,
           id: this.id,
         };
+        this.closeCanvas();
         this.createOrUpdateDynamic.emit(DynamicPropery);
+
       }
     } else {
-      if (this.DynamicProperyInfo.dynamicProperties?.propertyName && this.DynamicProperyInfo.dynamicProperties.inputType[0] != "" && this.selectedPermissions != "" && this.DynamicProperyInfo.dynamicProperties.propertyName != "") {
+      if (this.DynamicProperyInfo.dynamicProperties?.propertyName && this.DynamicProperyInfo.dynamicProperties.propertyName != "") {
         const DynamicPropery: any = {
           displayName: this.DynamicProperyInfo.dynamicProperties.displayName,
-          inputType: this.DynamicProperyInfo.dynamicProperties.inputType[0],
+          inputType: this.DynamicProperyInfo.dynamicProperties.inputType,
           permission: this.selectedPermissions,
           propertyName: this.DynamicProperyInfo.dynamicProperties.propertyName,
           tenantId: null,

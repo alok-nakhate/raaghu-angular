@@ -1,7 +1,9 @@
-<div [ngClass]="classes" *ngFor="let item of itemList">
-    <input class="form-check-input" type="checkbox" [(ngModel)]="checked" (input)="getValue($event)"
-    [value]="label" [checked]="checked" [id]="id" [disabled]="disabled">
-    <label class="form-check-label" [for]="id"  *ngIf="withLabel"  [ngClass]="{'ms-2': isInputGroup}">
-        {{item.label}}
-    </label>
-  </div>
+<div [class]="inlineGroup()">
+    <div [ngClass]="classes()" *ngFor="let item of itemList">
+        <input class="form-check-input" [ngClass]="formState()" type="checkbox" [(ngModel)]="item.checked" (change)="getValue($event)"
+           (blur)="onTouched()"  [value]="item.label" [checked]="item.checked" [id]="item.id" [disabled]="item.disabled">
+        <label class="form-check-label" [for]="item.id" *ngIf="withLabel" [ngClass]="{'ms-2': isInputGroup}">
+            {{item.label}}
+        </label>
+    </div>
+</div>

@@ -1,7 +1,7 @@
 <div [ngSwitch]="displaytype">
   <div *ngSwitchCase="'Basic'">
-    <div class="mt-5 ms-5 pt-5 border sm-mt-0 sm-ms-0">
-      <ol class="activity-feed">
+    <div class="mt-5 ms-5 pt-5 border border-2 sm-mt-0 sm-ms-0">
+      <ol class="activity-feed ms-5">
         <li class="feed-item feed-item-div" *ngFor="let item of itemList">
           <div class="row d-flex align-items-center mb-4 sm-grid">
             <div class="col-md-2 col-sm-4 w-auto">
@@ -29,14 +29,14 @@
   </div>
   <div *ngSwitchCase="'Advanced'">
     <ng-content select="selector"></ng-content>
-    <div class="mt-5 ms-5 pt-5 border sm-mt-0 sm-ms-0 px-4">
+    <div class="mt-5 ms-5 me-5 pt-5 border sm-mt-0 sm-ms-0 px-4 ">
       <div class="row row-cols-auto d-flex align-items-center mb-4 sm-grid" *ngFor="let item of itemList">
-        <div class="col-md-2">
+        <div class="col-md-1">
           <rds-avatar [withProfilePic]="true" [profilePic]="item.profilePic" [colorVariant]="'light'" [size]="'small'"
             [verticallyAlligned]="false"></rds-avatar>
         </div>
   
-        <div class="col-md-10 d-flex justify-content-between sm-block align-items-center">
+        <div class="col-md-9 d-flex justify-content-between sm-block align-items-top">
           <div>
             <div class="div h-50">
               <span> <b>

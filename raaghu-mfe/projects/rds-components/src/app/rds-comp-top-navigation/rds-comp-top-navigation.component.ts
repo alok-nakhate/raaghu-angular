@@ -1,19 +1,19 @@
 import { Component, DoCheck, EventEmitter, Inject, Injector, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
-import { ComponentLoaderOptions, MfeBaseComponent, SharedService } from '@libs/shared';
+import { AlertService, ComponentLoaderOptions, MfeBaseComponent, SharedService } from '@libs/shared';
 import { TranslateService } from '@ngx-translate/core';
 import { TableHeader } from '../../models/table-header.model';
 import { DOCUMENT } from '@angular/common';
 let that: any;
 declare var bootstrap: any;
 @Component({
-  selector: 'app-rds-top-navigation',
+  selector: 'rds-top-navigation',
   templateUrl: './rds-comp-top-navigation.component.html',
   styleUrls: ['./rds-comp-top-navigation.component.scss']
 })
 export class RdsTopNavigationComponent extends MfeBaseComponent implements OnInit, DoCheck, OnChanges {
   // rdsProfileMfeConfig: ComponentLoaderOptions;
-
+  showNotification: boolean = false;
   showOffcanvas: boolean = false;
   themes: any = [
 
@@ -22,11 +22,13 @@ export class RdsTopNavigationComponent extends MfeBaseComponent implements OnIni
     { value: 'blue', some: 'blue', id: 3 },
     { value: 'green', some: 'green', id: 4 },
     { value: 'orange', some: 'orange', id: 5 }
-  ]
+  ];
+
+  selectedTheme: string = 'default';
   @Input()
   LoginAttempts: any = {};
   @Input() LinkAccounts: []
-  @Input() logo: string = '';
+  @Input() logo: string = '/static/media/.storybook/assets/raaghu-logo.svg';
   @Input() projectName: string = '';
   @Input() sideMenuCollapsed: boolean = false;
   @Input() isPageWrapper: boolean = false;
@@ -35,16 +37,23 @@ export class RdsTopNavigationComponent extends MfeBaseComponent implements OnIni
   @Input() selectedMenuDescription: string = 'Statics and reports';
   @Input() userList: any = [];
   @Input() languageItems = [];
-  @Input() defaultLanguage: string = '';
-  selectedLanguage: any = { language: '', icon: '' };
+  @Input() selectedLanguage: any = { language: '', icon: '' };
   @Input() notificationData = [];
   @Input() tenancy: string = 'Host Admin';
   @Input() offCanvasId: string = ''
   @Input() profileLink: string = '';
   @Input() UserName: string = 'Wai Technologies';
-  @Input() profilePic: string = 'https://stageui.raaghu.io/assets/profile-picture-circle.svg';
+  @Input() profilePic: string = 'https://anzstageui.raaghu.io/assets/profile-picture-circle.svg';
   @Input() notificationLink: string = '';
-  @Input() profileData: any;
+  @Input() profileData: any={
+    ProfileName: '',
+    emailAddress: '',
+    userName: '',
+    CurrentPassword: '',
+    NewPassword: '',
+    ConFNewPassword: '',
+    name: ''
+  };
   @Input() rdsDeligateTableData: any = [];
   @Input() unreadCount: any = 0;
   @Input() notificationTypes: any = [];
@@ -63,6 +72,8 @@ export class RdsTopNavigationComponent extends MfeBaseComponent implements OnIni
   @Output() onUpdateNotificationSettings = new EventEmitter<any>();
   @Input() linkedAccountHeaders: any = [];
   @Input() linkedAccountData: any = [];
+  @Input() FixedHeader: boolean = true
+  @Input() showDelegationButtonSpinner: boolean = true;
   tabName: string = '';
   navtabItems: any = [
     { label: 'Manage Linked Accounts', translationKey: 'Manage Linked Accounts', tablink: '#nav-LinkAccount', ariacontrols: 'nav-LinkAccount', Image: 'bi bi-pencil-fill', icon: 'manage_linked', subText: 'Manage accounts linked to your account', subtextTranslationKey: 'Manage accounts linked to your account', showoffcanvas: true },
@@ -102,12 +113,13 @@ export class RdsTopNavigationComponent extends MfeBaseComponent implements OnIni
     { DateofData: '08/07/2022', NummberofDates: '5days ago', downloadUrl: 'assets/DeleteIcon.jpg' },
     { DateofData: '08/07/2022', NummberofDates: '5days ago', downloadUrl: 'assets/Photp.jpeg' }
   ]
-  openNotification: boolean;
 
 
   @Output() onProfileSave = new EventEmitter<any>();
+  @Output() FixedHeaderStyle = new EventEmitter<any>();
 
   constructor(private router: Router, private injector: Injector,
+    private alertService: AlertService,
     private shared: SharedService,
     public translate: TranslateService, @Inject(DOCUMENT) private document: Document
   ) {
@@ -116,16 +128,25 @@ export class RdsTopNavigationComponent extends MfeBaseComponent implements OnIni
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (this.defaultLanguage) {
-      this.selectedLanguage = this.defaultLanguage;
-    }
   }
 
   ngOnInit(): void {
     this.shared.getTopNavTitle().subscribe((res: any) => {
       this.tabName = res;
     });
+    this.shared.getSideBarStatus().subscribe((res: any) => {
+      if (res === true) {
+        const element: any = document.querySelector('.navbar-toggler');
+        if (element) {
+          const style = getComputedStyle(element)
+          if (style && style.display && style.display === 'block') {
+            element.click();
+          }
+        }
 
+        this.shared.setSideBarStatus(false);
+      }
+    });
     var notificationDropdown = document.getElementById('navbarDropdownMenuLink')
     notificationDropdown.addEventListener('hide.bs.dropdown', function () {
       that.notificationData.forEach((x: any) => {
@@ -134,12 +155,22 @@ export class RdsTopNavigationComponent extends MfeBaseComponent implements OnIni
     })
     // const existingLinkEl = this.document.getElementById('client-theme') as HTMLLinkElement;
     // existingLinkEl.href = 'default.css';
-    const event = 'default';
-    this.onThemeSelect(event);
+    // let selectedTheme = localStorage.getItem('THEME');
+    // if (selectedTheme === 'light' || selectedTheme === 'dark' || selectedTheme === '' || selectedTheme == undefined || selectedTheme == null || selectedTheme === 'undefined') {
+    //   selectedTheme = 'default';
+    // }
+    // this.selectedTheme = selectedTheme;
+    // // this.onThemeSelect(selectedTheme);
 
-    if (this.defaultLanguage) {
-      this.selectedLanguage = this.defaultLanguage;
-    }
+    // this.alertService.themes.subscribe((theme) => {
+    //   if (theme) {
+    //     // this.onThemeSelect(theme);
+    //     this.selectedTheme = theme;
+
+    //   }
+
+    // })
+
 
 
     this.on('logout').subscribe(r => {
@@ -150,6 +181,8 @@ export class RdsTopNavigationComponent extends MfeBaseComponent implements OnIni
       console.log(res);
       this.emitEvent('tenancyDataReturns', res);
     })
+
+
   }
 
 
@@ -161,9 +194,7 @@ export class RdsTopNavigationComponent extends MfeBaseComponent implements OnIni
     this.redirection.emit(type);
   }
 
-  openNotificationComp() {
-    this.openNotification = !this.openNotification;
-  }
+
 
   redirectToSettings() {
     this.router.navigateByUrl('/pages/settings');
@@ -174,6 +205,13 @@ export class RdsTopNavigationComponent extends MfeBaseComponent implements OnIni
   saveLinkUsers(event: any) {
     this.linkUser.emit(event);
   }
+  getProfilePic(event: any): void {
+    this.profilePic = event;
+  }
+
+  // onProfileData(event: any){
+  //   this.onProfileData.emit(event)
+  // }
   viewOffcanvas(): void {
     this.showOffcanvas = true;
     var offcanvas = document.getElementById(this.offCanvasId);
@@ -190,20 +228,34 @@ export class RdsTopNavigationComponent extends MfeBaseComponent implements OnIni
   onToggleButton(): void {
     this.toggleEvent.emit();
   }
-  onThemeSelect(event: any) {
+  // onThemeSelect(event: any, isSelected: boolean = false) {
+  //   this.selectedTheme = event;
+  //   this.alertService.setTheme(this.selectedTheme)
+  //   // const headEl = this.document.getElementsByTagName('head')[0];
+  //   // const existingLinkEl = this.document.getElementById('client-theme') as HTMLLinkElement;
+  //   // const newLinkEl = this.document.createElement('link');
 
-    console.log(event)
-    const headEl = this.document.getElementsByTagName('head')[0];
-    const existingLinkEl = this.document.getElementById('client-theme') as HTMLLinkElement;
-    const newLinkEl = this.document.createElement('link');
-
-    if (existingLinkEl) {
-      existingLinkEl.href = event + '.css';
-    } else {
-      newLinkEl.id = 'client-theme'
-      newLinkEl.rel = 'stylesheet';
-      newLinkEl.href = event + '.css';
-      headEl.appendChild(newLinkEl);
+  //   // if (existingLinkEl) {
+  //   //   existingLinkEl.href = event + '.css';
+  //   // } else {
+  //   //   newLinkEl.id = 'client-theme'
+  //   //   newLinkEl.rel = 'stylesheet';
+  //   //   newLinkEl.href = event + '.css';
+  //   //   headEl.appendChild(newLinkEl);
+  //   // }
+  // }
+  openNotification(): void {
+    this.showNotification = !this.showNotification;
+    var element: any = document.getElementById('notification-popup-menu');
+    if (element) {
+      var dropdown = new bootstrap.Dropdown(element);
+      if (this.showNotification) {
+        dropdown.show();
+      } else {
+        dropdown.hide();
+      }
     }
+
+
   }
 }

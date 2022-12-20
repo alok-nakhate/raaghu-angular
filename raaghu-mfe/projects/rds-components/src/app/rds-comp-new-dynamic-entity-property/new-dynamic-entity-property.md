@@ -9,9 +9,9 @@ title: "Components > New Dynamic Entity Property"
 
 #### New Dynamic Entity Property
 
-<p class="">A card is a small rectangular module with images and text. It is an entry point for users to learn more details</p>
-<section class="py-4">                                                                                             
-    <h6>Default</h6>
+<p>Provides a dropdown selection on entity and property</p>
+<section class="py-4">    
+    <h6>Default</h6>                                                                                         
     <div class="py-3">
       <div class="cust-tabs">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -40,10 +40,10 @@ title: "Components > New Dynamic Entity Property"
 
 ```html
 
-<app-rds-comp-new-dynamic-entity-property
+<rds-comp-new-dynamic-entity-property
 [entityNames]="entityNames"
 [parameterList]="parameterList"
-></app-rds-comp-new-dynamic-entity-property>
+></rds-comp-new-dynamic-entity-property>
 ```
 </div>
 </div>

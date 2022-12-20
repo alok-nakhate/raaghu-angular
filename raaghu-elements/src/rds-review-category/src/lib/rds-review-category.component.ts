@@ -7,8 +7,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 
 export class RdsReviewCategoryComponent implements OnInit {
-  @Input()
-  item: any;
+  @Input() item: any;
 
   @Input() display_type?: string = 'Basic';
   @Output() likedislikeClick = new EventEmitter<any>();
@@ -16,7 +15,6 @@ export class RdsReviewCategoryComponent implements OnInit {
   ngOnInit(): void {
   }
   
-  today: number = Date.now();
   onClick(event :any){
     this.likedislikeClick.emit(event);
   }

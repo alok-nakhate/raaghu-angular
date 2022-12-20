@@ -4,7 +4,7 @@ export interface SettingsData {
   quickTheme: boolean;
   }
 @Component({
-  selector: 'app-rds-comp-other-settings',
+  selector: 'rds-comp-other-settings',
   templateUrl: './rds-comp-other-settings.component.html',
   styleUrls: ['./rds-comp-other-settings.component.scss']
 })
@@ -24,7 +24,6 @@ export class RdsCompOtherSettingsComponent implements OnInit {
   
   
   ngOnInit(): void {
-  this.dataset = this.OtherSetting;
   }
   selectAllFeature(e: boolean, type: string) {
     this.OtherSetting.isQuickThemeSelectEnabled = e;

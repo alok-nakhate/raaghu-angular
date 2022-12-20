@@ -4,7 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import Chart from 'chart.js/auto';
 
 @Component({
-  selector: 'app-rds-comp-demoui',
+  selector: 'rds-comp-demoui',
   templateUrl: './rds-comp-demoui.component.html',
   styleUrls: ['./rds-comp-demoui.component.scss']
 })
@@ -133,6 +133,17 @@ export class RdsCompDemouiComponent implements OnInit {
       id: 2,
       label: "Child Checkbox 2"
     },
+  ]
+  
+  itemListWithInputGroup = [
+    {
+      id: 1,
+      label: "Child Checkbox 1"
+    },
+    {
+      id: 2,
+      label: "Child Checkbox 2"
+    },
     // {
     //   id: 3,
     //   label: "Child Checkbox 3"
@@ -142,6 +153,61 @@ export class RdsCompDemouiComponent implements OnInit {
     //   label: "Child Checkbox 4"
     // }
   ];
+
+  itemListWithoutInputGroup =[
+    {
+      id: 1,
+      label: "Child Checkbox 1"
+    },
+    {
+      id: 2,
+      label: "Child Checkbox 2"
+    },
+  ]
+
+  checkboxParentChilditemList=[
+    {
+      "id": 1,
+      "label": "Parent Checkbox 1",
+      "isSelected": false,
+      "isIntermediate": false,
+      "isClosed": false,
+      "disabled": false,
+      "childList": [
+        {
+          "id": 1,
+          "parent_id": 1,
+          "label": "Child Checkbox 1",
+          "isSelected": false,
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "label": "Parent Checkbox 2",
+      "isSelected": false,
+      "isIntermediate": false,
+      "isClosed": false,
+      "disabled": false,
+      "childList": [
+        {
+          "id": 1,
+          "parent_id": 1,
+          "label": "Child Checkbox 1",
+          "isSelected": false,
+          "disabled": false
+        },
+        {
+          "id": 2,
+          "parent_id": 1,
+          "label": "Child Checkbox 2",
+          "isSelected": false,
+          "disabled": false
+        }
+      ]
+    }
+  ]
 
   listItems = [
     {
@@ -1265,7 +1331,7 @@ export class RdsCompDemouiComponent implements OnInit {
       data: [101, 122, 133, 231, 112, 125, 135, 135.7, 136, 124, 122, 125],
       borderColor: '#4DCFFF',
       pointBackgroundColor: '#4DCFFF',
-      // backgroundColor: '#ECEEF4',
+      backgroundColor: '--chart-line-color1',
       fill: true,
       pointRadius: 3,
       fillColor: "rgba(195, 40, 96, 0.1)",
@@ -1276,7 +1342,7 @@ export class RdsCompDemouiComponent implements OnInit {
       data: [290, 262, 205, 162, 150, 280, 206, 220, 260, 300, 275, 211],
       borderColor: '#863BFF',
       pointBackgroundColor: '#863BFF',
-      backgroundColor: '#ECEEF4',
+      backgroundColor: '--chart-line-color2',
       fill: true,
       pointRadius: 3,
       tension: 0.4,
@@ -2606,10 +2672,8 @@ export class RdsCompDemouiComponent implements OnInit {
     { label: 'Administration', id: 'administration', icon: 'administration', path: '', children: [{ label: 'Role', icon: 'roles', path: 'role' }, { label: 'Users', icon: 'users', path: 'users' }] },
     { label: 'UI Components', id: '', icon: 'demo_ui_components', path: 'components' },
   ]
-  progressvalues = [{
-    progressWidth: "50%", background: 'bg-success', stripe: 'progress-bar-striped',
-    animation: 'progress-bar-animated'
-  }, { progressWidth: "20%", background: 'bg-danger' }];
+  progressvalues = [{ progressWidth: 50, colorVariant: 'success', stripe: 'progress-bar-striped', animation: 'progress-bar-animated' }, { progressWidth: 20, colorVariant: 'danger', stripe: '', animation: '' }, { progressWidth: 30, colorVariant: 'info', stripe: '', animation: '' }];
+  buttonList= [{ colorVariant: 'primary', label: 'Toggle First Element', id: 'collapseExample', }, { colorVariant: 'primary', label: 'Toggle Second Element', id: 'collapseExample1' }, { colorVariant: 'primary', label: 'Toggle Both Element', id: 'collapseExample,collapseExample1', }];
 
 
   onClickShowAlert() {

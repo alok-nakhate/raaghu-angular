@@ -124,12 +124,12 @@
 }
 
 .val1PositionDefault {
-  top: 15px;
+  bottom: 15px;
 }
 
 .val2PositionDefault {
   right: 0px;
-  top: 15px;
+  bottom: 15px;
 }
 
 
@@ -541,13 +541,14 @@
 }
 
 .val1PositionType2 {
-  top: 65px;
+  top: 72px;
+  left: -5px;
   border: 1px solid #B9C5CD;
 }
 
 .val2PositionType2 {
-  right: 0px;
-  top: 65px;
+  right: -20px;
+  top: 72px;
   border: 1px solid #B9C5CD;
 }
 

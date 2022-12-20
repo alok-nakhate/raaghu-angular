@@ -5,13 +5,14 @@ export default {
   title: 'Elements/Radio Button',
   component: RdsRadioButtonComponent,
   argTypes: {
-
+    display_type: {table: {disable: true,},},
   }
 } as Meta
 const Template: Story<RdsRadioButtonComponent> = (args: RdsRadioButtonComponent) => ({
   props: args,
 });
 export const Default = Template.bind({})
+Default.parameters = { controls: { include: ['display_type', 'itemList'] } };
 Default.args = {
   display_type: 'Default',
   itemList : [
@@ -37,6 +38,7 @@ Default.args = {
 }
 
 export const Horizontal = Template.bind({})
+Horizontal.parameters = { controls: { include: ['display_type', 'itemList'] } };
 Horizontal.args = {
   display_type: 'Horizontal',
   itemList : [

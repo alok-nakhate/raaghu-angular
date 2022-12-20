@@ -9,7 +9,7 @@ title: "Components > Pricing-table"
 
 #### Pricing Table
 
-<p class="">A card is a small rectangular module with images and text. It is an entry point for users to learn more details</p>
+<p>Gives a card on tables categorized into different subscription plan categories with different pricing details</p>
 <section class="py-4">
     <h6>Default</h6>
     <div class="py-3">
@@ -25,10 +25,10 @@ title: "Components > Pricing-table"
       </div>
       <div class="tab-content card border" id="myTabContent">
         <div class="tab-pane fade show active" id="PreviewBasic" role="tabpanel" aria-labelledby="PreviewBasic-tab">
-         <div class="contents bg-light p-5">
+         <div class="contents  p-5">
               <div class="row">
                  <div class="col-md-12">
-                      <img src="/images/pricing-table.png" class="img-fluid w-50">
+                      <img src="/images/pricing-table.png" class="img-fluid ">
                  </div>            
            </div>
                        
@@ -39,11 +39,11 @@ title: "Components > Pricing-table"
 <div class="row m-0">
 
 ```html
-<app-rds-comp-pricing-table
+<rds-comp-pricing-table
 [itemList]="itemList"
 selectedPlan="Monthly Plan"
 [planList]="planList">
-</app-rds-comp-pricing-table>
+</rds-comp-pricing-table>
 ```
 </div>
 </div>

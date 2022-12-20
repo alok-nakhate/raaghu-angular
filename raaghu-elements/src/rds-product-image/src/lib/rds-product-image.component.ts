@@ -10,8 +10,10 @@ export class RdsProductImageComponent implements OnInit {
   title = 'rds-image';
   @Input() display_type?: string = 'Basic';
   // @Input() teamMemeberElement:value1|value2|value3 = value1;
-  @Input() positionClass :boolean= false;
-  @Input() borderRadius : boolean = false;
+  // @Input() positionClass :boolean= false;
+  // @Input() borderRadius : boolean = false;
+    @Input() images: any;
+
   
   constructor() { }
   @Input()
@@ -27,16 +29,16 @@ export class RdsProductImageComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public get imgClass(): string[] {
+  // public get imgClass(): string[] {
 
-    var classes = ['']
-    if (this.positionClass == true) {     
-      classes.push('');     
-    }
-    else if(this.borderRadius == true){
-      classes.push('imgWidthBorder');     
-    }
+  //   var classes = ['']
+  //   if (this.positionClass == true) {     
+  //     classes.push('');     
+  //   }
+  //   else if(this.borderRadius == true){
+  //     classes.push('imgWidthBorder');     
+  //   }
 
-    return classes;
-  }
+  //   return classes;
+  // }
 }

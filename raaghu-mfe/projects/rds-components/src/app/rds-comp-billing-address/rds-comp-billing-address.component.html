@@ -4,12 +4,12 @@
     </h3>
     <div class="row">
         <div class="col-md-6 mb-3">
-            <rds-input Title="First Name" [TitleType]="'Top'" [isRequired]=true required size="'default'" [isRequired]=true required name="firstName" id="txtFirstname"
+            <rds-input Title="First Name" [labelPosition]="'top'" [isRequired]=true required size="'default'" [isRequired]=true required name="firstName" id="txtFirstname"
               ngDefaultControl [(ngModel)]="firstName" [placeholder]="'Enter First Name'" required>
             </rds-input>
         </div>
         <div class="col-md-6 mb-3">
-            <rds-input Title="Last Name" [TitleType]="'Top'" [isRequired]=true required size="'default'" name="lastName" id="txtLastname"
+            <rds-input Title="Last Name" [labelPosition]="'top'" [isRequired]=true required size="'default'" name="lastName" id="txtLastname"
                 ngDefaultControl [(ngModel)]="lastName" required>
             </rds-input>
         </div>
@@ -17,12 +17,12 @@
 
     <div class="row">
         <div class="col-md-6 mb-3">
-            <rds-input Title="Company" [TitleType]="'Top'" size="'default'" name="company" id="txtCompany"
+            <rds-input Title="Company" [labelPosition]="'top'" size="'default'" name="company" id="txtCompany"
                 ngDefaultControl [(ngModel)]="company" required>
             </rds-input>
         </div>
         <div class="col-md-6 mb-3">
-            <rds-input Title="Phone" [TitleType]="'Top'" [isRequired]=true required size="'default'" name="phone" id="txtPhone"
+            <rds-input Title="Phone" [labelPosition]="'top'" [isRequired]=true required size="'default'" name="phone" id="txtPhone"
                 ngDefaultControl [(ngModel)]="phone" required>
             </rds-input>
         </div>
@@ -30,7 +30,7 @@
 
     <div class="row">
         <div class="col-md-12 mb-3">
-            <rds-input Title="Address" [TitleType]="'Top'" [isRequired]=true required size="'default'" name="address" id="txtAddress"
+            <rds-input Title="Address" [labelPosition]="'top'" [isRequired]=true required size="'default'" name="address" id="txtAddress"
             ngDefaultControl [(ngModel)]="address" required>
         </rds-input>
         </div>
@@ -38,7 +38,7 @@
 
     <div class="row">
         <div class="col-md-6 mb-3">
-            <rds-input Title="City" [TitleType]="'Top'" [isRequired]=true required size="'default'" name="company" id="txtCompany"
+            <rds-input Title="City" [labelPosition]="'top'" [isRequired]=true required size="'default'" name="company" id="txtCompany"
                 ngDefaultControl [(ngModel)]="company" required>
             </rds-input>
         </div>
@@ -55,12 +55,12 @@
     </div>
     <div class="row">
         <div class="col-md-6 mb-3">
-            <rds-input Title="State/Province" [TitleType]="'Top'" [isRequired]=true required size="'default'" name="state" id="txtState"
+            <rds-input Title="State/Province" [labelPosition]="'top'" [isRequired]=true required size="'default'" name="state" id="txtState"
                 ngDefaultControl [(ngModel)]="state" required>
             </rds-input>
         </div>
         <div class="col-md-6 mb-3">
-            <rds-input Title="Postal Code" [TitleType]="'Top'" [isRequired]=true required size="'default'" name="postalCode" id="txtPostalCode"
+            <rds-input Title="Postal Code" [labelPosition]="'top'" [isRequired]=true required size="'default'" name="postalCode" id="txtPostalCode"
                 ngDefaultControl [(ngModel)]="postalCode" required>
             </rds-input>
         </div>
@@ -81,116 +81,122 @@
 </div> -->
 
 <div class="contact-information">
-  <h3 class="pb-2">Billing Address</h3>
+    <h3 class="pb-2">Billing Address</h3>
     <form #billingAddressForm="ngForm" (ngSubmit)="onSubmit(billingAddressForm)">
         <div class="row">
             <div class="col-md-6 mb-3">
-                <rds-input Title="First Name" [TitleType]="'Top'" size="'default'" type="text" name="firstName" [(ngModel)]="model.firstName" 
-                #firstName="ngModel" [isRequired]="true" [placeholder]="'Enter First Name'" required></rds-input>
-                  <div class="form-control-feedback" *ngIf="firstName.errors&&(firstName.dirty||firstName.touched)">
+                <rds-input label="First Name" [labelPosition]="'top'" [size]="'medium'" type="text" name="firstName"
+                    [(ngModel)]="model.firstName" #firstName="ngModel" [isRequired]="true"
+                    [placeholder]="'Enter First Name'" required></rds-input>
+                <div class="form-control-feedback" *ngIf="firstName.errors&&(firstName.dirty||firstName.touched)">
                     <span class="text-danger" *ngIf="firstName.errors.required">{{"First Name is required"|translate}}</span>
-                  </div>
+                </div>
             </div>
             <div class="col-md-6 mb-3">
-                <rds-input Title="Last Name" [TitleType]="'Top'" size="'default" type="text" name="lastName" [(ngModel)]="model.lastName" 
-                 #lastName="ngModel" [isRequired]="true" required [placeholder]="'Enter Last Name'"
-                ></rds-input>
+                <rds-input label="Last Name" [labelPosition]="'top'" [size]="'medium'" type="text" name="lastName"
+                    [(ngModel)]="model.lastName" #lastName="ngModel" [isRequired]="true" required
+                    [placeholder]="'Enter Last Name'"></rds-input>
                 <div class="form-control-feedback" *ngIf="lastName.errors&&(lastName.dirty||lastName.touched)">
                     <span class="text-danger" *ngIf="lastName.errors.required">{{"Last Name is required"|translate}}</span>
-                  </div>
+                </div>
             </div>
         </div>
-    <div class="row">
-        <div class="col-md-6 mb-3">
-            <rds-input Title="Company" [TitleType]="'Top'" size="'default'" name="company" id="txtCompany"
-            [(ngModel)]="model.company" [placeholder]="'Enter Company'">
-            </rds-input>
-        </div>
-        <div class="col-md-6 mb-3">
-            <rds-input Title="Phone"  [TitleType]="'Top'" [isRequired]=true size="'default'" name="phone" id="txtPhone"
-                [(ngModel)]="model.phone" #phone="ngModel" [isRequired]="true" required
-                required [placeholder]="'Enter phone'">
-            </rds-input>
-            <div class="form-control-feedback" *ngIf="phone.errors&&(phone.dirty||phone.touched)">
-                <span class="text-danger" *ngIf="phone.errors.required">{{"Phone Number is required"|translate}}</span>
-              </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12 mb-3">
-            <rds-input Title="Address" [TitleType]="'Top'" [isRequired]=true size="'default'" name="address" id="txtAddress"
-           [(ngModel)]="model.address" #address="ngModel"  [(ngModel)]="model.phone" required>
-        </rds-input>
-        <div class="form-control-feedback" *ngIf="address.errors&&(address.dirty||address.touched)">
-            <span class="text-danger" *ngIf="address.errors.required">{{"address is required"|translate}}</span>
-          </div>
-        </div>
-    </div>
-     <div class="row">
-        <div class="col-md-6 mb-3">
-            <rds-input Title="City" [TitleType]="'Top'" [isRequired]=true size="'default'" name="city" id="txtCompany"
-               [(ngModel)]="model.city" #city="ngModel" [placeholder]="'Enter City'"  required>
-            </rds-input>
-            <div class="form-control-feedback" *ngIf="city.errors && (city.dirty || city.touched)">
-
-                <span class="text-danger" *ngIf="city.errors.required">City is required</span>
-
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <rds-input label="Company" [labelPosition]="'top'" [size]="'medium'" name="company" id="txtCompany"
+                    [(ngModel)]="model.company" [placeholder]="'Enter Company'">
+                </rds-input>
+            </div>
+            <div class="col-md-6 mb-3">
+                <rds-input label="Phone" [labelPosition]="'top'" [isRequired]=true [size]="'medium'" name="phone"
+                    id="txtPhone" [(ngModel)]="model.phone" #phone="ngModel" [isRequired]="true" required
+                    [placeholder]="'Enter phone'">
+                </rds-input>
+                <div class="form-control-feedback" *ngIf="phone.errors&&(phone.dirty||phone.touched)">
+                    <span class="text-danger" *ngIf="phone.errors.required">{{"Phone Number is
+                        required"|translate}}</span>
+                </div>
             </div>
         </div>
-        <div class="col-md-6 mb-3">
-            <div class="label mb-2">
-                Country <span class="text-danger">*</span>
+        <div class="row">
+            <div class="col-md-12 mb-3">
+                <rds-input label="Address" [labelPosition]="'top'" [isRequired]=true [size]="'medium'" name="address"
+                    id="txtAddress" [(ngModel)]="model.address" #address="ngModel" [(ngModel)]="model.phone" required>
+                </rds-input>
+                <div class="form-control-feedback" *ngIf="address.errors&&(address.dirty||address.touched)">
+                    <span class="text-danger" *ngIf="address.errors.required">{{"address is required"|translate}}</span>
+                </div>
             </div>
-            <rds-select-list [(ngModel)]="model.country" [value]="model.country"
-            [placeholder]="'Select Country'"(change)="SelectCountry($event)"
-             name="countryInfo" required
-            [itemList]="countryList" #country="ngModel">
-        </rds-select-list>
-        <div class="form-control-feedback" *ngIf="country.errors && (country.dirty || country.touched)">
-
-            <span class="text-danger" *ngIf="country.errors.required">Country is required</span>
-
         </div>
-        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <rds-input label="City" [labelPosition]="'top'" [isRequired]=true [size]="'medium'" name="city"
+                    id="txtCompany" [(ngModel)]="model.city" #city="ngModel" [placeholder]="'Enter City'" required>
+                </rds-input>
+                <div class="form-control-feedback" *ngIf="city.errors && (city.dirty || city.touched)">
+
+                    <span class="text-danger" *ngIf="city.errors.required">City is required</span>
+
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="label mb-2">
+                    Country <span class="text-danger">*</span>
+                </div>
+                <rds-select-list [(ngModel)]="model.country" [value]="model.country" [placeholder]="'Select Country'"
+                    (change)="SelectCountry($event)" name="countryInfo" required [itemList]="countryList"
+                    #country="ngModel">
+                </rds-select-list>
+                <div class="form-control-feedback" *ngIf="country.errors && (country.dirty || country.touched)">
+
+                    <span class="text-danger" *ngIf="country.errors.required">Country is required</span>
+
+                </div>
+            </div>
         </div>
         <div class="row">
             <div class="col-md-6 mb-3">
                 <div class="label mb-2">
                     State/Province <span class="text-danger">*</span>
                 </div>
-                <rds-select-list [(ngModel)]="model.state" [value]="model.state"
-                [placeholder]="'Select State/Province'"(change)="SelectState($event)"
-                 name="countryInfo" required [itemList]="stateList" #state="ngModel">
-            </rds-select-list>
-            <div class="form-control-feedback" *ngIf="state.errors && (state.dirty || state.touched)">
-    
-                <span class="text-danger" *ngIf="state.errors.required">State is required</span>
-    
-            </div>
-            </div>
-            <div class="col-md-6 mb-3">
-                <rds-input Title="Postal Code" [TitleType]="'Top'" [isRequired]=true required size="'default'" name="postalCode" id="txtPostalCode"
-                [(ngModel)]="model.postalCode" #postalCode="ngModel" [placeholder]="'Enter Postal code'" required>
-                </rds-input>
-                <div class="form-control-feedback" *ngIf="postalCode.errors && (postalCode.dirty || postalCode.touched)">
-    
-                    <span class="text-danger" *ngIf="postalCode.errors.required">Postal code is required</span>
-        
+                <rds-select-list [(ngModel)]="model.state" [value]="model.state" [placeholder]="'Select State/Province'"
+                    (change)="SelectState($event)" name="countryInfo" required [itemList]="stateList" #state="ngModel">
+                </rds-select-list>
+                <div class="form-control-feedback" *ngIf="state.errors && (state.dirty || state.touched)">
+
+                    <span class="text-danger" *ngIf="state.errors.required">State is required</span>
+
                 </div>
             </div>
-    </div>
+            <div class="col-md-6 mb-3">
+                <div class="label mb-2">
+                    State/Province <span class="text-danger">*</span>
+                </div>
+                <rds-input Title="Postal Code" [labelPosition]="'top'" [isRequired]=true required [size]="'medium'"
+                    name="postalCode" id="txtPostalCode" [(ngModel)]="model.postalCode" #postalCode="ngModel"
+                    [placeholder]="'Enter Postal code'" required>
+                </rds-input>
+                <div class="form-control-feedback mt-1"
+                    *ngIf="postalCode.errors && (postalCode.dirty || postalCode.touched)">
+
+                    <span class="text-danger" *ngIf="postalCode.errors.required">Postal code is required</span>
+
+                </div>
+            </div>
+        </div>
 
         <div class="pt-4 row">
             <div class="col-md-6 mb-3">
-                <rds-button [block]="true" [size]="'medium'" [outlineButton]="true" [colorVariant]="'primary'"
-                [label]="translate.instant('back')" (click)="back()">
-            </rds-button>
+                <rds-button [block]="true" [size]="'medium'" [isOutline]="true" [colorVariant]="'primary'"
+                    [label]="translate.instant('back')" (click)="back()">
+                </rds-button>
             </div>
             <div class="col-md-6 mb-3">
-                <rds-button [block]="true" [size]="'medium'" [disabled]="billingAddressForm.invalid" [submit]="true" [colorVariant]="'primary'"  [label]="translate.instant('Continue')" >
+                <rds-button [block]="true" [size]="'medium'" [isDisabled]="billingAddressForm.invalid" [submit]="true"
+                    [colorVariant]="'primary'" [label]="translate.instant('Continue')">
                     <!--   -->
-            </rds-button>
-            </div>  
+                </rds-button>
+            </div>
         </div>
     </form>
 </div>

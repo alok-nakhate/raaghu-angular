@@ -9,10 +9,10 @@ title: "Components > Visual-Settings"
 <link rel="stylesheet" href="../../../../../../../raaghu/src/assets/css/style-elements.css">
 <link rel="stylesheet" href="../../../../../../../raaghu/src/assets/css/main.css">
 
-#### Visual-Settings
-
+#### Visual Settings
+<p>Allows a user to have a option to select different themes </p>
  <section class="py-4">
-    <h6>Default</h6>
+ <h6>Default</h6>
     <div class="py-3">
       <div class="cust-tabs">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -39,12 +39,12 @@ title: "Components > Visual-Settings"
 <div class="row m-0">
 
 ```html
-<app-rds-comp-visual-settings
+<rds-comp-visual-settings
   [navtabItems]="navtabItems"
   [listskin]="listskin"
   [listSubmenu]="listSubmenu"
   [visualsettingsItem]="visualsettingsItem"
-></app-rds-comp-visual-settings>
+></rds-comp-visual-settings>
 ```
 </div>
 </div>

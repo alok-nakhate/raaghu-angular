@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-rdc-comp-api-scope-basics',
+  selector: 'rdc-comp-api-scope-basics',
   templateUrl: './rdc-comp-api-scope-basics.component.html',
   styleUrls: ['./rdc-comp-api-scope-basics.component.scss']
 })

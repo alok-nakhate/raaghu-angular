@@ -31,7 +31,7 @@ title: "Elements > Radio-button"
          <div class="contents p-5">
               <div class="row">
                  <div class="col-md-12">
-                     <img src="\images\radio-button-basic.png" class="img-fluid w-25">
+                     <img src="\images\radio-button-basic.png" class="img-fluid">
                  </div>             
            </div>
                        
@@ -42,7 +42,55 @@ title: "Elements > Radio-button"
 <div class="row m-0">
 
 ```html
-  <rds-radio-button [itemList]="itemList"></rds-radio-button>
+
+<rds-radio-button
+  [itemList]="itemList"
+  display_type="Default"
+></rds-radio-button>
+```
+</div>
+</div>
+  </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- Radio Horizontal -->
+
+<section class="py-4">
+    <h6>Horizontal</h6>
+    <div class="py-3">
+      <div class="cust-tabs">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="PreviewHorizontal-tab" data-bs-toggle="tab" data-bs-target="#PreviewHorizontal" type="button" role="tab" aria-controls="PreviewHorizontal" aria-selected="true">Preview </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="AngularHorizontal-tab" data-bs-toggle="tab" data-bs-target="#AngularHorizontal" type="button" role="tab" aria-controls="AngularHorizontal" aria-selected="false"><i class="bi bi-code-slash" style="font-size:1.0rem"></i>Angular</button>
+          </li>
+        </ul>
+      </div>
+      <div class="tab-content card border" id="myTabContent">
+        <div class="tab-pane fade show active" id="PreviewHorizontal" role="tabpanel" aria-labelledby="PreviewHorizontal-tab">
+         <div class="contents p-5">
+              <div class="row">
+                 <div class="col-md-12">
+                     <img src="\images\radio-button-horizontal.png" class="img-fluid w-50">
+                 </div>             
+           </div>
+                       
+  </div>
+        </div>
+        <div class="tab-pane fade show" id="AngularHorizontal" role="tabpanel" aria-labelledby="AngularHorizontal-tab">
+          <div class="contents bg-code">
+<div class="row m-0">
+
+```html
+<rds-radio-button
+  [itemList]="itemList"
+  display_type="Horizontal"
+></rds-radio-button>
 ```
 </div>
 </div>

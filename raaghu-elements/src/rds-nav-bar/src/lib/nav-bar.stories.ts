@@ -14,14 +14,10 @@ export default {
     }),
   ],
   argTypes: {
-    size: {
-      options: ['small', 'medium', 'large', 'extra-large'],
-      control: { type: 'select' },
-    },
-    colorVariant: {
-      options: ['primary', 'secondary', 'danger', 'success', 'warning', 'info', 'light', 'dark'],
-      control: { type: 'select' },
-    },
+    // size: {
+    //   options: ['small', 'medium', 'large', 'extra-large'],
+    //   control: { type: 'select' },
+    // }
   },
 } as Meta;
 
@@ -45,7 +41,6 @@ Default.args = {
     url: ''
   }],
   title: 'Navbar',
-  colorVariant: 'light'
 };
 
 

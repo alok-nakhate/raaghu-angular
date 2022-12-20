@@ -10,16 +10,16 @@ export class RdsListGroupComponent implements OnInit {
   showTop = '';
   showBottom = '';
   title = 'rds-list-group';
-  labelLeft!: string; 
+  // labelLeft!: string; 
   public selectdataItem: selectedData = [];
-  @Input() labelPosition?: 'Top' | 'Bottom' | 'Left' | 'Right' = 'Top';
-  @Input() label?: string;
+  @Input() labelPosition?: 'top' | 'bottom' = 'top';
+  @Input() label: string = '';
 
   @Output() onClick = new EventEmitter<any>();
 
   @Input() listItem: any[] = [];
 
-  @Input() multiSelect?: boolean;
+  @Input() multiSelect: boolean = false;
 
   selected: any;
 
@@ -44,26 +44,26 @@ export class RdsListGroupComponent implements OnInit {
     item.isActive = !item.isActive;
   }
 
-  public get divclasses(): string[] {
-    var classes = ['form-label']
-    if (this.labelPosition === 'Top') {
-      classes.push('top-0');
-      this.labelLeft = ' ';
-    }
-    else if (this.labelPosition === 'Bottom') {
-      classes.push(' d-flex flex-column-reverse')
-      this.labelLeft = ' ';
-    }
-    else if (this.labelPosition === 'Left') {
-      classes.push('d-flex align-items-baseline gap-3 ')
-      this.labelLeft = ' ';
-    }
-    else if (this.labelPosition === 'Right') {
-      classes.push(' d-flex align-items-baseline gap-3');
-      this.labelLeft = '2';
-    }
-    return classes;
-  }
+  // public get divclasses(): string[] {
+  //   var classes = ['form-label']
+  //   if (this.labelPosition === 'Top') {
+  //     classes.push('top-0');
+  //     this.labelLeft = ' ';
+  //   }
+  //   else if (this.labelPosition === 'Bottom') {
+  //     classes.push(' d-flex flex-column-reverse')
+  //     this.labelLeft = ' ';
+  //   }
+  //   else if (this.labelPosition === 'Left') {
+  //     classes.push('d-flex align-items-baseline gap-3 ')
+  //     this.labelLeft = ' ';
+  //   }
+  //   else if (this.labelPosition === 'Right') {
+  //     classes.push(' d-flex align-items-baseline gap-3');
+  //     this.labelLeft = '2';
+  //   }
+  //   return classes;
+  // }
 
 }
 

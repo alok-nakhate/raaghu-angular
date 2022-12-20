@@ -13,8 +13,8 @@ export class RdsSizeComponent implements OnInit, AfterViewInit {
   constructor(@Inject(DOCUMENT) private document: Document) { }
 
   
-  @Input() sizeData = [{value: 'XL'},{value:'L'},{value:'M'},{value:'S'},{value:'XS'},{value:'L'},{value:'M'},{value:'S'},{value:'XS'}];
-  @Input() sizeDataWithDescription = [{value: '15', description:"impoity input and ngonint"},{value: '15', description:"impoity input and ngonint"}, {value:'14',description:" with the passanger"}];
+  @Input() sizeData = [{value: 'XS'},{value:'S'},{value:'M'},{value:'L'},{value:'XL'},{value:'2XL'},{value:'3XL'}];
+  @Input() sizeDataWithDescription = [ { value: '15L', description: "Perfect for a resonable amount of snacks" }, { value: '20L', description: "Enough room for a serious amount of snacks" }];
   @Input() sizeType : 'withoutDescription'|'withDescription' = 'withDescription';
   @Output() onselect : EventEmitter<any>= new EventEmitter<any>();
   ngOnInit(): void {

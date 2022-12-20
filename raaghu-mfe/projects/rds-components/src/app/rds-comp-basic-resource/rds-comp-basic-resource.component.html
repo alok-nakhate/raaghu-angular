@@ -1,57 +1,60 @@
-<h3>Api Scope Basic Resource</h3>
 
 <form #resourceForm="ngForm">
-  <div class="form-group col-sm-12 mb-3 me-2 pt-3">
-    <rds-input [inputType]="'text'" [Title]="translate.instant('Name')" #scope_name="ngModel"
-    [(ngModel)]="scopeBasics.name" [TitleType]="'Top'" name="scopeName" [isRequired]=false required [placeholder]="translate.instant('Enter Name')">
-  </rds-input>
-  <div class="form-control-feedback" *ngIf="scope_name.errors && (scope_name.dirty || scope_name.touched)">
-    <span class="text-danger" *ngIf="scope_name.errors.required">{{"Name is required"|translate}}</span>
+  <div class="row">
+    <div class="form-group col-sm-4 col-md-6 mb-3">
+      <rds-input [inputType]="'text'" [label]="translate.instant('Name')" #scope_name="ngModel"
+        [(ngModel)]="scopeBasics.name" [labelPosition]="'top'" name="scopeName" [isRequired]=false required
+        [placeholder]="translate.instant('Enter Name')">
+      </rds-input>
+      <div class="form-control-feedback" *ngIf="scope_name.errors && (scope_name.dirty || scope_name.touched)">
+        <span class="text-danger" *ngIf="scope_name.errors.required">{{"Name is required"|translate}}</span>
+      </div>
+    </div>
+    <div class="form-group col-sm-4 col-md-6 mb-3">
+      <rds-input [inputType]="'text'" [label]="translate.instant('Display Name')" #displayname="ngModel"
+        [(ngModel)]="scopeBasics.displayName" name="displayName" [labelPosition]="'top'" [isRequired]=false required
+        [placeholder]="translate.instant('Enter Display Name')">
+      </rds-input>
+      <div class="form-control-feedback" *ngIf="displayname.errors && (displayname.dirty || displayname.touched)">
+        <span class="text-danger" *ngIf="displayname.errors.required">{{"Display Name is required"|translate}}</span>
+      </div>
+    </div>
   </div>
-  </div>
-  <div class="form-group col-sm-12 mb-3">
-    <rds-input [inputType]="'text'" [Title]="translate.instant('Display Name')" #displayname="ngModel"
-    [(ngModel)]="scopeBasics.displayName" name="displayName" [TitleType]="'Top'" [isRequired]=false  required
-    [placeholder]="translate.instant('Enter Display Name')">
-  </rds-input>
-  <div class="form-control-feedback" *ngIf="displayname.errors && (displayname.dirty || displayname.touched)">
-    <span class="text-danger" *ngIf="displayname.errors.required">{{"Display Name is required"|translate}}</span>
-  </div>
-  </div>
+  
 
   <div class="form-group col-sm-12 mb-3">
     <rds-textarea #description="ngModel" [placeholderText]="translate.instant('Enter Description')"
-          [label]="translate.instant('Description')" [value]="scopeBasics.description"
-          [(ngModel)]="scopeBasics.description" name="desc" required>
-        </rds-textarea>
-        <div class="form-control-feedback" *ngIf="description.errors && (description.dirty || description.touched)">
-          <span class="text-danger" *ngIf="description.errors.required">{{"Description is required"|translate}}</span>
-        </div>
+      [label]="translate.instant('Description')" [value]="scopeBasics.description" [(ngModel)]="scopeBasics.description"
+      name="desc" required>
+    </rds-textarea>
+    <div class="form-control-feedback" *ngIf="description.errors && (description.dirty || description.touched)">
+      <span class="text-danger" *ngIf="description.errors.required">{{"Description is required"|translate}}</span>
+    </div>
 
   </div>
 
   <div class="fw-bold">
-  <rds-label [label]="'Others'"></rds-label>
+    <rds-label [label]="'Others'"></rds-label>
   </div>
   <div class="mb-2 pt-2">
     <rds-checkbox label="Enables" [checked]="ResourceData.enables" [disabled]="false" [switch]="false" [inline]="false"
-     [withLabel]="true" [isInputGroup]="false" name="enables" [(ngModel)]="ResourceData.enables"
-    ngDefaultControl [id]="'enables'"></rds-checkbox>
+      [withLabel]="true" [isInputGroup]="false" name="enables" [(ngModel)]="ResourceData.enables" ngDefaultControl
+      [id]="'enables'"></rds-checkbox>
   </div>
   <div class="mb-2">
-    <rds-checkbox label="Required" [checked]="ResourceData.required" [disabled]="false" [switch]="false" [inline]="false"
-     [withLabel]="true" [isInputGroup]="false" name="required" [(ngModel)]="ResourceData.required"
-    ngDefaultControl [id]="'required'"></rds-checkbox>
+    <rds-checkbox label="Required" [checked]="ResourceData.required" [disabled]="false" [switch]="false"
+      [inline]="false" [withLabel]="true" [isInputGroup]="false" name="required" [(ngModel)]="ResourceData.required"
+      ngDefaultControl [id]="'required'"></rds-checkbox>
   </div>
   <div class="mb-2">
     <rds-checkbox label="Emphasize" [checked]="ResourceData.emphasize" [disabled]="false" [switch]="false"
-    [inline]="false"  [withLabel]="true" [isInputGroup]="false" name="emphasize"
-    [(ngModel)]="ResourceData.emphasize" ngDefaultControl [id]="'emphasize'"></rds-checkbox>
+      [inline]="false" [withLabel]="true" [isInputGroup]="false" name="emphasize" [(ngModel)]="ResourceData.emphasize"
+      ngDefaultControl [id]="'emphasize'"></rds-checkbox>
   </div>
   <div class="mb-2">
     <rds-checkbox label="Show in discovery Documents" [checked]="ResourceData.showindiscovery" [disabled]="false"
-    [switch]="false" [inline]="false"  [withLabel]="true" [isInputGroup]="false" name="showindiscovery"
-    [id]="'showindiscovery'"></rds-checkbox>
+      [switch]="false" [inline]="false" [withLabel]="true" [isInputGroup]="false" name="showindiscovery"
+      [id]="'showindiscovery'"></rds-checkbox>
   </div>
 
   <!-- <div class="footer">

@@ -22,7 +22,9 @@ const Template: Story<RdsLikeDislikeComponent> = (args: RdsLikeDislikeComponent)
 });
 
 export const Default = Template.bind({});
+Default.parameters = { controls: { include: ['likeCount', 'dislikeCount'] } };
 Default.args = {
- 
+  likeCount: 0,
+  dislikeCount: 0
 }
 

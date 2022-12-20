@@ -8,19 +8,16 @@ declare let bootstrap: any;
   styleUrls: ['./rds-comp-dynamic-enity-properties.component.scss'],
 })
 export class RdsCompDynamicEnityPropertiesComponent implements OnInit, OnChanges {
-  actions: TableAction[] = [{ id: 'delete', displayName: 'Delete' }]
+  actions: TableAction[] = [{ id: 'delete', displayName: 'Delete' }];
 
   @Input()
   DynamicEntityPropertiesTableHeader: any;
 
-  @Input()
-  reset: boolean = true;
+  @Input() reset: boolean = true;
   @Input() DynamicEntityPropertiesTableData: any;
   @Output() deleteEvent = new EventEmitter<any>();
   @Output() editEntityTableRowData = new EventEmitter<any>();
-  @Output() createOrUpdateDynamicEntitydata = new EventEmitter<{
-    dynamicEntity: any;
-  }>();
+  @Output() createOrUpdateDynamicEntitydata = new EventEmitter<{ dynamicEntity: any;}>();
   @Input() entityNames: any[] = [];
   @Input() parameterList: any[] = [];
   @Input() DynamicEntityData: any = {};
@@ -30,7 +27,7 @@ export class RdsCompDynamicEnityPropertiesComponent implements OnInit, OnChanges
   canvasTitle: string = this.translate.instant('NEW DYNAMIC ENTITY PROPERTY');
   id: string | undefined = undefined;
   isEdit: boolean = false;
-  constructor(public translate:TranslateService) { }
+  constructor(public translate: TranslateService) { }
   ngOnInit(): void { }
   closeCanvas(): void {
     this.viewCanvas = false;

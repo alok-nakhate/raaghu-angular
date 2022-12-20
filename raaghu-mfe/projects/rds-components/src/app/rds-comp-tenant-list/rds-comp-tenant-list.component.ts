@@ -14,7 +14,7 @@ import { TableHeader } from '../../models/table-header.model';
 import { TreeNode } from '../../models/tree-node.model';
 declare let bootstrap: any;
 @Component({
-  selector: 'app-rds-comp-tenant-list',
+  selector: 'rds-comp-tenant-list',
   templateUrl: './rds-comp-tenant-list.component.html',
   styleUrls: ['./rds-comp-tenant-list.component.scss'],
   encapsulation: ViewEncapsulation.None,
@@ -27,23 +27,42 @@ export class RdsCompTenantListComponent implements OnInit, DoCheck {
   selectedId: any = '';
   isTenantInfoValid: boolean = false;
   actions: TableAction[] = [
-    { id: 'loginAsTenant', displayName: this.translate.instant('Login as Tenant') }, 
-    { id: 'edit', displayName: this.translate.instant('Edit') }, 
-    { id: 'delete', displayName: this.translate.instant('Delete') }]
+    {
+      id: 'loginAsTenant',
+      displayName: this.translate.instant('Login as Tenant'),
+    },
+    { id: 'edit', displayName: this.translate.instant('Edit') },
+    { id: 'delete', displayName: this.translate.instant('Delete') },
+  ];
+
+  userTableActions:TableAction[] = [
+    { id: 'loginIn', displayName: this.translate.instant('Login') },
+  ];
   @Input() tenantSettingsInfo: any;
   @Input() tenantData: any;
   @Input() isShimmer: boolean = false;
   @Input() listItems = [
-    { value: 'New Tenant', some: 'value', key: 'new', icon: 'plus', iconWidth: '20px', iconHeight: '20px' },
+    {
+      value: 'New Tenant',
+      some: 'value',
+      key: 'new',
+      icon: 'plus',
+      iconWidth: '20px',
+      iconHeight: '20px',
+    },
   ];
   @Input() tenantFeatures: any = [];
   @Input() tenantFeatureValues: any = [];
-  @Input() editShimmer: boolean = false
+  @Input() editShimmer: boolean = false;
   @Output() onSaveTenant = new EventEmitter<any>();
   @Output() onEditTenant = new EventEmitter<any>();
   @Output() onReset = new EventEmitter<any>();
   @Output() deleteEvent = new EventEmitter<any>();
   @Output() onSaveFeatures = new EventEmitter<any>();
+  @Output() onSelectTenant = new EventEmitter<any>();
+  @Output() onTenantLogIn = new EventEmitter<any>();
+  public tenantId:any;
+
   public tenant: any = {
     tenantInfo: undefined,
     tenantSettings: undefined,
@@ -52,23 +71,18 @@ export class RdsCompTenantListComponent implements OnInit, DoCheck {
   public navtabsItems: any = [];
 
   @Input() public tenantList: any = [];
+  @Input() public userList: any = [];
+  @Input() tenantLoginList:any = [];
+
   public tableData: any = [];
+  public userTableData: any = [];
   @Input() public editionList: any = [];
-  buttonSpinnerForNewUser : boolean = true;
-  buttonSpinnerForSave : boolean = true;
+  showLoadingSpinner: boolean = false;
+  // buttonSpinnerForSave : boolean = true;
+
+  viewLoginAsTenantCanvas: boolean = false;
 
   currentAlerts: any = [];
-  public rdsAlertMfeConfig: ComponentLoaderOptions = {
-    name: 'RdsCompAlert',
-    input: {
-      currentAlerts: this.currentAlerts
-    },
-    output: {
-      onAlertHide: (event: any) => {
-        this.currentAlerts = event;
-      }
-    }
-  }
 
   public featureList: TreeNode[] = [
     {
@@ -131,13 +145,19 @@ export class RdsCompTenantListComponent implements OnInit, DoCheck {
       selected: false,
     },
   ];
-  
+
   @Input() tenantHeaders: TableHeader[] = [];
+  @Input() tenantHeadersUser: TableHeader[] = [];
+
   selectedFeatureList: any = [];
   showEmail: boolean;
   showEmailList: boolean = false;
   showEditData: boolean = false;
-  constructor(public translate: TranslateService, private alertService: AlertService) { }
+
+  constructor(
+    public translate: TranslateService,
+    private alertService: AlertService
+  ) {}
 
   ngOnInit(): void {
     this.activePage = 0;
@@ -146,7 +166,11 @@ export class RdsCompTenantListComponent implements OnInit, DoCheck {
 
   ngDoCheck(): void {
     this.tableData = [...this.tenantList];
+    this.userTableData = [...this.userList];
   }
+  onAlertHide(event: any): void {
+    this.currentAlerts = event;
+  } 
 
   getSelectedNavTab(event: any): void {
     this.activePage = event;
@@ -160,8 +184,6 @@ export class RdsCompTenantListComponent implements OnInit, DoCheck {
   }
 
   save(): void {
-    this.buttonSpinnerForSave = true;
-    this.buttonSpinnerForNewUser = false;
     if (!this.selectedFeatureList || this.selectedFeatureList.length === 0) {
       return;
     }
@@ -204,7 +226,6 @@ export class RdsCompTenantListComponent implements OnInit, DoCheck {
     }
   }
   getTenantSettings(event: any): void {
-
     this.tenant.tenantSettings = event.settings;
     if (event.next) {
       this.onSaveTenant.emit(this.tenant);
@@ -220,12 +241,10 @@ export class RdsCompTenantListComponent implements OnInit, DoCheck {
   }
 
   newTenant(event, showEmail?: boolean): void {
-    this.buttonSpinnerForNewUser = true;
-    this.buttonSpinnerForSave = false;
     this.selectedId = '';
     this.viewCanvas = true;
     this.showEmailList = showEmail ? true : false;
-    this.showEditData = showEmail ? true: false;
+    this.showEditData = showEmail ? true : false;
     if (showEmail) {
       this.tenant = {
         tenantInfo: undefined,
@@ -237,15 +256,15 @@ export class RdsCompTenantListComponent implements OnInit, DoCheck {
       const eventdata: any = {
         newtenant: true,
         reset: true
-      }
+      };
       this.onReset.emit(eventdata);
       this.isTenantInfoValid = false;
     }
     if (event) {
-      this.canvasTitle = 'NEW TENANT';
+      this.canvasTitle = this.translate.instant('New Tenant'); 
       this.tenantData = undefined;
       this.tenantSettingsInfo = undefined;
-
+      this.showLoadingSpinner = true;
       this.navtabsItems = [
         {
           label: this.translate.instant('Tenant Information'),
@@ -296,20 +315,48 @@ export class RdsCompTenantListComponent implements OnInit, DoCheck {
     };
     this.tenantData = undefined;
     this.tenantSettingsInfo = undefined;
-    // const event:any={
-    //   newtenant:false,
-    //   reset:true
-    // }
-    // this.onReset.emit(event);
-    // this.isTenantInfoValid = false;
-    this.buttonSpinnerForSave = false;
-    this.buttonSpinnerForNewUser = false;
+    this.showLoadingSpinner = false;
   }
   editTableRowData(event): void {
-    this.canvasTitle = 'EDIT TENANT';
+    this.canvasTitle = this.translate.instant('Edit Tenant'); 
     this.newTenant(undefined);
     this.onEditTenant.emit(event.id);
     this.selectedId = event.id;
+  }
+
+  loginAsTenant(event): void {
+    this.viewLoginAsTenantCanvas = true;
+    this.tenantId = event.selectedData.id;
+    const data: any = {
+      tenantId: event.selectedData.id,
+      excludeCurrentUser: true,
+      maxResultCount: 1000,
+      skipCount: 0,
+      filter: '',
+    };
+    this.onSelectTenant.emit(data);
+    console.log(data);
+    // this.onTenantLogIn.emit(data);
+    this.canvasTitle = 'Select a User';
+    setTimeout(() => {
+      var offcanvas = document.getElementById('loginAsTenantOffcanvas');
+      var bsOffcanvas = new bootstrap.Offcanvas(offcanvas);
+      bsOffcanvas.show();
+    }, 100);
+  }
+
+  loginTenant(event): void {
+    const data: any = {
+      tenantId: this.tenantId,
+      userId: event.selectedData.id,
+    };
+    this.onTenantLogIn.emit(data);
+    this.viewLoginAsTenantCanvas = false;
+    console.log(data);
+  }
+
+  closeLoginAsTenant(): void {
+    this.viewLoginAsTenantCanvas = false;
   }
 
   onActionSelect(event: any): void {
@@ -317,6 +364,14 @@ export class RdsCompTenantListComponent implements OnInit, DoCheck {
       this.deleteEvent.emit(event.selectedData);
     } else if (event.actionId === 'edit') {
       this.editTableRowData(event.selectedData);
+    } else if (event.actionId === 'loginAsTenant') {
+      this.loginAsTenant(event);
+    }
+  }
+
+  onUserDataActionSelect(event: any): void {
+    if (event.actionId === 'loginIn') {
+      this.loginTenant(event);
     }
   }
 
@@ -327,14 +382,10 @@ export class RdsCompTenantListComponent implements OnInit, DoCheck {
         type: alert.type,
         title: alert.title,
         message: alert.message,
+        sticky: alert.sticky,
       };
       this.currentAlerts.push(currentAlert);
-      const rdsAlertMfeConfig = this.rdsAlertMfeConfig;
-      rdsAlertMfeConfig.input.currentAlerts = [...this.currentAlerts];
-      this.rdsAlertMfeConfig = rdsAlertMfeConfig;
     });
-
-
   }
 
   // fabmenu for mobile list
@@ -343,7 +394,7 @@ export class RdsCompTenantListComponent implements OnInit, DoCheck {
       this.newTenant(event);
     }
   }
-  show():void{
+  show(): void {
     var toastEl = document.getElementById('liveToast');
     var toast = new bootstrap.Toast(toastEl);
     toast.show();

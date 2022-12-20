@@ -1,6 +1,56 @@
-<!--<ng-container *ngIf="currentAlerts&&currentAlerts.length>0">
-  <mfe-loader [config]="rdsAlertMfeConfig"></mfe-loader>
-</ng-container>-->
-<div [@fadeAnimation]="isAnimation ? 'fadeAnimation' : ''">
-  <mfe-loader [config]="rdsNewRoleMfeConfig"></mfe-loader>
+<div [class.card]="selectedTreeNode==0">
+  <div class="row" [class.card-body]="selectedTreeNode==0">
+    <div class="col-md-12 gutter-b">
+      <div>
+        <div class="card p-2 border-0 rounded-0 vh-88" [@fadeAnimation]="isAnimation ? 'fadeAnimation' : ''">
+          <div class="card-header bg-transparent">
+            <h5 class="card-title">{{'Role Hierarchy'| translate}}</h5>
+          </div>
+          <div class="card-body overflow-auto vh-75">
+            <mfe-loader [config]="rdsOrganizationTreeConfig"></mfe-loader>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+<rds-offcanvas *ngIf="viewCreateOrganisationCanvas" [placement]="'end'" (onClose)="activePage = 0"
+  [offId]="'addNodeOffcanvas'" [offcanvaswidth]="550" [canvasTitle]="translate.instant(canvasTitle)">
+  <rds-nav-tab [navtabsItems]="getNavTabItems()" (onClicktab)="getSelectedNavTab($event)" [activepage]="activePage"
+    [horizontalAlignment]="'start'" [verticalAlignment]="false" [pills]="false" [tabs]="true" [fill]="false"
+    [justified]="false">
+    <div naveContent class="tab-content" id="nav-tabContent">
+      <div class="tab-pane fade" [ngClass]="{'show active': activePage === 0}" id="Role" role="tabpanel"
+        aria-labelledby="nav-home-tab">
+        <mfe-loader [config]="RdsCompNewRoleConfig"></mfe-loader>
+      </div>
+      <div class="tab-pane fade" [ngClass]="{'show active': activePage === 1}" id="Permission" role="tabpanel"
+        aria-labelledby="nav-home-tab">
+        <mfe-loader [config]="rdsPermissionRoleMfeConfig"></mfe-loader>
+      </div>
+
+      <div class="tab-pane fade pb-5 mb-4" [ngClass]="{'show active': activePage === 2}" id="Claims" role="tabpanel"
+        aria-labelledby="nav-home-tab">
+        <mfe-loader [config]="rdsClaimTypeRoleMfeConfig"></mfe-loader>
+      </div>
+    </div>
+  </rds-nav-tab>
+
+  <div class="footer-buttons my-2" *ngIf="activePage == 1">
+    <div class="row">
+      <div class="col-md-12">
+        <rds-banner [sticky]="false" position="bottom" colorVariant="primary"
+          [bannerText]="translate.instant('If you are changing your own permissions, you may need to refresh page (F5) to take effect of permission changes on your own screen!')">
+        </rds-banner>
+        <rds-button [label]="translate.instant('Cancel')" (click)="onCancelOrganisation()" [outlineButton]="true"
+          type="button" [colorVariant]="'primary'" [size]="'small'" data-bs-target="#addNodeOffcanvas"
+          data-bs-dismiss="offcanvas">
+        </rds-button>
+        <rds-button [disabled]="false" [label]="translate.instant(saveNextBtn)" [submit]="true" type="submit"
+          [size]="'small'" class="px-2" [colorVariant]="'primary'" (click)="activePage = 2">
+        </rds-button>
+      </div>
+    </div>
+  </div>
+</rds-offcanvas>

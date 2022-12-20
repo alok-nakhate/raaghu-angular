@@ -29,7 +29,7 @@ export const saveClaimTypesFailure = createAction(
 
 export const deleteClaims = createAction(
     '[Claim Types Page] Delete Claim Types',
-    (data) => (data)
+    (id: any) => ({id})
 );
 export const deleteClaimsSucess = createAction(
     '[Claim Types Page] Delete Claim Types Success',

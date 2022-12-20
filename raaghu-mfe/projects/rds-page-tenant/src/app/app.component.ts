@@ -52,28 +52,23 @@ import { deleteTenant, getEditionComboboxItems, getTenantFeaturesForEdit, getTen
   ]
 })
 export class AppComponent {
-
-
-
   title = 'tenant';
-  tenantSettingsInfo: any = {};
   tenantData: any = {};
-
-  rdsTenantMfeConfig: ComponentLoaderOptions = {
-    name: 'RdsCompTenantList'
+ tenantId = undefined
+  rdsTenantNewMfeConfig: ComponentLoaderOptions = {
+    name: 'RdsCompTenantListNew'
   };
   editionList: any = [];
-  tenantFeatures: any = [];
-  tenantFeatureValues: any = [];
+  tenantFeatureValues: any;
   tenantTableHeader: TableHeader[] = [
-    { displayName: 'Tenant', key: 'tenantInfoTemplate', dataType: 'html', dataLength: 30, sortable: true, required: true, filterable: true },
+    { displayName: 'Name', key: 'tenantInfoTemplate', dataType: 'html', dataLength: 30, sortable: true, required: true, filterable: true },
+    { displayName: 'Role', key: 'roleTemplate', dataType: 'html', dataLength: 30, sortable: true, required: true, filterable: true },
     { displayName: 'Edition', key: 'editionTemplate', dataType: 'html', dataLength: 30, sortable: true, required: true, filterable: true },
     { displayName: 'Status', key: 'statusTemplate', dataType: 'html', dataLength: 30, sortable: true, required: true, filterable: true },
-    { displayName: 'Subscription End Date', key: 'subscriptionEndDateUtc', dataType: 'html', dataLength: 30, sortable: true, required: true, filterable: true },
-
   ]
   isAnimation: boolean = true;
 
+  featureData : any = [];
   tenantTableData: any = []
   constructor(public datepipe: DatePipe, private store: Store, private translate: TranslateService, private _arrayToTreeConverterService: ArrayToTreeConverterService) { }
   ngOnInit(): void {
@@ -84,204 +79,194 @@ export class AppComponent {
     //     this.translate.use(res);
     //   }
     // });
-    this.rdsTenantMfeConfig = {
-      name: 'RdsCompTenantList',
+    this.rdsTenantNewMfeConfig = {
+      name: 'RdsCompTenantListNew',
       input: {
         tenantHeaders: this.tenantTableHeader,
         tenantList: this.tenantTableData,
         editionList: this.editionList,
         noDataTitle: 'Currently you do not have tenant',
-        isShimmer: true,
-        editShimmer: true
+        // isShimmer: true,
+        // editShimmer: true
       },
       output: {
-        onSaveTenant: (tenant: any) => {
-          if (tenant && tenant.tenantInfo) {
-            if (tenant.tenantInfo.id) {
+        onSaveTenant: (tenant: any) => {        
+                if (tenant.id) {
+                     this.tenantId= tenant.id;
+                    const data: any = {
+                name: tenant.tenantInfo.name,
+                editionId: tenant.tenantInfo.editionId[0],
+                activationState : tenant.tenantInfo.activationState
+              };      
+              let body = {body:data,id:this.tenantId};      
+              this.store.dispatch(updateTenant(body))
+              let body1 = {
+                feature : tenant.featureValues,
+                id : tenant.id
+              }
+              this.store.dispatch(updateTenantFeatureValues(body1))
+                }
+            else {
               const data: any = {
-                tenancyName: tenant.tenantInfo.tenancyName,
-                name: tenant.tenantInfo.tenantName,
-                connectionString: tenant.tenantSettings.connectionString,
-                editionId: +tenant.tenantInfo.edition,
-                isActive: tenant.tenantSettings.isActive,
-                subscriptionEndDateUtc: (tenant.tenantInfo.unlimitedSubscription) ? null : new Date(tenant.tenantInfo.subscriptionEndDate).toISOString(),
-                isInTrialPeriod: false,
-                id: tenant.tenantInfo.id
-              };
-              this.store.dispatch(updateTenant(data))
-
-            } else {
-              const data: any = {
-                tenancyName: tenant.tenantInfo.tenancyName,
-                name: tenant.tenantInfo.tenantName,
+                name: tenant.tenantInfo.name,
                 adminEmailAddress: tenant.tenantInfo.adminEmailAddress,
-                adminPassword: tenant.tenantSettings.password,
-                connectionString: tenant.tenantSettings.connectionString,
-                shouldChangePasswordOnNextLogin: tenant.tenantSettings.changePasswordOnNextLogin,
-                sendActivationEmail: tenant.tenantSettings.sendActivationEmail,
-                editionId: +tenant.tenantInfo.edition,
-                isActive: tenant.tenantSettings.isActive,
-                subscriptionEndDateUtc: (tenant.tenantInfo.unlimitedSubscription) ? null : new Date(tenant.tenantInfo.subscriptionEndDate).toISOString(),
-                isInTrialPeriod: false
+                adminPassword: tenant.tenantInfo.adminPassword,
+                editionId: tenant.tenantInfo.editionId[0],
+                activationState: tenant.tenantInfo.activationState,
               };
               this.store.dispatch(saveTenant(data, 30))
-
             }
-
-          }
-
+          
+              
+        },
+        getHostFeatureEmitter:()=>{
+          this.store.dispatch(getTenantFeaturesForEdit(undefined));
         },
         onEditTenant: (selectedTenant: any) => {
           this.store.dispatch(getTenantForEdit(selectedTenant));
           this.store.select(selectTenantInfo).subscribe(res=>{
             console.log(res);
-            const mfeConfig = this.rdsTenantMfeConfig
+            const mfeConfig = this.rdsTenantNewMfeConfig
             mfeConfig.input.tenantData = { ... this.tenantData };
-          })
+          })  
           this.store.dispatch(getTenantFeaturesForEdit(selectedTenant))
         },
-        onReset: (event: any) => {
-          this.tenantData = undefined;
-          this.tenantSettingsInfo = undefined;
-          this.tenantFeatureValues = [];
-          this.tenantFeatures = [];
-          const mfeConfig = this.rdsTenantMfeConfig
-          mfeConfig.input.tenantData = { ... this.tenantData };
-          mfeConfig.input.tenantSettingsInfo = { ... this.tenantSettingsInfo };
-          mfeConfig.input.tenantFeatureValues = [... this.tenantFeatureValues];
-          mfeConfig.input.tenantFeatures = [... this.tenantFeatures];
-          if (event.newtenant) {
-            mfeConfig.input.editShimmer = false;
-          } else {
-            mfeConfig.input.editShimmer = true;
-          }
 
-          this.rdsTenantMfeConfig = mfeConfig;
-
-        },
         deleteEvent: (event: any) => {
           this.store.dispatch(deleteTenant(event.id))
         },
-        onSaveFeatures: (feature: any) => {
-          this.store.dispatch(updateTenantFeatureValues(feature))
+        // onSaveFeatures: (feature: any) => {
+            // this.store.dispatch(updateTenantFeatureValues(feature))
+        // }
+        onSaveTenantHost : (featureHost : any)=>{
+          debugger
+          this.store.dispatch(updateTenantFeatureValues(featureHost))
+          console.log("Feature Host" ,featureHost)
         }
       }
     };
 
-    this.store.dispatch(getEditionComboboxItems())
-    this.store.select(selectEditionComboboxItems).subscribe((res: any) => {
-      if (res && res.editions) {
-        this.editionList = res.editions;
-        const mfeConfig = this.rdsTenantMfeConfig
-        mfeConfig.input.editionList = [... this.editionList];
-        this.rdsTenantMfeConfig = mfeConfig;
-      }
-    })
-
     this.store.dispatch(getTenants());
     this.store.select(selectAllTenants).subscribe((res: any) => {
       this.tenantTableData = [];
-      if (res && res.tenants.items && res.status == "success") {
+      if (res && res.items) {
         this.isAnimation = false;
-        res.tenants.items.forEach((element: any) => {
-          const status: string = (element.isActive) ? 'Active' : 'Inactive';
-          // const statusTemplate = `<div class="status ${status}">${status}</div>`;
+        res.items.forEach((element: any) => {
           let statusTemplate;
-          if (element.isActive) {
-            statusTemplate = `<div> <span class="badge badge-success">Active</span></div>`;
-          } else {
-            statusTemplate = `<div><span class="badge badge-secondary">Inactive</span></div>`;
-          }
-          const editionTemplate = `<div class="d-flex align-items-center"><div class="edition ${element.editionDisplayName}"></div><div class="">${element.editionDisplayName}</div></div>`;
-          const tenantInfoTemplate = `<div class=""><div><div><span>${element.name}</span></div><span class="text-muted">${element.tenancyName} </span></div></div>`;
-          let subscriptionDate = '';
-          if (element.subscriptionEndDateUtc) {
-            subscriptionDate = this.datepipe.transform(new Date(element.subscriptionEndDateUtc), 'MM/dd/yyyy, h:mm:ss a');
-          } else {
-            subscriptionDate = '';
-          }
+          statusTemplate =  element.activationState ?'<div><span class="badge badge-secondary">Inactive</span></div>': '<div> <span class="badge badge-success">Active</span></div>'
+          const tenantInfoTemplate = `<div class=""><div><div><span>${element.name}</span></div><span class="text-muted">${element.adminEmailAddress} </span></div></div>`;
+
           const item: any = {
             tenantInfoTemplate: tenantInfoTemplate,
             statusTemplate: statusTemplate,
-            subscriptionEndDateUtc: (element.subscriptionEndDateUtc && element.subscriptionEndDateUtc !== null && element.subscriptionEndDateUtc.ts) ? this.datepipe.transform((new Date(element.subscriptionEndDateUtc.ts)), 'MM/dd/yyyy') : '--',  
-            editionDisplayName: element.editionDisplayName,
-            editionTemplate: (element.editionDisplayName && element.editionDisplayName !== null) ?editionTemplate : '--',
+            roleTemplate: 'Admin',
+            editionTemplate:element.editionName,
             id: element.id,
-            name: element.tenancyName
-            // creationTime: this.datepipe.transform(new Date(element.creationTime),'dd-MM-yyyy h:mm:ss a')
+            name: element.name,
+            adminEmailAddress : element.adminEmailAddress
           }
           this.tenantTableData.push(item);
         });
-        const mfeConfig = this.rdsTenantMfeConfig
+        const mfeConfig = this.rdsTenantNewMfeConfig
         mfeConfig.input.tenantList = [... this.tenantTableData];
         mfeConfig.input.isShimmer = false;
-        this.rdsTenantMfeConfig = mfeConfig;
+        this.rdsTenantNewMfeConfig = mfeConfig;
       }
     });
 
     this.store.select(selectTenantInfo).subscribe((res: any) => {
-      if (res && res.tenantInfo && res.status === 'success') {
-        this.tenantSettingsInfo = {};
+      if (res) {
         this.tenantData = {};
-        this.tenantSettingsInfo['connectionString'] = res.tenantInfo.connectionString;
-        this.tenantSettingsInfo['isActive'] = res.tenantInfo.isActive;
-        this.tenantSettingsInfo['isInTrialPeriod'] = res.tenantInfo.isInTrialPeriod;
-        this.tenantData['tenancyName'] = res.tenantInfo.tenancyName;
-        this.tenantData['tenantName'] = res.tenantInfo.name;
-        this.tenantData['adminEmailAddress'] = res.tenantInfo.adminEmailAddress;
-        this.tenantData['edition'] = (res.tenantInfo.editionId && res.tenantInfo.editionId !== null) ? [res.tenantInfo.editionId.toString()] : res.tenantInfo.editionId;
-        this.tenantData['unlimitedSubscription'] = (res.tenantInfo.subscriptionEndDateUtc !== null) ? false : true;
-        this.tenantData['id'] = res.tenantInfo.id;
-        this.tenantData['subscriptionEndDate'] = (res.tenantInfo.subscriptionEndDateUtc) ? new Date(res.tenantInfo.subscriptionEndDateUtc) : null;
-        const mfeConfig = this.rdsTenantMfeConfig
+        this.tenantData['name'] = res.name;
+        this.tenantData['adminEmailAddress'] =  res.adminEmailAddress;
+         this.tenantData['editionId'] = (res.editionId && res.editionId !== null) ? [res.editionId.toString()] : res.editionId;
+        this.tenantData['adminPassword'] = res.adminPassword;
+         this.tenantData['activationState'] = res.activationState;
+        this.tenantData['id'] = res.id;
+
+console.log(this.tenantData);
+
+        const mfeConfig = this.rdsTenantNewMfeConfig
         mfeConfig.input.tenantData = { ... this.tenantData };
-        mfeConfig.input.tenantSettingsInfo = { ... this.tenantSettingsInfo };
         mfeConfig.input.editShimmer = false
-        this.rdsTenantMfeConfig = mfeConfig;
+        this.rdsTenantNewMfeConfig = mfeConfig;
       }
     });
-    this.store.select(selectTenantFeature).subscribe((res: any) => {
-      if (res && res.tenantFeature && res.status === 'success') {
-        this.tenantFeatureValues = res.tenantFeature.featureValues;
-        this.tenantFeatures = this.convertArraytoTreedata(res.tenantFeature.features);
 
-        // this.editionList = res.editions;
-        const mfeConfig = this.rdsTenantMfeConfig
-        mfeConfig.input.tenantFeatureValues = [... this.tenantFeatureValues];
-        mfeConfig.input.tenantFeatures = [... this.tenantFeatures];
-
-        this.rdsTenantMfeConfig = mfeConfig;
+    this.store.dispatch(getEditionComboboxItems())
+    this.store.select(selectEditionComboboxItems).subscribe((res: any) => {
+      if (res) {
+        this.editionList = [];
+          res.items.forEach((element: any) => {
+          const item: any = {
+            value: element.id,
+            displayText: element.displayName,
+          }
+          this.editionList.push(item);
+        });
+        
+        const mfeConfig = this.rdsTenantNewMfeConfig
+        mfeConfig.input.editionList = [... this.editionList];
+        this.rdsTenantNewMfeConfig = mfeConfig;
       }
     })
-  }
-  convertArraytoTreedata(data: any) {
-    const treedaTA = this._arrayToTreeConverterService.createTree(
-      data,
-      'parentName',
-      'name',
-      null,
-      'children',
-      [
-        {
-          target: 'label',
-          source: 'displayName',
-        },
-        {
-          target: 'expandedIcon',
-          value: 'fa fa-folder-open text-warning',
-        },
-        {
-          target: 'collapsedIcon',
-          value: 'fa fa-folder text-warning',
-        },
-        {
-          target: 'expanded',
-          value: true,
-        },
-      ],
-      1
-    );
-    return treedaTA;
-  }
 
+  
+    this.store.select(selectTenantFeature).subscribe((res: any) => {
+      if (res) {
+        this.featureData = []
+       res.groups.forEach(elements =>{
+        elements.features.forEach(el =>{
+           const data ={
+            name:el.name,
+            value:el.value
+           }
+           this.featureData.push(data);
+        })
+        
+       })
+       console.log('feature Data ' ,this.featureData);
+
+      //  const data = [
+      //   {
+      //     name : this.tenantFeatures[0].features[0].name,
+      //     value : this.tenantFeatures[0].features[0].value
+      //   },
+      //   {
+      //     name: this.tenantFeatures[0].features[1].name,
+      //     value: this.tenantFeatures[0].features[1].value,
+      //   },
+      //   {
+      //     name: this.tenantFeatures[0].features[2].name,
+      //     value: this.tenantFeatures[0].features[2].value,
+      //   },
+      //   {
+      //     name: this.tenantFeatures[0].features[3].name,
+      //     value: this.tenantFeatures[0].features[3].value,
+      //   },
+      //   {
+      //     name: this.tenantFeatures[1].features[0].name,
+      //     value: this.tenantFeatures[1].features[0].value,
+      //   },
+      //   {
+      //     name: this.tenantFeatures[1].features[1].name,
+      //     value: this.tenantFeatures[1].features[1].value,
+      //   },
+      //   {
+      //     name: this.tenantFeatures[0].features[3].name,
+      //     value: this.tenantFeatures[0].features[3].value,
+      //   },
+        
+
+      // ]
+         //this.editionList = res.editions;
+        const mfeConfig = this.rdsTenantNewMfeConfig
+        mfeConfig.input.tenantFeatureValues =  [ ...this.featureData];
+
+        this.rdsTenantNewMfeConfig = mfeConfig;
+      }
+    })
+
+  }
+ 
 }

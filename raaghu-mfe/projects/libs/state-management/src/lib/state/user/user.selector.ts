@@ -1,5 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { AppState } from '../../app.interface';
+import { selectApiResources } from '../api-resources/api-resources.selector';
 
 import { UsersState } from './user.reducer';
 
@@ -37,3 +38,13 @@ export const selectClaimTypes = createSelector(
     Userselector,
     (state: UsersState) => state.claimTypes
 );
+export const selectAllTT = createSelector(
+    Userselector,
+    (state: UsersState) => state
+);
+ 
+export const selectTextContent = createSelector(
+    Userselector,
+    (state: UsersState) => state
+);
+

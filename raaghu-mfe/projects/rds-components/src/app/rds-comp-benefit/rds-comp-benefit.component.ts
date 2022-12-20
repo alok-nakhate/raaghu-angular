@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 
 
 @Component({
-  selector: 'app-rds-comp-benefit',
+  selector: 'rds-comp-benefit',
   templateUrl: './rds-comp-benefit.component.html',
   styleUrls: ['./rds-comp-benefit.component.scss']
 })

@@ -98,6 +98,9 @@ export class RdsCompProductOverviewComponent {
       description: 'Get your order in 2 years';
     }
   ];
+  @Input() fill:boolean;
+  @Input() colorVariantName:string;
+ 
   @Input() imgitemList: [
     'https://images.unsplash.com/photo-1433086966358-54859d0ed716?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8bmF0dXJlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
     'https://www.waiin.com/wp-content/uploads/2021/07/Framework-Expertise_01.png',
@@ -113,4 +116,14 @@ export class RdsCompProductOverviewComponent {
     'https://cdn.shopify.com/s/files/1/0752/6435/products/7_560d64a9-7d29-4ea4-93ed-7b6d29bd6339_1_160x.jpg?v=1639994439',
     'https://cdn.shopify.com/s/files/1/0752/6435/products/2_1418d8b1-f625-4531-b858-bf6e2ba4b2f3_1_160x.jpg?v=1639994439'
   ];
+
+  likebtn(){
+    // if (itemColor == 'danger') {
+    //   this.colorVariantName = 'dark';
+    //   this.fill = false;
+    // } else if (itemColor == 'dark') {
+    //   this.colorVariantName = 'danger';
+    //   this.fill = true;
+    // }
+  }
 }

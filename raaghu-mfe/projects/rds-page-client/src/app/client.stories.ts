@@ -1,12 +1,13 @@
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Meta, moduleMetadata,Story } from '@storybook/angular';
-import { RdsButtonModule, RdsIconModule, RdsNavTabModule, RdsOffcanvasModule,} from '@libs/rds-elements';
+import { RdsButtonModule, RdsDatepickerModule, RdsIconModule, RdsNavTabModule, RdsOffcanvasModule,} from '@libs/rds-elements';
 import { NgxTranslateModule, SharedModule } from '@libs/shared';
 import { AppComponent as Client } from './app.component';
 import { RdsCompClientBasicsComponent } from 'projects/rds-components/src/app/rds-comp-client-basics/rds-comp-client-basics.component';
 import { RdsCompClientResourcesComponent } from 'projects/rds-components/src/app/rds-comp-client-resources/rds-comp-client-resources.component';
 import { RdsDataTableComponent } from 'projects/rds-components/src/app/rds-comp-data-table/rds-comp-data-table.component';
 import { RdsLabelModule } from '@libs/rds-label';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export default {
   title: 'Pages/Client',
@@ -16,7 +17,7 @@ export default {
       declarations: [RdsCompClientBasicsComponent, RdsDataTableComponent, RdsCompClientBasicsComponent, RdsCompClientResourcesComponent],
       imports: [
         FormsModule, ReactiveFormsModule, RdsButtonModule, RdsLabelModule, RdsNavTabModule, RdsOffcanvasModule, RdsIconModule,
-        SharedModule, NgxTranslateModule
+        SharedModule, NgxTranslateModule, RdsDatepickerModule, BrowserAnimationsModule
       ],
       providers: [
         FormBuilder,

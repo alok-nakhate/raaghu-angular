@@ -1,0 +1,36 @@
+// recommended
+.bg-recommended {
+    background-color: #F58220;
+}
+
+// ribbon
+.ribbon {
+    position: relative;
+    z-index: 1;
+}
+
+.ribbon2 {
+    width: 26px;
+    position: absolute;
+    top: 21px;
+    left: 91.3%;
+    text-align: center;
+    background: #F47530;
+    border-radius: 0 6px 0 0;
+}
+
+.ribbon2:before,
+.ribbon2:after {
+    content: "";
+    position: absolute;
+}
+
+.ribbon2:after {
+    height: 0;
+    width: 0;
+    bottom: -5px;
+    left: 0;
+    border-left: 13px solid #F47530;
+    border-right: 13px solid #F47530;
+    border-bottom: 5px solid transparent;
+}

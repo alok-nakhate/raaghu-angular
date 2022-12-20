@@ -1,30 +1,33 @@
 <div class="row mt-2">
+    <div class="col-md-12 mb-3">
+        <div class="mb-2">
+            <rds-label [label]="'Type'"></rds-label>
+        </div>
+        <rds-dropdownlist class="mt-2" [placeholder]="typeData[0].value" [size]="'large'"
+             [listItems]="typeData" (onSelect)="selectedResourceType($event)">
+        </rds-dropdownlist>
+    </div>
     <div class="col-md-12">
-        <rds-checkbox [disabled]="false" [label]="translate.instant('Select All')" [checked]="checkSelection()" (change)="selectAllItems()"  [(ngModel)]="selectAll"
-            name="check-box" [withLabel]="true" [id]="'selectAll'" ></rds-checkbox>
+        <rds-checkbox [disabled]="false" [label]="translate.instant('Select All')" (change)="selectAllItems($event)"
+            [(ngModel)]="selectAll" [checked]="selectAll" name="check-box" [withLabel]="true" [id]="'selectAll'">
+        </rds-checkbox>
     </div>
-    <div class="col-md-12 mt-3">
-        <rds-accordian>
-            <ng-container *ngFor="let resource of resources;let i=index">
-                <accordion-item [title]="resource.displayName" [expanded]="i===0" [alwaysOpen]="true">
-                    <div accordianBody>
-                        <div class="row mt-2">
-                            <rds-checkbox [disabled]="false" [label]="translate.instant('Select All')" (change)="onSelect(resource)"
-                                [(ngModel)]="resource.selected" [name]="'check-box'+i" [withLabel]="true" [id]="'selectAllChild'" >
-                            </rds-checkbox>
-                        </div>
-
-                        <div class="row mt-3">
-                            <div class="col-md-4" *ngFor="let child of resource.children; let j=index">
-                                <rds-checkbox [label]="child.displayName" [checked]="child.selected" (change)="onChangeItem(child,resource)"
-                                    [(ngModel)]="child.selected" [name]="'checkbox'+i+j" [withLabel]="true" [id]="'childrenCheckbox'"
-                                    >
-                                </rds-checkbox>
-                            </div>
-                        </div>
-                    </div>
-                </accordion-item>
-            </ng-container>
-        </rds-accordian>
-    </div>
+    <ng-container *ngFor="let item of finalResourceData; index as i">
+        <div class="col-md-12 mt-2" *ngIf="item.resourcesData.length > 0">
+            <div class="row" *ngIf="item.resourcesData.length > 0">
+                <div class="my-2">{{item.letterRange}}</div>
+                <hr>
+                <rds-checkbox [disabled]="false" [label]="translate.instant('Select all')"
+                    (change)="selectAllSectionItems($event, i)" [(ngModel)]="item.isAllRangeSelected"
+                    [checked]="item.isAllRangeSelected" [name]="item.letterRange" [withLabel]="true" [id]="item.id">
+                </rds-checkbox>
+                <div class="col-md-4 my-2" *ngFor="let child of item.resourcesData; index as c">
+                    <rds-checkbox [disabled]="false" [label]="translate.instant(child.displayName)"
+                        (change)="onSelectChild($event, child, i)" [(ngModel)]="child.enabled" [name]="child.name"
+                        [withLabel]="true" [id]="child.id">
+                    </rds-checkbox>
+                </div>
+            </div>
+        </div>
+    </ng-container>
 </div>

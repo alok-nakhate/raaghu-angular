@@ -9,7 +9,7 @@ title: "Components > Password-settings"
 
 #### Password Settings
 
-<p class="">A card is a small rectangular module with images and text. It is an entry point for users to learn more details</p>
+<p>Gives a user an access to change the password</p>
 <section class="py-4">
     <h6>Default</h6>
     <div class="py-3">
@@ -39,7 +39,7 @@ title: "Components > Password-settings"
 <div class="row m-0">
 
 ```html
-<app-rds-comp-password-settings></app-rds-comp-password-settings>
+<rds-comp-password-settings></rds-comp-password-settings>
 ```
 </div>
 </div>

@@ -19,13 +19,14 @@ export default {
       control: { type: 'radio' }
     },
     labelPosition: {
-      options: ['top', 'bottom', 'right', 'left'],
+      options: ['top', 'bottom'],
       control: { type: 'radio' }
     },
     size: {
       options: ['small', 'medium', 'large'],
       control: { type: 'radio' }
     },
+    multiple: {table: {disable: true,},},
   },
 } as Meta;
 
@@ -35,24 +36,26 @@ const Template: Story<RdsSelectListComponent> = (args: RdsSelectListComponent) =
     [size]="size"
     [itemList]="itemList"
     [placeholder]="placeholder"
+    [isRequired]="isRequired"
     [label]="label">
   </rds-select-list>`,
 });
 
 export const Default = Template.bind({});
-Default.parameters = { controls: { include: ['itemList',  'label', 'size','placeholder'] } };
+Default.parameters = { controls: { include: ['itemList',  'label', 'size','placeholder','isRequired'] } };
 Default.args = {
   label:'select list',
   size:'small',
   itemList:[
     {
-    displayName:'Item 1',
+    displayText:'Item 1',
     value:1
   },
   {
-    displayName:'Item 2',
+    displayText:'Item 2',
   value:2}],
-  placeholder: 'Select item'
+  placeholder: 'Select item',
+  isRequired:false
 };
 const muliselectTemplate: Story<RdsSelectListComponent> = (args: RdsSelectListComponent) => ({
   props: args,
@@ -71,11 +74,11 @@ multiSelect.args = {
   size:'small',
   itemList:[
     {
-    displayName:'Item 1',
+    displayText:'Item 1',
     value:1
   },
   {
-    displayName:'Item 2',
+    displayText:'Item 2',
   value:2}],
   placeholder: 'Select item',
   multiple:true
@@ -97,11 +100,11 @@ labelPosition.args = {
   size:'small',
   itemList:[
     {
-    displayName:'Item 1',
+    displayText:'Item 1',
     value:1
   },
   {
-    displayName:'Item 2',
+    displayText:'Item 2',
   value:2}],
   placeholder: 'Select item',
   labelPosition:'top'
@@ -109,14 +112,15 @@ labelPosition.args = {
 
 const tooltipTemplate: Story<RdsSelectListComponent> = (args: RdsSelectListComponent) => ({
   props: args,
-  template: `<rds-select-list
+  template: `<div class="row m-5">
+  <div class="col-md-12 p-5"><rds-select-list
     [size]="size"
     [itemList]="itemList"
     [tooltipPlacement]="tooltipPlacement"
     [tooltipTitle]="tooltipTitle"
     [placeholder]="placeholder"
     [label]="label">
-  </rds-select-list>`,
+  </rds-select-list></div></div>`,
 });
 export const tooltip = tooltipTemplate.bind({});
 tooltip.parameters = { controls: { include: ['itemList',  'label', 'size','placeholder','tooltipTitle','tooltipPlacement'] } };
@@ -127,11 +131,11 @@ tooltip.args = {
   tooltipTitle:'select list',
   itemList:[
     {
-    displayName:'Item 1',
+    displayText:'Item 1',
     value:1
   },
   {
-    displayName:'Item 2',
+    displayText:'Item 2',
   value:2}],
   placeholder: 'Select item',
 };

@@ -8,7 +8,7 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
-      }),
+    }),
   ],
   argTypes: {
   },
@@ -19,9 +19,27 @@ const Template: Story<RdsLabelComponent> = (args: RdsLabelComponent) => ({
 });
 
 export const Default = Template.bind({});
+Default.parameters = { controls: { include: ['label', 'bold', 'italic'] } };
+
 Default.args = {
-  label: "",
-  multiline: false,
+  label: "this is a label",
+  bold: false,
+  italic: false,
+}
+
+const mutilineTemplate: Story<any> = (args: RdsLabelComponent) => ({
+  props: args,
+  template: `<div>
+<rds-label [label]="label" [bold]="bold" [class.pe-2]="!multiline" [italic]="italic" [multiline]="multiline"></rds-label>
+<rds-label [label]="label1" [bold]="bold" [italic]="italic" [multiline]="multiline"></rds-label>
+</div>`
+});
+export const multiline = mutilineTemplate.bind({});
+multiline.parameters = { controls: { include: ['label', 'bold', 'italic', 'multiline','label1'] } };
+multiline.args = {
+  label: "this is a label",
+  label1: 'this is a label2',
+  multiline: true,
   bold: false,
   italic: false,
 }

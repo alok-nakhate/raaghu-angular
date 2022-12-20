@@ -12,27 +12,22 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
     multi: true
   }]
 })
-export class RdsCheckboxGroupsComponent implements OnInit {
+export class RdsCheckboxGroupsComponent implements OnInit, ControlValueAccessor {
   title = "rds-checkbox-groups";
   value = ''
-  onChange!: (value: string) => void;
-  onTouched!: () => void
-  @Input() label?: string;
+  onChange = (event: string) => {};
+  onTouched = () => {};
   // @Output() onChange = new EventEmitter<boolean>();
 
-  @Input() checked!: boolean;
-  @Input() disabled!: boolean;
 
   @Input() switch!: boolean;
 
   @Input() inline!: boolean;
-  // @Input() itemList:any = [];
 
-  @Input() id?: string
   @Input() withLabel!: boolean;
   @Output() onCheck: EventEmitter<void> = new EventEmitter<void>();
   @Output() onUncheck: EventEmitter<void> = new EventEmitter<void>();
-  
+
   @Input() isInputGroup!: boolean;
   @Input() itemList!: any;
 
@@ -45,65 +40,51 @@ export class RdsCheckboxGroupsComponent implements OnInit {
   //public selectdataItem: selectedData = [];
 
   constructor() { }
-  writeValue(obj: any): void {
-    this.value = obj
+  writeValue(obj: any) {
+    this.value = obj;
   }
-  registerOnChange(fn: any): void {
-    this.onChange = fn
+
+  registerOnChange(fn: any) {
+    this.onChange = fn;
   }
-  registerOnTouched(fn: any): void {
-    this.onTouched = fn
+
+  registerOnTouched(fn: any) {
+    this.onTouched = fn;
   }
 
   ngOnInit(): void { }
 
-  public get classes(): string[] {
-    var classes = ['form-check']
-    if (this.isInputGroup === true) {
-      classes = ['input-group-text mb-2'];
-    }
-    if (this.switch === true) {
-      classes.push('form-switch px-5')
-      return classes
-    }
-    if (this.inline === true) {
-      classes.push('form-check-inline')
-      return classes
-    }
-    if (this.state === 'Indeterminate') {
-      classes.push('inder')
-      return classes
-    }
-    if (this.state === 'errorcheckbox') {
-      classes.push('errorche')
-      return classes
-    }
-    return classes
+  classes() {
+    const isInputGroupMode = `${this.isInputGroup ? ' input-group-text mb-2 px-5 ' : ''}`;
+    const switchMode = `${this.switch ? ' form-switch px-5 ' : ''}`;
+    const inlineMode = `${this.inline ? ' form-check-inline ' : ''}`;
+
+    return 'form-check ' + isInputGroupMode + switchMode + inlineMode;
   }
 
+  inlineGroup() {
+    if (this.inline && this.isInputGroup) {
+      return 'd-flex';
+    } else {
+      return '';
+    }
+  }
+
+  formState() {
+    const checkboxState = `${this.state === 'checkbox' ? 'form-check-input' :
+      this.state === 'Indeterminate' ? 'form-check-input-intermediate' :
+        this.state === 'errorcheckbox' ? 'form-check-input-error' : ''}`;
+
+    return checkboxState;
+  }
 
   getValue(event: any) {
     this.onClick.emit({ evnt: event, item: event.target.value });
-    this.onChange(event.target.click)
     this.onTouched();
-
-    // new logic
-    // if(this.selectdataItem) {
-    //   this.selectedItemData.emit(this.selectdataItem);
-    // }
-
-  }
-  stateChanged() {
-    console.log('clicked')
-    this.checked ? this.onCheck.emit() : this.onUncheck.emit();
+    this.onChange(event.target.checked);
   }
 
 }
 
-// export class selectedData {
-//   constructor(
-//     label: string
-//   ) { }
-//}
 
 

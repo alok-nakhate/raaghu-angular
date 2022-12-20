@@ -5,20 +5,26 @@
         <rds-label label="Customer also purchased" [multiline]="false" [bold]="true" [italic]="false"></rds-label>
       </h5>
       <div class="row">
-        <div class="col-md-3 mb-3" *ngFor="let item of productListItems">
+        <div class="col-md-3 mb-3" *ngFor="let item of productListItems; let i = index;">
           <rds-card class="rounded-avatar-basic">
             <div header>
               <div class="text-center">
                 <img [src]="item.imageUrl" class="card-img-top" alt="">
+                <rds-icon class="position-absolute icon-positionheart" [id]="item.id" [colorVariant]="item.iconColor"
+                  (click)="favouriteProd(item.iconColor, i)" [name]="item.icon" width="20px" height="20px" [stroke]="true" 
+                  [fill]="item.fill"
+                  ></rds-icon>
               </div>
             </div>
             <div body>
-              <h5 class="custom-title">{{item.title}}</h5>
-              <p class="custom-desc">{{item.subTitle}}</p>
+              <!-- <h5 class="custom-title">{{item.title}}</h5> -->
+              <h4 class="custom-title">{{item.title}}</h4>
+              <p class="custom-desc mb-0">{{item.subTitle}}</p>
             </div>
-            <div class="p-3" footer>
+            <div class="p-1" footer>
               <div class="d-flex justify-content-between">
-                <rds-label [label]="item.price" [multiline]="false" [bold]="true" [italic]="false"></rds-label>
+                <!-- <rds-label [label]="item.price" [multiline]="false" [bold]="true" [italic]="false"></rds-label> -->
+                <rds-price [role]="'withoutDiscount'" [numberPricetwo]="item.price"></rds-price>
                 <span *ngIf="item.badgeLabel != ''">
                   <rds-icon name="featured" height="18px" colorVariant="warning" width="18px"></rds-icon>
                   <rds-badge size="small" [label]="item.badgeLabel" [positioned]="false" colorVariant="warning">
@@ -32,23 +38,29 @@
     </div>
     <div *ngSwitchCase="'simple'">
       <div class="row">
-        <div class="col-md-4 mb-3" *ngFor="let item of productListItems">
+        <div class="col-md-4 mb-3" *ngFor="let item of productListItems; let i =index;">
           <rds-card  class="rounded-avatar-basic">
             <div header>
               <div class="text-center">
                 <img [src]="item.imageUrl" class="card-img-top" alt="">
+                <rds-icon class="position-absolute icon-positionheart" [id]="item.id" [colorVariant]="item.iconColor"
+                  (click)="favouriteProd(item.iconColor, i)" [name]="item.icon" width="20px" height="20px" [stroke]="true" 
+                  [fill]="item.fill"
+                  ></rds-icon>
               </div>
             </div>
             <div body>
               <div>
-                <h5 class="custom-title">{{item.title}}</h5>
-                <h5 class="custom-title">{{item.subTitle}}</h5>
-
+                <!-- <h5 class="custom-title">{{item.title}}</h5> -->
+                <h4 class="custom-title">{{item.title}}</h4>
+                <p class="custom-desc mb-0">{{item.subTitle}}</p>
+                <!-- <h5 class="custom-title">{{item.subTitle}}</h5> -->
               </div>
             </div>
             <div footer>
-              <div class="d-flex justify-content-between p-3">
-                <rds-label [label]="item.price" [multiline]="false" [bold]="true" [italic]="false"></rds-label>
+              <div class="d-flex justify-content-between px-3 pb-3">
+                <!-- <rds-label [label]="item.price" [multiline]="false" [bold]="true" [italic]="false"></rds-label> -->
+                <rds-price [role]="'withoutDiscount'" [numberPricetwo]="item.price"></rds-price>
                 <span *ngIf="item.badgeLabel != ''">
                   <rds-icon name="featured" height="18px" colorVariant="warning" width="18px"></rds-icon>
                   <rds-badge size="small" [label]="item.badgeLabel" [positioned]="false" colorVariant="warning">
@@ -61,36 +73,34 @@
       </div>
     </div>
     <div *ngSwitchCase="'withCTALink'">
-      <div class="d-flex justify-content-between">
-        <h5>
-          <rds-label label="Trending products" [multiline]="false" [bold]="true" [italic]="false"></rds-label>
-        </h5>
-        <a href="">Shop the collection <rds-icon height="" [fill]="false" [stroke]="true" width="" name=""
-        ></rds-icon></a>
-      </div>
       <div class="row">
-        <div class="col-md-3 mb-3" *ngFor="let item of productListItems">
+        <div class="col-md-3 mb-3" *ngFor="let item of productListItems let i =index;">
           <rds-card  class="rounded-avatar-basic">
             <div header>
               <div class="text-center">
                 <img [src]="item.imageUrl" class="card-img-top" alt="">
+                <rds-icon class="position-absolute icon-positionheart" [id]="item.id" [colorVariant]="item.iconColor"
+                  (click)="favouriteProd(item.iconColor, i)" [name]="item.icon" width="20px" height="20px" [stroke]="true" 
+                  [fill]="item.fill"
+                  ></rds-icon>
               </div>
             </div>
             <div body>
-              <h5 class="custom-title">{{item.title}}</h5>
-              <p class="custom-desc">{{item.subTitle}}</p>
+              <h4 class="custom-title">{{item.title}}</h4>
+              <p class="custom-desc mb-0">{{item.subTitle}}</p>
             </div>
-            <div class="p-3" footer>
+            <div class="p-1" footer>
               <div class="d-flex justify-content-between">
-                <rds-label [label]="item.price" [multiline]="false" [bold]="true" [italic]="false"></rds-label>
+                <!-- <rds-label [label]="item.price" [multiline]="false" [bold]="true" [italic]="false"></rds-label> -->
+                <rds-price [role]="'withoutDiscount'" [numberPricetwo]="item.price"></rds-price>
                 <span *ngIf="item.badgeLabel != ''">
                   <rds-icon name="featured" height="18px" colorVariant="warning" width="18px"></rds-icon>
-                  <rds-badge size="small" [label]="item.badgeLabel"  [positioned]="false" colorVariant="warning">
+                  <rds-badge size="small" [label]="item.badgeLabel"  [positioned]="false" colorVariant="danger">
                   </rds-badge>
                 </span>
               </div>
               <div class="pt-2 d-flex justify-content-between">
-                <rds-button colorVariant="primary" size="medium" [outlineButton]="true" label="ADD TO BAG"></rds-button>
+                <rds-button colorVariant="primary" size="medium" [isOutline]="true" label="ADD TO BAG"></rds-button>
                 <rds-button colorVariant="primary" size="medium" label="BUY NOW"></rds-button>
               </div>
             </div>
@@ -99,29 +109,29 @@
       </div>
     </div>
     <div *ngSwitchCase="'withColorSwatchesAndHorizontalScrolling'">
-      <div class="d-flex justify-content-between">
-        <h5>
-          <rds-label label="Trending products" [multiline]="false" [bold]="true" [italic]="false"></rds-label>
-        </h5>
-        <a href="">See everything <rds-icon height="" [fill]="false" [stroke]="true" width="" name="" >
-          </rds-icon></a>
-      </div>
-      <div class="row">
-        <div class="col-md-3 mb-3" *ngFor="let item of productListItems">
+      <div class="row mt-3">
+        <div class="col-md-3 mb-3" *ngFor="let item of productListItems; let i = index;">
           <rds-card class="rounded-avatar-basic">
             <div header>
               <div class="text-center">
                 <img [src]="item.imageUrl" class="card-img-top" alt="">
+                <rds-icon class="position-absolute icon-positionheart" [id]="item.id" [colorVariant]="item.iconColor"
+                  (click)="favouriteProd(item.iconColor, i)" [name]="item.icon" width="20px" height="20px" [stroke]="true" 
+                  [fill]="item.fill"
+                  ></rds-icon>
               </div>
             </div>
             <div body>
-              <h5 class="custom-title">{{item.title}}</h5>
-              <rds-rating [rating]="1" colorVariant="primary" [noOfReview]="123" Size="small"></rds-rating>
-              <p class="custom-desc">{{item.subTitle}}</p>
+              <!-- <h5 class="custom-title">{{item.title}}</h5> -->
+              <h4 class="custom-title">{{item.title}}</h4>
+              <!-- <rds-rating [rating]="1" colorVariant="primary" [noOfReview]="123" Size="small"></rds-rating> -->
+              <rds-rating [rating]="4.1" colorVariant="review" [noOfReview]="2" Size="small" [withNoOfReviews]="true"></rds-rating>
+              <h5 class="custom-desc mt-3 mb-0">{{item.subTitle}}</h5>
             </div>
-            <div class="p-3" footer>
+            <div class="p-1" footer>
               <div class="d-flex justify-content-between">
-                <rds-label [label]="item.price" [multiline]="false" [bold]="true" [italic]="false"></rds-label>
+                <!-- <rds-label [label]="item.price" [multiline]="false" [bold]="true" [italic]="false"></rds-label> -->
+                <rds-price [role]="'withoutDiscount'" [numberPricetwo]="item.price"></rds-price>
                 <span *ngIf="item.badgeLabel != ''">
                   <rds-badge size="small" [label]="item.badgeLabel"  colorVariant="warning" >
                   </rds-badge>
@@ -137,20 +147,31 @@
     </div>
     <div *ngSwitchCase="'withTallImages'">
       <div class="row">
-        <div class="col-md-4 mb-3" *ngFor="let item of productListItems">
+        <div class="col-md-4 mb-3" *ngFor="let item of productListItems; let i = index;">
           <rds-card  class="rounded-avatar-basic">
             <div header>
               <div class="text-center">
                 <img [src]="item.imageUrl" class="card-img-top" alt="">
+                <rds-icon class="position-absolute icon-positionheart" [id]="item.id" [colorVariant]="item.iconColor"
+                  (click)="favouriteProd(item.iconColor, i)" [name]="item.icon" width="20px" height="20px" [stroke]="true" 
+                  [fill]="item.fill"
+                  ></rds-icon>
               </div>
             </div>
             <div body>
-              <h5 class="custom-title">{{item.title}}</h5>
-              <p class="custom-desc">{{item.subTitle}}</p>
+              <!-- <h5 class="custom-title">{{item.title}}</h5> -->
+              <h4 class="custom-title">{{item.title}}</h4>
+              <p class="custom-desc mb-0">{{item.subTitle}}</p>
+             <div class="mt-2">
+                <rds-label
+                label="Best quality with nice looks in silver/black color, good for office use and corporate events"
+                [multiline]="true" [bold]="false" [italic]="false"></rds-label>
+              </div>
             </div>
             <div class="p-3" footer>
               <div class="d-flex justify-content-between">
-                <rds-label [label]="item.price" [multiline]="false" [bold]="true" [italic]="false"></rds-label>
+                <!-- <rds-label [label]="item.price" [multiline]="false" [bold]="true" [italic]="false"></rds-label> -->
+                <rds-price [role]="'withoutDiscount'" [numberPricetwo]="item.price"></rds-price>
                 <span *ngIf="item.badgeLabel != ''">
                   <rds-icon name="featured" height="18px" colorVariant="warning" width="18px"></rds-icon>
                   <rds-badge size="small" [label]="item.badgeLabel" colorVariant="warning">
@@ -167,20 +188,27 @@
         <rds-label label="Customers also bought" [multiline]="false" [bold]="true" [italic]="false"></rds-label>
       </h5>
       <div class="row">
-        <div class="col-md-3 mb-3" *ngFor="let item of productListItems">
+        <div class="col-md-3 mb-3" *ngFor="let item of productListItems; let i = index;">
           <rds-card  class="rounded-avatar-basic">
             <div header>
               <div class="text-center">
                 <img [src]="item.imageUrl" class="card-img-top" alt="">
+                <rds-icon class="position-absolute icon-positionheart" [id]="item.id" [colorVariant]="item.iconColor"
+                  (click)="favouriteProd(item.iconColor, i)" [name]="item.icon" width="20px" height="20px" [stroke]="true" 
+                  [fill]="item.fill"
+                  ></rds-icon>
               </div>
             </div>
             <div body>
-              <h5 class="custom-title">{{item.title}}</h5>
-              <p class="custom-desc">{{item.subTitle}}</p>
+              <!-- <h5 class="custom-title">{{item.title}}</h5> -->
+              <h4 class="custom-title">{{item.title}}</h4>
+              <!-- <p class="custom-desc">{{item.subTitle}}</p> -->
+              <p class="custom-desc mb-0">{{item.subTitle}}</p>
             </div>
             <div class="p-3" footer>
               <div class="d-flex justify-content-between">
-                <rds-label [label]="item.price" [multiline]="false" [bold]="true" [italic]="false"></rds-label>
+                <!-- <rds-label [label]="item.price" [multiline]="false" [bold]="true" [italic]="false"></rds-label> -->
+                <rds-price [role]="'withoutDiscount'" [numberPricetwo]="item.price"></rds-price>
                 <span *ngIf="item.badgeLabel != ''">
                   <rds-icon name="featured" height="18px" colorVariant="warning" width="18px"></rds-icon>
                   <rds-badge size="small" [label]="item.badgeLabel" colorVariant="warning">
@@ -201,28 +229,37 @@
         <h5>
           <rds-label label="Our Favorites" [multiline]="false" [bold]="true" [italic]="false"></rds-label>
         </h5>
-        <a href="">Browse all favorites<rds-icon height="" [fill]="false" [stroke]="true" width="" name=""></rds-icon></a>
+        <a href="">Browse all favorites<rds-icon height="16px" [fill]="false" [stroke]="true" width="16px" name="right" [colorVariant]="'primary'"  ></rds-icon></a>
       </div>
 
       <div class="row">
-        <div class="col-md-4 mb-3" *ngFor="let item of productListItems">
+        <div class="col-md-4 mb-3" *ngFor="let item of productListItems; let i = index;">
           <rds-card  class="rounded-avatar-basic">
             <div header>
               <div class="text-center">
                 <img [src]="item.imageUrl" class="card-img-top" alt="">
+                <rds-icon class="position-absolute icon-positionheart" [id]="item.id" [colorVariant]="item.iconColor"
+                  (click)="favouriteProd(item.iconColor, i)" [name]="item.icon" width="20px" height="20px" [stroke]="true" 
+                  [fill]="item.fill"
+                  ></rds-icon>
               </div>
             </div>
             <div body>
-              <h5 class="custom-title">{{item.title}}</h5>
-              <rds-rating [rating]="1" colorVariant="primary" [noOfReview]="123" Size="small"></rds-rating>
-              <rds-label
+              <!-- <h5 class="custom-title">{{item.title}}</h5> -->
+              <h4 class="custom-title">{{item.title}}</h4>
+              <!-- <rds-rating [rating]="1" colorVariant="primary" [noOfReview]="123" Size="small" ></rds-rating> -->
+              <rds-rating [rating]="3.9" colorVariant="review" [noOfReview]="123" Size="small" [withNoOfReviews]="true"></rds-rating>
+              <div class="mt-2">
+                <rds-label
                 label="Best quality with nice looks in silver/black color, good for office use and corporate events"
                 [multiline]="true" [bold]="false" [italic]="false"></rds-label>
+              </div>
               <rds-label label="Blue White Checks" [multiline]="false" [bold]="false" [italic]="true"></rds-label>
             </div>
-            <div class="p-3" footer>
+            <div class="p-1 pt-0" footer>
               <div class="d-flex justify-content-between">
-                <rds-label [label]="item.price" [multiline]="false" [bold]="true" [italic]="false"></rds-label>
+                <!-- <rds-label [label]="item.price" [multiline]="false" [bold]="true" [italic]="false"></rds-label> -->
+                <rds-price [role]="'withoutDiscount'" [numberPricetwo]="item.price"></rds-price>
                 <span *ngIf="item.badgeLabel != ''">
                   <rds-icon name="featured" height="18px" colorVariant="warning" width="18px"></rds-icon>
                   <rds-badge size="small" [label]="item.badgeLabel"  colorVariant="warning">
@@ -236,19 +273,25 @@
     </div>
     <div *ngSwitchCase="'withBorderGrid'">
       <div class="row">
-        <div class="col-md-3 mb-3" *ngFor="let item of productListItems">
+        <div class="col-md-3 mb-3" *ngFor="let item of productListItems let i= index;">
           <rds-card class="rounded-avatar-basic">
             <div header>
               <div class="text-center">
                 <img [src]="item.imageUrl" class="card-img-top" alt="">
+                <rds-icon class="position-absolute icon-positionheart" [id]="item.id" [colorVariant]="item.iconColor"
+                  (click)="favouriteProd(item.iconColor, i)" [name]="item.icon" width="20px" height="20px" [stroke]="true" 
+                  [fill]="item.fill"
+                  ></rds-icon>
               </div>
             </div>
             <div body>
-              <h5 class="custom-title">{{item.title}}</h5>
-              <rds-rating [rating]="1" colorVariant="review" [noOfReview]="123" Size="small"></rds-rating>
+              <!-- <h5 class="custom-title">{{item.title}}</h5> -->
+              <h5 class="custom-title">{{item.title}}</h5> 
+              <rds-rating [rating]="1" colorVariant="review" [noOfReview]="123" Size="small" [withNoOfReviews]="true"></rds-rating>
             </div>
-            <div class="p-3" footer>
-              <rds-label [label]="item.price" [multiline]="false" [bold]="true" [italic]="false"></rds-label>
+            <div class="p-0" footer>
+              <!-- <rds-label [label]="item.price" [multiline]="false" [bold]="true" [italic]="false"></rds-label> -->
+              <rds-price [role]="'withoutDiscount'" [numberPricetwo]="item.price"></rds-price>
             </div>
           </rds-card>
       </div>
@@ -256,20 +299,26 @@
   </div>
   <div *ngSwitchCase="'withSupportingText'">
     <div class="row">
-      <div class="col-md-3 mb-3" *ngFor="let item of productListItems">
+      <div class="col-md-3 mb-3" *ngFor="let item of productListItems; let i =index;">
         <rds-card class="rounded-avatar-basic">
           <div header>
             <div class="text-center">
               <img [src]="item.imageUrl" class="card-img-top" alt="">
+              <rds-icon class="position-absolute icon-positionheart" [id]="item.id" [colorVariant]="item.iconColor"
+                  (click)="favouriteProd(item.iconColor, i)" [name]="item.icon" width="20px" height="20px" [stroke]="true" 
+                  [fill]="item.fill"
+                  ></rds-icon>
             </div>
           </div>
           <div body>
-            <h5 class="custom-title">{{item.title}}</h5>
-            <p class="custom-desc">{{item.subTitle}}</p>
+            <!-- <h5 class="custom-title">{{item.title}}</h5> -->
+            <h4 class="custom-title">{{item.title}}</h4>
+            <p class="custom-desc mb-0">{{item.subTitle}}</p>
           </div>
-          <div class="p-3" footer>
+          <div footer>
             <div class="d-flex justify-content-between">
-              <rds-label [label]="item.price" [multiline]="false" [bold]="true" [italic]="false"></rds-label>
+              <!-- <rds-label [label]="item.price" [multiline]="false" [bold]="true" [italic]="false"></rds-label> -->
+              <rds-price [role]="'withoutDiscount'" [numberPricetwo]="item.price"></rds-price>
               <span *ngIf="item.badgeLabel != ''">
                 <rds-icon name="featured" height="18px" colorVariant="warning" width="18px"></rds-icon>
                 <rds-badge size="small" [label]="item.badgeLabel" colorVariant="warning">
@@ -277,7 +326,7 @@
               </span>
             </div>
             <div class="pt-2 d-flex justify-content-between">
-              <rds-button colorVariant="primary" size="medium" [outlineButton]="true" label="ADD TO BAG"></rds-button>
+              <rds-button colorVariant="primary" size="medium" [isOutline]="true" label="ADD TO BAG"></rds-button>
               <rds-button colorVariant="primary" size="medium" label="BUY NOW"></rds-button>
             </div>
           </div>
@@ -287,28 +336,33 @@
   </div>
   <div *ngSwitchCase="'cardWithFullDetails'">
     <div class="row">
-      <div class="col-md-4 mb-3" *ngFor="let item of productListItems">
+      <div class="col-md-4 mb-3" *ngFor="let item of productListItems let i = index;">
         <rds-card  class="rounded-avatar-basic">
           <div header>
             <div class="text-center">
               <img [src]="item.imageUrl" class="card-img-top" alt="">
+              <rds-icon class="position-absolute icon-positionheart" [id]="item.id" [colorVariant]="item.iconColor"
+                  (click)="favouriteProd(item.iconColor, i)" [name]="item.icon" width="20px" height="20px" [stroke]="true" 
+                  [fill]="item.fill"
+                  ></rds-icon>
             </div>
           </div>
           <div body>
             <h5 class="custom-title">{{item.title}}</h5>
-            <rds-rating [rating]="1" colorVariant="review" [noOfReview]="123" Size="small"></rds-rating>
+            <p class="custom-desc mb-0">{{item.subTitle}}</p>
+            <rds-rating [rating]="1" colorVariant="review" [noOfReview]="123" Size="small" [withNoOfReviews]="true"></rds-rating>
             <rds-label
-              label="Premium Quality Soft T-Shirt White tees stain easily, and black tees fade. This is going to be gray for a while."
+              label="White tees stains easily, and black tees fade. This is going to be gray for a while"
               [multiline]="true" [bold]="false" [italic]="false"></rds-label>
-            <rds-label label="White" [multiline]="false" [bold]="false" [italic]="true"></rds-label>
+            <rds-label [multiline]="false" [bold]="false" [italic]="true"></rds-label>
 
           </div>
           <div footer>
-            <div class="d-flex justify-content-between p-3">
+            <div class="d-flex justify-content-between px-3 pb-3">
               <rds-label [label]="item.price" [multiline]="false" [bold]="true" [italic]="false"></rds-label>
               <span *ngIf="item.badgeLabel != ''">
                 <rds-icon name="featured" height="18px" colorVariant="warning" width="18px"></rds-icon>
-                <rds-badge size="small" [label]="item.badgeLabel"  colorVariant="warning">
+                <rds-badge size="small" [label]="item.badgeLabel"  colorVariant="warning" >
                 </rds-badge>
               </span>
             </div>
@@ -319,40 +373,146 @@
   </div>
   <div *ngSwitchCase="'ImageWithTitle'">
     <div class="row mt-4" *ngIf="productListItems">
-      <div class="col-md-3" *ngFor="let item of productListItems">
-        <rds-card  class="rounded-avatar-basic">
-          <div header>
-            <div class="text-center">
-              <img [src]="item.imageUrl" class="card-img-top" width="263.92px" height="256px" alt="">
-            </div>
-            <div class="mt-3 mb-3 text-center">
-              <rds-label [label]="item.title" class="fs-4"></rds-label>
-            </div>
-          </div>
-        </rds-card>
-
-
-      </div>
+                <div class="col-md-3" *ngFor="let item of productListItems; let i = index">
+                    <rds-card class="rounded-avatar-basic" [showBody]="false">
+                        <div header>
+                            <div class="text-center">
+                                <img [src]="item.imageUrl" class="card-img-top" width="263.92px" height="256px" alt="">
+                                <rds-icon class="position-absolute icon-positionheart" [id]="item.id"
+                                    [colorVariant]="item.iconColor" (click)="favouriteProd(item.iconColor, i)"
+                                    [name]="item.icon" width="20px" height="20px" [stroke]="true" [fill]="item.fill">
+                                </rds-icon>
+                            </div>
+                            <div class="mt-3 mb-3 text-center">
+                                <rds-label [label]="item.title" class="fs-4"></rds-label>
+                            </div>
+                        </div>
+                    </rds-card>
+                </div>
     </div>
-  </div>
-  <div *ngSwitchCase="'ImageWithInfo'">
+</div>
+
+
+<div *ngSwitchCase="'ImageWithInfo'">
     <div class="row" *ngIf="productListItems">
-      <div class="col-md-4 mb-3" *ngFor="let item of productListItems">
-        <rds-card  class="rounded-avatar-basic" [showFooter]="false" [showBody]="false">
+      <div class="col-md-4 mb-3" *ngFor="let item of productListItems; let i = index;">
+        <rds-card  class="rounded-avatar-basic" [showBody]="false">
           <div header>
             <div class="text-center">
               <img [src]="item.imageUrl" class="card-img-top" alt="">
+              <rds-icon class="position-absolute icon-positionheart" [id]="item.id" [colorVariant]="item.iconColor"
+                  (click)="favouriteProd(item.iconColor, i)" [name]="item.icon" width="20px" height="20px" [stroke]="true" 
+                  [fill]="item.fill"
+                  ></rds-icon>
+            </div>
+          </div>
+          <div footer class="p-3">
+            <rds-label [label]="item.title" class="fs-4"></rds-label>
+            <div>
+              <rds-label [label]="item.subTitle" class="fs-16"></rds-label>
             </div>
           </div>
         </rds-card>
-        <div class="mt-3 mb-3">
-          <rds-label [label]="item.title" class="fs-4"></rds-label>
-          <div>
-            <rds-label [label]="item.subTitle" class="fs-16"></rds-label>
-          </div>
-        </div>
+        
 
       </div>
     </div>
   </div>
+
+<div *ngSwitchCase="'infiniteproductlist'">
+  <!-- starting from here -->
+  <div class="row" *ngIf="productListItems">
+    <div  
+    class="search-result"
+    infiniteScroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="50"
+    (click)="onScroll()"
+    >
+      <div class="row">
+        <div class="col-md-4 mb-5" *ngFor="let item of productListItems; let i = index;">
+          <!-- <rds-card class="rounded-avatar-basic" [showFooter]="false" [showBody]="false" [borderColor]="'light'">
+            <div header>
+              <div class="text-center">
+                <img [src]="item.imageUrl" class="w-100" alt="">
+                <rds-icon class="position-absolute icon-positionheart" [id]="item.id" [colorVariant]="item.iconColor"
+                  (click)="favouriteProd(item.iconColor, i)" [name]="item.icon" width="20px" height="20px" [stroke]="true" 
+                  [fill]="item.fill"
+                  ></rds-icon>
+              </div>
+            </div>
+          </rds-card> -->
+          
+          <rds-product-image [display_type]="'Basic'" [images]="item.imageUrl"></rds-product-image>
+          
+          
+          <div class="mb-3 mt-2">
+            <h4 class="custom-title"><b>{{item.title}}</b></h4>
+            <div class="d-flex justify-content-between">
+                <div class="">
+                    <!-- <rds-label [label]="item.price" [multiline]="false" [bold]="true" [italic]="false"></rds-label> -->
+                    <rds-price [role]="'withoutDiscount'" [numberPricetwo]="item.price"></rds-price>
+                </div>
+                <div>
+                    <rds-rating [rating]="3.9" colorVariant="primary" [noOfReview]="123" Size="small"  colorVariant="review"></rds-rating>
+                </div>
+            </div>
+            
+          </div>
+      </div>
+    </div>
+    </div>
+    
+  
+  
+  </div>
+  <!-- <div class="row mt-3 text-center">
+    <rds-button class="" [label]="'Load More'" [size]="'medium'" colorVariant="primary" (click)="onScroll()" ></rds-button>
+  </div> -->
+
+  <div class="row justify-content-center">    
+  <div class="col-2">  
+    <rds-button *ngIf="showLoadMore" class="" [label]="'Load More'" [block]="true" [size]="'medium'" colorVariant="primary" (click)="onScroll()"></rds-button>
+  </div>    
+   
+  </div>
+
+  <!--  main code upto here -->
+
+  <!-- <div class="row" *ngIf="productListItems">
+    <div class="col-md-4" *ngFor="let infinite of productListItems">
+      <rds-product-image [display_type]="'Basic'" [itemList]="productListItems"></rds-product-image>
+      <h5 class="custom-title">{{infinite.title}}</h5>
+      <div class="d-flex justify-content-between">
+        <div class="mt-2">
+          <rds-label [label]="infinite.price" [multiline]="false" [bold]="true" [italic]="false"></rds-label>
+        </div>
+        <div>
+          <rds-rating [rating]="1" colorVariant="primary" [noOfReview]="123" Size="small"  colorVariant="review"></rds-rating>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+
+
+
+
+
+
+
+  <!-- <div class="row" *ngIf="productListItems">
+    <div class="col-md-4 mb-5" *ngFor="let item of productListItems">
+      <rds-product-image [display_type]="'Basic'" [itemList]="itemList"></rds-product-image>
+      <h5 class="custom-title">{{item.title}}</h5>
+          <div class="d-flex justify-content-between">
+                <div class="mt-2">
+                    <rds-label [label]="item.price" [multiline]="false" [bold]="true" [italic]="false"></rds-label>
+                </div>
+                <div>
+                    <rds-rating [rating]="1" colorVariant="primary" [noOfReview]="123" Size="small"  colorVariant="review"></rds-rating>
+                </div>
+          </div>
+    </div>
+  </div> -->
 </div>

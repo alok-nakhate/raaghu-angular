@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-rds-comp-email-shimmer',
+  selector: 'rds-comp-email-shimmer',
   templateUrl: './rds-comp-email-shimmer.component.html',
   styleUrls: ['./rds-comp-email-shimmer.component.scss']
 })

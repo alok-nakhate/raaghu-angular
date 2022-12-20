@@ -1,7 +1,7 @@
 ---
 slug: "/comp-properties"
 date: "2019-05-04"
-title: "Componenets > Properties"
+title: "Components > Properties"
 ---
 
 <!-- CSS only -->
@@ -10,9 +10,13 @@ title: "Componenets > Properties"
 <link rel="stylesheet" href="../../../../../../../raaghu/src/assets/css/main.css">
 
 #### Properties
-
+<section class="py-5">
+        <div class="ps-5">
+            <img src="\images\under-construction.png" class="img-fluid ps-5">
+        </div>
+  </section>
+<!-- <p>A card having tables of different users with their respective analytics</p>
  <section class="py-4">
-    <h6>Default</h6>
     <div class="py-3">
       <div class="cust-tabs">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -40,9 +44,9 @@ title: "Componenets > Properties"
 <div class="row m-0">
 
 ```html
-<app-rds-comp-properties
+<rds-comp-properties
   [PropertyTableData]="PropertyTableData"
-></app-rds-comp-properties>
+></rds-comp-properties>
 ```
 </div>
 </div>
@@ -50,4 +54,4 @@ title: "Componenets > Properties"
         </div>
       </div>
     </div>
-  </section>
+  </section> -->

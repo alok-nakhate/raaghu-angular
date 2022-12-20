@@ -1,6 +1,6 @@
 <div *ngIf="stepperType == 'simple'" id="rds-stepper">
   <ul class="nav d-flex list-unstyled mb-3" id="simple">
-    <li class="flex-fill mx-2" *ngFor="let item of stepparList; index as i">
+    <li class="flex-fill mx-2" *ngFor="let item of stepperList; index as i">
         <a class="text-decoration-none" [attr.data-bs-target]="item.tablink" data-bs-toggle="tab" [attr.aria-controls]="item.ariacontrols">
           <div class="step-name mt-3 fs-5 mb-1">{{ item.stepname }}</div>
           <div class="fw-medium text-dark">{{ item.steptabname }}</div>
@@ -12,10 +12,10 @@
 
 <div *ngIf="stepperType == 'panel'" id="rds-stepper"> 
   <ul class="nav d-flex list-unstyled panel mb-3" id="panel">
-    <li *ngFor="let item of stepparList; index as pi" >
+    <li *ngFor="let item of stepperList; index as pi" >
       <div class="panel-item p-2" >
         <a class="text-decoration-none" class="p-1 d-flex" [attr.data-bs-target]="item.tablink" data-bs-toggle="tab" [attr.aria-controls]="item.ariacontrols">
-          <div class="circle d-flex">
+          <div class="circle d-flex pb-1">
             <div class="mx-auto number align-self-center" *ngIf="pi<10">0{{pi+1}}</div>
             <div class="mx-auto number align-self-center" *ngIf="pi>=10">{{pi+1}}</div>
             <svg class="align-self-center" xmlns="http://www.w3.org/2000/svg" width="14" height="14" class="bi bi-check-lg" viewBox="0 0 16 16">
@@ -32,7 +32,7 @@
 
 <div *ngIf="stepperType == 'panel-simple'" id="rds-stepper">
   <ul class="nav d-flex list-unstyled mb-3" id="panel-simple">
-    <li class="flex-fill mx-1 p-4" *ngFor="let item of stepparList; index as i">
+    <li class="flex-fill mx-1 p-4" *ngFor="let item of stepperList; index as i">
       <a class="text-decoration-none" [attr.data-bs-target]="item.tablink" data-bs-toggle="tab" [attr.aria-controls]="item.ariacontrols">
         <div class="text-center">{{ item.stepname }}</div>
       </a>
@@ -43,7 +43,7 @@
 
 <div *ngIf="stepperType == 'panel-border'" id="rds-stepper">
   <ul class="nav d-flex list-unstyled panel mb-3" id="panel-border">
-    <li *ngFor="let item of stepperDetailedList; index as i" class="d-flex">
+    <li *ngFor="let item of stepperList; index as i" class="d-flex">
       <div class="panel-border-item align-self-center p-3">
         <a class="text-decoration-none" class="d-flex" [attr.data-bs-target]="item.tablink" data-bs-toggle="tab" [attr.aria-controls]="item.ariacontrols">
           <div class="circle align-self-center">
@@ -66,7 +66,7 @@
 
 <div *ngIf="stepperType == 'panel-arrow'" id="rds-stepper">
   <ul class="nav d-flex list-unstyled" id="panel-arrow">
-    <li class="flex-fill mx-1 p-4" *ngFor="let item of stepparList; index as i">
+    <li class="flex-fill mx-1 p-4" *ngFor="let item of stepperList; index as i">
       <a class="text-decoration-none" [attr.data-bs-target]="item.tablink" data-bs-toggle="tab" [attr.aria-controls]="item.ariacontrols">
         <div class="text-center">{{ item.stepname }}</div>
       </a>
@@ -78,9 +78,9 @@
 <div *ngIf="stepperType == 'bullets'">
   <ul class="nav list-unstyled d-flex pb-3 justify-content-around" id="bullets">
     <div class="d-flex" id="rds-stepper">
-      <div class="step-name align-self-center">steps {{activePageNumber+1}} of {{totalSteps}}</div>
+      <div class="step-name align-self-center">steps {{activePageNumber+1}} of {{stepperList.length}}</div>
       <div class="d-flex mx-3">
-        <li class="mx-2 d-flex align-self-center" *ngFor="let item of stepparList; index as i">
+        <li class="mx-2 d-flex align-self-center" *ngFor="let item of stepperList; index as i">
           <div class="bullet-circle align-self-center mx-auto" [attr.data-bs-target]="item.tablink" data-bs-toggle="tab" [attr.aria-controls]="item.ariacontrols"></div>
         </li>
       </div>
@@ -91,7 +91,7 @@
 
 <div *ngIf="stepperType == 'multi-circles-1'" class="d-flex justify-content-around" id="rds-stepper">
   <ul class="nav list-unstyled d-flex mb-3" id="multi-circles">
-    <li class="d-flex" *ngFor="let item of stepparList; index as i">
+    <li class="d-flex" *ngFor="let item of stepperList; index as i">
       <div class="multi-circle d-flex" [attr.data-bs-target]="item.tablink" data-bs-toggle="tab" [attr.aria-controls]="item.ariacontrols">
         <div class="inner-circle">
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" class="bi bi-check-lg" viewBox="0 0 16 16">
@@ -109,7 +109,7 @@
 <div *ngIf="stepperType == 'multi-circles-2'" class="d-flex justify-content-around" id="rds-stepper">
   <div class="flex-grow-1"></div>
   <ul class="nav list-unstyled d-flex mb-3" id="multi-circles">
-    <li class="d-flex" *ngFor="let item of stepparList; index as i">
+    <li class="d-flex" *ngFor="let item of stepperList; index as i">
       <div class="multi-circle" [attr.data-bs-target]="item.tablink" data-bs-toggle="tab" [attr.aria-controls]="item.ariacontrols">
         {{i+1}}
       </div>
@@ -125,9 +125,9 @@
 <div *ngIf="stepperType == 'bullet-text'">
   <ul class="nav list-unstyled d-flex justify-content-around pb-3" id="rds-stepper">
     <div>
-      <li class="d-flex my-3 gap-3" *ngFor="let item of stepparList; index as i">
+      <li class="d-flex my-3 gap-3" *ngFor="let item of stepperList; index as i">
         <div class="bullet-text-circle align-self-center d-flex" [attr.data-bs-target]="item.tablink" data-bs-toggle="tab" [attr.aria-controls]="item.ariacontrols">
-          <div class="bullet-inner-circle">
+          <div class="bullet-inner-circle pb-3">
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" class="bi bi-check-lg" viewBox="0 0 16 16">
               <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
             </svg>
@@ -142,7 +142,7 @@
 
 <div *ngIf="stepperType == 'multi-circles-3'" class="d-flex justify-content-around" id="rds-stepper">
   <ul class="nav list-unstyled" id="multi-circles">
-    <li class="d-flex" *ngFor="let item of stepperDetailedList; index as i">
+    <li class="d-flex" *ngFor="let item of stepperList; index as i">
       <div class="multi-circle d-flex" [attr.data-bs-target]="item.tablink" data-bs-toggle="tab" [attr.aria-controls]="item.ariacontrols">
         <div class="inner-circle">
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" class="bi bi-check-lg" viewBox="0 0 16 16">
@@ -166,7 +166,7 @@
 
 <div *ngIf="stepperType == 'progress-bar'" id="rds-stepper">
   <ul class="nav list-unstyled d-flex mx-4 pb-5" id="bar">
-    <li class="flex-grow-1" *ngFor="let item of stepparList; index as i">
+    <li class="flex-grow-1" *ngFor="let item of stepperList; index as i">
       <div class="bar-name" [attr.data-bs-target]="item.tablink" data-bs-toggle="tab" [attr.aria-controls]="item.ariacontrols">
         {{item.steptabname}}
       </div>

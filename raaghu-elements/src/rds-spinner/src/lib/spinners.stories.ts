@@ -4,7 +4,8 @@ import { RdsSpinnerComponent } from './rds-spinner.component';
 export default {
   title: 'Elements/Spinner',
   component: RdsSpinnerComponent,
-  argTypes: {   
+  argTypes: {
+    spinnerType: {table: {disable: true,},},
   },
 } as Meta;
 const Template: Story<RdsSpinnerComponent> = (args: RdsSpinnerComponent) => ({
@@ -12,8 +13,17 @@ const Template: Story<RdsSpinnerComponent> = (args: RdsSpinnerComponent) => ({
 });
 
 export const Default = Template.bind({});
-
+Default.parameters = { controls: { include: ['spinnerType',  'size', 'colorVariant'] } };
 Default.args = {
   spinnerType: false,
+  size: 'md',
+  colorVariant: 'primary'
+};
+
+export const Growing = Template.bind({});
+Growing.parameters = { controls: { include: ['spinnerType', 'colorVariant'] } };
+Growing.args = {
+  spinnerType: true,
+  colorVariant: 'primary'
 };
 

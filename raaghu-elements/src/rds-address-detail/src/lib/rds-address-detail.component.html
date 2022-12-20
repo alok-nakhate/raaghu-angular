@@ -1,11 +1,17 @@
-<div class="d-flex gap-2">
-    <div class="mt-1" >
-        <rds-icon height="20px" width="20px" name="location" class="text-primary"></rds-icon> 
+<div  [ngClass]="cardClasses">
+  <div [ngClass]="cardbodyClass">
+    <div class="d-flex gap-2 p-4">
+      <div [ngClass]="classes" *ngIf="withIcon">
+        <rds-icon height="20px" width="20px" name="location" colorVariant ="primary"></rds-icon>
+      </div>
+      <div>
+        <p class="fw-semibold hr mb-0">{{header}}</p>
+        <div class="mt-0 mb-1">
+        <div class="mb-0">{{addressLine1}}</div>
+        <div class="mb-0">{{addressLine2}}</div>
+        <div class="mb-0">{{addressLine3}}</div>
+        </div>
+      </div>
     </div>
-    <div>
-    <p class="mb-0"><b>{{header}}</b></p>
-    <p class="mb-0">{{addressLine1}}</p>
-    <p class="mb-0">{{addressLine2}}</p>
-    <p class="mb-0">{{addressLine3}}</p>
-</div>
+  </div>
 </div>
