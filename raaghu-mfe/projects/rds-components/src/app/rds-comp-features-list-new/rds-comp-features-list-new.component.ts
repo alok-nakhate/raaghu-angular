@@ -1,5 +1,4 @@
 import { Component, Input, OnInit, SimpleChanges , Output ,EventEmitter,DoCheck } from '@angular/core';
-import { AlertPopupData } from '../rds-comp-alert-popup/rds-comp-alert-popup.component';
 
 declare var bootstrap: any;
 export interface EditionItem {
@@ -63,7 +62,7 @@ export class RdsCompFeaturesListNewComponent implements OnInit {
   // ]
   // }];
   showConfirmationPopup: boolean = false;
-  alertData: AlertPopupData = {
+  alertData: any = {
     iconUrl: "delete",
     colorVariant: "danger",
     alertConfirmation: "Thank You!",

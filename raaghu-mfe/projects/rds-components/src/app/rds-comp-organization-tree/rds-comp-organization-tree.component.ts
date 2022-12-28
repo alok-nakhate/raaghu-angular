@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 
-import { AlertPopupData } from '../rds-comp-alert-popup/rds-comp-alert-popup.component';
 import { TranslateService } from '@ngx-translate/core';
 declare var bootstrap: any;
 @Component({
@@ -9,7 +8,7 @@ declare var bootstrap: any;
   styleUrls: ['./rds-comp-organization-tree.component.scss']
 })
 export class RdsOrganizationTreeComponent implements OnInit {
-  public alertData: AlertPopupData = {
+  public alertData: any = {
     iconUrl: "delete",
     colorVariant: "danger",
     alertConfirmation: "Are you sure ?",

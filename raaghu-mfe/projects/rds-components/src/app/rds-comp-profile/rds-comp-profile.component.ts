@@ -8,7 +8,6 @@ import { TableHeader } from '../../models/table-header.model';
 import { TranslateService } from '@ngx-translate/core';
 import { finalize } from 'rxjs/internal/operators/finalize';
 import { HttpClient, HttpEventType, HttpHeaders } from '@angular/common/http';
-import { AlertPopupData } from '../rds-comp-alert-popup/rds-comp-alert-popup.component';
 declare var $: any;
 declare var bootstrap: any;
 
@@ -36,7 +35,7 @@ export class RdsCompProfileComponent extends MfeBaseComponent implements OnInit 
   @Input() selectedLanguage: any = { language: '', icon: '' };
   @Input() defaultLanguage: string = '';
   selectedData: any;
-  deleteConfirmationData: AlertPopupData = {
+  deleteConfirmationData: any = {
     iconUrl: "delete",
     colorVariant: "danger",
     alertConfirmation: "Are you sure ?",
@@ -132,19 +131,19 @@ export class RdsCompProfileComponent extends MfeBaseComponent implements OnInit 
     this.on('tenancyData').subscribe(res => {
       this.emitEvent('tenancyDataAgain', res);
     })
-    this.rdsAlertMfeConfig = {
-      name: 'RdsCompAlertPopup',
-      input: {
-        alertID: 'DownloadDatamodal',
-        alertData: this.alertData
-      },
-      output: {
-        onDelete: (event) => {
-          this.downloadText();
-        },
+    // this.rdsAlertMfeConfig = {
+    //   name: 'RdsCompAlertPopup',
+    //   input: {
+    //     alertID: 'DownloadDatamodal',
+    //     alertData: this.alertData
+    //   },
+    //   output: {
+    //     onDelete: (event) => {
+    //       this.downloadText();
+    //     },
 
-      }
-    }
+    //   }
+    // }
     this.getProfilePicture();
 
   }

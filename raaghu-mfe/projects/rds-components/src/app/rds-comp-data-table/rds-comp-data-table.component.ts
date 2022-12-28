@@ -2,7 +2,6 @@ import { Component, DoCheck, EventEmitter, Input, OnChanges, OnInit, Output, Sim
 import { TranslateService } from '@ngx-translate/core';
 import { TableAction } from '../../models/table-action.model';
 import { TableHeader } from '../../models/table-header.model';
-import { AlertPopupData } from '../rds-comp-alert-popup/rds-comp-alert-popup.component';
 declare var bootstrap: any;
 @Component({
   selector: 'rds-data-table',
@@ -42,7 +41,7 @@ export class RdsDataTableComponent implements OnInit, DoCheck, OnChanges {
   @Output() onDownload = new EventEmitter<any>();
   @Output() onSelectedData = new EventEmitter<any>();
   pageDetails: any;
-  alertData: AlertPopupData = {
+  alertData: any = {
     iconUrl: "delete",
     colorVariant: "danger",
     alertConfirmation: "Are you sure ?",
@@ -61,25 +60,25 @@ export class RdsDataTableComponent implements OnInit, DoCheck, OnChanges {
 
   }
   ngDoCheck(): void {
-    if (this.tableData) {
-      this.tempData = JSON.parse(JSON.stringify(this.tableData));
-      this.totalRecords = this.tableData.length;
-      this.tableData.forEach((item: any) => {
-        if (item.id) {
-          const index = this.dataSource.findIndex((x) => x.id === item.id);
-          if (index !== -1) {
-            this.dataSource[index] = item;
-          }
-        }
-      });
-      if (this.refresh) {
-        if (this.pageDetails) {
-          this.onPagination(this.pageDetails);
-          this.refresh = false;
-        }
-      }
+    // if (this.tableData) {
+    //   this.tempData = JSON.parse(JSON.stringify(this.tableData));
+    //   this.totalRecords = this.tableData.length;
+    //   // this.tableData.forEach((item: any) => {
+    //   //   if (item.id) {
+    //   //     const index = this.dataSource.findIndex((x) => x.id === item.id);
+    //   //     if (index !== -1) {
+    //   //       this.dataSource[index] = item;
+    //   //     }
+    //   //   }
+    //   // });
+    //   if (this.refresh) {
+    //     if (this.pageDetails) {
+    //       this.onPagination(this.pageDetails);
+    //       this.refresh = false;
+    //     }
+    //   }
 
-    }
+    // }
 
   }
 
@@ -87,6 +86,14 @@ export class RdsDataTableComponent implements OnInit, DoCheck, OnChanges {
     if (this.tableData) {
       this.tempData = this.tableData;
       this.totalRecords = this.tableData.length;
+      if (!this.pagination) {
+        this.dataSource = this.tableData;
+      } else {
+        if (this.pageDetails) {
+          this.onPagination({ RecordsPerPage: this.recordsPerPage, currentPage: 1 });
+        }
+      }
+
     }
     if (!this.pagination) {
       this.dataSource = this.tableData;
@@ -98,6 +105,9 @@ export class RdsDataTableComponent implements OnInit, DoCheck, OnChanges {
       this.totalRecords = this.tableData.length;
       // this.dataSource = this.tableData;
       this.tempData = this.tableData;
+      if (!this.pagination) {
+        this.dataSource = this.tableData;
+      }
     }
     if (!this.pagination) {
       this.dataSource = this.tableData;
@@ -164,9 +174,69 @@ export class RdsDataTableComponent implements OnInit, DoCheck, OnChanges {
       header.isDecending = !header.isDecending;
     }
     if (!header.isDecending) {
-      this.tableData.sort((a: any, b: any) => (a[header.key].toLowerCase() > b[header.key].toLowerCase()) ? 1 : ((b[header.key].toLowerCase() > a[header.key].toLowerCase()) ? -1 : 0))
+      this.tableData.sort((a: any, b: any) => {
+        if (header.dataType !== 'number') {
+          let _a = a[header.key];
+          let _b = b[header.key];
+          if (a[header.key] !== null && a[header.key] !== '' && a[header.key]) {
+            _a = a[header.key].toLowerCase();
+          } else {
+            _a = '';
+          }
+          if (b[header.key] !== null && b[header.key] !== '' && b[header.key]) {
+            _b = b[header.key].toLowerCase();
+          } else {
+            _b = '';
+          }
+          if (_a > _b) {
+            return 1;
+          } else if (_a < _b) {
+            return -1
+          } else {
+            return 0;
+          }
+        } else {
+          if (a[header.key] > b[header.key]) {
+            return 1;
+          } else if (b[header.key] > a[header.key]) {
+            return -1;
+          } else {
+            return 0;
+          }
+        }
+      })
     } else {
-      this.tableData.sort((a: any, b: any) => (a[header.key].toLowerCase() < b[header.key].toLowerCase()) ? 1 : ((b[header.key].toLowerCase() < a[header.key].toLowerCase()) ? -1 : 0))
+      this.tableData.sort((a: any, b: any) => {
+        if (header.dataType !== 'number') {
+          let _a = a[header.key];
+          let _b = b[header.key];
+          if (a[header.key] !== null && a[header.key] !== '' && a[header.key]) {
+            _a = a[header.key].toLowerCase()
+          } else {
+            _a = '';
+          }
+          if (b[header.key] !== null && b[header.key] !== '' && b[header.key]) {
+            _b = b[header.key].toLowerCase()
+          } else {
+            _b = '';
+          }
+          if (_a < _b) {
+            return 1
+          } else if (_b < _a) {
+            return -1
+          } else {
+            return 0;
+          }
+        } else {
+          if (a[header.key] < b[header.key]) {
+            return 1;
+          } else if (b[header.key] < a[header.key]) {
+            return -1;
+          } else {
+            return 0;
+          }
+        }
+      })
     }
     if (!this.pagination) {
       this.dataSource = this.tableData;

@@ -3,7 +3,6 @@ import { NgForm } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { TableAction } from '../../models/table-action.model';
 import { TableHeader } from '../../models/table-header.model';
-import { AlertPopupData } from '../rds-comp-alert-popup/rds-comp-alert-popup.component';
 declare var bootstrap: any
 @Component({
   selector: 'rds-user-delegations',
