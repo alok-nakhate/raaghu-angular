@@ -1,6 +1,6 @@
 <form #resourceForm="ngForm">
   <div class="row">
-    <div class="form-group col-sm-4 col-md-6 mb-3">
+    <div class="form-group col-sm-4 col-md-6 mb-3" [class.disabled]="isApiResources&&basicInfo.id">
       <rds-input [label]="translate.instant('Name')" [(ngModel)]="basicInfo.name" [labelPosition]="'top'"
         name="basic-name" [value]="basicInfo.name" [isRequired]="true" required
         [placeholder]="translate.instant('Enter Name')" #basicName="ngModel" ngDefaultControl>
@@ -78,13 +78,13 @@
     </div>
   </ng-container>
 
-  <div class="footer-buttons my-2  d-flex bottom-0 ">
+  <!-- <div class="footer-buttons my-2  d-flex bottom-0 ">
     <rds-button [label]="'Cancel'" data-bs-dismiss="offcanvas" [colorVariant]="'primary'" [size]="'small'"
       [isOutline]="true">
     </rds-button>
     <rds-button [label]="'Create'" [size]="'small'" class="ms-2" [colorVariant]="'primary'"
       (click)="saveResource(resourceForm)">
     </rds-button>
-  </div>
+  </div> -->
 
 </form>

@@ -19,31 +19,37 @@
       <div naveContent class="row tab-content m-2" id="nav-tabContent">
         <div class="tab-pane fade" [ngClass]="{'show active': activeTab === 0}" id="Basics" role="tabpanel"
           aria-labelledby="nav-home-tab">
-          <rds-comp-basic-resource [basicInfo]="basicInfo" [isApiResources]="true" (onFormValid)="onFormValid($event)"
-            (onBasicInfoSave)="onBasicInfoSave($event)"></rds-comp-basic-resource>
+          <rds-comp-basic-resource [basicInfo]="basicInfo" [isApiResources]="true"
+            (onBasicInfoSave)="onBasicInfoChange($event)"></rds-comp-basic-resource>
         </div>
         <div class="tab-pane fade" [ngClass]="{'show active': activeTab === 1}" id="Claims" role="tabpanel"
           aria-labelledby="nav-home-tab">
           <rds-comp-client-resources [resourceData]="claims"
             (selectedData)="onClaimSelection($event)"></rds-comp-client-resources>
-          <div class="footer-buttons my-2  d-flex bottom-0 ">
-            <rds-button [label]="'Cancel'" data-bs-dismiss="offcanvas" [colorVariant]="'primary'" [size]="'small'"
-              [isOutline]="true">
-            </rds-button>
-            <rds-button [label]="'Create'" [class.disabled]="!_basicInfo" [size]="'small'" class="ms-2"
-              [colorVariant]="'primary'" (click)="onClaimSave()">
-            </rds-button>
-          </div>
         </div>
         <div class="tab-pane fade" [ngClass]="{'show active': activeTab === 2}" id="secrets" role="tabpanel"
           aria-labelledby="nav-home-tab">
+          <rds-comp-secrets [apiSecretsTableData]="secrets" (secretDataInfo)="onSecretsChange($event)"></rds-comp-secrets>
         </div>
         <div class="tab-pane fade" [ngClass]="{'show active': activeTab === 3}" id="properties" role="tabpanel"
           aria-labelledby="nav-home-tab">
           <rds-comp-properties [propertyTableHeader]="propertyTableHeader" [propertyTableData]="propertyTableData"
-            [propertyActions]="property_actions" (onPropertyResourceSave)="onPropertyResourceSave($event)"></rds-comp-properties>
+            [propertyActions]="property_actions"
+            (onPropertyChange)="onPropertyChange($event)"></rds-comp-properties>
         </div>
       </div>
     </rds-nav-tab>
+    <div class="footer-buttons d-flex">
+      <div class="mx-2">
+        <rds-button [label]="'Cancel'" [id]="'api-resource-cancel'" [colorVariant]="'primary'" [size]="'small'" 
+          data-bs-dismiss="offcanvas" [isOutline]="true" aria-label="Close">
+        </rds-button>
+      </div>
+      <div class="mx-2">
+        <rds-button [label]="getBtnName()" [id]="'api-resource-save'"  [colorVariant]="'primary'" [size]="'small'"
+          [isDisabled]="false" (click)="save()">
+        </rds-button>
+      </div>
+    </div>
   </rds-offcanvas>
 </div>

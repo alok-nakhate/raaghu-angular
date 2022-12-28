@@ -38,10 +38,24 @@ export class RdsCompPropertiesComponent implements OnInit {
   }
   addProperties() {
     const data: any = { ...this.PropertiesData };
-    this.propertyTableData.push(data)
-  }
-  SavePropertyData() {
+    this.propertyTableData.push(data);
     this.onPropertyResourceSave.emit({ Property: this.propertyTableData });
+
+  }
+
+  onActionSelection(event): void {
+    if (event && event.selectedData) {
+      if (event.actionId === 'delete') {
+        const index = this.propertyTableData.findIndex((x: any) => x.key == event.selectedData.key);
+        if (index !== -1) {
+          this.propertyTableData.splice(index, 1);
+          this.onPropertyResourceSave.emit({ Property: this.propertyTableData });
+        }
+      }
+    }
+  }
+
+  SavePropertyData() {
 
 
   }

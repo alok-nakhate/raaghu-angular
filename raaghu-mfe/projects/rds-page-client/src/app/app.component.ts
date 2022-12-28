@@ -354,6 +354,7 @@ export class AppComponent {
         this.clientId = item.id;
         this.apiSecretsTableData = secrets;
         this.clientAdvancedObj = item;
+        
         item.allowedScopes.forEach((editEle: any) => {
           const identity = this.identityResourcesData.find(x => x.name == editEle.scope);
           if (identity != undefined) this.identityResourcesData.find(x => x.name == editEle.scope).left = true;

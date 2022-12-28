@@ -5,8 +5,9 @@ import { NgxTranslateModule, SharedModule } from '@libs/shared';
 import { RdsButtonModule, RdsDatepickerModule, RdsDropdownlistModule, RdsInputModule } from '@libs/rds-elements';
 import { RdsIconModule } from '@libs/rds-icon';
 import { FormsModule } from '@angular/forms';
-import { RdsLabelModule } from '@libs/rds-label';
-import { RdsCompDataTableModule } from '../rds-comp-data-table/rds-comp-data-table.module';
+import { RdsLabelModule } from '@libs/rds-label'
+import { RdsCompDataTableModule } from '../rds-comp-data-table/rds-comp-data-table.module';;
+import { NgxShimmerLoadingModule } from 'ngx-shimmer-loading';
 
 
 
@@ -16,16 +17,16 @@ import { RdsCompDataTableModule } from '../rds-comp-data-table/rds-comp-data-tab
   ],
   imports: [
     CommonModule,
-    SharedModule,
     RdsInputModule,
     RdsButtonModule,
-    NgxTranslateModule,
     RdsIconModule,
     FormsModule,
     RdsDatepickerModule,
     RdsDropdownlistModule,
     RdsLabelModule,
-    RdsCompDataTableModule 
+    NgxTranslateModule.forRoot(),
+    NgxShimmerLoadingModule, 
+    RdsCompDataTableModule,
 
   ],
   exports: [

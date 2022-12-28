@@ -11,6 +11,7 @@ import { RdsCompDataTableModule } from 'projects/rds-components/src/app/rds-comp
 import { RdsCompBasicResourcesModule } from 'projects/rds-components/src/app/rds-comp-basic-resource/rds-comp-basic-resources.module';
 import { RdsCompClientResourcesModule } from 'projects/rds-components/src/app/rds-comp-client-resources/rds-comp-client-resources.module';
 import { RdsCompPropertiesModule } from 'projects/rds-components/src/app/rds-comp-properties/rds-comp-properties.module';
+import { RdsCompSecretsModule } from 'projects/rds-components/src/app/rds-comp-secrets/rds-comp-secrets.module';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { RdsCompPropertiesModule } from 'projects/rds-components/src/app/rds-com
     RdsCompBasicResourcesModule,
     RdsCompClientResourcesModule,
     RdsCompPropertiesModule,
+    RdsCompSecretsModule,
     ReactiveFormsModule,
     FormsModule,
     CommonModule,

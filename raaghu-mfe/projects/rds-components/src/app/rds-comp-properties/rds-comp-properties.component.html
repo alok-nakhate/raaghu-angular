@@ -4,7 +4,7 @@
       <div class="card-body m-1">
         <div class="row">
           <rds-data-table [tableData]="propertyTableData" [inlineEdit]="false" [pagination]="true" [recordsPerPage]="10"
-            [actions]="propertyActions" [tableHeaders]="propertyTableHeader"
+            [actions]="propertyActions" [tableHeaders]="propertyTableHeader" (onActionSelection)="onActionSelection($event)"
             [noDataTitle]="'Currently you do not have properties'"></rds-data-table>
         </div>
         <div class="mt-4 row pb-5">
@@ -27,7 +27,7 @@
           </div>
         </div>
 
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-sm-12 ml-1">
             <rds-button class="me-2" [label]="'Cancel'" [isOutline]="true" [colorVariant]="'primary'"
               data-bs-dismiss="offcanvas" [size]="'small'">
@@ -36,7 +36,7 @@
               [label]="'CREATE'" (click)="SavePropertyData()">
             </rds-button>
           </div>
-        </div>
+        </div> -->
 
       </div>
     </div>

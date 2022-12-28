@@ -21,9 +21,9 @@ export class RdsCompBasicResourceComponent implements OnInit, AfterViewInit {
     if (this.basicInfo && this.resourceForm) {
       this.resourceForm.statusChanges.subscribe(res => {
         if (res === 'VALID') {
-          this.onFormValid.emit(this.basicInfo);
+          this.onBasicInfoSave.emit(this.basicInfo);
         } else {
-          this.onFormValid.emit(undefined);
+          this.onBasicInfoSave.emit(undefined);
         }
       });
     }
@@ -58,15 +58,15 @@ export class RdsCompBasicResourceComponent implements OnInit, AfterViewInit {
     }
   }
 
-  saveResource(resourceForm: NgForm) {
-    resourceForm.form.markAllAsTouched();
-    if (!resourceForm || resourceForm.invalid) {
-      return;
-    }
-    // this.onBasicInfoSave.emit({ scopeResource: this.basicInfo, next: true });
-    this.onBasicInfoSave.emit(this.basicInfo);
+  // saveResource(resourceForm: NgForm) {
+  //   resourceForm.form.markAllAsTouched();
+  //   if (!resourceForm || resourceForm.invalid) {
+  //     return;
+  //   }
+  //   // this.onBasicInfoSave.emit({ scopeResource: this.basicInfo, next: true });
+  //   this.onBasicInfoSave.emit(this.basicInfo);
 
-  }
+  // }
 
   getCheckboxValue(event: boolean, value: string) {
     switch (value) {

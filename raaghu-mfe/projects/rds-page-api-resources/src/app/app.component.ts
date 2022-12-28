@@ -2,7 +2,7 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 import { ApiResourceClaimDto } from '@libs/shared';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { deleteApiResource, getAllApiResources, getApiResource, saveApiResource } from 'projects/libs/state-management/src/lib/state/api-resources/api-resources.actions';
+import { deleteApiResource, getAllApiResources, getApiResource, saveApiResource, updateApiResource } from 'projects/libs/state-management/src/lib/state/api-resources/api-resources.actions';
 import { selectAllApiResource, selectApiResource } from 'projects/libs/state-management/src/lib/state/api-resources/api-resources.selector';
 import { claimTypesAll } from 'projects/libs/state-management/src/lib/state/identity-resources/identity-resources.actions';
 import { selectClaimTypesAll } from 'projects/libs/state-management/src/lib/state/identity-resources/identity-resources.selector';
@@ -71,9 +71,8 @@ export class AppComponent implements OnInit, OnChanges {
   public propertyTableData: any = [];
   public secrets: any = [];
   public scopes: any = [];
-
+  public selectedSecrets: any = [];
   public basicInfo: any;
-  public _basicInfo: any;
 
   constructor(private store: Store,
     public translate: TranslateService) { }
@@ -82,6 +81,10 @@ export class AppComponent implements OnInit, OnChanges {
     if (offcanvas) {
       offcanvas.addEventListener('hidden.bs.offcanvas', event => {
         this.viewCanvas = false;
+        this.basicInfo = undefined;
+        this.selectedProperties = [];
+        this.userClaims = [];
+        this.selectedSecrets = [];
       });
     }
   }
@@ -120,12 +123,11 @@ export class AppComponent implements OnInit, OnChanges {
         this.basicInfo['displayName'] = res.displayName;
         this.basicInfo['id'] = res.id;
         this.basicInfo['description'] = res.description;
-        this.basicInfo['enabled'] = res.enabled;
+        this.basicInfo['enables'] = res.enabled;
         this.basicInfo['algorithm'] = res.allowedAccessTokenSigningAlgorithms;
-        this.basicInfo['enabled'] = res.enabled;
         this.basicInfo['showInDiscoveryDocument'] = res.showInDiscoveryDocument;
         this.secrets = res.secrets;
-        this.scopes = res.scopes;
+        // this.scopes = res.scopes;
         if (res.userClaims) {
           this.claims.forEach((claim: any) => {
             if (claim) {
@@ -186,29 +188,26 @@ export class AppComponent implements OnInit, OnChanges {
     this.userClaims = event;
   }
 
-  onClaimSave(): void {
-    this.onBasicInfoSave(this._basicInfo);
+
+
+  onBasicInfoChange(event): void {
+    this.basicInfo = event;
   }
 
-  onFormValid(event): void {
-    this._basicInfo = event;
-  }
-
-  onBasicInfoSave(data: any): void {
-    if (data) {
+  save(): void {
+    if (this.basicInfo) {
       const body: any = {
-        name: data.name,
-        displayName: data.displayName,
-        description: data.description,
-        allowedAccessTokenSigningAlgorithms: data.algorithm,
-        showInDiscoveryDocument: data.showInDiscoveryDocument,
+        name: this.basicInfo.name,
+        displayName: this.basicInfo.displayName,
+        description: this.basicInfo.description,
+        allowedAccessTokenSigningAlgorithms: this.basicInfo.algorithm,
         userClaims: []
       }
       this.userClaims.forEach((claim: any) => {
         if (claim) {
           const _claim = {
-            apiResourceId: data.id,
-            type: data.displayName
+            apiResourceId: this.basicInfo.id,
+            type: this.basicInfo.displayName
           }
           body.userClaims.push(_claim);
         }
@@ -225,10 +224,30 @@ export class AppComponent implements OnInit, OnChanges {
         });
         this.basicInfo['properties'] = properties;
       }
-
-      this.store.dispatch(saveApiResource(body))
+      if (this.selectedSecrets && this.selectedSecrets.length > 0) {
+        const selectedSecrets: any = [];
+        this.selectedSecrets.forEach(element => {
+          const data: any = {
+            apiResourceId: this.basicInfo.id,
+            type: element.type,
+            value: element.value,
+            expiration: element.expiration,
+            description: element.description
+          }
+          selectedSecrets.push(data)
+        });
+        this.basicInfo['secrets'] = selectedSecrets;
+      }
+      if (this.basicInfo.id) {
+        body['enabled'] = this.basicInfo.enables;
+        this.store.dispatch(updateApiResource({ body: body, id: this.basicInfo.id }));
+      } else {
+        body['showInDiscoveryDocument'] = this.basicInfo.showInDiscoveryDocument;
+        this.store.dispatch(saveApiResource(body));
+      }
     }
   }
+
 
   openCanvas(): void {
     this.viewCanvas = true;
@@ -250,16 +269,27 @@ export class AppComponent implements OnInit, OnChanges {
       bsOffcanvas.show();
     }, 100);
 
+
   }
-  onPropertyResourceSave(event): void {
+
+
+  onSecretsChange(event: any): void {
+    this.selectedSecrets = event;
+  }
+
+
+  onPropertyChange(event): void {
     if (event && event.property) {
       this.selectedProperties = event.properties;
-      this.onBasicInfoSave(this.basicInfo);
     }
   }
 
   onTabClick(index: any): void {
     this.activeTab = index
+  }
+
+  getBtnName(): string {
+    return this.basicInfo && this.basicInfo.id ? 'Update' : 'Create';
   }
 
 }
