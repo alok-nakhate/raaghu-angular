@@ -1,131 +1,49 @@
-<div class="card border-0">
-    <h5
-      class="card-header border-0 bg-transparent d-flex justify-content-between"
-    >
-      <div class="card-title fs-3">Api Resources List</div>
-      <div class="card-toolbar">
-        <rds-button
-          [id]="'yes'"
-          [size]="'small'"
-          [tooltipPlacement]="'top'"
-          [colorVariant]="'primary'"
-          [label]="'NEW RESOURCE'"
-          [attr.data-bs-toggle]="'offcanvas'"
-          [attr.data-bs-target]="'#addnewapiresource'"
-          [attr.aria-controls]="'addnewapiresource'"
-        >
-        </rds-button>
-      </div>
-    </h5>
-  
-    <div class="card-body">
-      <mfe-loader [config]="rdsApiResourceTableMfeConfig"></mfe-loader>
+<div class="container">
+  <div class="row">
+    <div class="d-flex justify-content-end mt-2">
+      <rds-button [id]="'btn-api-resources'" [size]="'small'" [tooltipPlacement]="'top'" [colorVariant]="'primary'"
+        [label]="'NEW RESOURCES'" (click)="openCanvas()">
+      </rds-button>
+    </div>
+    <div class="row mx-3 mt-2">
+      <rds-data-table [tableData]="resourceTableData" [tableHeaders]="resourceTableHeader" [pagination]="true"
+        [recordsPerPage]="10" [actions]="actions" (onActionSelection)="onActionSelection($event)"
+        [noDataTitle]="'Currently you do not have api resources'"></rds-data-table>
     </div>
   </div>
-  
-  <div class="container">
-  
-    <!---------------- Add New Api Resource Page ---------------->
-  
-  
-    <rds-offcanvas
-      [canvasTitle]="'NEW API RESOURCE'"
-      [offId]="'addnewapiresource'"
-      [placement]="'end'"
-      [offcanvaswidth]="600"
-    >
-      <div class="col-md-12 m-3">
-        <rds-nav-tab
-          [navtabsItems]="navtabsItems"
-          [horizontalAlignment]="'start'"
-          [verticalAlignment]="false"
-          [pills]="false"
-          [tabs]="true"
-          [fill]="false"
-          [justified]="false"
-          [activepage]="0"
-        ></rds-nav-tab>
-      </div>
-  
-      <div naveContent class="row tab-content" id="nav-tabContent">
-        <div
-          class="tab-pane fade show active"
-          id="basics"
-          role="tabpanel"
-          aria-labelledby="nav-home-tab"
-        >
-          <app-api-basics (onBsicResourceSave)="SaveBasicResource($event)"></app-api-basics>
+  <rds-offcanvas *ngIf="viewCanvas" [canvasTitle]="translate.instant(offCanvasTitle)" [offId]="'api-resource-offcanvas'"
+    [offcanvaswidth]="550" [placement]="'end'">
+    <rds-nav-tab [navtabsItems]="navtabsItems" [activeTab]="activeTab" [horizontalAlignment]="'start'"
+      [verticalAlignment]="false" [pills]="false" [tabs]="true" [fill]="false" [justified]="false"
+      (onClicktab)="onTabClick($event)">
+      <div naveContent class="row tab-content m-2" id="nav-tabContent">
+        <div class="tab-pane fade" [ngClass]="{'show active': activeTab === 0}" id="Basics" role="tabpanel"
+          aria-labelledby="nav-home-tab">
+          <rds-comp-basic-resource [basicInfo]="basicInfo" [isApiResources]="true" (onFormValid)="onFormValid($event)"
+            (onBasicInfoSave)="onBasicInfoSave($event)"></rds-comp-basic-resource>
         </div>
-  
-        <div
-          class="tab-pane"
-          id="claims"
-          role="tabpanel"
-          aria-labelledby="nav-home-tab"
-        >
-          <app-api-claims [ClaimData]="claimData" (onClaimResourceSave)="SaveClaimResource($event)"></app-api-claims>
+        <div class="tab-pane fade" [ngClass]="{'show active': activeTab === 1}" id="Claims" role="tabpanel"
+          aria-labelledby="nav-home-tab">
+          <rds-comp-client-resources [resourceData]="claims"
+            (selectedData)="onClaimSelection($event)"></rds-comp-client-resources>
+          <div class="footer-buttons my-2  d-flex bottom-0 ">
+            <rds-button [label]="'Cancel'" data-bs-dismiss="offcanvas" [colorVariant]="'primary'" [size]="'small'"
+              [isOutline]="true">
+            </rds-button>
+            <rds-button [label]="'Create'" [class.disabled]="!_basicInfo" [size]="'small'" class="ms-2"
+              [colorVariant]="'primary'" (click)="onClaimSave()">
+            </rds-button>
+          </div>
+        </div>
+        <div class="tab-pane fade" [ngClass]="{'show active': activeTab === 2}" id="secrets" role="tabpanel"
+          aria-labelledby="nav-home-tab">
+        </div>
+        <div class="tab-pane fade" [ngClass]="{'show active': activeTab === 3}" id="properties" role="tabpanel"
+          aria-labelledby="nav-home-tab">
+          <rds-comp-properties [propertyTableHeader]="propertyTableHeader" [propertyTableData]="propertyTableData"
+            [propertyActions]="property_actions" (onPropertyResourceSave)="onPropertyResourceSave($event)"></rds-comp-properties>
         </div>
       </div>
-    </rds-offcanvas>
-  
-  
-    <!--------------- Edit Api Resource Page ------------------->
-    <rds-offcanvas
-      [canvasTitle]="'EDIT API RESOURCE'"
-      [offId]="'EditApiresource'"
-      [placement]="'end'"
-      [offcanvaswidth]="600"
-    >
-      <div class="col-md-12 m-3">
-        <rds-nav-tab
-          [navtabsItems]="navtabsItemsEdit"
-          [horizontalAlignment]="'start'"
-          [verticalAlignment]="false"
-          [pills]="false"
-          [tabs]="true"
-          [fill]="false"
-          [justified]="false"
-          [activepage]="0"
-        ></rds-nav-tab>
-      </div>
-  
-      <div naveContent class="row tab-content" id="nav-tabContent">
-        <div
-          class="tab-pane fade show active"
-          id="editBasics"
-          role="tabpanel"
-          aria-labelledby="nav-home-tab"
-        >
-          <app-api-basics [ResourceData]="BasicResource" (onBsicResourceSave)="SaveBasicResource($event)"></app-api-basics>
-        </div>
-  
-        <div
-          class="tab-pane"
-          id="editClaims"
-          role="tabpanel"
-          aria-labelledby="nav-home-tab"
-        >
-          <app-api-claims [ClaimData]="claimData" (onClaimResourceSave)="SaveClaimResource($event)"></app-api-claims>
-        </div>
-  
-        <div
-          class="tab-pane"
-          id="editSecrets"
-          role="tabpanel"
-          aria-labelledby="nav-home-tab"
-        >
-          <app-api-secrets [secretList]="Secrets"></app-api-secrets>
-        </div>
-  
-        <div
-          class="tab-pane"
-          id="editProperties"
-          role="tabpanel"
-          aria-labelledby="nav-home-tab"
-        >
-          <app-api-properties [PropertyList]="Properties"></app-api-properties>
-        </div>
-      </div>
-    </rds-offcanvas>
-  
-  </div>
+    </rds-nav-tab>
+  </rds-offcanvas>
+</div>

@@ -6,6 +6,7 @@ import { RdsButtonModule, RdsDatepickerModule, RdsDropdownlistModule, RdsInputMo
 import { RdsIconModule } from '@libs/rds-icon';
 import { FormsModule } from '@angular/forms';
 import { RdsLabelModule } from '@libs/rds-label';
+import { RdsCompDataTableModule } from '../rds-comp-data-table/rds-comp-data-table.module';
 
 
 
@@ -23,7 +24,9 @@ import { RdsLabelModule } from '@libs/rds-label';
     FormsModule,
     RdsDatepickerModule,
     RdsDropdownlistModule,
-    RdsLabelModule
+    RdsLabelModule,
+    RdsCompDataTableModule 
+
   ],
   exports: [
     RdsCompSecretsComponent

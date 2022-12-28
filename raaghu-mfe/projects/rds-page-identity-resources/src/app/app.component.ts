@@ -22,22 +22,22 @@ export class AppComponent {
   offCanvasTitle = 'New Identity Resources'
   activePage: any;
   selectId: any;
-  identity :any = {};
+  identity: any = {};
   editShimmer: boolean = true;
   rdsresourceTableMfeConfig: ComponentLoaderOptions;
   rdsBasicResourceMfeConfig: ComponentLoaderOptions;
   public rdsClaimsMfeConfig: ComponentLoaderOptions;
-  PropertyList:any=[];
-  PropertyTableData:any=[];
-  isEdit:boolean=false;
+  PropertyList: any = [];
+  PropertyTableData: any = [];
+  isEdit: boolean = false;
   BasicResource: Resource;
   public navtabsItems: any = [
-    
+
   ];
   PropertyTableHeader: TableHeader[] = [
     { displayName: 'Key', key: 'key', dataType: 'text', dataLength: 30, sortable: false, required: true },
     { displayName: 'Value', key: 'value', dataType: 'text', dataLength: 30, sortable: false, required: true },
-   ]
+  ]
 
   ResourceTableHeader: TableHeader[] = [
     {
@@ -64,9 +64,9 @@ export class AppComponent {
   ];
   ResourceTableData: any = [];
   Properties: any = ([] = [{ key: 'ShairedSecrets', Value: '12345' }]);
-  finalResourceData:any;
+  finalResourceData: any;
   ResourceData: any = [];
-  basicInfo : any = [];
+  basicInfo: any = [];
   clientResourceData: any = [
     {
       displayName: 'abc',
@@ -82,8 +82,8 @@ export class AppComponent {
     }
 
   ];
-  actions=[{ id: 'delete', displayName: 'Delete' }, { id: 'edit', displayName: 'Edit' }];
-  onActionSelection (event: any) {
+  actions = [{ id: 'delete', displayName: 'Delete' }, { id: 'edit', displayName: 'Edit' }];
+  onActionSelection(event: any) {
     if (event.actionId === 'delete') {
 
       this.store.dispatch(deleteIdentityResource(event.selectedData.id));
@@ -113,7 +113,7 @@ export class AppComponent {
         noDataTitle: 'Currently you do not have identity resource'
       },
       output: {
-              }
+      }
     };
 
     this.store.dispatch(getAllIdentityResources());
@@ -141,19 +141,19 @@ export class AppComponent {
       if (res) {
         res.forEach(element => {
           let item = {
-            id : element.id,
-            displayName : element.name,
-            left : false
+            id: element.id,
+            displayName: element.name,
+            left: false
           };
           this.ResourceData.push(item);
         })
-        
+
       }
     })
   }
-  openCanvas(edit:boolean=false):void {
+  openCanvas(edit: boolean = false): void {
     this.viewCanvas = true;
-    this.navtabsItems=[ {
+    this.navtabsItems = [{
       label: 'Basics',
       tablink: '#Basics',
       ariacontrols: 'Basics',
@@ -163,14 +163,14 @@ export class AppComponent {
       tablink: '#Claim',
       ariacontrols: 'Claim',
     },
-   ]   
+    ]
     this.activePage = 0;
     setTimeout(() => {
       var offcanvas = document.getElementById(this.offCanvasId);
       var bsOffcanvas = new bootstrap.Offcanvas(offcanvas);
       bsOffcanvas.show();
     }, 100);
-  
+
   }
 
   updateIdentity(id) {
@@ -182,9 +182,9 @@ export class AppComponent {
     this.store.dispatch(getIdentityResource(id))
   }
   EditIdentyresource(event): void {
-    this.viewCanvas=true;
-    this.offCanvasTitle = 'Edit Identity Resources';  
-    this.navtabsItems=[ {
+    this.viewCanvas = true;
+    this.offCanvasTitle = 'Edit Identity Resources';
+    this.navtabsItems = [{
       label: 'Basics',
       tablink: '#Basics',
       ariacontrols: 'Basics',
@@ -198,9 +198,9 @@ export class AppComponent {
       label: 'Properties',
       tablink: '#Properties',
       ariacontrols: 'Properties',
-    },]   
- this.selectId = event.selectedData.id;
-        this.BasicResource = event.selectedData
+    },]
+    this.selectId = event.selectedData.id;
+    this.BasicResource = event.selectedData
     setTimeout(() => {
       var offcanvas = document.getElementById('EditIdentityresource');
       var bsOffcanvas = new bootstrap.Offcanvas(offcanvas);
@@ -209,11 +209,11 @@ export class AppComponent {
 
     this.activePage = 0;
   }
-  onBsicResourceSave(event: any) {
-   if(event.next){
-    this.activePage = 1;
-   }
-this.identity.basicInfo =  event.scopeResource
+  onBasicInfoSave(event: any) {
+    if (event.next) {
+      this.activePage = 1;
+    }
+    this.identity.basicInfo = event.scopeResource
 
   }
   onClientResourceSave(event: any) {
@@ -221,15 +221,15 @@ this.identity.basicInfo =  event.scopeResource
   }
 
   onSave() {
-    
-    const _data : any[] = [];
+
+    const _data: any[] = [];
     this.identity.ResourceData.forEach(ele => {
       const _claimsData = {
-        identityResourceId : ele.id,
-        type : ele.displayName
+        identityResourceId: ele.id,
+        type: ele.displayName
       }
       _data.push(_claimsData)
-    });  
+    });
     const data: any = {
       name: this.basicInfo.name,
       description: this.basicInfo.description,

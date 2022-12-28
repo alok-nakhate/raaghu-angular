@@ -50,8 +50,6 @@ export class TenantEffects {
         this.tenantService.tenantsPOST(data.tenant).pipe(map((res: any) => {
           this.store.dispatch(getTenants());
           this.alertService.showAlert('Success', 'Tenant added successfully', 'success')
-
-
         }),
           catchError((error: any) => of(
           ))

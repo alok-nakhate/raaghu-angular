@@ -4,11 +4,12 @@
       <div class="card-body m-1">
         <div class="row">
           <rds-data-table
-            [tableData]="PropertyList"
+            [tableData]="propertyTableData"
             [inlineEdit]="false"
             [pagination]="true"
             [recordsPerPage]="10"
-            [tableHeaders]="PropertyTableHeader"
+            [actions]="propertyActions"
+            [tableHeaders]="propertyTableHeader"
             [noDataTitle]="'Currently you do not have properties'"
           ></rds-data-table>
         </div>
@@ -68,7 +69,7 @@
               >
               </rds-button>
               <rds-button
-                [id]="'yes'"
+                [id]="'property-create'"
                 [size]="'small'"
                 [tooltipPlacement]="'top'"
                 [colorVariant]="'primary'"

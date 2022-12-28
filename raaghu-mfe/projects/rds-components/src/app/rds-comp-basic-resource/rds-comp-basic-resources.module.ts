@@ -14,10 +14,10 @@ import { NgxShimmerLoadingModule } from 'ngx-shimmer-loading';
     RdsCompBasicResourceComponent,
     RdsCompBasicResourceShimmerComponent
   ],
-  imports: [ 
+  imports: [
     CommonModule,
     FormsModule,
-   NgxShimmerLoadingModule,
+    NgxShimmerLoadingModule,
     RdsInputModule,
     RdsTextareaModule,
     RdsLabelModule,
@@ -25,7 +25,7 @@ import { NgxShimmerLoadingModule } from 'ngx-shimmer-loading';
     RdsButtonModule,
     NgxTranslateModule
   ],
-  exports:[
+  exports: [
     RdsCompBasicResourceComponent
   ]
 })

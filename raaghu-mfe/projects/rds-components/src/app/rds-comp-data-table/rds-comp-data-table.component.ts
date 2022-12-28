@@ -88,13 +88,19 @@ export class RdsDataTableComponent implements OnInit, DoCheck, OnChanges {
       this.tempData = this.tableData;
       this.totalRecords = this.tableData.length;
     }
+    if (!this.pagination) {
+      this.dataSource = this.tableData;
+    }
   }
 
   ngOnInit(): void {
     if (this.tableData) {
       this.totalRecords = this.tableData.length;
-      this.dataSource = this.tableData;
+      // this.dataSource = this.tableData;
       this.tempData = this.tableData;
+    }
+    if (!this.pagination) {
+      this.dataSource = this.tableData;
     }
 
   }
